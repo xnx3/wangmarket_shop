@@ -54,6 +54,7 @@ import com.xnx3.wangmarket.admin.entity.TemplatePage;
 import com.xnx3.wangmarket.admin.entity.TemplatePageData;
 import com.xnx3.wangmarket.admin.entity.TemplateVar;
 import com.xnx3.wangmarket.admin.entity.TemplateVarData;
+import com.xnx3.wangmarket.admin.pluginManage.interfaces.manage.GenerateSitePluginManage;
 import com.xnx3.wangmarket.admin.pluginManage.interfaces.manage.SiteAdminIndexPluginManage;
 import com.xnx3.wangmarket.admin.service.InputModelService;
 import com.xnx3.wangmarket.admin.service.SiteColumnService;
@@ -63,6 +64,7 @@ import com.xnx3.wangmarket.admin.util.ActionLogUtil;
 import com.xnx3.wangmarket.admin.util.SessionUtil;
 import com.xnx3.wangmarket.admin.util.TemplateAdminMenuUtil;
 import com.xnx3.wangmarket.admin.util.TemplateUtil;
+import com.xnx3.wangmarket.admin.vo.GenerateSiteVO;
 import com.xnx3.wangmarket.admin.vo.RestoreTemplateSubmitCheckDataVO;
 import com.xnx3.wangmarket.admin.vo.TemplateCompareVO;
 import com.xnx3.wangmarket.admin.vo.TemplateListVO;
@@ -512,13 +514,22 @@ public class TemplateController extends BaseController {
 		}else{
 			//如果是智能模式，那么要装载模版变量、可视化编辑等
 			//装载模版变量
-			if(Func.getUserBeanForShiroSession().getTemplateVarMapForOriginal() == null){
-				//判断一下，缓存中是否有模版变量，若所没有，那么要缓存
-				templateService.getTemplateVarAndDateListByCache();
-			}
+//			if(Func.getUserBeanForShiroSession().getTemplateVarMapForOriginal() == null){
+//				//判断一下，缓存中是否有模版变量，若所没有，那么要缓存
+//				templateService.getTemplateVarAndDateListByCache();
+//			}
+			//获取Session缓存中的模版变量数据
+//			Map<String, TemplateVarVO> templateVarVOMap = Func.getUserBeanForShiroSession().getTemplateVarMapForOriginal();
 			
 			com.xnx3.wangmarket.admin.cache.TemplateCMS temp = new com.xnx3.wangmarket.admin.cache.TemplateCMS(site, true);
-			html = temp.assemblyTemplateVar(vo.getTemplatePageData().getText());
+//			html = temp.assemblyTemplateVar(vo.getTemplatePageData().getText());
+			Map<String, String> templateVarDataMap = new HashMap<String, String>();
+			TemplateVarListVO templateVarListVO = templateService.getTemplateVarAndDateListByCache();
+			for (int i = 0; i < templateVarListVO.getList().size(); i++) {
+				TemplateVarVO tv = templateVarListVO.getList().get(i);
+				templateVarDataMap.put(tv.getTemplateVar().getVarName(), tv.getTemplateVarData().getText());
+			}
+			html = temp.assemblyTemplateVar(vo.getTemplatePageData().getText(), templateVarDataMap);
 			
 			// {templatePath} 替换
 			TemplateCMS templateCMS = new TemplateCMS(site, TemplateUtil.getTemplateByName(site.getTemplateName()));
@@ -813,7 +824,30 @@ public class TemplateController extends BaseController {
 			return error("请先访问 /install/index.do 进行安装，此依赖OSS使用");
 		}
 		
-		return siteService.refreshForTemplate(request);
+		try {
+			BaseVO vo = GenerateSitePluginManage.generateSiteBefore(request, getSite());
+			if(vo.getResult() - BaseVO.FAILURE == 0){
+				return vo;
+			}
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException
+				| IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		
+		GenerateSiteVO vo = templateService.generateSiteHTML(request, getSite());
+		if(vo.getResult() - GenerateSiteVO.FAILURE == 0){
+			return vo;
+		}
+		
+		//生成整站成功，那么执行成功的插件
+		try {
+			GenerateSitePluginManage.generateSiteFinish(request, getSite(), vo.getSiteColumnMap(), vo.getNewsMap(), vo.getNewsDataMap());
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException
+				| IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+			return BaseVO.failure("生成整站时，插件 finish 接口的实现失败，但当前网站已正常生成成功！插件异常："+e.getMessage());
+		}
+		return vo;
 	}
 	
 	/**
@@ -831,7 +865,7 @@ public class TemplateController extends BaseController {
 		if(site.getTemplateName() != null && site.getTemplateName().length() > 0){
 			//取出模版库（云端+本地）的模版
 			com.xnx3.wangmarket.admin.entity.Template template = TemplateUtil.getTemplateByName(site.getTemplateName());
-			if(template != null && template.getWscsoDownUrl() != null && template.getWscsoDownUrl().indexOf("//") > -1){
+			if(template != null){
 				usedYunTemplate = true;
 				model.addAttribute("template", template);
 			}
@@ -1562,6 +1596,13 @@ public class TemplateController extends BaseController {
 		List<com.xnx3.wangmarket.admin.entity.Template> list = new ArrayList<com.xnx3.wangmarket.admin.entity.Template>();
 		
 		for (Map.Entry<String, com.xnx3.wangmarket.admin.entity.Template> entry : map.entrySet()) {
+			com.xnx3.wangmarket.admin.entity.Template template = entry.getValue();
+			if(template.getWscsoDownUrl() == null || template.getWscsoDownUrl().length() < 2){
+				//没有远程wscso文件下载url，那就是本地自己的模版库中的了
+				if(template.getPreviewPic() == null || template.getPreviewPic().length() < 5){
+					template.setPreviewPic(AttachmentUtil.netUrl()+"websiteTemplate/"+template.getName()+"/preview.jpg");
+				}
+			}
 			list.add(entry.getValue());
 		}
 		

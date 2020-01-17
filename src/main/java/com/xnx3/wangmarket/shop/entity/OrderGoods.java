@@ -1,21 +1,26 @@
 package com.xnx3.wangmarket.shop.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * 订单内的商品
  * @author 管雷鸣
  */
+@Entity
+@Table(name = "shop_order_goods")
 public class OrderGoods {
 	private Integer id;				//自动编号
 	private Integer orderid;		//订单的ID，对应 Order.id
 	private Integer goodsid;		//商品的id，对应 Goods.id
 	private Integer userid;			//购买者的用户ID，对应User.id
 	private String goodsTitle;		//商品名字，对应 Goods.title ，就是吧Goods的信息复制过来了，相当于给商品做了一个镜像
-	private Double goodsPrice;		//商品单价，单位是元，对应 Goods.price
+	private Integer goodsPrice;		//商品单价，单位是分，对应 Goods.price
 	private String goodsUnits;		//商品单位，对应 Goods.units
 	private String goodsTitlepic;	//商品的标题图片，列表图，对应 Goods.titlepic	
 	private Integer number;			//该商品的购买的数量
@@ -62,11 +67,11 @@ public class OrderGoods {
 		this.goodsTitle = goodsTitle;
 	}
 	
-	@Column(name = "goods_price", columnDefinition="double(8,2) comment '商品单价，单位是元，对应 Goods.price'")
-	public Double getGoodsPrice() {
+	@Column(name = "goods_price", columnDefinition="int(11) comment '商品单价，单位是分，对应 Goods.price'")
+	public Integer getGoodsPrice() {
 		return goodsPrice;
 	}
-	public void setGoodsPrice(Double goodsPrice) {
+	public void setGoodsPrice(Integer goodsPrice) {
 		this.goodsPrice = goodsPrice;
 	}
 	
@@ -78,7 +83,7 @@ public class OrderGoods {
 		this.goodsUnits = goodsUnits;
 	}
 	
-	@Column(name = "goods_titlepic", columnDefinition="char(5) comment '商品的标题图片，列表图，对应 Goods.titlepic'")
+	@Column(name = "goods_titlepic", columnDefinition="char(100) comment '商品的标题图片，列表图，对应 Goods.titlepic'")
 	public String getGoodsTitlepic() {
 		return goodsTitlepic;
 	}

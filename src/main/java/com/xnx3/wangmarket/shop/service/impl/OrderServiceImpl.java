@@ -1,12 +1,17 @@
 package com.xnx3.wangmarket.shop.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.xnx3.DateUtil;
 import com.xnx3.j2ee.service.SqlService;
+import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.entity.Address;
+import com.xnx3.wangmarket.shop.entity.Goods;
 import com.xnx3.wangmarket.shop.entity.Order;
+import com.xnx3.wangmarket.shop.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.entity.Store;
 import com.xnx3.wangmarket.shop.service.OrderService;
 import com.xnx3.wangmarket.shop.util.SessionUtil;
@@ -205,6 +210,32 @@ public class OrderServiceImpl implements OrderService {
 		
 		
 		return null;
+	}
+
+	@Override
+	public BaseVO orderCancelGoodsNumberChange(Order order) {
+		BaseVO vo = new BaseVO();
+		if(order == null){
+			vo.setBaseVO(BaseVO.FAILURE, "订单不存在");
+			return vo;
+		}
+		//根据订单，查询出这个订单下有哪些商品
+		List<OrderGoods> orderGoodsList = sqlService.findByProperty(OrderGoods.class, "orderid", order.getId());
+		for (int i = 0; i < orderGoodsList.size(); i++) {
+			OrderGoods orderGoods = orderGoodsList.get(i);
+			
+			/*
+			 * 这里是直接在for循环中读数据库，有危险。后续待改进
+			 */
+			Goods goods = sqlService.findById(Goods.class, orderGoods.getGoodsid());
+			//库存
+			goods.setInventory(goods.getInventory() + orderGoods.getNumber());
+			//总的销量，已售数量
+			goods.setSale(goods.getSale() - orderGoods.getNumber());
+			sqlService.save(goods);
+		}
+		
+		return vo;
 	}
 	
 	

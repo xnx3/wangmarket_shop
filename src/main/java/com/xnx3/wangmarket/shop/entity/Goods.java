@@ -1,9 +1,10 @@
 package com.xnx3.wangmarket.shop.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -31,11 +32,13 @@ public class Goods extends BaseEntity {
 	private Integer inventory;	//库存数量
 	private Integer alarmNum;	//告警数量，库存量低于这个数，会通知商家告警，提醒商家该加库存了
 	private Short putaway;		//是否上架在售，1出售中，0已下架
-	private Integer soldoutCountdown;	//下架倒计时，这里是10位时间戳，指定一个具体的时间，在那个时间会自动下架。这个自动下架并不是将putaway进行了改动，而是在查询可买商品时，会把这个作为where条件进行查询
+	private Integer soldoutCountdown;	//定时下架，这里是10位时间戳，指定一个具体的时间，在那个时间会自动下架。这个自动下架并不是将putaway进行了改动，而是在查询可买商品时，会把这个作为where条件进行查询。如果是0，则是不使用
+	private Integer onlineCountdown;	//定时上架，这里是10位时间戳，指定一个具体的时间，在那个时间会自动上架。这个自动上架并不是将putaway进行了改动，而是在查询可买商品时，会把这个作为where条件进行查询。如果是0，则是不使用
 	private Integer sale;		//已售数量，只要出售的，成功的，都记入这里。当然，如果退货了，这里就要减去了。这里是根据order进行筛选的。每成功一次或者退款一次，都会重新select count 统计一次
+	private Integer fakeSale;	//假的已售数量，比如店家想顾客看到的已售数量多增加500，那这里数值就是500，假的，额外增加的数量。用户实际看到的数量是 sale+fakeSale 的和
 	private String units;		//计量，单位。如个、斤、条，限制5字符
-	private Double price;		//单价，单位是元，实际购买需要支付的价格	
-	private Double originalPrice;	//原价，单位是元，好看用的，显示出来一个价格，加一条删除线
+	private Integer price;		//单价，单位是分，实际购买需要支付的价格	
+	private Integer originalPrice;	//原价，单位是分，好看用的，显示出来一个价格，加一条删除线
 	private Integer addtime;	//商品添加时间，10位时间戳
 	private Integer updatetime;	//商品最后更改时间，10位时间戳
 	private Integer storeid;	//该商品是属于哪个店铺的，对应 Store.id
@@ -43,14 +46,14 @@ public class Goods extends BaseEntity {
 	private String titlepic;	//该商品的标题图片、列表图片,图片的绝对路径
 	private Short isdelete;		//该商品是否已被删除
 	private Integer userBuyRestrict;	//用户购买限制。如果值是0，则可以任意购买，没有什么限制，如果是1，则代表每个用户只能购买一个，如果是2，代表每个用户只能购买2个以内，不超过2个。 只要是下单了，未退单成功的，都算是购买了
-
 	private Integer version;	//乐观锁
+	private String supplier; 	//供应商
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Integer id) {
@@ -59,7 +62,7 @@ public class Goods extends BaseEntity {
 
 	@Column(name = "title", columnDefinition="char(40) comment '商品标题'")
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
 	public void setTitle(String title) {
@@ -111,12 +114,12 @@ public class Goods extends BaseEntity {
 		this.units = units;
 	}
 	
-	@Column(name = "price", columnDefinition="double(8,2) comment '单价，单位是元'")
-	public Double getPrice() {
+	@Column(name = "price", columnDefinition="int(11) comment '单价，单位是分'")
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 	
@@ -174,12 +177,12 @@ public class Goods extends BaseEntity {
 		this.isdelete = isdelete;
 	}
 	
-	@Column(name = "original_price", columnDefinition="double(8,2) comment '原价，单位是元，好看用的，显示出来一个价格，加一条删除线'")
-	public Double getOriginalPrice() {
+	@Column(name = "original_price", columnDefinition="int(11) comment '原价，单位是分，好看用的，显示出来一个价格，加一条删除线'")
+	public Integer getOriginalPrice() {
 		return originalPrice;
 	}
 
-	public void setOriginalPrice(Double originalPrice) {
+	public void setOriginalPrice(Integer originalPrice) {
 		this.originalPrice = originalPrice;
 	}
 	
@@ -196,9 +199,29 @@ public class Goods extends BaseEntity {
 	public Integer getSoldoutCountdown() {
 		return soldoutCountdown;
 	}
+	
 
 	public void setSoldoutCountdown(Integer soldoutCountdown) {
 		this.soldoutCountdown = soldoutCountdown;
+	}
+	
+
+	@Column(name = "fake_sale", columnDefinition="int(11) comment '假的已售数量，比如店家想顾客看到的已售数量多增加500，那这里数值就是500，假的，额外增加的数量。用户实际看到的数量是 sale+fakeSale 的和'")
+	public Integer getFakeSale() {
+		return fakeSale;
+	}
+
+	public void setFakeSale(Integer fakeSale) {
+		this.fakeSale = fakeSale;
+	}
+	
+	@Column(name = "online_countdown", columnDefinition="int(11) comment '定时上架，这里是10位时间戳，指定一个具体的时间，在那个时间会自动上架。这个自动上架并不是将putaway进行了改动，而是在查询可买商品时，会把这个作为where条件进行查询'")
+	public Integer getOnlineCountdown() {
+		return onlineCountdown;
+	}
+
+	public void setOnlineCountdown(Integer onlineCountdown) {
+		this.onlineCountdown = onlineCountdown;
 	}
 
 	@Version
@@ -210,6 +233,23 @@ public class Goods extends BaseEntity {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	
+	@Column(name = "supplier", columnDefinition="char(50) comment '供应商'")
+	public String getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
+	}
+
+	@Override
+	public String toString() {
+		return "Goods [id=" + id + ", title=" + title + ", inventory=" + inventory + ", alarmNum=" + alarmNum
+				+ ", putaway=" + putaway + ", soldoutCountdown=" + soldoutCountdown + ", onlineCountdown="
+				+ onlineCountdown + ", sale=" + sale + ", fakeSale=" + fakeSale + ", units=" + units + ", price="
+				+ price + ", originalPrice=" + originalPrice + ", addtime=" + addtime + ", updatetime=" + updatetime
+				+ ", storeid=" + storeid + ", typeid=" + typeid + ", titlepic=" + titlepic + ", isdelete=" + isdelete
+				+ ", userBuyRestrict=" + userBuyRestrict + ", version=" + version + ", supplier=" + supplier + "]";
+	}
 	
 }

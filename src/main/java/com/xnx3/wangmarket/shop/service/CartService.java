@@ -50,4 +50,27 @@ public interface CartService {
 	 */
 	public BaseVO clearCart();
 	
+
+	/**
+	 * 刷新当前购物车中的商品信息。如商品下架了、或者商品无库存了等,会将最新的商品信息更新
+	 * @param storeid 店铺id，对应 Store.id ,要刷新的是哪个店铺的购物车商品。如果传入0，则是刷新所有店铺的购物车商品
+	 * @return {@link CartVO}
+	 */
+	public CartVO refresh(int storeid);
+	
+	/**
+	 * 购物车中的商品，全选或全部不选所有购物车中的商品，以便进行下一步结算
+	 * @param selected 是否选中， 1选中， 0不选
+	 * @return {@link CartVO}
+	 */
+	public CartVO goodsCartSelected(int selected);
+	
+	/**
+	 * 购物车中的商品，选或不选购物车中的商品，以便进行下一步结算
+	 * @param goodsid 要选中或者不选中的商品，对应 {@link Goods}.id 这里如果传0，则是操作购物车中的所有商品选中或不选中
+	 * @param selected 是否选中， 1选中， 0不选
+	 * @return {@link CartVO}
+	 */
+	public CartVO goodsCartSelected(int goodsid, int selected);
+	
 }

@@ -11,12 +11,12 @@ import com.xnx3.wangmarket.shop.entity.Store;
 public class StoreCart{
 	private Map<Integer, GoodsCart> goodsCartMap;	//该店铺购物车的商品列表。 key:goods.id 
 	private int number;			//该店铺购物车中商品的总数量
-	private double money;		//该店铺购物车中商品的总价格	
+	private int money;			//该店铺购物车中商品的总价格，单位是分
 	private Store store;		//当前店铺信息。适用于多商铺一块结算使用。
 	
 	public StoreCart() {
 		this.number = 0;
-		this.money = 0d;
+		this.money = 0;
 	}
 	
 	public Map<Integer, GoodsCart> getGoodsCartMap() {
@@ -38,11 +38,11 @@ public class StoreCart{
 		this.number = number;
 	}
 
-	public double getMoney() {
+	public int getMoney() {
 		return money;
 	}
 
-	public void setMoney(double money) {
+	public void setMoney(int money) {
 		this.money = money;
 	}
 

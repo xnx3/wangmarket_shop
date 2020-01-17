@@ -32,7 +32,7 @@ import com.xnx3.wangmarket.admin.entity.News;
 import com.xnx3.wangmarket.admin.entity.NewsData;
 import com.xnx3.wangmarket.admin.entity.Site;
 import com.xnx3.wangmarket.admin.entity.SiteColumn;
-import com.xnx3.wangmarket.admin.pluginManage.interfaces.manage.NewsSavePluginManage;
+import com.xnx3.wangmarket.admin.pluginManage.interfaces.manage.NewsPluginManage;
 import com.xnx3.wangmarket.admin.service.InputModelService;
 import com.xnx3.wangmarket.admin.service.NewsService;
 import com.xnx3.wangmarket.admin.service.SiteColumnService;
@@ -172,7 +172,7 @@ public class NewsController extends BaseController {
 		
 		//插件拦截处理
 		try {
-			NewsSavePluginManage.interceptNews(request, response, news);
+			NewsPluginManage.newsSaveBefore(request, news);
 		} catch (InstantiationException | IllegalAccessException
 				| NoSuchMethodException | SecurityException
 				| IllegalArgumentException | InvocationTargetException e) {
@@ -181,6 +181,16 @@ public class NewsController extends BaseController {
 		
 		sqlService.save(news);
 		if(news.getId() > 0){
+			
+			//插件触发
+			try {
+				NewsPluginManage.newsSaveFinish(request, news);
+			} catch (InstantiationException | IllegalAccessException
+					| NoSuchMethodException | SecurityException
+					| IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+			
 			
 			//v4.6增加
 			String extend = "";
@@ -213,7 +223,7 @@ public class NewsController extends BaseController {
 			
 			//插件拦截
 			try {
-				NewsSavePluginManage.interceptNewsData(request, response, newsData);
+				NewsPluginManage.newsDataSaveBefore(request, newsData);
 			} catch (InstantiationException | IllegalAccessException
 					| NoSuchMethodException | SecurityException
 					| IllegalArgumentException | InvocationTargetException e) {
@@ -221,6 +231,15 @@ public class NewsController extends BaseController {
 			}
 			
 			sqlService.save(newsData);
+			
+			//插件触发
+			try {
+				NewsPluginManage.newsDataSaveFinish(request, newsData);
+			} catch (InstantiationException | IllegalAccessException
+					| NoSuchMethodException | SecurityException
+					| IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
 			
 			if(s.getId() == null || s.getId() == 0){
 				ActionLogUtil.insertUpdateDatabase(request, news.getId(), "新增文章成功", news.getTitle());
@@ -471,7 +490,7 @@ public class NewsController extends BaseController {
 	 */
 	@RequestMapping(value="deleteNewsForAjax${url.suffix}", method = RequestMethod.POST)
 	@ResponseBody
-	public NewsVO deleteNewsForAjax(HttpServletRequest request,Model model,
+	public NewsVO deleteNewsForAjax(HttpServletRequest request,HttpServletResponse response, Model model,
 			@RequestParam(value = "id", required = false , defaultValue="0") int id){
 		NewsVO vo = newsService.deleteNews(id, true);
 		if(vo.getResult() - BaseVO.SUCCESS == 0){
@@ -484,6 +503,15 @@ public class NewsController extends BaseController {
 			AttachmentUtil.deleteObject("site/"+news.getSiteid()+"/"+news.getId()+".html");
 			if(news.getTitlepic() != null && news.getTitlepic().length() > 0 && news.getTitlepic().indexOf("http:") == -1){
 				AttachmentUtil.deleteObject("site/"+news.getSiteid()+"/news/"+news.getTitlepic());
+			}
+			
+			//插件拦截
+			try {
+				NewsPluginManage.newsDeleteFinish(request, news);
+			} catch (InstantiationException | IllegalAccessException
+					| NoSuchMethodException | SecurityException
+					| IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
 			}
 			
 			if(!Func.isCMS(getSite())){
@@ -722,7 +750,7 @@ public class NewsController extends BaseController {
 	 */
 	@RequestMapping(value="updateAddtime${url.suffix}", method = RequestMethod.POST)
 	@ResponseBody
-	public BaseVO updateAddtime(HttpServletRequest request,
+	public BaseVO updateAddtime(HttpServletRequest request,HttpServletResponse response, 
 			@RequestParam(value = "id", required = false , defaultValue="0") int id,
 			@RequestParam(value = "addtime", required = false , defaultValue="") String addtime){
 		if(id < 1){
@@ -743,7 +771,26 @@ public class NewsController extends BaseController {
 		//将2018-12-12 22:22:22 转化为10位时间戳
 		int time = DateUtil.StringToInt(addtime, "yyyy-MM-dd HH:mm:ss");
 		news.setAddtime(time);
+		
+		//插件拦截处理
+		try {
+			NewsPluginManage.newsSaveBefore(request, news);
+		} catch (InstantiationException | IllegalAccessException
+				| NoSuchMethodException | SecurityException
+				| IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		
 		sqlService.save(news);
+		
+		//插件拦截处理
+		try {
+			NewsPluginManage.newsSaveFinish(request, news);
+		} catch (InstantiationException | IllegalAccessException
+				| NoSuchMethodException | SecurityException
+				| IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
 		
 		//记录日志
 		ActionLogUtil.insertUpdateDatabase(request, news.getId(), "更改文章发布时间", time+"");

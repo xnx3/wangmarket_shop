@@ -12,7 +12,7 @@ import com.xnx3.wangmarket.shop.vo.bean.StoreCart;
 public class CartVO extends BaseVO {
 	Map<Integer, StoreCart> storeCartMap;	//每个店铺id编号都有一个自己的购物车。 key:store.id
 	private int number;			//该多店铺购物车中所有商品的总数量
-	private double money;		//该多店铺购物车中所有商品的总价格	
+	private int money;		//该多店铺购物车中所有商品的总价格	 ，单位是分
 
 	public Map<Integer, StoreCart> getStoreCartMap() {
 		if(storeCartMap == null){
@@ -34,11 +34,11 @@ public class CartVO extends BaseVO {
 		this.number = number;
 	}
 
-	public double getMoney() {
+	public int getMoney() {
 		return money;
 	}
 
-	public void setMoney(double money) {
+	public void setMoney(int money) {
 		this.money = money;
 	}
 	

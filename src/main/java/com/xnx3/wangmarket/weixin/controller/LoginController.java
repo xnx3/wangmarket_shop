@@ -16,11 +16,11 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.j2ee.vo.LoginVO;
 import com.xnx3.j2ee.vo.UserVO;
 import com.xnx3.wangmarket.weixin.entity.WeiXinUser;
 import com.xnx3.wangmarket.weixin.util.SessionUtil;
 import com.xnx3.wangmarket.weixin.util.WeiXinAppletUtil;
+import com.xnx3.wangmarket.weixin.vo.LoginVO;
 import com.xnx3.weixin.vo.Jscode2sessionResultVO;
 
 /**
@@ -82,6 +82,7 @@ public class LoginController extends BaseController {
 					ConsoleUtil.info("reg --- > "+user.toString());
 					vo.setUser(getUser());
 					vo.setInfo("reg");
+					vo.setWeixinUser(weixinUser);
 					
 					return vo;
 				}else{
@@ -102,6 +103,7 @@ public class LoginController extends BaseController {
 					SessionUtil.setWeiXinUser(weixinUser);
 					
 					vo.setUser(getUser());
+					vo.setWeixinUser(weixinUser);
 					return vo;
 				}
 			}

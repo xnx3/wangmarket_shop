@@ -16,17 +16,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user")
 public class User extends BaseEntity {
-	/**
-	 * 此用户是否已经经过身份证／银行卡的实名认证：是，已经认证
-	 */
-	public final static Short IDCARDAUTH_YES = 1;
-	/**
-	 * 此用户是否已经经过身份证／银行卡的实名认证：否，未认证
-	 */
-	public final static Short IDCARDAUTH_NO = 0;
 	
 	private Integer id;		//用户id
-	private String username;	//用户名
+	private String username;	//用户名，限制40字符
 	private String email;		//邮箱
 	private String password;	//加密后的密码
 	private String head;		//头像,图片文件名，如 29.jpg
@@ -89,7 +81,7 @@ public class User extends BaseEntity {
 	 * 用户名
 	 * @return
 	 */
-	@Column(name = "username", nullable = false, length = 15)
+	@Column(name = "username", columnDefinition="char(40) comment '用户名，登录使用'")
 	public String getUsername() {
 		return this.username;
 	}
@@ -150,10 +142,11 @@ public class User extends BaseEntity {
 	 * 昵称
 	 * @return
 	 */
-	@Column(name = "nickname", nullable = false, length = 30)
+	@Column(name = "nickname", columnDefinition="char(40) comment '用户名昵称，仅仅只是显示'")
 	public String getNickname() {
 		return this.nickname;
 	}
+	
 	/**
 	 * 昵称
 	 * @param nickname

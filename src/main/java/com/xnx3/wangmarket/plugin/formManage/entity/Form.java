@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
@@ -12,7 +13,7 @@ import javax.persistence.Table;
  * @author 管雷鸣
  */
 @Entity
-@Table(name = "form")
+@Table(name = "plugin_form", indexes={@Index(name="suoyin_index",columnList="siteid,state")})
 public class Form implements java.io.Serializable {
 
 	private Integer id;			//自动编号

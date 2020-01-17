@@ -1,12 +1,17 @@
 package com.xnx3.wangmarket.shop.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import com.xnx3.DateUtil;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.entity.Goods;
 import com.xnx3.wangmarket.shop.entity.Store;
 import com.xnx3.wangmarket.shop.service.CartService;
+import com.xnx3.wangmarket.shop.util.GoodsUtil;
 import com.xnx3.wangmarket.shop.util.SessionUtil;
 import com.xnx3.wangmarket.shop.vo.CartVO;
 import com.xnx3.wangmarket.shop.vo.bean.GoodsCart;
@@ -127,7 +132,7 @@ public class CartServiceImpl implements CartService {
 			}
 		}
 		
-		
+		cartVO.setBaseVO(CartVO.SUCCESS, "success");
 		//将最新的购物车记录更新到Session
 		SessionUtil.setCart(cartVO);
 		return cartVO;
@@ -172,6 +177,145 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public BaseVO clearCart(){
 		return clearStoreCart(0);
+	}
+
+	@Override
+	public CartVO refresh(int storeid) {
+		CartVO cartVO = SessionUtil.getCart();
+		
+		if(cartVO == null){
+			return new CartVO();
+		}
+		
+		//当前要更新的商品列表
+		Map<Integer, GoodsCart> goodsCartMap = new HashMap<Integer, GoodsCart>();	
+		if(storeid > 0){
+			//获取某个商店的购物车信息
+			StoreCart storeCart = cartVO.getStoreCartMap().get(storeid);
+			if(storeCart != null){
+				goodsCartMap.putAll(storeCart.getGoodsCartMap());
+			}
+		}else{
+			//购物车中所有的商品
+			for(Map.Entry<Integer, StoreCart> entry:cartVO.getStoreCartMap().entrySet()){
+				goodsCartMap.putAll(entry.getValue().getGoodsCartMap());
+			}
+		}
+		if(goodsCartMap.size() == 0){
+			//没有需要更新的商品，因为购物车中本身就没有商品
+			return cartVO;
+		}
+		
+		
+		/**** 查询出数据库中，最新的商品信息 ****/
+		StringBuffer goodsSB = new StringBuffer();
+		for(Map.Entry<Integer, GoodsCart> entry:goodsCartMap.entrySet()){
+			if(goodsSB.length() > 0){
+				goodsSB.append(",");
+			}
+			goodsSB.append(entry.getKey());
+		}
+		String sql = "SELECT * FROM shop_goods WHERE id IN("+goodsSB.toString()+")";
+		List<Goods> goodsList = sqlService.findBySqlQuery(sql, Goods.class);
+		//将最新查询出来的list转化为map
+		Map<Integer, Goods> goodsMap = new HashMap<Integer, Goods>();
+		for (int i = 0; i < goodsList.size(); i++) {
+			goodsMap.put(goodsList.get(i).getId(), goodsList.get(i));
+		}
+		
+		/***** 将购物车中商品，用最新查询出来的商品进行替换 *****/
+		if(storeid > 0){
+			//获取某个商店的购物车信息
+			StoreCart storeCart = cartVO.getStoreCartMap().get(storeid);
+			for(Map.Entry<Integer, GoodsCart> entry:storeCart.getGoodsCartMap().entrySet()){
+				GoodsCart goodsCart = entry.getValue();
+				//将最新的商品信息赋予
+				Goods goods = goodsMap.get(entry.getKey());
+				goodsCart.setGoods(goods);
+				goodsCartState(goodsCart, goods);
+			}
+		}else{
+			//购物车中所有的商品
+			for(Map.Entry<Integer, StoreCart> entry:cartVO.getStoreCartMap().entrySet()){
+				for(Map.Entry<Integer, GoodsCart> subentry:entry.getValue().getGoodsCartMap().entrySet()){
+					GoodsCart goodsCart = subentry.getValue();
+					//将最新的商品信息赋予
+					Goods goods = goodsMap.get(subentry.getKey());
+					goodsCart.setGoods(goodsMap.get(subentry.getKey()));
+					goodsCartState(goodsCart, goods);
+				}
+			}
+		}
+		
+		return cartVO;
+	}
+	
+	
+	/**
+	 * 根据从数据库中刚取出来的最新商品信息，来判断用户购物车中的商品当前是否可以正常购买
+	 * @param goodsCart 用户购物车的商品数据
+	 * @param goods 最新的商品实体类
+	 */
+	private GoodsCart goodsCartState(GoodsCart goodsCart, Goods goods){
+		
+		/******* 先判断商品当前是否是已上架 ********/
+		if(GoodsUtil.isPutaway(goods)){
+			//商品正常上架的，可以正常购买
+			goodsCart.setExceptional(0);
+			goodsCart.setExceptionalInfo("");
+		}else{
+			//商品已下架，不可购买
+			goodsCart.setExceptional(GoodsCart.EXCEPTIONAL_SOLD_OUT);
+			goodsCart.setExceptionalInfo("商品当前已下架不可购买");
+			
+			//既然已经不可购买了，下面的也没必要在判断了
+			return goodsCart;
+		}
+		
+		
+		/******* 再判断商品当前的库存数量 ********/
+		if(goods.getInventory() < goodsCart.getNumber()){
+			//库存比用户购物车中的还少，那用户肯定是不能买的，库存不足
+			goodsCart.setExceptional(GoodsCart.EXCEPTIONAL_NOT_INVENTORY);
+			goodsCart.setExceptionalInfo("商品当前库存不足");
+		}else{
+			goodsCart.setExceptional(0);
+			goodsCart.setExceptionalInfo("");
+		}
+		
+		return goodsCart;
+	}
+
+	@Override
+	public CartVO goodsCartSelected(int selected) {
+		return goodsCartSelected(0, selected);
+	}
+
+	@Override
+	public CartVO goodsCartSelected(int goodsid, int selected) {
+		CartVO cartVO = SessionUtil.getCart();
+		
+		//操作所有商品
+		for(Map.Entry<Integer, StoreCart> entry:cartVO.getStoreCartMap().entrySet()){
+			for(Map.Entry<Integer, GoodsCart> subentry:entry.getValue().getGoodsCartMap().entrySet()){
+				GoodsCart goodsCart = subentry.getValue();
+				if(goodsid == 0){
+					//操作所有商品
+					goodsCart.setSelected(selected - 1 == 0? 1:0);
+				}else{
+					if(goodsid > 0 && subentry.getKey() - goodsid == 0){
+						//只是操作这一个商品
+						goodsCart.setSelected(selected - 1 == 0? 1:0);
+						//操作完就可以跳出了。虽然还会在第一层 for 中继续循环，不过循环也消耗不了多少资源
+						break;
+					}
+				}
+			}
+		}
+		
+		//更新Session
+		SessionUtil.setCart(cartVO);
+		return cartVO;
 	}
 	
 }

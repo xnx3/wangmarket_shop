@@ -14,7 +14,7 @@ public class WeiXinAppletUtil{
 	 */
 	public static com.xnx3.weixin.WeiXinAppletUtil getWeixinAppletUtil(){
 		if(weixinAppletUtil == null){
-			weixinAppletUtil = new com.xnx3.weixin.WeiXinAppletUtil(SystemUtil.get("WEIXIN_APPID"), SystemUtil.get("WEIXIN_APPSECRET"));
+			weixinAppletUtil = new com.xnx3.weixin.WeiXinAppletUtil(SystemUtil.get("WEIXIN_APPLET_APPID"), SystemUtil.get("WEIXIN__APPLET_APPSECRET"));
 		}
 		return weixinAppletUtil;
 	}
