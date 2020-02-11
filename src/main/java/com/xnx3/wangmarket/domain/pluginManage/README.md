@@ -1,1 +1,0 @@
-此包已废弃。使用 com.xnx3.wangmarket.pluginManage.domain.

@@ -3,14 +3,19 @@ package com.xnx3.wangmarket.shop.entity;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 /**
  * 订单退单记录表，用户提出退单时，便会创建一条记录
  * @author 管雷鸣
  *
  */
+@Entity(name="shop_order_refund")
+@Table(name = "shop_order_refund", indexes={@Index(name="suoyin_index",columnList="userid,orderid,storeid,state")})
 public class OrderRefund {
 
 	/**
@@ -91,6 +96,12 @@ public class OrderRefund {
 	}
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	
+	@Override
+	public String toString() {
+		return "OrderRefund [id=" + id + ", userid=" + userid + ", orderid=" + orderid + ", storeid=" + storeid
+				+ ", state=" + state + ", addtime=" + addtime + ", reason=" + reason + "]";
 	}
 	
 }

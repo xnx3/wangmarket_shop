@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 import com.xnx3.j2ee.entity.BaseEntity;
@@ -13,8 +14,8 @@ import com.xnx3.j2ee.entity.BaseEntity;
  * 收货地址
  * @author 管雷鸣
  */
-@Entity
-@Table(name = "shop_address")
+@Entity(name="shop_address")
+@Table(name = "shop_address", indexes={@Index(name="suoyin_index",columnList="longitude,latitude,userid")})
 public class Address extends BaseEntity {
 
 	private Integer id;			//自动编号
@@ -90,6 +91,11 @@ public class Address extends BaseEntity {
 	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", username=" + username + ", phone=" + phone + ", longitude=" + longitude
+				+ ", latitude=" + latitude + ", address=" + address + ", userid=" + userid + "]";
+	}
 
 }

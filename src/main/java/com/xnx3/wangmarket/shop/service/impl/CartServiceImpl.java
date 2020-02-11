@@ -1,13 +1,17 @@
 package com.xnx3.wangmarket.shop.service.impl;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
-import com.xnx3.DateUtil;
+import com.xnx3.Lang;
+import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.json.JSONUtil;
+import com.xnx3.wangmarket.shop.entity.Cart;
 import com.xnx3.wangmarket.shop.entity.Goods;
 import com.xnx3.wangmarket.shop.entity.Store;
 import com.xnx3.wangmarket.shop.service.CartService;
@@ -16,6 +20,9 @@ import com.xnx3.wangmarket.shop.util.SessionUtil;
 import com.xnx3.wangmarket.shop.vo.CartVO;
 import com.xnx3.wangmarket.shop.vo.bean.GoodsCart;
 import com.xnx3.wangmarket.shop.vo.bean.StoreCart;
+
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 
 @Service("cartService")
 public class CartServiceImpl implements CartService {
@@ -100,31 +107,40 @@ public class CartServiceImpl implements CartService {
 			
 			/***  计算原本总价、现在的总价，在进行加减，可以避免购物车中加减过程中，商品价格已经更改的情况  ***/
 			//该商品购物车中，原本的总价
-			double oldGoodsAllMoney = new Double(goodsCart.getMoney()); 
+			int oldGoodsAllMoney = new Integer(goodsCart.getMoney()); 
 			//该商品购物车中，现在的总价
 			goodsCart.setMoney(goods.getPrice() * goodsCart.getNumber());
 			
-			/** 店铺购物车改动 **/
-			//更改店铺购物车数量
-			storeCart.setNumber(storeCart.getNumber() + changeNumber);
-			//更改店铺购物车的总金额。 先减去原先的，在加上新算出来的，以保证这个单价是数据库中最新的
-			storeCart.setMoney(storeCart.getMoney() - oldGoodsAllMoney + goodsCart.getMoney());
-			
-			/** 总购物车 CartVO 的变动 **/
-			//金额变动跟店铺购物车的金额变动一样，都是重新计算该商品的总金额
-			cartVO.setMoney(cartVO.getMoney() - oldGoodsAllMoney + goodsCart.getMoney());
-			cartVO.setNumber(cartVO.getNumber() + changeNumber);
+			if(goodsCart.getSelected() - GoodsCart.SELECTED_YES == 0){
+				//如果当前商品在购物车中以选中，那么更改数量后，要重新计算当前支付时，汇总的价格跟数量
+				
+				/** 店铺购物车改动 **/
+				//更改店铺购物车数量
+				storeCart.setNumber(storeCart.getNumber() + changeNumber);
+				//更改店铺购物车的总金额。 先减去原先的，在加上新算出来的，以保证这个单价是数据库中最新的
+				storeCart.setMoney(storeCart.getMoney() - oldGoodsAllMoney + goodsCart.getMoney());
+				
+				/** 总购物车 CartVO 的变动 **/
+				//金额变动跟店铺购物车的金额变动一样，都是重新计算该商品的总金额
+				cartVO.setMoney(cartVO.getMoney() - oldGoodsAllMoney + goodsCart.getMoney());
+				cartVO.setNumber(cartVO.getNumber() + changeNumber);
+			}
 		}else{
 			//商品数量小于等于0，那就是这个商品从购物车中移除了
 			
-			/** 总购物车 CartVO 的变动 **/
-			cartVO.setMoney(cartVO.getMoney() - goodsCart.getMoney());
-			cartVO.setNumber(cartVO.getNumber() - oldGoodsNumber);
-			
-			/*** 商家购物车的变动 ***/
-			storeCart.setNumber(storeCart.getNumber() - oldGoodsNumber);	//减去购物车中此商品的数量
-			storeCart.setMoney(storeCart.getMoney() - goodsCart.getMoney());	//该店铺购物车中的总金额金额跟随变动
-			storeCart.getGoodsCartMap().remove(goodsid);		//将此商品从店铺的购物车减除
+			if(goodsCart.getSelected() - GoodsCart.SELECTED_YES == 0){
+				//如果当前商品在购物车中以选中，那么更改数量后，要重新计算汇总的价格跟数量
+				
+				/** 总购物车 CartVO 的变动 **/
+				cartVO.setMoney(cartVO.getMoney() - goodsCart.getMoney());
+				cartVO.setNumber(cartVO.getNumber() - oldGoodsNumber);
+				
+				/*** 商家购物车的变动 ***/
+				storeCart.setNumber(storeCart.getNumber() - oldGoodsNumber);	//减去购物车中此商品的数量
+				storeCart.setMoney(storeCart.getMoney() - goodsCart.getMoney());	//该店铺购物车中的总金额金额跟随变动
+			}
+			//将此商品从店铺的购物车减除
+			storeCart.getGoodsCartMap().remove(goodsid);		
 			
 			//判断一下这个商家购物车中是否还有商品在里面，如果没有商品了，那直接就把这个商城购物车从总购物车中清理掉
 			if(storeCart.getGoodsCartMap().size() == 0){
@@ -132,9 +148,8 @@ public class CartServiceImpl implements CartService {
 			}
 		}
 		
-		cartVO.setBaseVO(CartVO.SUCCESS, "success");
 		//将最新的购物车记录更新到Session
-		SessionUtil.setCart(cartVO);
+		setCart(cartVO);
 		return cartVO;
 	}
 
@@ -142,7 +157,106 @@ public class CartServiceImpl implements CartService {
 	public CartVO getCart() {
 		CartVO vo = SessionUtil.getCart();
 		if(vo == null){
+			//购物车中没有信息，那么从数据表的 shop_cart 中取之前的购物车信息。后面量大会用redis代替 shop_cart
+			User user = SessionUtil.getUser();
+			int userid = user == null ? 0:user.getId();
+			Cart cart = sqlService.findById(Cart.class, userid);
+			if(cart == null){
+				cart = new Cart();
+			}
+			
 			vo = new CartVO();
+			if(cart.getText() != null && cart.getText().length() > 1){
+				JSONObject json = JSONObject.fromObject(cart.getText());
+				vo.setMoney(JSONUtil.getInt(json, "money"));
+				vo.setNumber(JSONUtil.getInt(json, "number"));
+				
+				if(json.get("storeCartMap") != null){
+					Map<Integer, StoreCart> storeCartMap = new HashMap<Integer, StoreCart>();
+					
+					JSONObject storeCartMapJson = json.getJSONObject("storeCartMap");
+					if(storeCartMapJson.size() > 0){
+						//有店铺购物车数据，那么取出来
+						Iterator<String> iterator = storeCartMapJson.keys();
+						while(iterator.hasNext()){
+							String storeid = iterator.next();
+							JSONObject storeCartJson = storeCartMapJson.getJSONObject(storeid);
+							
+							StoreCart storeCart = new StoreCart();
+							storeCart.setMoney(JSONUtil.getInt(storeCartJson, "money"));	//money
+							storeCart.setNumber(JSONUtil.getInt(storeCartJson, "number"));	//number
+							//store数据
+							if(storeCartJson.get("store") != null){
+								JSONObject storeJson = JSONObject.fromObject(storeCartJson.getJSONObject("store"));
+								Store store = new Store();
+								store.setAddress(JSONUtil.getString(storeJson, "address"));
+								store.setAddtime(JSONUtil.getInt(storeJson, "addtime"));
+								store.setCity(JSONUtil.getString(storeJson, "city"));
+								store.setContacts(JSONUtil.getString(storeJson, "contacts"));
+								store.setDistrict(JSONUtil.getString(storeJson, "district"));
+								store.setHead(JSONUtil.getString(storeJson, "head"));
+								store.setId(JSONUtil.getInt(storeJson, "id"));
+								store.setLatitude(Float.parseFloat(JSONUtil.getString(storeJson, "latitude")));
+								store.setLongitude(Float.parseFloat(JSONUtil.getString(storeJson, "longitude")));
+								store.setName(JSONUtil.getString(storeJson, "name"));
+								store.setNotice(JSONUtil.getString(storeJson, "notice"));
+								store.setPhone(JSONUtil.getString(storeJson, "phone"));
+								store.setProvince(JSONUtil.getString(storeJson, "province"));
+								store.setSale(JSONUtil.getInt(storeJson, "sale"));
+								store.setState((short) JSONUtil.getInt(storeJson, "state"));
+								store.setUserid(JSONUtil.getInt(storeJson, "userid"));
+								storeCart.setStore(store);
+							}
+							//goodsCartMap
+							if(storeCartJson.get("goodsCartMap") != null){
+								Map<Integer, GoodsCart> goodsCartMap = new HashMap<Integer, GoodsCart>();
+								
+								JSONObject goodsCartMapJson = storeCartJson.getJSONObject("goodsCartMap");
+								//遍历，取出来
+								Iterator<String> goodsIterator = goodsCartMapJson.keys();
+								while(goodsIterator.hasNext()){
+									String goodsid = goodsIterator.next();
+									JSONObject goodsCartJson = goodsCartMapJson.getJSONObject(goodsid);
+									GoodsCart goodsCart = new GoodsCart();
+									goodsCart.setExceptional(JSONUtil.getInt(goodsCartJson, "exceptional"));
+									goodsCart.setExceptionalInfo(JSONUtil.getString(goodsCartJson, "exceptionalInfo"));
+									goodsCart.setMoney(JSONUtil.getInt(goodsCartJson, "money"));
+									goodsCart.setNumber(JSONUtil.getInt(goodsCartJson, "number"));
+									goodsCart.setSelected(JSONUtil.getInt(goodsCartJson, "selected"));
+									if(goodsCartJson.get("goods") != null){
+										JSONObject goodsJson = goodsCartJson.getJSONObject("goods");
+										Goods goods = new Goods();
+										goods.setAddtime(JSONUtil.getInt(goodsJson, "addtime"));
+										goods.setAlarmNum(JSONUtil.getInt(goodsJson, "alarmNum"));
+										goods.setFakeSale(JSONUtil.getInt(goodsJson, "fakeSale"));
+										goods.setId(JSONUtil.getInt(goodsJson, "id"));
+										goods.setInventory(JSONUtil.getInt(goodsJson, "inventory"));
+										goods.setIsdelete((short) JSONUtil.getInt(goodsJson, "isdelete"));
+										goods.setOriginalPrice(JSONUtil.getInt(goodsJson, "originalPrice"));
+										goods.setPrice(JSONUtil.getInt(goodsJson, "price"));
+										goods.setPutaway((short) JSONUtil.getInt(goodsJson, "putaway"));
+										goods.setSale(JSONUtil.getInt(goodsJson, "sale"));
+										goods.setStoreid(JSONUtil.getInt(goodsJson, "storeid"));
+										goods.setTitle(JSONUtil.getString(goodsJson, "title"));
+										goods.setTitlepic(JSONUtil.getString(goodsJson, "titlepic"));
+										goods.setTypeid(JSONUtil.getInt(goodsJson, "typeid"));
+										goods.setUnits(JSONUtil.getString(goodsJson, "units"));
+										goods.setUpdatetime(JSONUtil.getInt(goodsJson, "updatetime"));
+										goods.setUserBuyRestrict(JSONUtil.getInt(goodsJson, "userBuyRestrict"));
+										goods.setVersion(JSONUtil.getInt(goodsJson, "version"));
+										goodsCart.setGoods(goods);
+									}
+									goodsCartMap.put(Lang.stringToInt(goodsid, 0), goodsCart);
+								}
+								storeCart.setGoodsCartMap(goodsCartMap);
+							}
+							storeCartMap.put(Lang.stringToInt(storeid, 0), storeCart);
+						}
+					}
+					vo.setStoreCartMap(storeCartMap);
+				}
+			}
+			
 		}
 		return vo;
 	}
@@ -169,8 +283,7 @@ public class CartServiceImpl implements CartService {
 		}
 		
 		//将最新的购物车记录更新到Session
-		SessionUtil.setCart(cartVO);
-		
+		setCart(cartVO);
 		return new BaseVO();
 	}
 	
@@ -181,11 +294,7 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public CartVO refresh(int storeid) {
-		CartVO cartVO = SessionUtil.getCart();
-		
-		if(cartVO == null){
-			return new CartVO();
-		}
+		CartVO cartVO = getCart();
 		
 		//当前要更新的商品列表
 		Map<Integer, GoodsCart> goodsCartMap = new HashMap<Integer, GoodsCart>();	
@@ -247,6 +356,7 @@ public class CartServiceImpl implements CartService {
 			}
 		}
 		
+		setCart(cartVO);
 		return cartVO;
 	}
 	
@@ -287,35 +397,187 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public CartVO goodsCartSelected(int selected) {
-		return goodsCartSelected(0, selected);
+	public CartVO selected(int selected) {
+		CartVO cartVO = getCart();
+		
+		int allMoney = 0;	//总购物车中，已选商品总金额
+		int allNumber = 0;	//总购物车中，已选商品总数量
+		
+		if(cartVO.getStoreCartMap() == null){
+			return cartVO;
+		}
+		//操作所有商品
+		for(Map.Entry<Integer, StoreCart> entry:cartVO.getStoreCartMap().entrySet()){
+			StoreCart storeCart = entry.getValue();
+			int storeMoney = 0;		//当前某个店铺购物车中，已选商品的总金额
+			int storeNumber = 0;	//当前某个店铺购物车中，已选商品总数量
+			
+			for(Map.Entry<Integer, GoodsCart> subentry:storeCart.getGoodsCartMap().entrySet()){
+				GoodsCart goodsCart = subentry.getValue();
+				goodsCart.setSelected(selected - 1 == 0? 1:0);
+				
+				if(selected - GoodsCart.SELECTED_YES == 0){
+					//选中
+					storeMoney = storeMoney + goodsCart.getMoney();
+					storeNumber = storeNumber + goodsCart.getNumber();
+				}
+			}
+			storeCart.setMoney(storeMoney);
+			storeCart.setNumber(storeNumber);
+			
+			if(selected - GoodsCart.SELECTED_YES == 0){
+				//选中，那么要把所有商城的购物车汇总起来
+				allMoney = allMoney + storeMoney;
+				allNumber = allNumber + storeNumber;
+			}
+		}
+		
+		cartVO.setMoney(allMoney);
+		cartVO.setNumber(allNumber);
+		
+		//更新Session
+		setCart(cartVO);
+		return cartVO;
 	}
 
 	@Override
-	public CartVO goodsCartSelected(int goodsid, int selected) {
-		CartVO cartVO = SessionUtil.getCart();
+	public CartVO selectedByGoodsId(int goodsid, int selected) {
+		if(goodsid == 0 || goodsid < 0){
+			CartVO cartVO = new CartVO();
+			cartVO.setBaseVO(CartVO.FAILURE, "请传入商品id");
+			return cartVO;
+		}
 		
-		//操作所有商品
+		CartVO cartVO = getCart();
+		if(cartVO.getStoreCartMap() == null){
+			return cartVO;
+		}
+		
+		//遍历所有商品
 		for(Map.Entry<Integer, StoreCart> entry:cartVO.getStoreCartMap().entrySet()){
 			for(Map.Entry<Integer, GoodsCart> subentry:entry.getValue().getGoodsCartMap().entrySet()){
 				GoodsCart goodsCart = subentry.getValue();
-				if(goodsid == 0){
-					//操作所有商品
+				if(subentry.getKey() - goodsid == 0){
+					//只是操作这一个商品
 					goodsCart.setSelected(selected - 1 == 0? 1:0);
-				}else{
-					if(goodsid > 0 && subentry.getKey() - goodsid == 0){
-						//只是操作这一个商品
-						goodsCart.setSelected(selected - 1 == 0? 1:0);
-						//操作完就可以跳出了。虽然还会在第一层 for 中继续循环，不过循环也消耗不了多少资源
-						break;
-					}
+					//重新计算费用
+					//原本的，改动选中之前的时候，当前店铺的总金额及数量
+					int storeMoney_old = new Integer(entry.getValue().getMoney());
+					int storeNumber_old = new Integer(entry.getValue().getNumber());
+					
+					//重新计算好的最新的
+					StoreCart newStoreCart = calculateCartStoreSUM(entry.getValue());
+					
+					//更改总购物车信息
+					cartVO.setMoney(cartVO.getMoney() - storeMoney_old + newStoreCart.getMoney());
+					cartVO.setNumber(cartVO.getNumber() - storeNumber_old + newStoreCart.getNumber());
+					//将最新的店铺购物车，加入总购物车中
+					cartVO.getStoreCartMap().put(newStoreCart.getStore().getId(), newStoreCart);
+					
+					//更新Session
+					setCart(cartVO);
+					
+					//操作完就可以跳出了
+					return cartVO;
 				}
 			}
 		}
 		
-		//更新Session
-		SessionUtil.setCart(cartVO);
+		//这里实际上应该是失败的，因为传入的goodsid在购物车中没找到。这里原样返回了
 		return cartVO;
 	}
+	
+	/**
+	 * 计算购物车中，某个店铺的购物车中，已选商品的总金额跟总数量.(未选中的商品不会出现在这里面)
+	 * @param storeCart 某个店铺的购物车数据
+	 * @return {@link StoreCart} 计算好的某个店铺的购物车数据。也就是 storeCart.money 、storeCart.number 重新计算了一遍
+	 */
+	private StoreCart calculateCartStoreSUM(StoreCart storeCart){
+		if(storeCart == null){
+			return null;
+		}
+		int allMoney = 0;	//购物车选中的商品的总金额
+		int allNumber = 0;	//购物车选中的商品的总数量
+		if(storeCart.getGoodsCartMap() == null){
+			return storeCart;
+		}
+		
+		for(Map.Entry<Integer, GoodsCart> entry:storeCart.getGoodsCartMap().entrySet()){
+			GoodsCart goodsCart = entry.getValue();
+			if(goodsCart.getSelected() - GoodsCart.SELECTED_YES == 0){
+				//只有选中的商品，才会进行统计
+				allNumber = allNumber + goodsCart.getNumber();
+				allMoney = allMoney + goodsCart.getMoney();
+			}
+		}
+		
+		storeCart.setMoney(allMoney);
+		storeCart.setNumber(allNumber);
+		return storeCart;
+	}
+
+	@Override
+	public CartVO selectedByStoreId(int storeid, int selected) {
+		if(storeid == 0 || storeid < 0){
+			CartVO cartVO = new CartVO();
+			cartVO.setBaseVO(CartVO.FAILURE, "请传入要操作的店铺");
+			return cartVO;
+		}
+		CartVO cartVO = getCart();
+		if(cartVO.getStoreCartMap() == null){
+			return cartVO;
+		}
+		//操作所有商品
+		for(Map.Entry<Integer, StoreCart> entry:cartVO.getStoreCartMap().entrySet()){
+			StoreCart storeCart = entry.getValue();
+			if(storeCart.getStore().getId() - storeid == 0){
+				//操作的就是这个店铺
+				
+				int storeMoney_old = new Integer(storeCart.getMoney());		//当前某个店铺购物车中，已选商品的总金额
+				int storeNumber_old = new Integer(storeCart.getNumber());	//当前某个店铺购物车中，已选商品总数量
+				
+				//将这个店铺下所有商品状态改变
+				for(Map.Entry<Integer, GoodsCart> subentry:storeCart.getGoodsCartMap().entrySet()){
+					GoodsCart goodsCart = subentry.getValue();
+					goodsCart.setSelected(selected - 1 == 0? 1:0);
+				}
+				//重新计算该店铺的商品汇总
+				storeCart = calculateCartStoreSUM(storeCart);
+				//更新总购物车中的统计
+				cartVO.setMoney(cartVO.getMoney() - storeMoney_old + storeCart.getMoney());
+				cartVO.setNumber(cartVO.getNumber() - storeNumber_old + storeCart.getNumber());
+				//更新购物车中的该商城相关购物车信息
+				cartVO.getStoreCartMap().put(storeCart.getStore().getId(), storeCart);
+				
+				//更新Session
+				setCart(cartVO);
+				return cartVO;
+			}
+			
+		}
+		
+		//这里实际上应该是失败的，因为传入的goodsid在购物车中没找到。这里原样返回了
+		return cartVO;
+	}
+
+	@Override
+	public void setCart(CartVO cartVO) {
+		cartVO.setBaseVO(CartVO.SUCCESS, "success");
+		
+		//存入 session
+		SessionUtil.setCart(cartVO);
+		
+		//存入数据表，将其转化为json存储
+		String jsonString = cartVO.toJsonString();
+		User user = SessionUtil.getUser();
+		Cart cart = sqlService.findById(Cart.class, user.getId());
+		if(cart == null){
+			cart = new Cart();
+			cart.setId(user.getId());
+		}
+		cart.setText(jsonString);
+		sqlService.save(cart);
+	}
+	
 	
 }

@@ -3,7 +3,10 @@ package com.xnx3.wangmarket.shop.vo;
 import java.util.HashMap;
 import java.util.Map;
 import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.wangmarket.shop.vo.bean.GoodsCart;
 import com.xnx3.wangmarket.shop.vo.bean.StoreCart;
+
+import net.sf.json.JSONObject;
 
 /**
  * 商城购物车，多店铺
@@ -42,5 +45,29 @@ public class CartVO extends BaseVO {
 		this.money = money;
 	}
 	
+	/**
+	 * 将 goodsCart转为json格式输出
+	 * @return
+	 */
+	public String toJsonString(){
+		StringBuffer storeCartMapStringBuffer = new StringBuffer();
+		storeCartMapStringBuffer.append("{");
+		if(this.storeCartMap != null){
+			int i = this.storeCartMap.size();
+			for(Map.Entry<Integer, StoreCart> entry : this.storeCartMap.entrySet()){
+				storeCartMapStringBuffer.append("\""+entry.getKey()+"\":"+entry.getValue().toJsonString());
+				if(--i > 0){
+					storeCartMapStringBuffer.append(",");
+				}
+			}
+		}
+		storeCartMapStringBuffer.append("}");
+		
+		return "{"
+				+ "\"storeCartMap\":"+storeCartMapStringBuffer.toString()+","
+				+ "\"number\":"+this.getNumber()+","
+				+ "\"money\":"+this.getMoney()
+				+ "}";
+	}
 }
 

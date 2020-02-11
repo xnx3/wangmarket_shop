@@ -5,13 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
  * 店铺信息。商城中可以有多个店铺，这个店铺就类似于淘宝店的性质
+ * @author 管雷鸣
  */
-@Entity
-@Table(name = "shop_store")
+@Entity(name="shop_store")
+@Table(name = "shop_store", indexes={@Index(name="suoyin_index",columnList="userid,state,longitude,latitude,province,city,district,sale")})
 public class Store implements java.io.Serializable {
 	/**
 	 * 店铺状态：审核中
@@ -172,6 +174,12 @@ public class Store implements java.io.Serializable {
 	public void setSale(Integer sale) {
 		this.sale = sale;
 	}
-	
+	@Override
+	public String toString() {
+		return "Store [id=" + id + ", name=" + name + ", userid=" + userid + ", head=" + head + ", notice=" + notice
+				+ ", state=" + state + ", contacts=" + contacts + ", phone=" + phone + ", address=" + address
+				+ ", longitude=" + longitude + ", latitude=" + latitude + ", province=" + province + ", city=" + city
+				+ ", district=" + district + ", addtime=" + addtime + ", sale=" + sale + "]";
+	}
 	
 }

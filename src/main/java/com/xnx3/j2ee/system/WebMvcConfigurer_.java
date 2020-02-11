@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.xnx3.j2ee.system.interceptor.AllInterceptor;
 import com.xnx3.j2ee.util.ConsoleUtil;
+import com.xnx3.wangmarket.shop.ShopInterceptor;
 
 /**
  * WebMvcConfigurer
@@ -20,6 +21,7 @@ public class WebMvcConfigurer_ implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AllInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new ShopInterceptor()).addPathPatterns("/shop/**");
     }
 
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -20,7 +20,7 @@ import com.xnx3.wangmarket.shop.vo.GoodsTypeListVO;
  * @author 管雷鸣
  */
 @Controller(value="ShopGoodsController")
-@RequestMapping("/shop")
+@RequestMapping("/shop/goods/")
 public class GoodsController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;

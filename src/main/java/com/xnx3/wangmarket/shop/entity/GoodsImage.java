@@ -1,17 +1,20 @@
 package com.xnx3.wangmarket.shop.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
  * 商品图片、轮播图片
+ * @author 管雷鸣
  */
-@Entity
-@Table(name = "shop_goods_image")
+@Entity(name="shop_goods_image")
+@Table(name = "shop_goods_image", indexes={@Index(name="suoyin_index",columnList="rank,goodsid")})
 public class GoodsImage implements java.io.Serializable {
 	private Integer id;			//自动编号
 	private Integer goodsid;	//对应商品id，Goods.id
@@ -47,13 +50,18 @@ public class GoodsImage implements java.io.Serializable {
 		this.rank = rank;
 	}
 	
-	@Column(name = "image_url", columnDefinition="int(11) comment '图片的url绝对路径'")
+	@Column(name = "image_url", columnDefinition="char(255) comment '图片的url绝对路径'")
 	public String getImageUrl() {
 		return imageUrl;
 	}
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	@Override
+	public String toString() {
+		return "GoodsImage [id=" + id + ", goodsid=" + goodsid + ", rank=" + rank + ", imageUrl=" + imageUrl + "]";
 	}
 	
 }

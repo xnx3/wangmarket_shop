@@ -1,5 +1,6 @@
 package com.xnx3.wangmarket.shop.service;
 
+import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.vo.GoodsDetailsVO;
 import com.xnx3.wangmarket.shop.vo.GoodsListVO;
 import com.xnx3.wangmarket.shop.vo.GoodsTypeListVO;
@@ -38,4 +39,5 @@ public interface GoodsService {
 	 * @return {@link GoodsDetailsVO}
 	 */
 	public GoodsDetailsVO getGoodsDetails(int goodsid);
+	
 }

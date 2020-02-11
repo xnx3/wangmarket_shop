@@ -2,6 +2,8 @@ package com.xnx3.wangmarket.shop.vo.bean;
 
 import com.xnx3.wangmarket.shop.entity.Goods;
 
+import net.sf.json.JSONObject;
+
 /**
  * 购物车中的单个商品,某个商品的购物车信息
  * @author 管雷鸣
@@ -90,4 +92,25 @@ public class GoodsCart {
 		this.selected = selected;
 	}
 	
+	/**
+	 * 将 goodsCart转为json格式输出
+	 * @return
+	 */
+	public String toJsonString(){
+		String goodsJson = null;
+		if(this.goods == null){
+			goodsJson = "{}";
+		}else{
+			goodsJson = JSONObject.fromObject(this.goods).toString();
+		}
+		
+		return "{"
+				+ "\"goods\":"+goodsJson+","
+				+ "\"number\":"+this.getNumber()+","
+				+ "\"money\":"+this.getMoney()+","
+				+ "\"selected\":"+this.getSelected()+","
+				+ "\"exceptional\":"+this.getExceptional()+","
+				+ "\"exceptionalInfo\":\""+this.getExceptionalInfo()+"\""
+				+ "}";
+	}
 }

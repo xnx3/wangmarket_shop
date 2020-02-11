@@ -6,14 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
  * 订单内的商品
  * @author 管雷鸣
  */
-@Entity
-@Table(name = "shop_order_goods")
+@Entity(name="shop_order_goods")
+@Table(name = "shop_order_goods", indexes={@Index(name="suoyin_index",columnList="orderid,goodsid,userid")})
 public class OrderGoods {
 	private Integer id;				//自动编号
 	private Integer orderid;		//订单的ID，对应 Order.id
@@ -93,10 +94,20 @@ public class OrderGoods {
 	
 	@Column(name = "number", columnDefinition="int(11) comment '该商品的购买的数量'")
 	public Integer getNumber() {
+		if(number == null) {
+			return 0;
+		}
 		return number;
 	}
 	public void setNumber(Integer number) {
 		this.number = number;
+	}
+	
+	@Override
+	public String toString() {
+		return "OrderGoods [id=" + id + ", orderid=" + orderid + ", goodsid=" + goodsid + ", userid=" + userid
+				+ ", goodsTitle=" + goodsTitle + ", goodsPrice=" + goodsPrice + ", goodsUnits=" + goodsUnits
+				+ ", goodsTitlepic=" + goodsTitlepic + ", number=" + number + "]";
 	}
 	
 }

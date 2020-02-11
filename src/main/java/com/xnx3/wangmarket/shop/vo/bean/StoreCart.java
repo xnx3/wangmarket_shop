@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import com.xnx3.wangmarket.shop.entity.Store;
 
+import net.sf.json.JSONObject;
+
 /**
  * 商城购物车，某个店铺的
  * @author 管雷鸣
@@ -54,5 +56,34 @@ public class StoreCart{
 		this.store = store;
 	}
 	
-	
+	/**
+	 * 将 goodsCart转为json格式输出
+	 * @return
+	 */
+	public String toJsonString(){
+		StringBuffer goodsCartMapStringBuffer = new StringBuffer();
+		goodsCartMapStringBuffer.append("{");
+		if(this.goodsCartMap != null){
+			int i = this.goodsCartMap.size();
+			for(Map.Entry<Integer, GoodsCart> entry : this.goodsCartMap.entrySet()){
+				goodsCartMapStringBuffer.append("\""+entry.getKey()+"\":"+entry.getValue().toJsonString());
+				if(--i > 0){
+					goodsCartMapStringBuffer.append(",");
+				}
+			}
+		}
+		goodsCartMapStringBuffer.append("}");
+		
+		String storeJson = null;
+		if(this.store != null){
+			storeJson = JSONObject.fromObject(this.store).toString();
+		}
+		
+		return "{"
+				+ "\"goodsCartMap\":"+goodsCartMapStringBuffer.toString()+","
+				+ "\"number\":"+this.getNumber()+","
+				+ "\"money\":"+this.getMoney()+","
+				+ "\"store\":"+storeJson+""
+				+ "}";
+	}
 }

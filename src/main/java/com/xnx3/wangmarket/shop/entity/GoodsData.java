@@ -7,8 +7,9 @@ import javax.persistence.Table;
 
 /**
  * 商品详情
+ * @author 管雷鸣
  */
-@Entity
+@Entity(name="shop_goods_data")
 @Table(name = "shop_goods_data")
 public class GoodsData implements java.io.Serializable {
 	private Integer id;		//对应商品编号，也就是 Goods.id
@@ -33,5 +34,9 @@ public class GoodsData implements java.io.Serializable {
 		this.detail = detail;
 	}
 
+	@Override
+	public String toString() {
+		return "GoodsData [id=" + id + ", detail=" + detail + "]";
+	}
 	
 }

@@ -19,10 +19,18 @@ public interface CartService {
 	public StoreCart getStoreCart(int storeid);
 	
 	/**
-	 * 获取此用户当前的购物车详细信息，适用于多店铺结算情况，将购物车中的所有信息都返回过来
+	 * 获取此用户当前的购物车详细信息，将购物车中的所有信息都返回过来
 	 * @return {@link CartVO}
 	 */
 	public CartVO getCart();
+	
+	/**
+	 * 设置此用户当前的购物车详细信息
+	 * 调用此接口设置后，一是会设置Session缓存，然后也会将cartVO变为json形式存到数据表 shop_cart
+	 * 这里保存的cartVO，会默认都加上 cartVO.setBaseVO(CartVO.SUCCESS, "success"); 也就是都是成功状态的vo
+	 * @param cartVO 购物车的信息
+	 */
+	public void setCart(CartVO cartVO);
 	
 	/**
 	 * 操作购物车的商品，每个店铺都有一个自己的购物车，每个店铺的购物车不冲突，可并存，如去A店铺加入了几个商品进入购物车，又去B店铺加入了几个进购物车，这两个店铺的购物车信息是不冲突的，可用 {@link #getCart(int)}
@@ -59,18 +67,26 @@ public interface CartService {
 	public CartVO refresh(int storeid);
 	
 	/**
-	 * 购物车中的商品，全选或全部不选所有购物车中的商品，以便进行下一步结算
+	 * 购物车中的商品，全选或全部不选所有购物车中的商品（包含所有店铺的商品）
 	 * @param selected 是否选中， 1选中， 0不选
-	 * @return {@link CartVO}
+	 * @return {@link CartVO} 操作之后，统计数据跟随变化之后的购物车信息
 	 */
-	public CartVO goodsCartSelected(int selected);
+	public CartVO selected(int selected);
+	
+	/**
+	 * 购物车中某个店铺下的商品，全选或全部不选所有购物车中的商品（只是操作的这个店铺下的所有购物车商品）
+	 * @param storeid 是哪个店铺下，进行要全选中或者全不选中。传入店铺id，对应 Store.id
+	 * @param selected 是否选中， 1选中， 0不选
+	 * @return {@link CartVO} 操作之后，统计数据跟随变化之后的购物车信息
+	 */
+	public CartVO selectedByStoreId(int storeid, int selected);
 	
 	/**
 	 * 购物车中的商品，选或不选购物车中的商品，以便进行下一步结算
-	 * @param goodsid 要选中或者不选中的商品，对应 {@link Goods}.id 这里如果传0，则是操作购物车中的所有商品选中或不选中
+	 * @param goodsid 要选中或者不选中的商品，对应 {@link Goods}.id
 	 * @param selected 是否选中， 1选中， 0不选
-	 * @return {@link CartVO}
+	 * @return {@link CartVO} 操作之后，统计数据跟随变化之后的购物车信息
 	 */
-	public CartVO goodsCartSelected(int goodsid, int selected);
+	public CartVO selectedByGoodsId(int goodsid, int selected);
 	
 }
