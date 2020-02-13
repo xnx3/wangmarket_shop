@@ -19,8 +19,8 @@ import com.xnx3.j2ee.util.Sql;
  * 用户控制器
  * @author 关光礼
  */
-@Controller(value="AppletAdminUserController")
-@RequestMapping("applet/admin/user")
+@Controller(value="ShopStoreAdminUserController")
+@RequestMapping("/shop/storeadmin/user")
 public class UserController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;

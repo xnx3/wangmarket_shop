@@ -27,8 +27,8 @@ import com.xnx3.wangmarket.shop.entity.GoodsImage;
  * 商品分类管理控制器
  * @author 关光礼
  */
-@Controller(value="ShopAdminGoodsController")
-@RequestMapping("/shop/admin/goods/")
+@Controller(value="ShopStoreAdminGoodsController")
+@RequestMapping("/shop/storeadmin/goods/")
 public class GoodsController extends BaseController {
 	@Resource
 	private SqlService sqlService;

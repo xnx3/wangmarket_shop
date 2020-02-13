@@ -28,8 +28,8 @@ import com.xnx3.wangmarket.shop.entity.GoodsType;
  * 商品分类管理控制器
  * @author 关光礼
  */
-@Controller(value="AdminGoodsTypeController")
-@RequestMapping("/admin/goodsType")
+@Controller(value="ShopStoreGoodsTypeController")
+@RequestMapping("/shop/storeadmin/goodsType")
 public class GoodsTypeController extends BaseController {
 	@Resource
 	private SqlService sqlService;

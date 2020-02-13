@@ -25,8 +25,8 @@ import com.xnx3.wangmarket.shop.entity.CarouselImage;
  * 首页轮播图管理
  * @author 关光礼
  */
-@Controller(value="ShopAdminCarouselImageController")
-@RequestMapping("/shop/admin/carouselImage/")
+@Controller(value="ShopStoreAdminCarouselImageController")
+@RequestMapping("/shop/storeadmin/carouselImage/")
 public class CarouselImageController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;

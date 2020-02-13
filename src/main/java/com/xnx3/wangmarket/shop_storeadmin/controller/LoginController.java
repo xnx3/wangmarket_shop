@@ -19,7 +19,7 @@ import com.xnx3.wangmarket.shop_storeadmin.util.SessionUtil;
  * 登录、注册
  * @author 管雷鸣
  */
-@Controller(value="ShopAdminLoginController")
+@Controller(value="ShopStoreAdminLoginController")
 @RequestMapping("/shop/storeadmin/login/")
 public class LoginController extends BaseController {
 	@Resource
