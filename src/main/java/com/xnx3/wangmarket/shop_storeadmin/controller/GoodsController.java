@@ -66,7 +66,7 @@ public class GoodsController extends BaseController {
 		model.addAttribute("page", page);
 		//日志记录
 		ActionLogUtil.insert(request, getUserId(), "查看商品列表");
-		return "/appletAdmin/goods/list";
+		return "/shop/storeadmin/goods/list";
 	}
 	
 	/**
@@ -120,7 +120,7 @@ public class GoodsController extends BaseController {
 		}
 		ActionLogUtil.insert(request, getUserId(), "查看商品ID为" + (id == 0 ? "":id)+ "的详情，跳转到编辑页面");
 		
-		return "/appletAdmin/goods/edit";
+		return "/shop/storeadmin/goods/edit";
 		
 	}
 	
@@ -229,7 +229,7 @@ public class GoodsController extends BaseController {
 		}
 		
 		model.addAttribute("id", id);
-		return "/appletAdmin/goods/detail";
+		return "/shop/storeadmin/goods/detail";
 	}
 	
 	/**
@@ -308,7 +308,7 @@ public class GoodsController extends BaseController {
 		ActionLogUtil.insert(request, getUserId(), "查看商品id为" + id + "图片列表");
 		
 		model.addAttribute("goodId", id);
-		return "/appletAdmin/goods/imgList";
+		return "/shop/storeadmin/goods/imgList";
 	}
 	
 	/**
@@ -330,7 +330,7 @@ public class GoodsController extends BaseController {
 		}
 		sqlService.delete(img);
 		//日志记录
-				ActionLogUtil.insertUpdateDatabase(request, id, "Id为" + id + "的商品列表图片删除", "删除内容" + img.toString());
+		ActionLogUtil.insertUpdateDatabase(request, id, "Id为" + id + "的商品列表图片删除", "删除内容" + img.toString());
 		return success();
 	}
 	
@@ -394,7 +394,7 @@ public class GoodsController extends BaseController {
 		ActionLogUtil.insert(request, getUserId(), "查看商品图片ID为" + (id == 0 ? "":id)+ "的详情，跳转到编辑页面");
 		
 		model.addAttribute("goodId", goodId);
-		return "/appletAdmin/goods/editImg";
+		return "/shop/storeadmin/goods/editImg";
 		
 	}
 	

@@ -67,7 +67,7 @@ public class GoodsTypeController extends BaseController {
 		model.addAttribute("page", page);
 		//日志记录
 		ActionLogUtil.insert(request, getUserId(), "查看商品分类列表");
-		return "/appletAdmin/goodsType/list";
+		return "/shop/storeadmin/goodsType/list";
 	}
 	
 	/**
@@ -119,7 +119,7 @@ public class GoodsTypeController extends BaseController {
 			ActionLogUtil.insert(request, getUserId(), "跳转到商品分类编辑页面");
 		}
 		
-		return "/appletAdmin/goodsType/edit";
+		return "/shop/storeadmin/goodsType/edit";
 		
 	}
 	

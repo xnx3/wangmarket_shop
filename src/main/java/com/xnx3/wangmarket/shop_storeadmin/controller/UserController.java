@@ -62,49 +62,7 @@ public class UserController extends BasePluginController {
 		model.addAttribute("page", page);
 		//日志记录
 		ActionLogUtil.insert(request, getUserId(), "查看用户列表");
-		return "/appletAdmin/user/list";
-		
-		/*List<AdminUserVO> voList = new ArrayList<AdminUserVO>();
-		
-		//返回管理后台vo
-		AdminUserVO vo;
-		//key,userId,vlaue:AdminUserVO
-		Map<Integer,Address> adminUserVOMap = new HashMap<Integer,Address>();
-		
-		//查找所有用户地址信息
-		List<Address> addressList = sqlService.findAll(Address.class);
-		//转成map形式 key:userId,value:Address
-		Map<Integer,Address> addressMap = new HashMap<Integer,Address>();
-		for (Address address : addressList) {
-			addressMap.put(address.getUserid(),address);
-		}
-		//把所有用户id初始化到adminUserVOMap
-		for (int i = 0; i < list.size(); i++) {
-			adminUserVOMap.put(list.get(i).getId(),addressMap.get(list.get(i).getId()));
-		}*/
-		
-		
-		/*
-		 * //查找除所以未删除自提点 List<ZiTiDian> ziTiDianLists =
-		 * sqlService.findByProperty(ZiTiDian.class, "isdelete", ZiTiDian.STATE_NO);
-		 * //转成map形式 key:ZiTiDian.id,value:ZiTiDian Map<Integer,ZiTiDian> ziTiDianMap =
-		 * new HashMap<Integer,ZiTiDian>(); for (ZiTiDian ziTiDian : ziTiDianLists) {
-		 * ziTiDianMap.put(ziTiDian.getId(),ziTiDian); } //查找所有UserZiTIDian对应表 查找正在使用的
-		 * List<UserZiTiDian> userZiTiDianList =
-		 * sqlService.findByProperty(UserZiTiDian.class, "isUse",
-		 * UserZiTiDian.STATE_YES);
-		 * 
-		 * for (UserZiTiDian userZiTiDian : userZiTiDianList) { vo = new AdminUserVO();
-		 * vo.setZiTiDian(ziTiDianMap.get(userZiTiDian.getZitidianId()));
-		 * vo.setAddress(addressMap.get(userZiTiDian.getUserId()));
-		 * adminUserVOMap.put(userZiTiDian.getId(),vo); }
-		 */
+		return "/shop/storeadmin/user/list";
 			
-			
-		}
-	
-	
-	
-	
-
+	}
 }

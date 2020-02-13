@@ -63,7 +63,7 @@ public class CarouselImageController extends BasePluginController {
 		model.addAttribute("page", page);
 		//日志记录
 		ActionLogUtil.insert(request, getUserId(), "查看轮播图列表");
-		return "/appletAdmin/carouselImage/list";
+		return "/shop/storeadmin/carouselImage/list";
 	}
 	
 	/**
@@ -115,7 +115,7 @@ public class CarouselImageController extends BasePluginController {
 			ActionLogUtil.insert(request, getUserId(), "跳转到轮播图编辑页面");
 		}
 		
-		return "/appletAdmin/carouselImage/edit";
+		return "/shop/storeadmin/carouselImage/edit";
 		
 	}
 	
