@@ -18,7 +18,7 @@
 <jsp:include page="../../../iw/common/list/formSearch_formStart.jsp" ></jsp:include>
 
 	<jsp:include page="../../../iw/common/list/formSearch_input.jsp">
-		<jsp:param name="iw_label" value="标题" />
+		<jsp:param name="iw_label" value="分类名字" />
 		<jsp:param name="iw_name" value="name" />
 	</jsp:include>
 	
@@ -30,8 +30,8 @@
   <thead>
     <tr>
 		<th style="text-align:center;">ID</th>
-        <th style="text-align:center;">标题</th>
-         <th style="text-align:center;">缩略图</th>
+        <th style="text-align:center;">分类名字</th>
+         <th style="text-align:center;">图标</th>
         <th style="text-align:center;">排序</th>
         <th style="text-align:center;">操作</th>
     </tr> 

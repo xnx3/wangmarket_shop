@@ -188,24 +188,26 @@ public class CartServiceImpl implements CartService {
 							//store数据
 							if(storeCartJson.get("store") != null){
 								JSONObject storeJson = JSONObject.fromObject(storeCartJson.getJSONObject("store"));
-								Store store = new Store();
-								store.setAddress(JSONUtil.getString(storeJson, "address"));
-								store.setAddtime(JSONUtil.getInt(storeJson, "addtime"));
-								store.setCity(JSONUtil.getString(storeJson, "city"));
-								store.setContacts(JSONUtil.getString(storeJson, "contacts"));
-								store.setDistrict(JSONUtil.getString(storeJson, "district"));
-								store.setHead(JSONUtil.getString(storeJson, "head"));
-								store.setId(JSONUtil.getInt(storeJson, "id"));
-								store.setLatitude(Float.parseFloat(JSONUtil.getString(storeJson, "latitude")));
-								store.setLongitude(Float.parseFloat(JSONUtil.getString(storeJson, "longitude")));
-								store.setName(JSONUtil.getString(storeJson, "name"));
-								store.setNotice(JSONUtil.getString(storeJson, "notice"));
-								store.setPhone(JSONUtil.getString(storeJson, "phone"));
-								store.setProvince(JSONUtil.getString(storeJson, "province"));
-								store.setSale(JSONUtil.getInt(storeJson, "sale"));
-								store.setState((short) JSONUtil.getInt(storeJson, "state"));
-								store.setUserid(JSONUtil.getInt(storeJson, "userid"));
-								storeCart.setStore(store);
+								if(storeJson != null && !storeJson.toString().equalsIgnoreCase("null")){
+									Store store = new Store();
+									store.setAddress(JSONUtil.getString(storeJson, "address"));
+									store.setAddtime(JSONUtil.getInt(storeJson, "addtime"));
+									store.setCity(JSONUtil.getString(storeJson, "city"));
+									store.setContacts(JSONUtil.getString(storeJson, "contacts"));
+									store.setDistrict(JSONUtil.getString(storeJson, "district"));
+									store.setHead(JSONUtil.getString(storeJson, "head"));
+									store.setId(JSONUtil.getInt(storeJson, "id"));
+									store.setLatitude(Float.parseFloat(JSONUtil.getString(storeJson, "latitude")));
+									store.setLongitude(Float.parseFloat(JSONUtil.getString(storeJson, "longitude")));
+									store.setName(JSONUtil.getString(storeJson, "name"));
+									store.setNotice(JSONUtil.getString(storeJson, "notice"));
+									store.setPhone(JSONUtil.getString(storeJson, "phone"));
+									store.setProvince(JSONUtil.getString(storeJson, "province"));
+									store.setSale(JSONUtil.getInt(storeJson, "sale"));
+									store.setState((short) JSONUtil.getInt(storeJson, "state"));
+									store.setUserid(JSONUtil.getInt(storeJson, "userid"));
+									storeCart.setStore(store);
+								}
 							}
 							//goodsCartMap
 							if(storeCartJson.get("goodsCartMap") != null){

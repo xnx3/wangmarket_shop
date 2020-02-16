@@ -1,6 +1,7 @@
 package com.xnx3.wangmarket.shop.controller;
 
 
+import java.util.HashMap;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.entity.Goods;
 import com.xnx3.wangmarket.shop.service.CartService;
 import com.xnx3.wangmarket.shop.vo.CartVO;
+import com.xnx3.wangmarket.shop.vo.StoreCartVO;
+import com.xnx3.wangmarket.shop.vo.bean.GoodsCart;
+import com.xnx3.wangmarket.shop.vo.bean.StoreCart;
 
 /**
  * 商城相关功能
@@ -32,7 +36,7 @@ public class CartController extends BasePluginController {
 	private CartService cartService;
 	
 	/**
-	 * 操作购物车中的商品
+	 * 操作购物车中的商品进行加减操作
 	 * @param goodsid 要修改的购物车中的商品编号，必传，对应 {@link Goods}.id
 	 * @param changeNumber 要修改购物车中对应商品编号的商品，是增加，还是减少，这里便是增加或者减少的数值。
 	 * 				<ul>
@@ -41,21 +45,20 @@ public class CartController extends BasePluginController {
 	 * 				</ul>
 	 * @return {@link CartVO}购物车记录
 	 */
-	@RequestMapping(value="cart${url.suffix}",method= {RequestMethod.POST})
+	@RequestMapping(value="change${url.suffix}",method= {RequestMethod.POST})
 	@ResponseBody
-	public CartVO cart(HttpServletRequest request,
+	public CartVO change(HttpServletRequest request,
 			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid,
 			@RequestParam(value = "changeNumber", required = false, defaultValue="0") int changeNumber){
 		//购物车的数据存在于Session中
 		CartVO cartVO = cartService.cart(goodsid, changeNumber);
-		ActionLogUtil.insert(request, "操作购物车中的商品");
+		ActionLogUtil.insert(request, "操作购物车中的商品进行加减操作");
 		return cartVO;
 	}
 	
 	
-	
 	/**
-	 * 获取购物车数据
+	 * 获整个购物车的数据，包含所有商家的购物车
 	 * @return 
 	 */
 	@RequestMapping(value="getCart${url.suffix}",method= {RequestMethod.POST})
@@ -69,7 +72,7 @@ public class CartController extends BasePluginController {
 	}
 	
 	/**
-	 * 清空购物车数据
+	 * 清空用户在某个商家下的购物车数据。
 	 * @param storeid 要清除哪个店铺的购物车信息，对应 store.id。 如果不传这个参数，则是清空所有的购物车信息
 	 */
 	@RequestMapping(value="clearShopCart${url.suffix}",method= {RequestMethod.POST})
@@ -86,7 +89,7 @@ public class CartController extends BasePluginController {
 	
 	
 	/**
-	 * 购物车中的商品，选或不选购物车中的商品，以便进行下一步结算
+	 * 购物车中的商品，选中或不选中购物车中的商品，以便进行下一步进行结算
 	 * @param goodsid 要选中或者不选中的商品，对应 {@link Goods}.id 
 	 * @param selected 是否选中， 1选中， 0不选
 	 * @return {@link CartVO}
@@ -107,10 +110,49 @@ public class CartController extends BasePluginController {
 	 */
 	@RequestMapping(value="storeCartSelected${url.suffix}",method= {RequestMethod.POST})
 	@ResponseBody
-	public CartVO storeCartSelected(HttpServletRequest request,
+	public StoreCartVO storeCartSelected(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
 			@RequestParam(value = "selected", required = false, defaultValue="0") int selected){
-		return cartService.selectedByStoreId(storeid, selected);
+//		return cartService.selectedByStoreId(storeid, selected);
+		return cartVoToStoreCartVo(cartService.selectedByStoreId(storeid, selected), storeid);
 	}
 	
+
+	/**
+	 * 获取某个商铺的购物车数据,这里获取到的数据仅仅只是某个商铺下的购物车信息
+	 * @return StoreCartVO
+	 */
+	@RequestMapping(value="getStoreCart${url.suffix}",method= {RequestMethod.POST})
+	@ResponseBody
+	public StoreCartVO getStoreCart(HttpServletRequest request,
+			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
+		ActionLogUtil.insert(request, "获取购物车数据");
+		
+		//刷新最新商品状态
+		cartService.refresh(0);
+		
+		//从购物车中取数据
+		return cartVoToStoreCartVo(cartService.getCart(), storeid);
+	}
+	
+	/**
+	 * 将 {@link CartVO} 转为 {@link StoreCartVO}
+	 * @param cartVO 原始的 {@link CartVO}
+	 * @param storeid 要取哪个店铺
+	 * @return 某个店铺的购物车数据
+	 */
+	private StoreCartVO cartVoToStoreCartVo(CartVO cartVO, int storeid){
+		StoreCart storeCart = cartVO.getStoreCartMap().get(storeid);
+		StoreCartVO vo = new StoreCartVO();
+		if(storeCart == null){
+			vo.setMoney(0);
+			vo.setNumber(0);
+			vo.setGoodsCartMap(new HashMap<Integer, GoodsCart>());
+		}else{
+			vo.setMoney(storeCart.getMoney());
+			vo.setNumber(storeCart.getNumber());
+			vo.setGoodsCartMap(storeCart.getGoodsCartMap());
+		}
+		return vo;
+	}
 }

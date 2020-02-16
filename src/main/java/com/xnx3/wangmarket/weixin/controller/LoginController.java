@@ -68,6 +68,7 @@ public class LoginController extends BaseController {
 				user = new User();
 				user.setUsername(Lang.uuid());
 				user.setPassword(Lang.uuid());
+				user.setNickname("nick name");
 				BaseVO regVO = userService.reg(user, request);
 				if(regVO.getResult() - BaseVO.SUCCESS == 0){
 					//自动注册成功，保存 WeixinUser
