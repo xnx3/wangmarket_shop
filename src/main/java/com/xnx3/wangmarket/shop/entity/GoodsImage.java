@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * 商品图片、轮播图片
  * @author 管雷鸣
  */
-@Entity(name="shop_goods_image")
+@Entity()
 @Table(name = "shop_goods_image", indexes={@Index(name="suoyin_index",columnList="rank,goodsid")})
 public class GoodsImage implements java.io.Serializable {
 	private Integer id;			//自动编号

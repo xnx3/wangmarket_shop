@@ -22,7 +22,7 @@
 		<label class="layui-form-label" id="label_columnName">缩略图</label>
 		<div class="layui-input-block">
 			<input name="titlepic" id="titlePicInput" type="text" autocomplete="off" placeholder="点击右侧添加" class="layui-input" value="${item.titlepic }" style="padding-right: 120px;">
-			<button type="button" class="layui-btn" id="uploadImagesButton" style="float: right;margin-top: -38px;">
+			<button type="button" class="layui-btn" id="uploadImagesButton1" style="float: right;margin-top: -38px;">
 				<i class="layui-icon layui-icon-upload"></i>
 			</button>
 			<a href="${item.titlepic  }" id="titlePicA" style="float: right;margin-top: -38px;margin-right: 60px;" title="预览原始图片" target="_black">
@@ -32,12 +32,9 @@
 		</div>
 	</div>
 	
-	<div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode">备注</label>
-		<div class="layui-input-block">
-			<input type="text" name="note" id="note" class="layui-input" value="${item.note }"  >
-		</div>
-	</div>
+	${text}
+<script type="text/javascript" src="/js/admin/cms/news_extend_photos.js"></script>
+	
 	
 	<div class="layui-form-item" id="xnx3_editMode">
 		<label class="layui-form-label" id="columnEditMode">库存数量<i class="layui-icon" style="color: red;size:">*</i></label>
@@ -71,7 +68,7 @@
 		设置下架用户将看不到</div>
 	</div>
 	
-	<div class="layui-form-item" id="xnx3_editMode">
+	<%-- <div class="layui-form-item" id="xnx3_editMode">
 		<label class="layui-form-label" id="columnEditMode">定时上架</label>
 		<div class="layui-input-block">
 			<input type="text" name="online_countdown" id="onlineCountdown" class="layui-input time" <c:if test = "${item.onlineCountdown != null && item.onlineCountdown != 0}">value='<x:time linuxTime="${item.onlineCountdown }" format="yyyy-MM-dd HH:mm:ss"></x:time>'</c:if> >
@@ -86,7 +83,7 @@
 		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
 		时间到了，商品下架用户将看不到</div>
 	</div>
-	
+	 --%>
 	
 	<div class="layui-form-item" id="xnx3_editMode">
 		<label class="layui-form-label" id="columnEditMode" >假售数量<span style="color: red">*</span></label>
@@ -124,12 +121,6 @@
 		单位：元，只显示两位小数，在用户页面多一条斜线</div>
 	</div>
 	
-	<div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode">供应商<i class="layui-icon" style="color: red;size:">*</i></label>
-		<div class="layui-input-block">
-			<input type="text" name="supplier" id="supplier" class="layui-input" value="${item.supplier }" >
-		</div>
-	</div>
 	
 	<!-- 内容编辑方式，当独立页面时才会有效，才会显示。选择是使用内容富文本编辑框编辑，还是使用模板的方式编辑 -->
 	<div class="layui-form-item" id="xnx3_editMode">
@@ -172,8 +163,8 @@ layui.use('upload', function(){
 	//上传图片,封面图
 	//upload.render(uploadPic);
 	upload.render({
-		elem: "#uploadImagesButton" //绑定元素
-		,url: '/admin/goods/uploadImage.do' //上传接口
+		elem: "#uploadImagesButton1" //绑定元素
+		,url: '/shop/storeadmin/common/uploadImage.do' //上传接口
 		,field: 'image'
 		,accept: 'file'
 		,done: function(res){
@@ -230,6 +221,8 @@ layui.use('upload', function(){
 	// 提交修改添加信息
 	function commit() {
 		var d = $("form").serialize();
+		console.log("------");
+		console.log(d);
 		
 		 if($("#title").val() == ''){
 			iw.msgFailure("请输入标题");
@@ -277,12 +270,12 @@ layui.use('upload', function(){
 		d = d + "&originalPrice=" + parseInt(originalPrice*100);
 		//表单序列化
 		parent.iw.loading("保存中");
-		$.post("/admin/goods/save.do", d, function (result) {
+		$.post("/shop/storeadmin/goods/save.do", d, function (result) {
 			parent.iw.loadClose();
 			var obj = JSON.parse(result);
 			if(obj.result == '1'){
 				parent.parent.iw.msgSuccess("操作成功");
-				window.location.href = '/admin/goods/list.do';
+				window.location.href = '/shop/storeadmin/goods/list.do';
 			}else if(obj.result == '0'){
 				parent.iw.msgFailure(obj.info);
 			}else{
@@ -292,7 +285,80 @@ layui.use('upload', function(){
 		
 		return false;
 	}
+	
+var uploadExtendPhotos = {
+		elem: '.uploadImagesButton' //绑定元素
+		,url: '/shop/storeadmin/common/uploadImage.do'  //上传接口
+		,field: 'image'
+		,accept: 'file'
+		,done: function(res){
+			//上传完毕回调
+			loadClose();
 			
+			var key = this.item[0].name;	//拿到传递参数的key，也就是 extend.photos 中，数组某项的下表
+			
+			if(res.result == 1){
+				try{
+					document.getElementById("titlePicInput"+key).value = res.url;
+					document.getElementById("titlePicA"+key).href = res.url;
+					document.getElementById("titlePicImg"+key).src = res.url;
+					document.getElementById("titlePicImg"+key).style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
+				}catch(err){}
+				parent.iw.msgSuccess("上传成功");
+			}else{
+				parent.iw.msgFailure(res.info);
+			}
+		}
+		,error: function(index, upload){
+			//请求异常回调
+			parent.iw.loadClose();
+			parent.iw.msgFailure();
+		}
+		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+			parent.iw.loading('上传中..');
+		}
+	};
+	
+	
+			
+var upload;
+layui.use('upload', function(){
+	upload = layui.upload;
+	//上传图片,封面图
+	//upload.render(uploadPic);
+	upload.render({
+		elem: "#uploadImagesButton" //绑定元素
+		,url: '/shop/storeadmin/common/uploadImage.do'  //上传接口
+		,field: 'image'
+		,accept: 'file'
+		,done: function(res){
+			//上传完毕回调
+			loadClose();
+			if(res.result == 1){
+				try{
+					document.getElementById("titlePicInput").value = res.url;
+					document.getElementById("titlePicA").href = res.url;
+					document.getElementById("titlePicImg").src = res.url;
+					document.getElementById("titlePicImg").style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
+				}catch(err){}
+				parent.iw.msgSuccess("上传成功");
+			}else{
+				parent.iw.msgFailure(res.info);
+			}
+		}
+		,error: function(index, upload){
+			//请求异常回调
+			parent.iw.loadClose();
+			parent.iw.msgFailure();
+		}
+		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+			parent.iw.loading('上传中..');
+		}
+	});
+	
+	//上传图片,图集，v4.6扩展
+	upload.render(uploadExtendPhotos);
+});
 
 </script>
 

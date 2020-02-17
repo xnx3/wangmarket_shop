@@ -32,7 +32,7 @@
 		<tr>
 			<td class="iw_table_td_view_name">开店时间</td>
 			<td>
-				<x:time linuxTime="${store.addtime }"></x:time>
+				<c:if test="${store.addtime != null }"> <x:time linuxTime="${store.addtime }"></x:time></c:if>
 			</td>
 		</tr>
 		

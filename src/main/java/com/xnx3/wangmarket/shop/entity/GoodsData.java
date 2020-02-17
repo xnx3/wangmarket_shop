@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * 商品详情
  * @author 管雷鸣
  */
-@Entity(name="shop_goods_data")
+@Entity()
 @Table(name = "shop_goods_data")
 public class GoodsData implements java.io.Serializable {
 	private Integer id;		//对应商品编号，也就是 Goods.id

@@ -19,7 +19,7 @@
 	<div class="layui-form-item" id="icon_div">
 		<label class="layui-form-label" id="label_columnName">缩略图</label>
 		<div class="layui-input-block">
-			<input name="titlepic" id="titlePicInput" type="text" autocomplete="off" placeholder="点击右侧添加" class="layui-input" value="${item.icon }" style="padding-right: 120px;">
+			<input name="icon" id="titlePicInput" type="text" autocomplete="off" placeholder="点击右侧添加" class="layui-input" value="${item.icon }" style="padding-right: 120px;">
 			<button type="button" class="layui-btn" id="uploadImagesButton" style="float: right;margin-top: -38px;">
 				<i class="layui-icon layui-icon-upload"></i>
 			</button>

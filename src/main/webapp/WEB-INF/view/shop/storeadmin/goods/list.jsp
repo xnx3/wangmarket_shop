@@ -127,7 +127,7 @@ function deleteMes(id){
 	}, function(){
 		layer.close(dtp_confirm);
 		parent.iw.loading("删除中");    //显示“操作中”的等待提示
-		$.post('/admin/goods/delete.do?id=' + id, function(data){
+		$.post('/shop/storeadmin/goods/delete.do?id=' + id, function(data){
 		    parent.iw.loadClose();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
 		        parent.iw.msgSuccess('操作成功');
@@ -145,7 +145,7 @@ function deleteMes(id){
 
 //跳转到商品详情的编辑 id:商品id
 function detail(id){
-	window.location.href = '/admin/goods/toDetailPage.do?id=' + id;
+	window.location.href = '/shop/storeadmin/goods/toDetailPage.do?id=' + id;
 }
 
 //跳转到商品图片列表的编辑 id:商品id
@@ -164,7 +164,7 @@ function addOrUpdate(id){
 	if(id == 0) {
 		id = '';
 	}
-	window.location.href = '/admin/goods/toEditPage.do?id=' + id;
+	window.location.href = '/shop/storeadmin/goods/toEditPage.do?id=' + id;
 	 /* layer.open({
 		type: 2, 
 		title:'编辑页面', 
@@ -173,7 +173,6 @@ function addOrUpdate(id){
 		content: '/admin/goods/toEditPage.do?id=' + id
 	});	  */
 }
-
 </script>
 
 <jsp:include page="../../../iw/common/foot.jsp"></jsp:include>
