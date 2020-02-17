@@ -1,45 +1,69 @@
-package com.xnx3.wangmarket.shop_storeadmin.controller;
+package com.xnx3.wangmarket.shop.controller;
 
+import java.awt.Font;
+import java.io.IOException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.j2ee.vo.LoginVO;
+import com.xnx3.media.CaptchaUtil;
 import com.xnx3.wangmarket.shop.entity.Store;
-import com.xnx3.wangmarket.shop_storeadmin.util.SessionUtil;
+import com.xnx3.wangmarket.shop.util.SessionUtil;
 
 /**
  * 登录、注册
  * @author 管雷鸣
  */
-@Controller(value="ShopStoreAdminLoginController")
-@RequestMapping("/shop/storeadmin/login/")
+@Controller(value="ShopLoginController")
+@RequestMapping("/shop/login/")
 public class LoginController extends BaseController {
 	@Resource
 	private UserService userService;
 	@Resource
 	private SqlService sqlService;
+	
 
+	/**
+	 * 验证码图片显示，直接访问此地址可查看图片
+	 */
+	@RequestMapping("/captcha${url.suffix}")
+	public void captcha(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		ActionLogUtil.insert(request, "获取验证码显示");
+		
+		CaptchaUtil captchaUtil = new CaptchaUtil();
+	    captchaUtil.setCodeCount(5);                   //验证码的数量，若不增加图宽度的话，只能是1～5个之间
+	    captchaUtil.setFont(new Font("Fixedsys", Font.BOLD, 21));    //验证码字符串的字体
+	    captchaUtil.setHeight(18);  //验证码图片的高度
+	    captchaUtil.setWidth(110);      //验证码图片的宽度
+//	    captchaUtil.setCode(new String[]{"我","是","验","证","码"});   //如果对于数字＋英文不满意，可以自定义验证码的文字！
+	    com.xnx3.j2ee.util.CaptchaUtil.showImage(captchaUtil, request, response);
+	}
 	
 	/**
 	 * 登陆页面
 	 */
 	@RequestMapping("login${url.suffix}")
 	public String login(HttpServletRequest request,Model model){
-		if(getStore() != null){
+		if(getUser() != null){
 			ActionLogUtil.insert(request, "进入登录页面", "已经登录成功，无需再登录，进行跳转");
-			return redirect("shop/storeadmin/index/index.do");
+			return redirect("");
 		}
 		
 		ActionLogUtil.insert(request, "进入登录页面");
-		return "/shop/storeadmin/login/login";
+		return "/shop/shop/login/login";
 	}
 
 	/**
@@ -54,8 +78,9 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value="loginSubmit${url.suffix}", method = RequestMethod.POST)
 	@ResponseBody
-	public BaseVO loginSubmit(HttpServletRequest request,Model model){
-		BaseVO vo = new BaseVO();
+	public LoginVO loginSubmit(HttpServletRequest request,Model model,
+			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
+		LoginVO vo = new LoginVO();
 		
 		//验证码校验
 		BaseVO capVO = com.xnx3.j2ee.util.CaptchaUtil.compare(request.getParameter("code"), request);
@@ -70,18 +95,25 @@ public class LoginController extends BaseController {
 			vo.setBaseVO(baseVO);
 			if(baseVO.getResult() == BaseVO.SUCCESS){
 				ActionLogUtil.insert(request, "用户名密码模式登录成功");
-				//判断当前用户是否是商家，看用户是否对应 Store
-//				Store store = sqlService.findAloneByProperty(Store.class, "userid", getUserId());
-				Store store = sqlService.findAloneBySqlQuery("SELECT * FROM shop_store WHERE userid = "+getUserId(), Store.class);
-				if(store == null){
-					SessionUtil.logout();	//退出登录
-					return error("您不是商铺管理人员，无法登陆");
-				}
-				SessionUtil.setStore(store);	//加入session缓存
 				
 				//登录成功,BaseVO.info字段将赋予成功后跳转的地址，所以这里要再进行判断
-				vo.setInfo("/shop/storeadmin/index/index.do");
+				vo.setInfo("admin/index/index.do");
 				
+				//将sessionid加入vo返回
+				HttpSession session = request.getSession();
+				vo.setToken(session.getId());
+				
+				//查询出此用户所在的店铺，加入缓存
+				Store store = sqlService.findById(Store.class, storeid);
+				if(store == null){
+					vo.setBaseVO(BaseVO.FAILURE, "store 不存在");
+					SessionUtil.logout();
+					return vo;
+				}
+				SessionUtil.setStore(store);
+				
+				//加入user信息
+				vo.setUser(getUser());
 			}else{
 				ActionLogUtil.insert(request, "用户名密码模式登录失败",baseVO.getInfo());
 			}

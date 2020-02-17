@@ -127,7 +127,7 @@ layui.use('form', function(){
 	iw.loading("登陆中...");
   	//$.showLoading('登录中...');
     var d=$("form").serialize();
-	$.post("loginSubmit.do", d, function (result) {
+	$.post("/shop/storeadmin/login/loginSubmit.do", d, function (result) {
 		//$.hideLoading();
 		iw.loadClose();
        	var obj = JSON.parse(result);
