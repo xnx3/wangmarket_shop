@@ -8,7 +8,7 @@ import net.sf.json.JSONObject;
  * 购物车中的单个商品,某个商品的购物车信息
  * @author 管雷鸣
  */
-public class GoodsCart {
+public class GoodsCart implements java.io.Serializable{
 	/**
 	 * 购物车的商品状态异常：库存不足
 	 */

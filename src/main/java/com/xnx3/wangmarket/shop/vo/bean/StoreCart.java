@@ -10,7 +10,7 @@ import net.sf.json.JSONObject;
  * 商城购物车，某个店铺的
  * @author 管雷鸣
  */
-public class StoreCart{
+public class StoreCart implements java.io.Serializable{
 	private Map<Integer, GoodsCart> goodsCartMap;	//该店铺购物车的商品列表。 key:goods.id 
 	private int number;			//该店铺购物车中商品的总数量
 	private int money;			//该店铺购物车中商品的总价格，单位是分

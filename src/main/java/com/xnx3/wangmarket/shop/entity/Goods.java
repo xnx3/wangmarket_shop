@@ -18,7 +18,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  */
 @Entity(name="shop_goods")
 @Table(name = "shop_goods", indexes={@Index(name="suoyin_index",columnList="putaway,sale,fake_sale,price,addtime,storeid,typeid,isdelete,")})
-public class Goods extends BaseEntity {
+public class Goods extends BaseEntity implements java.io.Serializable{
 
 	/**
 	 * 上架状态，正常出售中

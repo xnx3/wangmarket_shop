@@ -12,7 +12,7 @@ import net.sf.json.JSONObject;
  * 商城购物车，多店铺
  * @author 管雷鸣
  */
-public class CartVO extends BaseVO {
+public class CartVO extends BaseVO implements java.io.Serializable{
 	Map<Integer, StoreCart> storeCartMap;	//每个店铺id编号都有一个自己的购物车。 key:store.id
 	private int number;			//该多店铺购物车中所有商品的总数量
 	private int money;		//该多店铺购物车中所有商品的总价格	 ，单位是分
