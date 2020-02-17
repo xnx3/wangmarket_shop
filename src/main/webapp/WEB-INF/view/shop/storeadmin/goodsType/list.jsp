@@ -48,8 +48,6 @@
 			<td style="text-align:center;width: 200px;">
 		 	    <!-- 修改新闻信息 -->
 		 	   <a class="layui-btn layui-btn-sm" onclick="addOrUpdate('${item.id }')" style=""><i class="layui-icon">&#xe642;</i></a>	 
-		 	    <!-- 修改图片 -->
-		 	   <a class="layui-btn layui-btn-sm uploadImg" lay-data = "{url: '/admin/goodsType/uploadImg.do?id=${item.id}'}" style="margin-left: 0;margin-top: 3px;"><i class="layui-icon">&#xe64a;</i></a>
 			
 		 	  <!-- 删除新闻 -->
 		 	   <a class="layui-btn layui-btn-sm" onclick="deleteMes('${item.id }')" style=""><i class="layui-icon">&#xe640;</i></a>
@@ -65,7 +63,6 @@
 	<span style="padding-right:20px;">操作按钮提示</span>
 	<span style="padding-right:20px;"><i class="layui-icon">&#xe642;</i>&nbsp;:&nbsp;编辑</span>
 	<span style="padding-right:20px;"><i class="layui-icon">&#xe640;</i>&nbsp;:&nbsp;删除</span>
-	<span style="padding-right:20px;"><i class="layui-icon">&#xe64a;</i>&nbsp;:&nbsp;上传图片</span>
 </div>
 
 <script type="text/javascript">
@@ -103,14 +100,14 @@ layui.use('upload', function(){
 	});
 });
 
-//修改信息 id：轮播图id
+//修改信息 id：goodType.id
 function deleteMes(id){
 	var dtp_confirm = layer.confirm('确定要删除该商品分类？', {
 		  btn: ['确认','取消'] //按钮
 	}, function(){
 		layer.close(dtp_confirm);
 		parent.iw.loading("删除中");    //显示“操作中”的等待提示
-		$.post('/admin/goodsType/delete.do?id=' + id, function(data){
+		$.post('/shop/storeadmin/goodsType/delete.do?id=' + id, function(data){
 		    parent.iw.loadClose();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
 		        parent.iw.msgSuccess('操作成功');
@@ -137,7 +134,7 @@ function addOrUpdate(id){
 		title:'编辑页面', 
 		area: ['500px', '300px'],
 		shadeClose: true, //开启遮罩关闭
-		content: '/admin/goodsType/toEditPage.do?id=' + id
+		content: '/shop/storeadmin/goodsType/toEditPage.do?id=' + id
 	});	 
 }
 

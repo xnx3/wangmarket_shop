@@ -21,7 +21,7 @@ public class GoodsType extends BaseGenerate {
 	}
 	
 	public void typeid(){
-		List<com.xnx3.wangmarket.shop.entity.GoodsType> list = SpringUtil.getSqlService().findBySqlQuery("SELECT * FROM shop_goods_type", com.xnx3.wangmarket.shop.entity.GoodsType.class);
+		List<com.xnx3.wangmarket.shop.entity.GoodsType> list = SpringUtil.getSqlService().findBySqlQuery("SELECT * FROM shop_goods_type WHERE isdelete = " + com.xnx3.wangmarket.shop.entity.GoodsType.ISDELETE_NORMAL, com.xnx3.wangmarket.shop.entity.GoodsType.class);
 		
 		createCacheObject("typeid");
 		for (int i = 0; i < list.size(); i++) {

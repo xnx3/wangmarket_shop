@@ -152,6 +152,10 @@ public class GoodsTypeController extends BaseController {
 		//给实体赋值
 		fGoodsType.setRank(goodsType.getRank());
 		fGoodsType.setTitle(goodsType.getTitle());
+		//判断是否有图片地址，有就赋值
+		if(goodsType.getIcon() != null && !goodsType.getIcon().trim().equals("")) {
+			fGoodsType.setIcon(goodsType.getIcon());
+		}
 		//保存实体
 		sqlService.save(fGoodsType);
 		
