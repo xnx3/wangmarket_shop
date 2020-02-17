@@ -9,14 +9,14 @@ import com.xnx3.wangmarket.shop.entity.GoodsType;
  * @author 管雷鸣
  */
 public class GoodsTypeListVO extends BaseVO {
-	private List<GoodsType> goodsTypeList;	//商品分类的列表。这里是已经根据 GoodsType.rank 排序好
+	private List<GoodsType> list;	//商品分类的列表。这里是已经根据 GoodsType.rank 排序好
 
-	public List<GoodsType> getGoodsTypeList() {
-		return goodsTypeList;
+	public List<GoodsType> getList() {
+		return list;
 	}
 
-	public void setGoodsTypeList(List<GoodsType> goodsTypeList) {
-		this.goodsTypeList = goodsTypeList;
+	public void setList(List<GoodsType> list) {
+		this.list = list;
 	}
 
 }

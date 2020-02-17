@@ -33,7 +33,7 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 		
 		List<GoodsType> list = sqlService.findBySqlQuery("SELECT * FROM shop_goods_type WHERE storeid = "+storeid+" AND isdelete = "+GoodsType.ISDELETE_NORMAL +" ORDER BY rank ASC", GoodsType.class);
-		vo.setGoodsTypeList(list);
+		vo.setList(list);
 		return vo;
 	}
 
