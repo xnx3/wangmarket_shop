@@ -28,18 +28,6 @@ public class GoodsController extends BasePluginController {
 	private GoodsService goodsService;
 
 	/**
-	 * 获取某个店铺的商品分类
-	 * @param storeid 店铺id，对应 Store.id ,要获取的是哪个店铺的商品分类
-	 * @return {@link GoodsTypeListVO} 若不存在，则会new一个返回过来，不会存在null的情况
-	 */
-	@RequestMapping("getStoreGoodsType${url.suffix}")
-	@ResponseBody
-	public GoodsTypeListVO getStoreGoodsType(HttpServletRequest request,
-			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
-		return goodsService.getStoreGoodsType(storeid);
-	}
-	
-	/**
 	 * 获取商品列表
 	 * @param storeid 要获取哪个商铺的商品，这里是商店的ID，Store.id。  如果传入0，则是查询所有商铺的商品
 	 * @param typeid 要查询商铺中，哪个分类的商品。如果传入0，则是查询这个商店中所有的商品
@@ -51,9 +39,9 @@ public class GoodsController extends BasePluginController {
 	 * 				</ul>
 	 * @return {@link GoodsListVO}
 	 */
-	@RequestMapping("getGoodsList${url.suffix}")
+	@RequestMapping("list${url.suffix}")
 	@ResponseBody
-	public GoodsListVO getGoodsList(HttpServletRequest request,
+	public GoodsListVO list(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
 			@RequestParam(value = "typeid", required = false, defaultValue="0") int typeid,
 			@RequestParam(value = "orderBy", required = false, defaultValue="0") int orderBy){
@@ -66,9 +54,9 @@ public class GoodsController extends BasePluginController {
 	 * @param goodsid 要查看的商品id，goods.id
 	 * @return GoodsDetailsVO
 	 */
-	@RequestMapping("getGoodsDetails${url.suffix}")
+	@RequestMapping("details${url.suffix}")
 	@ResponseBody
-	public GoodsDetailsVO getGoodsDetails(HttpServletRequest request,
+	public GoodsDetailsVO details(HttpServletRequest request,
 			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid){
 		return goodsService.getGoodsDetails(goodsid);
 	}

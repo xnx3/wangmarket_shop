@@ -86,4 +86,9 @@ public class StoreCart{
 				+ "\"store\":"+storeJson+""
 				+ "}";
 	}
+
+	@Override
+	public String toString() {
+		return toJsonString();
+	}
 }

@@ -1,6 +1,9 @@
 package com.xnx3.wangmarket.shop.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.xnx3.j2ee.service.SqlService;
@@ -17,7 +20,9 @@ import com.xnx3.wangmarket.shop.vo.GoodsTypeListVO;
 public class GoodsServiceImpl implements GoodsService {
 	@Resource
 	private SqlService sqlService;
-
+	
+	Map<Integer, Integer> goodsidAndStoreidCache = new HashMap<Integer, Integer>();
+	
 	@Override
 	public GoodsTypeListVO getStoreGoodsType(int storeid) {
 		GoodsTypeListVO vo = new GoodsTypeListVO();

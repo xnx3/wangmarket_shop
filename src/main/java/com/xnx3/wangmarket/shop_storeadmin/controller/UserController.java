@@ -46,8 +46,7 @@ public class UserController extends BasePluginController {
 		// 配置每页显示15条
 		Page page = new Page(count, 15, request);
 		
-		String sqlQuery = "SELECT u.id AS id, shop_address.username AS username, shop_address.phone AS phone, shop_address.address AS address " + 
-			"FROM user u LEFT JOIN shop_address ON u.id = shop_address.userid ";
+		String sqlQuery = "SELECT * FROM user";
 		
 		// 查询出总页数
 		sql.setSelectFromAndPage(sqlQuery, page);

@@ -113,8 +113,6 @@ public class ShiroConfiguration {
 //        filterChainDefinitionMap.put("/site/*.do", "authc");
         filterChainDefinitionMap.put("/site/**", "anon");
         
-        filterChainDefinitionMap.put("/shop/**", "anon");
-        
         filterChainDefinitionMap.put("/sites/*.do", "authc");
         
         //插件
