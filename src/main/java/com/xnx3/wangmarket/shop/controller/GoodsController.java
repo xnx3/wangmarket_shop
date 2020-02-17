@@ -60,5 +60,7 @@ public class GoodsController extends BasePluginController {
 			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid){
 		return goodsService.getGoodsDetails(goodsid);
 	}
+	
 
+	
 }

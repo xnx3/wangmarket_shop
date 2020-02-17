@@ -64,7 +64,7 @@ public class GoodsServiceImpl implements GoodsService {
 						"isdelete = "+Goods.ISDELETE_NORMAL+" "+
 					"ORDER BY "+orderBySql;
 		List<Goods> list = sqlService.findBySqlQuery(sql, Goods.class);
-		vo.setGoodsList(list);
+		vo.setList(list);
 		return vo;
 	}
 

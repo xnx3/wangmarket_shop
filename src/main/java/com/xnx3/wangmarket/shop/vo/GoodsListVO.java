@@ -11,15 +11,15 @@ import com.xnx3.wangmarket.shop.entity.Goods;
  *
  */
 public class GoodsListVO extends BaseVO{
-	private List<Goods> goodsList;	//商品列表
+	private List<Goods> list;	//商品列表
 
-	public List<Goods> getGoodsList() {
-		return goodsList;
+	public List<Goods> getList() {
+		return list;
 	}
 
-	public void setGoodsList(List<Goods> goodsList) {
-		this.goodsList = goodsList;
+	public void setList(List<Goods> list) {
+		this.list = list;
 	}
-	
+
 	
 }
