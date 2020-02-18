@@ -47,6 +47,7 @@ public class GoodsTypeController extends BaseController {
 		sql.setSearchTable("shop_goods_type");
 		//查询条件
 		sql.appendWhere("isdelete = " + GoodsType.ISDELETE_NORMAL);
+		sql.appendWhere("storeid = " + getStoreId());
 		//配置按某个字端搜索内容
 		sql.setSearchColumn(new String[] {"title"});
 		// 查询数据表的记录总条数
@@ -57,7 +58,7 @@ public class GoodsTypeController extends BaseController {
 		// 查询出总页数
 		sql.setSelectFromAndPage("SELECT * FROM shop_goods_type ", page);
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
-		sql.setDefaultOrderBy("id DESC");
+		sql.setDefaultOrderBy("rank ASC");
 		
 		// 按照上方条件查询出该实体总数 用集合来装
 		List<GoodsType> list = sqlService.findBySql(sql,GoodsType.class);
@@ -133,6 +134,7 @@ public class GoodsTypeController extends BaseController {
 	@RequestMapping(value="/save${url.suffix}",method = {RequestMethod.POST})
 	public com.xnx3.j2ee.vo.BaseVO save(HttpServletRequest request,GoodsType goodsType) {
 		
+		//System.out.println(getStoreId());
 		Integer id = goodsType.getId();
 		//创建一个实体
 		GoodsType fGoodsType;

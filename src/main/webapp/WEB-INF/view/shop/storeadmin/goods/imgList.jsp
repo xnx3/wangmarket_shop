@@ -89,7 +89,7 @@ function deleteMes(id){
 	}, function(){
 		layer.close(dtp_confirm);
 		parent.iw.loading("删除中");    //显示“操作中”的等待提示
-		$.post('/admin/goods/deleteImg.do?id=' + id, function(data){
+		$.post('/shop/storeadmin/goods/deleteImg.do?id=' + id, function(data){
 		    parent.iw.loadClose();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
 		        parent.iw.msgSuccess('操作成功');
@@ -115,7 +115,7 @@ function addOrUpdate(id){
 		title:'编辑页面', 
 		area: ['500px', '300px'],
 		shadeClose: true, //开启遮罩关闭
-		content: '/admin/goods/toEditImgPage.do?goodId=${goodId}&id=' + id 
+		content: '/shop/storeadmin/goods/toEditImgPage.do?goodId=${goodId}&id=' + id 
 	});	 
 }
 

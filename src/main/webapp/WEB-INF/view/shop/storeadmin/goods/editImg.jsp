@@ -16,6 +16,8 @@
 		<div class="layui-input-block">
 			<input type="number" name="rank" id="rank" class="layui-input" value="${img.rank }">
 		</div>
+		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
+			数字越小越靠前</div>
 	</div>
 	
 		<!-- 标题图片、封面图片。若是使用，可以在 栏目管理 中，编辑栏目时，有个 信息录入的选项卡，找到 标题图片，点击 使用 即可。若是自己添加的输入模型，请保留 id="sitecolumn_editUseTitlepic" ,不然栏目设置中的是否使用图集功能将会失效！ -->
@@ -51,7 +53,7 @@
 		//upload.render(uploadPic);
 		upload.render({
 			elem: "#uploadImagesButton" //绑定元素
-			,url: '/admin/goods/uploadImage.do' //上传接口
+			,url: '/shop/storeadmin/common/uploadImage.do' //上传接口
 			,field: 'image'
 			,accept: 'file'
 			,done: function(res){
@@ -89,7 +91,7 @@
 		var d = $("form").serialize();
 		//表单序列化
 		parent.iw.loading("保存中");
-		$.post("/admin/goods/imgSave.do", d, function (result) {
+		$.post("/shop/storeadmin/goods/imgSave.do", d, function (result) {
 			parent.iw.loadClose();
 			var obj = JSON.parse(result);
 			if(obj.result == '1'){

@@ -7,6 +7,13 @@
 </jsp:include>
 <script src="/<%=Global.CACHE_FILE %>GoodsType_typeid.js"></script>
 <script src="/<%=Global.CACHE_FILE %>GoodsType_putaway.js"></script>
+
+<style type="text/css" >
+	.layui-btn-xs{
+	height:30px;
+	font-size:20px;
+	}
+</style >
 <form id="form" class="layui-form" action="" style="padding:20px; padding-top:35px; margin-bottom: 10px;">
 	<input type="hidden" value="${item.id }" name="id" >
 	
@@ -32,10 +39,6 @@
 		</div>
 	</div>
 	
-	${text}
-<script type="text/javascript" src="/js/admin/cms/news_extend_photos.js"></script>
-	
-	
 	<div class="layui-form-item" id="xnx3_editMode">
 		<label class="layui-form-label" id="columnEditMode">库存数量<i class="layui-icon" style="color: red;size:">*</i></label>
 		<div class="layui-input-block">
@@ -44,63 +47,11 @@
 	</div>
 	
 	<div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode">警告数量<i class="layui-icon" style="color: red;size:">*</i></label>
-		<div class="layui-input-block">
-			<input type="number" name="alarmNum" id="alarmNum" class="layui-input" value="${item.alarmNum }" >
-		</div>
-		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
-		库存量低于这个数，会通知商家告警，提醒商家该加库存了</div>
-	</div>
-	
-	<div class="layui-form-item" id="xnx3_editMode">
 		<label class="layui-form-label" id="columnEditMode">商品分类<i class="layui-icon" style="color: red;size:">*</i></label>
 		<div class="layui-input-block">
 			<script type="text/javascript">writeSelectAllOptionFortypeid_('${item.typeid }','请选择分类', true);</script>
 			
 		</div>
-	</div>
-	<div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode">上下架<i class="layui-icon" style="color: red;size:">*</i></label>
-		<div class="layui-input-block">
-			<script type="text/javascript">writeSelectAllOptionForputaway_('${item.putaway }','请选择上下架', true);</script>
-		</div>
-		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
-		设置下架用户将看不到</div>
-	</div>
-	
-	<%-- <div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode">定时上架</label>
-		<div class="layui-input-block">
-			<input type="text" name="online_countdown" id="onlineCountdown" class="layui-input time" <c:if test = "${item.onlineCountdown != null && item.onlineCountdown != 0}">value='<x:time linuxTime="${item.onlineCountdown }" format="yyyy-MM-dd HH:mm:ss"></x:time>'</c:if> >
-		</div>
-	</div>
-	
-	<div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode">定时下架</label>
-		<div class="layui-input-block">
-			<input type="text" name="soldout_countdown" id="soldoutCountdown" class="layui-input time" <c:if test = "${item.soldoutCountdown != null && item.soldoutCountdown != 0}">value='<x:time linuxTime="${item.soldoutCountdown }" format="yyyy-MM-dd HH:mm:ss"></x:time>'</c:if> >
-		</div>
-		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
-		时间到了，商品下架用户将看不到</div>
-	</div>
-	 --%>
-	
-	<div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode" >假售数量<span style="color: red">*</span></label>
-		<div class="layui-input-block">
-			<input type="number" name="fakeSale" id="fakeSale" class="layui-input" value="${item.fakeSale }" >
-		</div>
-		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
-		用户看到的销量=真是销量+虚拟售数量</div>
-	</div>
-	
-	<div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode">计量单位<i class="layui-icon" style="color: red;size:">*</i></label>
-		<div class="layui-input-block">
-			<input type="text" name="units" id="units" class="layui-input" value="${item.units }" >
-		</div>
-		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
-		计量，单位。如个、斤、条等。</div>
 	</div>
 	
 	<div class="layui-form-item" id="xnx3_editMode">
@@ -119,6 +70,43 @@
 		</div>
 		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
 		单位：元，只显示两位小数，在用户页面多一条斜线</div>
+	</div>
+	
+	<div class="layui-form-item" id="xnx3_editMode">
+		<label class="layui-form-label" id="columnEditMode">上下架</label>
+		<div class="layui-input-block">
+			<script type="text/javascript">writeSelectAllOptionForputaway_('${item.putaway }','请选择上下架', true);</script>
+		</div>
+		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
+		设置下架用户将看不到，默认为上架</div>
+	</div>
+	
+	
+	<div class="layui-form-item" id="xnx3_editMode">
+		<label class="layui-form-label" id="columnEditMode">警告数量</label>
+		<div class="layui-input-block">
+			<input type="number" name="alarmNum" id="alarmNum" class="layui-input" value="${item.alarmNum }" >
+		</div>
+		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
+		库存量低于这个数，会通知商家告警，提醒商家该加库存了，默认为0</div>
+	</div>
+	
+	<div class="layui-form-item" id="xnx3_editMode">
+		<label class="layui-form-label" id="columnEditMode" >假售数量</label>
+		<div class="layui-input-block">
+			<input type="number" name="fakeSale" id="fakeSale" class="layui-input" value="${item.fakeSale }" >
+		</div>
+		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
+		用户看到的销量=真是销量+虚拟售数量，默认为0</div>
+	</div>
+	
+	<div class="layui-form-item" id="xnx3_editMode">
+		<label class="layui-form-label" id="columnEditMode">计量单位</label>
+		<div class="layui-input-block">
+			<input type="text" name="units" id="units" class="layui-input" value="${item.units }" >
+		</div>
+		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
+		计量，单位。如个、斤、条等。默认个</div>
 	</div>
 	
 	
@@ -232,24 +220,8 @@ layui.use('upload', function(){
 			iw.msgFailure("请输入库存数量");
 			return ;
 		}
-		if($("#alarmNum").val() == ''){
-			iw.msgFailure("请输入告警数量");
-			return ;
-		}
-		if($("#putaway").val() == ''){
-			iw.msgFailure("请选择上下架状态");
-			return ;
-		}
-		if($("#putaway").val() == ''){
-			iw.msgFailure("请选择状态");
-			return ;
-		}
-		if($("#units").val() == ''){
-			iw.msgFailure("请输入计量单位");
-			return ;
-		}
-		if($("#fakeSale").val() == ''){
-			iw.msgFailure("请输入假的已售数量");
+		if($("#inventory").val() == ''){
+			iw.msgFailure("请输入库存数量");
 			return ;
 		}
 		if($("#price").val() == ''){
@@ -258,10 +230,6 @@ layui.use('upload', function(){
 		}
 		if($("#originalPrice").val() == ''){
 			iw.msgFailure("请输入原价");
-			return ;
-		}
-		if($("#userBuyRestrict").val() == ''){
-			iw.msgFailure("请输入购买限制");
 			return ;
 		}
 		var price = $("#price").val();

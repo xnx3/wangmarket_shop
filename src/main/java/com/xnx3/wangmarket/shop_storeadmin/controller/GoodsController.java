@@ -51,6 +51,7 @@ public class GoodsController extends BaseController {
 		sql.setSearchTable("shop_goods");
 		//查询条件
 		sql.appendWhere("isdelete = " + Goods.ISDELETE_NORMAL);
+		sql.appendWhere("storeid = " + getStoreId());
 		//配置按某个字端搜索内容
 		sql.setSearchColumn(new String[] {"title","typeid"});
 		// 查询数据表的记录总条数
@@ -115,7 +116,6 @@ public class GoodsController extends BaseController {
 	public String toEditPage(Model model ,HttpServletRequest request,
 		@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		
-		String text = textModel;
 		if(id > 0) {
 			//查找商品
 			Goods goods = sqlService.findById(Goods.class, id);
@@ -125,30 +125,15 @@ public class GoodsController extends BaseController {
 			model.addAttribute("data", goodsData);
 			//查找商品顶部轮播图
 			GoodsImage  imgs = sqlService.findAloneByProperty(GoodsImage.class, "goodsid", id);
-			
-			if(imgs.getImageUrl() == null) {
-				//不处理
-			}else {
-				//JSONObject extendJson = new JSONObject();
-				//JSONArray jsonArray = extendJson.getJSONArray(imgs.getImageUrl());
-				text = GoodsController.replaceAll(text, GoodsController.regex("news.extend.photos"), imgs.getImageUrl());
-				/*
-				 * if(jsonArray.size() == 1){ //如果里面只有一个值，那么就将具体值返回 }else{ //如果里面有多个值，那么返回的将是数组
-				 * textModel = GoodsController.replaceAll(textModel,
-				 * GoodsController.regex("news.extend.photos"), jsonArray.toString()); }
-				 */
-			}
-		}else {
-			text = GoodsController.replaceAll(text, GoodsController.regex("news.extend.photos"), "");
-		}
+		} 
 		ActionLogUtil.insert(request, getUserId(), "查看商品ID为" + (id == 0 ? "":id)+ "的详情，跳转到编辑页面");
-		model.addAttribute("text",text);
+//		model.addAttribute("text",text);
 		return "/shop/storeadmin/goods/edit";
 		
 	}
 	
 	/**
-	 * 添加修改商品分类
+	 * 添加修改商品
 	 * @author 关光礼
 	 * @param Goods 接受参数的实体类
 	 * @return
@@ -169,6 +154,7 @@ public class GoodsController extends BaseController {
 			goods.setSale(0);
 			goods.setStoreid(getStoreId());
 			goods.setUserBuyRestrict(0);
+			goods.setStoreid(getStoreId());
 		}else {
 			//修改
 			goods = sqlService.findById(Goods.class, id);
@@ -179,15 +165,34 @@ public class GoodsController extends BaseController {
 		//接受时间参数
 		
 		//给实体赋值
-		goods.setAlarmNum(inputGoods.getAlarmNum());
-		goods.setFakeSale(inputGoods.getFakeSale());
+		if(inputGoods.getAlarmNum() == null) {
+			goods.setAlarmNum(0);
+		}else {
+			goods.setAlarmNum(inputGoods.getAlarmNum());
+		}
+		
+		if(inputGoods.getFakeSale() == null) {
+			goods.setFakeSale(0);
+		}else {
+			goods.setFakeSale(inputGoods.getFakeSale());
+		}
+		
+		if(inputGoods.getPutaway() == null) {
+			goods.setPutaway(Goods.PUTAWAY_SELL);
+		}else {
+			goods.setPutaway(inputGoods.getPutaway());
+		}
+		
+		if(inputGoods.getUnits() == null || inputGoods.getUnits().equals("")) {
+			goods.setUnits("个");
+		}else {
+			goods.setUnits(inputGoods.getUnits());
+		}
 		goods.setInventory(inputGoods.getInventory());
 		goods.setOriginalPrice(inputGoods.getOriginalPrice());
 		goods.setPrice(inputGoods.getPrice());
-		goods.setPutaway(inputGoods.getPutaway());
 		goods.setTitle(inputGoods.getTitle());
 		goods.setTypeid(inputGoods.getTypeid());
-		goods.setUnits(inputGoods.getUnits());
 		goods.setUpdatetime(DateUtil.timeForUnix10());
 		goods.setTitlepic(inputGoods.getTitlepic());
 		//保存实体
@@ -205,33 +210,6 @@ public class GoodsController extends BaseController {
 		data.setDetail(detail);
 		sqlService.save(data);
 		
-		//商品顶部轮播图
-		String extend = "";
-		Map<String, String[]> extendMap = new HashMap<String, String[]>();
-		for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
-			if(entry.getKey().indexOf("extend.") > -1){
-//				System.out.println("newssave---->"+entry.getKey());
-				//保存入时，将 extend. 过滤掉
-				extendMap.put(entry.getKey().replace("extend.", ""), entry.getValue());
-			}
-		}
-		
-		//有扩展的自定义字段，则进行json转换
-		if(extendMap.size() > 0){
-			JSONObject extendJson = JSONObject.fromObject(extendMap);
-			extend = extendJson.toString();
-			//去掉前面的参数名字
-			extend = GoodsController.replaceAll(extend, "\"photos\":","");
-			//截掉开始和结束的{}
-			extend = extend.substring(1, extend.length()-1);
-		}
-		GoodsImage imgs = sqlService.findAloneByProperty(GoodsImage.class, "goodsid", goods.getId());
-		if(imgs == null) {
-			imgs = new GoodsImage();
-			imgs.setGoodsid(goods.getId());
-		}
-		imgs.setImageUrl(extend.equals("{news.extend.photos}") ? "":extend);
-		sqlService.save(imgs);
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, goods.getId(),"Id为" + goods.getId() + "的商品添加或修改，内容:" + goods.toString());
 		
@@ -526,60 +504,5 @@ public class GoodsController extends BaseController {
 		return success();
 	}
 	
-	/**
-	 * 替换特殊字符，避免再执行替换使，因为特殊字符的存在，影响正则匹配，导致替换出错
-	 * @param sourceText 进行替换的原始字符串 sourceText.replaceALl
-	 * @param regex 要替换sourceText的什么文字
-	 * @param replacement 要将regex替换成什么
-	 * @return 替换好的
-	 */
-	public static String replaceAll(String sourceText, String regex, String replacement){
-		if(sourceText == null){
-			return null;
-		}
-		if(regex == null || replacement == null){
-			return sourceText;
-		}
-
-		//将$符号替换为 \$
-		replacement = replacement.replaceAll("\\$", "\\\\\\$");  
-		
-		return sourceText.replaceAll(regex, replacement);
-	}
-	
-	/**
-	 * 获取模版中的可替换的{}标签
-	 * @param regexString 标签英文名
-	 * @return 完整标签
-	 */
-	public static String regex(String regexString){
-		return "\\{"+regexString+"\\}";
-	}
-	
-	static String textModel = "<div class=\"layui-form-item\" id=\"sitecolumn_editUseExtendPhotos\" style=\"\">\r\n" + 
-			"	<div id=\"photosDefaultValue\" style=\"display:none;\">{news.extend.photos}</div><!-- 这里放置图集原本的值 -->\r\n" + 
-			"	<input type=\"hidden\" value=\"0\" id=\"photos_i\" style=\"display:none;\" /><!-- 这里放循环输出input的i，也就是extend.photos数组下标。也就是图集中有多少个input输入框。从0开始。此处由 appendPhotosInput 自动管理，不可吧此删除掉。 -->\r\n" + 
-			"	<label class=\"layui-form-label\" id=\"label_columnName\">商品轮播图</label>\r\n" + 
-			"	<div class=\"layui-input-block\" id=\"photoInputList\" style=\"min-height: 0px;\">\r\n" + 
-			"		<!-- 同样，这个 photoInputList 里面的也算是每一个item的模版。item模版开始 -->\r\n" + 
-			"		<div id=\"photos_input_item_{i}\" style=\"padding-top:5px;\">\r\n" + 
-			"			<input name=\"extend.photos\" id=\"titlePicInput{i}\" type=\"text\" autocomplete=\"off\" placeholder=\"点击右侧添加\" class=\"layui-input\" value=\"{value}\" style=\"padding-right: 174px;\">\r\n" + 
-			"			<button type=\"button\" name=\"{i}\" class=\"layui-btn uploadImagesButton\" id=\"uploadImagesButton{i}\" style=\"float: right;margin-top: -38px;\">\r\n" + 
-			"				<i class=\"layui-icon layui-icon-upload\"></i>\r\n" + 
-			"			</button>\r\n" + 
-			"			<a href=\"{value}\" id=\"titlePicA{i}\" style=\"float: right;margin-top: -38px;margin-right: 116px;\" title=\"预览原始图片\" target=\"_black\">\r\n" + 
-			"				<img id=\"titlePicImg{i}\" src=\"{value}?x-oss-process=image/resize,h_38\" onerror=\"this.style.display='none';\" style=\"height: 36px;max-width: 57px; padding-top: 1px;\" alt=\"预览原始图片\">\r\n" + 
-			"			</a><input class=\"layui-upload-file\" type=\"file\" name=\"fileName\">\r\n" + 
-			"			<a href=\"javascript:deletePhotosInput('{i}');\" class=\"layui-btn\" style=\"float: right;margin-top: -38px;margin-right: 58px;\" title=\"删除\" >\r\n" + 
-			"				<i class=\"layui-icon layui-icon-delete\"></i>\r\n" + 
-			"			</a>\r\n" + 
-			"		</div>\r\n" + 
-			"		<!-- item模版结束 -->\r\n" + 
-			"	</div>\r\n" + 
-			"	<div style=\"padding-top:5px; padding-left:110px;\">\r\n" + 
-			"		<a href=\"javascript:appendPhotosInput('');\" class=\"layui-btn layui-btn-sm layui-btn-primary layui-btn-radius\" style=\"float:left;\">向图集添加一个图片输入框</a>\r\n" + 
-			"		<!-- <div class=\"explain\" style=\" float: left; padding-left: 15px; padding-top: 6px; float:left;\">这里显示图集的上传指引，比如：建议图片比例为4:3</div> -->\r\n" + 
-			"	</div>\r\n" + 
-			"</div>";
 
 }

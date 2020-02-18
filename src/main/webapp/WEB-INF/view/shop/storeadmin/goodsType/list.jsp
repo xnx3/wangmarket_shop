@@ -30,9 +30,9 @@
   <thead>
     <tr>
 		<th style="text-align:center;">ID</th>
+        <th style="text-align:center;">排序</th>
         <th style="text-align:center;">分类名字</th>
          <th style="text-align:center;">图标</th>
-        <th style="text-align:center;">排序</th>
         <th style="text-align:center;">操作</th>
     </tr> 
   </thead>
@@ -40,11 +40,11 @@
 	<c:forEach var="item" items="${list }">
 		<tr>
 			<td style="text-align:center;">${item.id }</td>
+			<td style="text-align:center;">${item.rank }</td>
 			<td style="text-align:center;">${item.title }</td>
 			<td style="text-align:center;">
 			<a  href="${item.icon}" target="_black"><img src = '${item.icon }' /></a>
 			</td>
-			<td style="text-align:center;">${item.rank }</td>
 			<td style="text-align:center;width: 200px;">
 		 	    <!-- 修改新闻信息 -->
 		 	   <a class="layui-btn layui-btn-sm" onclick="addOrUpdate('${item.id }')" style=""><i class="layui-icon">&#xe642;</i></a>	 
@@ -132,7 +132,7 @@ function addOrUpdate(id){
 	 layer.open({
 		type: 2, 
 		title:'编辑页面', 
-		area: ['500px', '300px'],
+		area: ['500px', '400px'],
 		shadeClose: true, //开启遮罩关闭
 		content: '/shop/storeadmin/goodsType/toEditPage.do?id=' + id
 	});	 

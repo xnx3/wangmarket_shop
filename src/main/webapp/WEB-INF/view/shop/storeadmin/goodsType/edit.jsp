@@ -35,6 +35,8 @@
 		<div class="layui-input-block">
 			<input type="text" name="rank" id="rank" class="layui-input" value="${item.rank }" >
 		</div>
+		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
+		数字越小越靠前</div>
 	</div>
 	
 	<div class="layui-form-item">

@@ -47,7 +47,7 @@
         <th style="text-align:center;">缩略图</th>
         <th style="text-align:center;">库存</th>
         <th style="text-align:center;">告警数量</th>
-        <th style="text-align:center;">上下架状态</th>
+        <th style="text-align:center;">上下架</th>
         <th style="text-align:center;">已售数量</th>
         <th style="text-align:center;">价格</th>
         <th style="text-align:center;">操作</th>
@@ -67,14 +67,19 @@
 			<td style="text-align:center;">${item.inventory }</td>
 			<td style="text-align:center;">${item.alarmNum }</td>
 			<td style="text-align:center;">
-				<c:if test="${item.putaway == 0}">已下架</c:if>
-				<c:if test="${item.putaway == 1}">上架中</c:if>
+				<c:if test="${item.putaway == 0}">下架 
+				 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updatePutWay('${item.id }');" style="margin-left: 3px;margin-top:-1px;">更改</botton>	
+				</c:if>
+				<c:if test="${item.putaway == 1}">上架
+				 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updatePutWay('${item.id }');" style="margin-left: 3px;margin-top:-1px;">更改</botton>	
+				</c:if>
 			</td>
 			
 			<td style="text-align:center;">${item.sale }</td>
 			<td style="text-align:center;">${item.price /100}</td>
 			
 			<td style="text-align:center;width: 200px;">
+		 	   <a class="layui-btn layui-btn-sm" onclick="imgList('${item.id }')" style="margin-left: 0;"><i class="layui-icon">轮播图</i></a>	 
 		 	   <a class="layui-btn layui-btn-sm" onclick="addOrUpdate('${item.id }')" style="margin-left: 0;"><i class="layui-icon">&#xe642;</i></a>	 
 		 	   <a class="layui-btn layui-btn-sm" onclick="deleteMes('${item.id }')" style="margin-left: 0"><i class="layui-icon">&#xe640;</i></a>
 			</td>
@@ -142,6 +147,23 @@ function deleteMes(id){
 		
 	});
 }
+//修改信息 id：商品id
+function updatePutWay(id){
+	
+	parent.iw.loading("更改中");    //显示“操作中”的等待提示
+	$.post('/shop/storeadmin/goods/updatePutaway.do?id=' + id, function(data){
+	    parent.iw.loadClose();    //关闭“操作中”的等待提示
+	    if(data.result == '1'){
+	        parent.iw.msgSuccess('操作成功');
+	        window.location.reload();	//刷新当前页
+	     }else if(data.result == '0'){
+	         parent.iw.msgFailure(data.info);
+	     }else{
+	         parent.iw.msgFailure();
+	     }
+	});
+	
+}
 
 //跳转到商品详情的编辑 id:商品id
 function detail(id){
@@ -155,7 +177,7 @@ function imgList(id){
 		title:'轮播图', 
 		area: ['800px', '500px'],
 		shadeClose: true, //开启遮罩关闭
-		content: '/admin/goods/imgList.do?id=' + id
+		content: '/shop/storeadmin/goods/imgList.do?id=' + id
 	});	 
 }
 
