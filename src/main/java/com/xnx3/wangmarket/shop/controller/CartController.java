@@ -17,6 +17,7 @@ import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.entity.Goods;
 import com.xnx3.wangmarket.shop.service.CartService;
 import com.xnx3.wangmarket.shop.vo.CartVO;
+import com.xnx3.wangmarket.shop.vo.GoodsCartVO;
 import com.xnx3.wangmarket.shop.vo.StoreCartVO;
 import com.xnx3.wangmarket.shop.vo.bean.GoodsCart;
 import com.xnx3.wangmarket.shop.vo.bean.StoreCart;
@@ -134,6 +135,32 @@ public class CartController extends BasePluginController {
 		//从购物车中取数据
 		return cartVoToStoreCartVo(cartService.getCart(), storeid);
 	}
+	
+	/**
+	 * 获取某个商品的购物车信息，如这个商品在购物车中是否被选中，在购物车中的数量是几等
+	 * @param storeid 商家的店铺id， store.id
+	 * @param goodsid 要查看的商品的id， goods.id
+	 */
+	@RequestMapping(value="getGoodsCart${url.suffix}",method= {RequestMethod.POST})
+	@ResponseBody
+	public GoodsCartVO getGoodsCart(HttpServletRequest request,
+			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
+			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid){
+		GoodsCartVO vo = null;
+		
+		StoreCartVO storeCartVO = getStoreCart(request, storeid);
+		if(storeCartVO != null){
+			GoodsCart goodsCart = storeCartVO.getGoodsCartMap().get(goodsid);
+			vo = new GoodsCartVO(goodsCart);
+		}
+		if(vo == null){
+			vo = new GoodsCartVO();
+		}
+		
+		ActionLogUtil.insert(request, "获取购物车中某个商品的数据");
+		return vo;
+	}
+	
 	
 	/**
 	 * 将 {@link CartVO} 转为 {@link StoreCartVO}

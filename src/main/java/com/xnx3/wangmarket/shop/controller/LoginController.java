@@ -122,4 +122,17 @@ public class LoginController extends BaseController {
 		}
 	}
 	
+	/**
+	 * 获取token，也就是获取 sessionid
+	 * @return info便是sessionid
+	 */
+	@RequestMapping(value="getToken${url.suffix}", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseVO getToken(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		String token = session.getId();
+		ActionLogUtil.insert(request, "获取token", token);
+		return success(token);
+	}
+	
 }
