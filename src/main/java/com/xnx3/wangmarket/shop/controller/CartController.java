@@ -38,6 +38,7 @@ public class CartController extends BasePluginController {
 	
 	/**
 	 * 操作购物车中的商品进行加减操作
+	 * @param storeid 要操作哪个店铺的购物车信息，对应 store.id。
 	 * @param goodsid 要修改的购物车中的商品编号，必传，对应 {@link Goods}.id
 	 * @param changeNumber 要修改购物车中对应商品编号的商品，是增加，还是减少，这里便是增加或者减少的数值。
 	 * 				<ul>
@@ -48,13 +49,14 @@ public class CartController extends BasePluginController {
 	 */
 	@RequestMapping(value="change${url.suffix}",method= {RequestMethod.POST})
 	@ResponseBody
-	public CartVO change(HttpServletRequest request,
+	public StoreCartVO change(HttpServletRequest request,
+			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
 			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid,
 			@RequestParam(value = "changeNumber", required = false, defaultValue="0") int changeNumber){
 		//购物车的数据存在于Session中
 		CartVO cartVO = cartService.cart(goodsid, changeNumber);
 		ActionLogUtil.insert(request, "操作购物车中的商品进行加减操作");
-		return cartVO;
+		return cartVoToStoreCartVo(cartVO, storeid);
 	}
 	
 	
@@ -92,15 +94,18 @@ public class CartController extends BasePluginController {
 	/**
 	 * 购物车中的商品，选中或不选中购物车中的商品，以便进行下一步进行结算
 	 * @param goodsid 要选中或者不选中的商品，对应 {@link Goods}.id 
+	 * @param storeid 要操作的商品所在的店铺，对应 {@link Store}.id 
 	 * @param selected 是否选中， 1选中， 0不选
 	 * @return {@link CartVO}
 	 */
 	@RequestMapping(value="goodsCartSelected${url.suffix}",method= {RequestMethod.POST})
 	@ResponseBody
-	public CartVO goodsCartSelected(HttpServletRequest request,
+	public StoreCartVO goodsCartSelected(HttpServletRequest request,
 			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid,
+			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
 			@RequestParam(value = "selected", required = false, defaultValue="0") int selected){
-		return cartService.selectedByGoodsId(goodsid, selected);
+		CartVO cartVO = cartService.selectedByGoodsId(goodsid, selected);
+		return cartVoToStoreCartVo(cartVO, storeid);
 	}
 	
 	/**
