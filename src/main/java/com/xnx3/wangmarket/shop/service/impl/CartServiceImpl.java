@@ -90,7 +90,7 @@ public class CartServiceImpl implements CartService {
 			//增加操作
 			
 			//判断增加后的数值，跟商品库存的比较，如果大于库存肯定是不行的
-			if(goods.getInventory() - goodsCart.getNumber() - changeNumber < 0){
+			if(goods.getInventory() - (goodsCart.getNumber() + changeNumber) < 0){
 				cartVO.setBaseVO(CartVO.FAILURE, "增加失败，商品库存不足");
 				return cartVO;
 			}

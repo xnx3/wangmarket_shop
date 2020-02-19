@@ -45,7 +45,7 @@ public class CartController extends BasePluginController {
 	 * 					<li>正数，增加
 	 * 					<li>负数，减少。最多能减少到0，如果到0，也就是将这个商品从购物车中清除掉了。例如，想要清除掉某个商品，那么可以传入 -99999
 	 * 				</ul>
-	 * @return {@link CartVO}购物车记录
+	 * @return {@link CartVO} 当前的购物车数据
 	 */
 	@RequestMapping(value="change${url.suffix}",method= {RequestMethod.POST})
 	@ResponseBody
@@ -184,6 +184,7 @@ public class CartController extends BasePluginController {
 			vo.setMoney(storeCart.getMoney());
 			vo.setNumber(storeCart.getNumber());
 			vo.setGoodsCartMap(storeCart.getGoodsCartMap());
+			vo.setBaseVO(cartVO.getResult(), cartVO.getInfo());
 		}
 		return vo;
 	}
