@@ -17,7 +17,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  * Order 订单表
  * @author 管雷鸣
  */
-@Entity(name="shop_order")
+@Entity()
 @Table(name = "shop_order", indexes={@Index(name="suoyin_index",columnList="no,storeid,userid,state")})
 public class Order extends BaseEntity {
 	
@@ -30,16 +30,19 @@ public class Order extends BaseEntity {
 	 */
 	public static final String STATE_PAYTIMEOUT_CANCEL = "pay_timeout_cancel";	
 	/**
-	 * 主动取消，订单未支付
+	 * 取消订单，订单未支付时，主动取消
 	 */
 	public static final String STATE_MY_CANCEL = "my_cancel";	
 	/**
 	 * 已付款，通过支付宝、微信支付等支付完成，订单进入配送中
 	 */
-	public static final String STATE_PAY = "pay";	
-	
+	public static final String STATE_PAY = "pay";
 	/**
-	 * 退款中，用户点击申请退款，就会变成退款中的状态，因为微信支付真正给用户退款，有可能会等三个工作日
+	 * 线下支付，下单后，点击线下支付，将订单转为线下支付状态。此状态跟 STATE_PAY 已付款 状态是并列的
+	 */
+	public static final String STATE_PRIVATE_PAY = "private_pay";
+	/**
+	 * 退款中，用户点击申请退款，就会变成退款中的状态
 	 */
 	public static final String STATE_CANCELMONEY_ING = "refund_ing";	
 	/**
@@ -48,9 +51,9 @@ public class Order extends BaseEntity {
 	 */
 	public static final String STATE_CANCELMONEY_FINISH = "refund_finish";	
 	/**
-	 * 已完成。以配送给用户
+	 * 已收到货物，已确定收货
 	 */
-	public static final String STATE_TRANSPORTING = "complete";	
+	public static final String STATE_RECEIVE_GOODS = "receive_goods";	
 	/**
 	 * 支付完成，配送中
 	 */
@@ -66,9 +69,6 @@ public class Order extends BaseEntity {
 	private Integer userid;		//该订单所属的用户，是哪个用户下的单，对应 User.id
 	private String state;		//订单状态，限20个字符
 	private String remark;		//用户备注，限制100个字符
-	private String phone;       //用户电话
-	private String address;		//用户地址信息
-	private String username;	//用户填写名字
 	
 	private Integer version;	//乐观锁
 	
@@ -176,41 +176,12 @@ public class Order extends BaseEntity {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	
-	@Column(name = "phone", columnDefinition="char(20) comment '用户电话'")
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	
-	@Column(name = "address", columnDefinition="char(100) comment '用户填写地址'")
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
-	@Column(name = "username", columnDefinition="char(20) comment '用户填写名字'")
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", no=" + no + ", storeid=" + storeid + ", addtime=" + addtime + ", totalMoney="
 				+ totalMoney + ", payMoney=" + payMoney + ", payTime=" + payTime + ", userid=" + userid + ", state="
-				+ state + ", remark=" + remark + ", phone=" + phone + ", address=" + address + ", username=" + username
-				+ ", version=" + version + "]";
+				+ state + ", remark=" + remark + ", version=" + version + "]";
 	}
-
 
 }

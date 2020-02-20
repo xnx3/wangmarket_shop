@@ -23,7 +23,7 @@ public class Order extends BaseGenerate {
 		cacheAdd(com.xnx3.wangmarket.shop.entity.Order.STATE_CREATE_BUT_NO_PAY, "待付款");
 		cacheAdd(com.xnx3.wangmarket.shop.entity.Order.STATE_PAY, "已付款");
 		cacheAdd(com.xnx3.wangmarket.shop.entity.Order.STATE_PAYTIMEOUT_CANCEL, "超时取消");
-		cacheAdd(com.xnx3.wangmarket.shop.entity.Order.STATE_TRANSPORTING, "已配送");
+		cacheAdd(com.xnx3.wangmarket.shop.entity.Order.STATE_RECEIVE_GOODS, "已确认收货");
 		cacheAdd(com.xnx3.wangmarket.shop.entity.Order.STATE_DISTRIBUTION_ING, "配送中");
 		generateCacheFile();
 	}
