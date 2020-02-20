@@ -14,7 +14,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  * 收货地址
  * @author 管雷鸣
  */
-@Entity(name="shop_address")
+@Entity()
 @Table(name = "shop_address", indexes={@Index(name="suoyin_index",columnList="longitude,latitude,userid")})
 public class Address extends BaseEntity {
 

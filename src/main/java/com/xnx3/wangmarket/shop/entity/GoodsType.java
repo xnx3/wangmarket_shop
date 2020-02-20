@@ -13,7 +13,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  * 商品分类，如水产品、奶产品、饼干、零食，每个都是一个分类
  * @author 管雷鸣
  */
-@Entity(name="shop_goods_type")
+@Entity()
 @Table(name = "shop_goods_type", indexes={@Index(name="suoyin_index",columnList="rank,storeid,isdelete")})
 public class GoodsType extends BaseEntity {
 	

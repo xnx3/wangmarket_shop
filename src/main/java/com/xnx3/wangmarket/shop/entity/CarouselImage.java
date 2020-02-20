@@ -16,7 +16,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  * @author 管雷鸣
  *
  */
-@Entity(name="shop_carousel_image")
+@Entity()
 @Table(name = "shop_carousel_image", indexes={@Index(name="suoyin_index",columnList="rank")})
 public class CarouselImage extends BaseEntity{
 	/**

@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * 店铺信息。商城中可以有多个店铺，这个店铺就类似于淘宝店的性质
  * @author 管雷鸣
  */
-@Entity(name="shop_store")
+@Entity()
 @Table(name = "shop_store", indexes={@Index(name="suoyin_index",columnList="userid,state,longitude,latitude,province,city,district,sale")})
 public class Store implements java.io.Serializable {
 	/**

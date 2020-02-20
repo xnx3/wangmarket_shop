@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * 订单内的商品
  * @author 管雷鸣
  */
-@Entity(name="shop_order_goods")
+@Entity()
 @Table(name = "shop_order_goods", indexes={@Index(name="suoyin_index",columnList="orderid,goodsid,userid")})
 public class OrderGoods {
 	private Integer id;				//自动编号

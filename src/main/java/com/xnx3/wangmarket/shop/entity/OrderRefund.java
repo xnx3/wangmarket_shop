@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * @author 管雷鸣
  *
  */
-@Entity(name="shop_order_refund")
+@Entity()
 @Table(name = "shop_order_refund", indexes={@Index(name="suoyin_index",columnList="userid,orderid,storeid,state")})
 public class OrderRefund {
 
