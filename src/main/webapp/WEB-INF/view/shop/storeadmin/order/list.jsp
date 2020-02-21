@@ -9,9 +9,13 @@
 .remarktr {
 	background:#f2f2f2;
 }
+.toubu_xnx3_search_form {
+    padding-top: 0px;
+    padding-bottom: 10px;
+	}
 </style>
 <div style="height:10px;"></div>
-<script src="/<%=Global.CACHE_FILE %>OrderState_state.js"></script>
+<script src="/<%=Global.CACHE_FILE %>Order_state.js"></script>
 <jsp:include page="../../../iw/common/list/formSearch_formStart.jsp" ></jsp:include>
 
 	<jsp:include page="../../../iw/common/list/formSearch_input.jsp">
@@ -33,15 +37,10 @@
     <tr>
 		<th style="text-align:center;">ID</th>
 		<th style="text-align:center;">订单号</th>
-        <th style="text-align:center;">用户ID</th>
-         <th style="text-align:center;">总金额</th>
-        <th style="text-align:center;">实际支付的金额</th>
+        <th style="text-align:center;">应付金额</th>
         <th style="text-align:center;">状态</th>
-        <th style="text-align:center;">创建时间</th>
-        <th style="text-align:center;">支付时间</th>
-        <th style="text-align:center;">订单内商品</th>
-        <th style="text-align:center;">退款记录</th>
-        <!-- <th style="text-align:center;">操作</th> -->
+        <th style="text-align:center;">下单时间</th>
+        <th style="text-align:center;">操作</th>
     </tr> 
   </thead>
   <tbody id="tbody">
@@ -49,8 +48,6 @@
 			<tr>
 				<td style="text-align:center;">${item.id }</td>
 				<td style="text-align:center;">${item.no }</td>
-				<td style="text-align:center;">${item.userid }</td>
-				<td style="text-align:center;">${item.totalMoney }</td>
 				<td style="text-align:center;">${item.payMoney }</td>
 				<td style="text-align:center;">
 				<script type="text/javascript">document.write(state['${item['state']}']);</script>
@@ -61,20 +58,7 @@
 					</c:if>
 				</td>
 				<td style="text-align:center;">
-					<c:if test="${item.payTime != null }">
-						<x:time linuxTime="${item.payTime}" format="yy-MM-dd HH:mm:ss"></x:time>
-					</c:if>
-					<c:if test="${item.payTime == null }">
-						未支付
-					</c:if>
-				</td>				
-				<td style="text-align:center;">
-					<a class="layui-btn layui-btn-sm" onclick="seeGoods('${item.id }')" style=""><i class="layui-icon">&#xe702;</i></a>
-				</td>
-				<td style="text-align:center;">
-					<c:if test="${item.state.equals('refund') }">
-						<a class="layui-btn layui-btn-sm" onclick="refund('${item.id }')" style=""><i class="layui-icon">&#xe702;</i></a>
-					</c:if>
+					<a class="layui-btn layui-btn-sm" onclick="seeGoods('${item.id }')" style=""><i class="layui-icon">详情</i></a>
 				</td>
 			</tr>
 			
@@ -102,10 +86,10 @@ function change(flag){
 function seeGoods(id){
 	 layer.open({
 		type: 2, 
-		title:'查看订单商品', 
-		area: ['700px', '500px'],
+		title:'查看订单详情', 
+		area: ['500px', '700px'],
 		shadeClose: true, //开启遮罩关闭
-		content: '/admin/order/orderGoodsList.do?id=' + id 
+		content: '/shop/storeadmin/order/orderDetails.do?id=' + id 
 	});	 
 }
 //跳转添加或者修改页面 id 订单id
