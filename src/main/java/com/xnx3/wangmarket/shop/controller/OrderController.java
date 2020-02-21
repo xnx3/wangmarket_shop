@@ -52,11 +52,11 @@ public class OrderController extends BasePluginController {
 	 * 创建订单后，将会减掉商品库存、同时购物车中，订单创建的商品也会减掉
 	 * @param buygoods 购买的商品，必须传入，json格式，如：  [{"goodsid":20,"num":2},{"goodsid":24,"num":1}]
 	 * @param remark 订单备注，可不传
-	 * @param address_username 收货人姓名，可不传
-	 * @param address_phone 收货人手机号/电话，可不传
-	 * @param address_longitude 收货人经纬度，可不传
-	 * @param address_latitude 收货人经纬度，可不传
-	 * @param address_address 收货地址，可不传。传入如 山东省潍坊市寒亭区华亚国际酒店E1308室
+	 * @param username 收货人姓名，可不传
+	 * @param phone 收货人手机号/电话，可不传
+	 * @param longitude 收货人经纬度，可不传
+	 * @param latitude 收货人经纬度，可不传
+	 * @param address 收货地址，可不传。传入如 山东省潍坊市寒亭区华亚国际酒店E1308室
 	 * @return {@link OrderVO},若成功，则可以获取到 order 数据
 	 */
 	@RequestMapping("create${url.suffix}")
@@ -64,11 +64,11 @@ public class OrderController extends BasePluginController {
 	public OrderVO create(HttpServletRequest request,
 			@RequestParam(value = "buygoods", required = false, defaultValue = "") String buygoods,
 			@RequestParam(value = "remark", required = false, defaultValue = "") String remark,
-			@RequestParam(value = "address_username", required = false, defaultValue = "") String addressUsername,
-			@RequestParam(value = "address_phone", required = false, defaultValue = "") String addressPhone,
-			@RequestParam(value = "address_longitude", required = false, defaultValue = "") Double addressLongitude,
-			@RequestParam(value = "address_latitude", required = false, defaultValue = "") Double addressLatitude,
-			@RequestParam(value = "address_address", required = false, defaultValue = "") String addressAddress
+			@RequestParam(value = "username", required = false, defaultValue = "") String addressUsername,
+			@RequestParam(value = "phone", required = false, defaultValue = "") String addressPhone,
+			@RequestParam(value = "longitude", required = false, defaultValue = "") Double addressLongitude,
+			@RequestParam(value = "latitude", required = false, defaultValue = "") Double addressLatitude,
+			@RequestParam(value = "address", required = false, defaultValue = "") String addressAddress
 			){
 		OrderVO vo = new OrderVO();
 		
@@ -178,6 +178,7 @@ public class OrderController extends BasePluginController {
 		orderAddress.setLongitude(addressLongitude);
 		orderAddress.setPhone(StringUtil.filterXss(addressPhone));
 		orderAddress.setAddress(StringUtil.filterXss(addressAddress));
+		orderAddress.setUsername(StringUtil.filterXss(addressUsername));
 		sqlService.save(orderAddress);
 		
 		//写日志
