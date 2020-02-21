@@ -76,30 +76,29 @@ public class CartServiceImpl implements CartService {
 		
 		//获取要操作的商品对象信息
 		GoodsCart goodsCart = storeCart.getGoodsCartMap().get(goodsid);
+		
+		//记录商品数量变化之前，数量是多少
+		int oldGoodsNumber = new Integer(goodsCart == null? 0:goodsCart.getNumber());
+		int newGoodsNumber = 0;	//goodsCart.number 即将要赋予的值
+		//商品数量变化,这里只是操作商品购物车的数量，金额变化等在后面在判断
+		if(changeNumber > 0){
+			//增加操作
+			//判断增加后的数值，跟商品库存的比较，如果大于库存肯定是不行的
+			if(goods.getInventory() - (oldGoodsNumber + changeNumber) < 0){
+				cartVO.setBaseVO(CartVO.FAILURE, "增加失败，商品库存不足");
+				return cartVO;
+			}
+		}else{
+			//减少操作（其中减到 0 的情况忽略，下面会进行处理 ）
+		}
 		if(goodsCart == null){
 			goodsCart = new GoodsCart();
 			goodsCart.setGoods(goods);
 			goodsCart.setNumber(0);
 			storeCart.getGoodsCartMap().put(goods.getId(), goodsCart);
 		}
+		goodsCart.setNumber(goodsCart.getNumber() + changeNumber);
 		
-		//记录商品数量变化之前，数量是多少
-		int oldGoodsNumber = new Integer(goodsCart.getNumber());
-		//商品数量变化,这里只是操作商品购物车的数量，金额变化等在后面在判断
-		if(changeNumber > 0){
-			//增加操作
-			
-			//判断增加后的数值，跟商品库存的比较，如果大于库存肯定是不行的
-			if(goods.getInventory() - (goodsCart.getNumber() + changeNumber) < 0){
-				cartVO.setBaseVO(CartVO.FAILURE, "增加失败，商品库存不足");
-				return cartVO;
-			}
-			//单独的商品购物车记录重新计算
-			goodsCart.setNumber(goodsCart.getNumber() + changeNumber);
-		}else{
-			//减少操作（0）的情况忽略
-			goodsCart.setNumber(goodsCart.getNumber() + changeNumber);
-		}
 		
 		//根据当前该商品购物车的数量，进行更新购物车其他数据
 		if(goodsCart.getNumber() > 0 ){
