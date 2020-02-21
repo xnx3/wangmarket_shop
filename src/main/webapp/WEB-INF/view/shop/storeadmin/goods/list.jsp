@@ -10,10 +10,11 @@
 	.layui-table img {
     max-width: 49px;
     max-height:49px;
-}
-	.head1 .head3 {
-	float:right;
-}
+	}
+	.toubu_xnx3_search_form {
+    padding-top: 0px;
+    padding-bottom: 10px;
+	}
 </style>
 <script src="/<%=Global.CACHE_FILE %>GoodsType_typeid.js"></script>
 <div style="height:10px;"></div>
@@ -31,11 +32,6 @@
 	
 	<input class="layui-btn iw_list_search_submit" type="submit" value="搜索" />
 	<a class="layui-btn layui-btn-normal" onclick="addOrUpdate(0)" style=""><i class="layui-icon" style="font-size: 14px;">添加商品</i></a>
-<div style="color: gray;margin-right: 10px; margin-top: -10px;" class = "head1">
-	<div class = "head3"><i class="layui-icon">&#xe640;</i>:删除&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	<div class = "head3"><i class="layui-icon">&#xe642;</i>:编辑&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	<div class = "head3" style="color: red;">操作按钮提示:&nbsp;&nbsp;&nbsp;&nbsp;</div>
-</div>
 </form>
 
 <table class="aui-table-responsive layui-table iw_table" style="color: black;font-size: 14px;">
@@ -89,6 +85,11 @@
 </table>
 <!-- 通用分页跳转 -->
 <jsp:include page="../../../iw/common/page.jsp" />
+<div style="color: gray;margin-top: -10px; text-align:right;">
+	<span style="padding-right:20px;">操作按钮提示</span>
+	<span style="padding-right:20px;"><i class="layui-icon">&#xe642;</i>&nbsp;:&nbsp;编辑</span>
+	<span style="padding-right:20px;"><i class="layui-icon">&#xe640;</i>&nbsp;:&nbsp;删除</span>
+</div>
 
 <script type="text/javascript">
 

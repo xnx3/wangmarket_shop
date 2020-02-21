@@ -10,7 +10,12 @@
 	.layui-table img {
     max-width: 49px;
     max-height:49px;
-}
+	}
+
+	.toubu_xnx3_search_form {
+    padding-top: 0px;
+    padding-bottom: 10px;
+	}
 
 </style>
 <script src="/<%=Global.CACHE_FILE %>SlidesShowType_type.js"></script>

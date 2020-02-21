@@ -70,6 +70,18 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 				<span class="firstMenuFont">商品管理</span>
 			</a>
 		</li>
+		<li class="layui-nav-item">
+			<a href="javascript:loadUrl('/shop/storeadmin/order/list.do');">
+				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+				<span class="firstMenuFont">订单管理</span>
+			</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="javascript:loadUrl('/shop/storeadmin/carouselImage/list.do');">
+				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+				<span class="firstMenuFont">轮播图</span>
+			</a>
+		</li>
 		
 		<li class="layui-nav-item">
 			<a href="javascript:updatePassword();" id="xiugaimima">
