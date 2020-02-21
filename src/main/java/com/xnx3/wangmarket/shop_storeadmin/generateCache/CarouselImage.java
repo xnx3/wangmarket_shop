@@ -16,8 +16,9 @@ public class CarouselImage extends BaseGenerate {
 	
 	public void type(){
 		createCacheObject("type");
-    	cacheAdd(com.xnx3.wangmarket.shop.entity.CarouselImage.TYPE_PRODUCT, "跳到商品");
-    	cacheAdd(com.xnx3.wangmarket.shop.entity.CarouselImage.TYPE_URL, "跳到页面");
+    	cacheAdd(com.xnx3.wangmarket.shop.entity.CarouselImage.TYPE_PRODUCT, "打开一个商品");
+    	cacheAdd(com.xnx3.wangmarket.shop.entity.CarouselImage.TYPE_URL, "打开一个页面");
+    	cacheAdd(com.xnx3.wangmarket.shop.entity.CarouselImage.TYPE_GOODSTYPE, "打开某个分类");
 		generateCacheFile();
 	}
 
