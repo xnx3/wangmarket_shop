@@ -83,6 +83,7 @@ public class AddressController extends BasePluginController {
 		}else{
 			//新增
 			add = new Address();
+			add.setUserid(user.getId());
 		}
 		add.setAddress(StringUtil.filterXss(address));
 		add.setLatitude(latitude);
@@ -102,7 +103,7 @@ public class AddressController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @return AddressVO
 	 */
-	@RequestMapping(value="/add${url.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/list${url.suffix}",method = {RequestMethod.POST})
 	@ResponseBody
 	public AddressListVO list(HttpServletRequest request) {
 		AddressListVO vo = new AddressListVO();
@@ -116,20 +117,19 @@ public class AddressController extends BasePluginController {
 		 * 1. 默认地址
 		 * 2. 非默认地址的列表
 		 */
-		Address defaultAddress = null;	//默认地址
 		List<Address> list = new ArrayList<Address>();	//地址列表，这里面不包含已选中的默认地址
 		for (int i = 0; i < addressList.size(); i++) {
 			Address address = addressList.get(i);
 			if(address.getDefaultUse() != null && address.getDefaultUse() - 1 == 0){
 				//是默认的
-				defaultAddress = address;
+				vo.setDefaultAddress(address);
 			}else{
 				//不是默认的，加到list中
 				list.add(address);
 			}
 		}
-		vo.setDefaultAddress(defaultAddress);
-		vo.setAddressList(addressList);
+		
+		vo.setAddressList(list);
 		
 		//日志记录
 		ActionLogUtil.insert(request, "获取用户地址列表");
@@ -164,12 +164,46 @@ public class AddressController extends BasePluginController {
 		
 		//再将传入的地址设为默认
 		address.setDefaultUse((short) 1);
-		sqlService.delete(address);
+		sqlService.save(address);
 		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, id,"设置默认地址", address.toString());
 		
 		return success();
+	}
+	
+	/**
+	 * 获取自己某个地址的详细信息
+	 * @param id 要获取的这个地址的id， address.id
+	 */
+	@RequestMapping(value="/getAddress${url.suffix}",method = {RequestMethod.POST})
+	@ResponseBody
+	public AddressVO getAddress(HttpServletRequest request,
+			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+		AddressVO vo = new AddressVO();
+		
+		//判断输入参数
+		if(id < 1) {
+			vo.setBaseVO(BaseVO.FAILURE, "请传入地址id");
+			return vo;
+		}
+		
+		//查找该地址信息
+		Address address = sqlService.findById(Address.class, id);
+		if(address == null) {
+			vo.setBaseVO(BaseVO.FAILURE, "地址不存在");
+			return vo;
+		}
+		if(address.getUserid() - getUserId() != 0){
+			vo.setBaseVO(BaseVO.FAILURE, "地址不属于你，无权获取");
+			return vo;
+		}
+		vo.setAddress(address);
+		
+		//日志记录
+		ActionLogUtil.insertUpdateDatabase(request, id,"获取用户地址信息", address.toString());
+		
+		return vo;
 	}
 	
 	
