@@ -1,26 +1,27 @@
 package com.xnx3.wangmarket.shop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xnx3.StringUtil;
+import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.entity.Address;
+import com.xnx3.wangmarket.shop.vo.AddressListVO;
 import com.xnx3.wangmarket.shop.vo.AddressVO;
 
 /**
- * 用户收货地址相关
- * @author 关光礼
+ * 用户收货地址相关，一个用户会有多个收货地址，但一个用户默认的收货地址只有一个
+ * @author 管雷鸣
  */
 @Controller("ShopAddressController")
 @RequestMapping("/shop/address/")
@@ -28,20 +29,19 @@ public class AddressController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
 	
-	//创建返回对象
-	AddressVO vo = new AddressVO();
-	
 	/**
-	 *查找地址信息
-	 * @author 关光礼
-	 * @return ddressVO
+	 * 获取当前用户所设定的默认地址
+	 * @author 管雷鸣
+	 * @return {@link AddressVO}
 	 */
-	@RequestMapping(value="/selectAddress${url.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/getDefaultAddress${url.suffix}",method = {RequestMethod.POST})
 	@ResponseBody
-	public AddressVO selectAddress(HttpServletRequest request) {
+	public AddressVO getDefaultAddress(HttpServletRequest request) {
+		AddressVO vo = new AddressVO();
+		User user = getUser();
 		
 		//查询用户地址信息
-		Address address = sqlService.findAloneByProperty(Address.class, "userid",getUserId());
+		Address address = sqlService.findAloneBySqlQuery("SELECT * FROM shop_address WHERE userid = "+user.getId()+" AND default_use = 1", Address.class);
 		vo.setAddress(address);
 		
 		//日志记录
@@ -50,95 +50,156 @@ public class AddressController extends BasePluginController {
 	}
 	
 	/**
-	 * 用户保存地址
-	 * @author 关光礼
+	 * 用户保存地址，包含新增、修改
+	 * @author 管雷鸣
+	 * @param id 要修改的地址id， address.id ，如果这里不传入，或者传入0，则是新增地址
 	 * @param username 收货人名字
 	 * @param phone 收货人电话
-	 * @param inputaddress 收货人地址
-	 * @return AddressVO
+	 * @param address 收货人地址
+	 * @param longitude 经纬度，如 12.223344
+	 * @param latitude 经纬度，如 12.223344
 	 */
 	@RequestMapping(value="/save${url.suffix}",method = {RequestMethod.POST})
 	@ResponseBody
-	public AddressVO save(HttpServletRequest request,
+	public BaseVO save(HttpServletRequest request,
+			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
 			@RequestParam(value = "username", required = false, defaultValue = "") String username,
 			@RequestParam(value = "phone", required = false, defaultValue = "") String phone,
-			@RequestParam(value = "inputaddress", required = false, defaultValue = "") String inputaddress){
+			@RequestParam(value = "address", required = false, defaultValue = "") String address,
+			@RequestParam(value = "longitude", required = false, defaultValue = "0") Double longitude,
+			@RequestParam(value = "latitude", required = false, defaultValue = "0") Double latitude){
+		User user = getUser();
 		
-		//判断参数
-		if(username.trim().equals("")) {
-			vo.setBaseVO(AddressVO.FAILURE,"请传入收货人用户名");
+		Address add = null;
+		if(id > 0){
+			//修改
+			add = sqlService.findById(Address.class, id);
+			if(add == null){
+				return error("修改的地址不存在");
+			}
+			if(add.getUserid() - user.getId() != 0){
+				return error("地址不属于你，无法修改");
+			}
+		}else{
+			//新增
+			add = new Address();
 		}
-		if(phone.trim().equals("")) {
-			vo.setBaseVO(AddressVO.FAILURE,"请传入收货人电话");
-		}
-		if(inputaddress.trim().equals("")) {
-			vo.setBaseVO(AddressVO.FAILURE,"请传入收货人地址");
-		}
-		
-		//创建地址实体，并赋值
-		Address address;
-		address = sqlService.findAloneByProperty(Address.class, "userid",getUserId());
-		//先查找用户是否有地址信息
-		if(address == null) {
-			address = new Address();
-			address.setUserid(getUserId());
-		}
-		
-		address.setAddress(StringUtil.filterXss(inputaddress));
-		address.setPhone(StringUtil.filterXss(phone));
-		address.setUsername(StringUtil.filterXss(username));
-		sqlService.save(address);
-		
-		vo.setResult(AddressVO.SUCCESS);
+		add.setAddress(StringUtil.filterXss(address));
+		add.setLatitude(latitude);
+		add.setLongitude(longitude);
+		add.setPhone(StringUtil.filterXss(phone));
+		add.setUsername(StringUtil.filterXss(username));
+		sqlService.save(add);
+
 		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, address.getId(),"ID是" +  address.getId() + "的地址信息修改", "修改内容:" + address.toString());
+		ActionLogUtil.insertUpdateDatabase(request, id,"保存收货地址", address.toString());
 		
-		return vo;
+		return success();
 	}
 	
 	/**
-	 * 查询用户地址列表
-	 * @author 关光礼
+	 * 获取用户地址列表，包含默认地址跟其他非默认地址列表
+	 * @author 管雷鸣
 	 * @return AddressVO
 	 */
 	@RequestMapping(value="/add${url.suffix}",method = {RequestMethod.POST})
 	@ResponseBody
-	public AddressVO list(HttpServletRequest request) {
+	public AddressListVO list(HttpServletRequest request) {
+		AddressListVO vo = new AddressListVO();
+		User user = getUser();
 		
 		//查询用户地址信息
-		String sql = "SELECT * FROM shop_address WHERE userid = " + getUserId();
-		List<Address> list = sqlService.findBySqlQuery(sql, Address.class);
+		List<Address> addressList = sqlService.findBySqlQuery("SELECT * FROM shop_address WHERE userid = " + user.getId(), Address.class);
 		
-		vo.setAddressList(list);
+		/*
+		 * 找出
+		 * 1. 默认地址
+		 * 2. 非默认地址的列表
+		 */
+		Address defaultAddress = null;	//默认地址
+		List<Address> list = new ArrayList<Address>();	//地址列表，这里面不包含已选中的默认地址
+		for (int i = 0; i < addressList.size(); i++) {
+			Address address = addressList.get(i);
+			if(address.getDefaultUse() != null && address.getDefaultUse() - 1 == 0){
+				//是默认的
+				defaultAddress = address;
+			}else{
+				//不是默认的，加到list中
+				list.add(address);
+			}
+		}
+		vo.setDefaultAddress(defaultAddress);
+		vo.setAddressList(addressList);
+		
 		//日志记录
-		ActionLogUtil.insert(request, getUserId(), "查看地址列表");
+		ActionLogUtil.insert(request, "获取用户地址列表");
 		return vo;
 	}
 	
-	@RequestMapping(value="/delete${url.suffix}",method = {RequestMethod.POST})
+
+	/**
+	 * 将某个地址设置为默认
+	 * @param id 要设置为默认的地址id， address.id
+	 */
+	@RequestMapping(value="/setDefault${url.suffix}",method = {RequestMethod.POST})
 	@ResponseBody
-	public AddressVO delete(HttpServletRequest request,
+	public BaseVO setDefault(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
-		
 		//判断输入参数
 		if(id < 1) {
-			vo.setBaseVO(AddressVO.FAILURE, "请传入要删除地址id");
-			return vo;
+			return error("请传入地址id");
 		}
 		
 		//查找该地址信息
 		Address address = sqlService.findById(Address.class, id);
 		if(address == null) {
-			vo.setBaseVO(AddressVO.FAILURE, "根据ID，未查到该地址");
-			return vo;
+			return error("地址不存在");
+		}
+		if(address.getUserid() - getUserId() != 0){
+			return error("地址不属于你，无权操作");
+		}
+		
+		//先将该用户默认的地址设为不是默认的
+		sqlService.executeSql("UPDATE shop_address SET default_use = 0 WHERE userid = "+getUserId()+" AND default_use = 1");
+		
+		//再将传入的地址设为默认
+		address.setDefaultUse((short) 1);
+		sqlService.delete(address);
+		
+		//日志记录
+		ActionLogUtil.insertUpdateDatabase(request, id,"设置默认地址", address.toString());
+		
+		return success();
+	}
+	
+	
+	/**
+	 * 删除自己的某个地址
+	 * @param id 要删除的地址id， address.id
+	 */
+	@RequestMapping(value="/delete${url.suffix}",method = {RequestMethod.POST})
+	@ResponseBody
+	public BaseVO delete(HttpServletRequest request,
+			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+		//判断输入参数
+		if(id < 1) {
+			return error("请传入要删除地址id");
+		}
+		
+		//查找该地址信息
+		Address address = sqlService.findById(Address.class, id);
+		if(address == null) {
+			return error("地址不存在");
+		}
+		if(address.getUserid() - getUserId() != 0){
+			return error("地址不属于你，无权删除");
 		}
 		sqlService.delete(address);
 		
 		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, id,"删除ID是" + id + "的地址信息", "删除内容:" + address.toString());
+		ActionLogUtil.insertUpdateDatabase(request, id,"删除用户地址信息", address.toString());
 		
-		vo.setResult(AddressVO.SUCCESS);
-		return vo;
+		return success();
 	}
 	
 	
