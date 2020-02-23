@@ -233,7 +233,7 @@ public class OrderController extends BasePluginController {
 	
 	/**
 	 * 我的订单列表
-	 * @param state 订单状态
+	 * @param state 搜索的订单的状态，多个用,分割 传入如 generate_but_no_pay,pay_timeout_cancel
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 * @author 管雷鸣
@@ -248,6 +248,21 @@ public class OrderController extends BasePluginController {
 			everyNumber = 100;
 		}
 		
+		//判断出要取的订单状态
+		StringBuffer stateSB = new StringBuffer();
+		if(state.length() > 0){
+			String[] states = state.split(",");
+			for (int i = 0; i < states.length; i++) {
+				if(states[i].length() > 0){
+					if(stateSB.length() > 1){
+						stateSB.append(" OR");
+					}
+					stateSB.append(" shop_order.state = '"+states[i]+"'");
+				}
+			}
+		}
+		String stateSql = stateSB.toString();	//此字符串的格式如 state = 'generate_but_no_pay' OR state = 'pay_timeout_cancel'
+		
 		//当前登录的用户
 		User user = SessionUtil.getUser();
 		
@@ -256,8 +271,8 @@ public class OrderController extends BasePluginController {
 	     * 设置可搜索字段。这里填写的跟user表的字段名对应。只有这里配置了的字段，才会有效。这里没有配置，则不会进行筛选
 	     * 具体规则可参考： http://note.youdao.com/noteshare?id=3ccef2de6a5cda01f95f832b02e356d0&sub=D53E681BBFF04822977C7CFBF8827863
 	     */
-	    sql.setSearchColumn(new String[]{"state="});
-	    sql.appendWhere("shop_order.userid = "+user.getId());
+//	    sql.setSearchColumn(new String[]{"state="});
+	    sql.appendWhere("shop_order.userid = "+user.getId() + (stateSql.length() > 1 ? " AND ("+stateSql+")":""));
 	    //查询user数据表的记录总条数。 传入的user：数据表的名字为user
 	    int count = sqlService.count("shop_order", sql.getWhere());
 	    //创建分页，并设定每页显示15条
@@ -265,6 +280,7 @@ public class OrderController extends BasePluginController {
 	    //创建查询语句，只有SELECT、FROM，原生sql查询。其他的where、limit等会自动拼接
 	    sql.setSelectFromAndPage("SELECT * FROM shop_order", page);
 	    sql.setDefaultOrderBy("shop_order.id DESC");
+	    System.out.println(sql.getSql());
 	    //因只查询的一个表，所以可以将查询结果转化为实体类，用List接收。
 	    List<Order> list = sqlService.findBySql(sql, Order.class);
 	    vo.setOrderList(list);
