@@ -79,7 +79,6 @@ public class CartServiceImpl implements CartService {
 		
 		//记录商品数量变化之前，数量是多少
 		int oldGoodsNumber = new Integer(goodsCart == null? 0:goodsCart.getNumber());
-		int newGoodsNumber = 0;	//goodsCart.number 即将要赋予的值
 		//商品数量变化,这里只是操作商品购物车的数量，金额变化等在后面在判断
 		if(changeNumber > 0){
 			//增加操作

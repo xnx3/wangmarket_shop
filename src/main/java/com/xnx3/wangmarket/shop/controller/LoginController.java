@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
@@ -135,4 +136,15 @@ public class LoginController extends BaseController {
 		return success(token);
 	}
 	
+	/**
+	 * 退出登录
+	 */
+	@RequestMapping(value="logout${url.suffix}", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseVO logout(HttpServletRequest request){
+		User user = getUser();
+		ActionLogUtil.insert(request, "退出登录", user!=null? user.toString():"");
+		SessionUtil.logout();
+		return success();
+	}
 }

@@ -234,13 +234,19 @@ public class OrderController extends BasePluginController {
 	/**
 	 * 我的订单列表
 	 * @param state 订单状态
+	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
+	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 * @author 管雷鸣
 	 */
 	@RequestMapping("list${url.suffix}")
 	@ResponseBody
 	public OrderListVO list(HttpServletRequest request,
-			@RequestParam(value = "state", required = false, defaultValue = "") String state) {
+			@RequestParam(value = "state", required = false, defaultValue = "") String state,
+			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		OrderListVO vo = new OrderListVO();
+		if(everyNumber > 100){
+			everyNumber = 100;
+		}
 		
 		//当前登录的用户
 		User user = SessionUtil.getUser();
@@ -255,7 +261,7 @@ public class OrderController extends BasePluginController {
 	    //查询user数据表的记录总条数。 传入的user：数据表的名字为user
 	    int count = sqlService.count("shop_order", sql.getWhere());
 	    //创建分页，并设定每页显示15条
-	    Page page = new Page(count, 15, request);
+	    Page page = new Page(count, everyNumber, request);
 	    //创建查询语句，只有SELECT、FROM，原生sql查询。其他的where、limit等会自动拼接
 	    sql.setSelectFromAndPage("SELECT * FROM shop_order", page);
 	    sql.setDefaultOrderBy("shop_order.id DESC");
