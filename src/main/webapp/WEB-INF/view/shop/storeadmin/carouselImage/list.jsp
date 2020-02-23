@@ -10,12 +10,14 @@
 	.layui-table img {
     max-width: 49px;
     max-height:49px;
-}
-	.head1 .head3 {
-	float:right;
-}
+	}
+	
+	.toubu_xnx3_search_form {
+    padding-top: 0px;
+    padding-bottom: 10px;
+	}
 </style>
-<script src="/<%=Global.CACHE_FILE %>CarouselImageType_type.js"></script>
+<script src="/<%=Global.CACHE_FILE %>CarouselImage_type.js"></script>
 <div style="height:10px;"></div>
 <jsp:include page="../../../iw/common/list/formSearch_formStart.jsp" ></jsp:include>
 
@@ -25,25 +27,19 @@
 	</jsp:include>
 	
 	<input class="layui-btn iw_list_search_submit" type="submit" value="搜索" />
-	  <a class="layui-btn layui-btn-normal" onclick="addOrUpdate(0)" style=""><i class="layui-icon" style="font-size: 14px;">添加轮播图</i></a>
+	  <a class="layui-btn layui-btn-normal" onclick="addOrUpdate(0)" style=""><i class="layui-icon" style="font-size: 14px;float:right;">添加轮播图</i></a>
 
-<div style="color: gray;margin-right: 40px;" class = "head1">
-	<div class = "head3"><i class="layui-icon">&#xe640;</i>:删除&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	<div class = "head3"><i class="layui-icon">&#xe64a;</i>:上传图片&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	<div class = "head3"><i class="layui-icon">&#xe642;</i>:编辑&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	<div class = "head3"><i class="layui-icon">&#xe642;</i>轮播图建议尺寸:414px*154px&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	<div class = "head3" style="color: red;">操作按钮提示:&nbsp;&nbsp;</div>
-</div>
 </form>
 
 <table class="aui-table-responsive layui-table iw_table" style="color: black;font-size: 14px;">
   <thead>
     <tr>
 		<th style="text-align:center;">ID</th>
+        <th style="text-align:center;">排序</th>
         <th style="text-align:center;">名称</th>
          <th style="text-align:center;">缩略图</th>
         <th style="text-align:center;">类型</th>
-        <th style="text-align:center;">排序</th>
+        <th style="text-align:center;">跳转内容</th>
         <th style="text-align:center;">操作</th>
     </tr> 
   </thead>
@@ -51,6 +47,7 @@
 	<c:forEach var="item" items="${list }">
 		<tr>
 			<td style="text-align:center;">${item.id }</td>
+			<td style="text-align:center;">${item.rank }</td>
 			<td style="text-align:center;">${item.name }</td>
 			<td style="text-align:center;">
 			<a  href="${item.imageUrl}" target="_black"><img src = '${item.imageUrl }' /></a>
@@ -58,13 +55,11 @@
 			<td style="text-align:center;">
 				<script type="text/javascript">document.write(type['${item['type']}']);</script>
 			</td>
+			<td style="text-align:center;">${item.imgValue }</td>
 			
-			<td style="text-align:center;">${item.rank }</td>
 			<td style="text-align:center;width: 200px;">
 		 	    <!-- 修改新闻信息 -->
 		 	   <a class="layui-btn layui-btn-sm" onclick="addOrUpdate('${item.id }')" style=""><i class="layui-icon">&#xe642;</i></a>	 
-		 	    <!-- 修改图片 -->
-		 	   <a class="layui-btn layui-btn-sm uploadImg" lay-data = "{url: '/admin/carouselImage/uploadImg.do?slideshow_id=${item.id}'}" style="margin-left: 0;margin-top: 3px;"><i class="layui-icon">&#xe64a;</i></a>
 			
 		 	  <!-- 删除新闻 -->
 		 	   <a class="layui-btn layui-btn-sm" onclick="deleteMes('${item.id }')" style=""><i class="layui-icon">&#xe640;</i></a>
@@ -75,6 +70,13 @@
 </table>
 <!-- 通用分页跳转 -->
 <jsp:include page="../../../iw/common/page.jsp" />
+
+<div style="color: gray;margin-top: -10px; text-align:right;">
+	<span style="padding-right:20px;">操作按钮提示</span>
+	<span style="padding-right:20px;"><i class="layui-icon">&#xe642;</i>&nbsp;:&nbsp;编辑</span>
+	<span style="padding-right:20px;"><i class="layui-icon">&#xe640;</i>&nbsp;:&nbsp;删除</span>
+</div>
+
 
 <script type="text/javascript">
 
@@ -118,7 +120,7 @@ function deleteMes(id){
 	}, function(){
 		layer.close(dtp_confirm);
 		parent.iw.loading("删除中");    //显示“操作中”的等待提示
-		$.post('/admin/carouselImage/delete.do?id=' + id, function(data){
+		$.post('/shop/storeadmin/carouselImage/delete.do?id=' + id, function(data){
 		    parent.iw.loadClose();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
 		        parent.iw.msgSuccess('操作成功');
@@ -143,9 +145,9 @@ function addOrUpdate(notice_id){
 	 layer.open({
 		type: 2, 
 		title:'编辑页面', 
-		area: ['500px', '400px'],
+		area: ['500px', '500px'],
 		shadeClose: true, //开启遮罩关闭
-		content: '/admin/carouselImage/toAddPage.do?id=' + notice_id
+		content: '/shop/storeadmin/carouselImage/toAddPage.do?id=' + notice_id
 	});	 
 }
 

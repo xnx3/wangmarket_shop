@@ -53,6 +53,12 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 <div id="leftMenu" class="layui-nav layui-nav-tree layui-nav-side menu">
 	<ul class="">
 		<li class="layui-nav-item">
+			<a href="javascript:loadUrl('/shop/storeadmin/index/welcome.do');">
+				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+				<span class="firstMenuFont">商家信息</span>
+			</a>
+		</li>
+		<li class="layui-nav-item">
 			<a href="javascript:loadUrl('/shop/storeadmin/user/list.do');">
 				<i class="layui-icon firstMenuIcon">&#xe632;</i>
 				<span class="firstMenuFont">用户管理</span>
