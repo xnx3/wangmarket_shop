@@ -4,7 +4,7 @@
 	<!-- 文件、附件系统。图片上传等都通过此处 -->
 	<attachmentFile>
 		<!-- 允许上传的文件后缀列表，多个以|分割 -->
-		<allowUploadSuffix>png|jpg|jpeg|gif|bmp|flv|swf|mkv|avi|rm|rmvb|mpeg|mpg|ogg|ogv|mov|wmv|mp4|webm|mp3|wav|mid|rar|zip|tar|gz|7z|bz2|cab|iso|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|md|xml</allowUploadSuffix>
+		<allowUploadSuffix>png|jpg|jpeg|gif|bmp|flv|swf|mkv|avi|rm|rmvb|mpeg|mpg|ogg|ogv|mov|wmv|mp4|webm|mp3|wav|mid|rar|zip|tar|gz|7z|bz2|cab|iso|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|md|xml|crt</allowUploadSuffix>
 	</attachmentFile>
 
 
