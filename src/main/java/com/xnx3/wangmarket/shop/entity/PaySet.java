@@ -12,7 +12,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  * @author 管雷鸣
  */
 @Entity()
-@Table(name = "shop_pay_set", indexes={@Index(name="suoyin_index",columnList="longitude,latitude,userid")})
+@Table(name = "shop_pay_set")
 public class PaySet extends BaseEntity {
 	
 	private Integer id;			//编号，对应 store.id

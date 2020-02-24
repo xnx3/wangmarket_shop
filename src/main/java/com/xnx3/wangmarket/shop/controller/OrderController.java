@@ -1,7 +1,10 @@
 package com.xnx3.wangmarket.shop.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.DateUtil;
+import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
@@ -29,6 +33,7 @@ import com.xnx3.wangmarket.shop.service.OrderService;
 import com.xnx3.wangmarket.shop.util.GoodsUtil;
 import com.xnx3.wangmarket.shop.util.SessionUtil;
 import com.xnx3.wangmarket.shop.vo.OrderListVO;
+import com.xnx3.wangmarket.shop.vo.OrderStateStatisticsVO;
 import com.xnx3.wangmarket.shop.vo.OrderVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -482,6 +487,44 @@ public class OrderController extends BasePluginController {
 		return success();
 	}
 	
+
+	/**
+	 * 订单状态统计，统计当前登录用户在某个店铺下，各个状态的订单分别有多少
+	 * @param storeid 要统计的所在店铺id
+	 * @author 管雷鸣
+	 */
+	@RequestMapping("statistics${url.suffix}")
+	@ResponseBody
+	public OrderStateStatisticsVO statistics(HttpServletRequest request,
+			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){
+		OrderStateStatisticsVO vo = new OrderStateStatisticsVO();
+		//判断参数
+		if(storeid < 1) {
+			vo.setBaseVO(BaseVO.FAILURE, "请传入店铺ID");
+			return vo;
+		}
+		String sql = "SELECT state,count(*) AS number FROM shop_order WHERE storeid = "+storeid+" AND userid = "+getUserId()+" GROUP BY state";
+		List<Map<String, Object>> list = sqlService.findMapBySqlQuery(sql);
+		
+		/*
+		 * 将 list 遍历出来，赋予这个map
+		 * key: state
+		 * value: 这个状态下有几个订单
+		 */
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			Map<String, Object> m = list.get(i);
+			String state = (String) m.get("state");
+			int number = Lang.stringToInt(m.get("number").toString(), 0);
+			map.put(state, number);
+		}
+		vo.setMap(map);
+		
+		//写日志
+		ActionLogUtil.insertUpdateDatabase(request,"统计用户在某个店铺下，各个状态的订单数", "userid:"+getUserId()+", storeid:"+storeid);
+		return vo;
+	}
 	
 }
 

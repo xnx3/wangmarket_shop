@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.entity.User;
-import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.vo.BaseVO;
@@ -56,16 +57,16 @@ public class LoginController extends BaseController {
 	/**
 	 * 登陆页面
 	 */
-	@RequestMapping("login${url.suffix}")
-	public String login(HttpServletRequest request,Model model){
-		if(getUser() != null){
-			ActionLogUtil.insert(request, "进入登录页面", "已经登录成功，无需再登录，进行跳转");
-			return redirect("");
-		}
-		
-		ActionLogUtil.insert(request, "进入登录页面");
-		return "/shop/shop/login/login";
-	}
+//	@RequestMapping("login${url.suffix}")
+//	public String login(HttpServletRequest request,Model model){
+//		if(getUser() != null){
+//			ActionLogUtil.insert(request, "进入登录页面", "已经登录成功，无需再登录，进行跳转");
+//			return redirect("");
+//		}
+//		
+//		ActionLogUtil.insert(request, "进入登录页面");
+//		return "/shop/shop/login/login";
+//	}
 
 	/**
 	 * 登陆请求验证
@@ -77,9 +78,9 @@ public class LoginController extends BaseController {
 	 * 				<li>1:成功</li>
 	 * 			</ul>
 	 */
-	@RequestMapping(value="loginSubmit${url.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="login${url.suffix}", method = RequestMethod.POST)
 	@ResponseBody
-	public LoginVO loginSubmit(HttpServletRequest request,Model model,
+	public LoginVO login(HttpServletRequest request,Model model,
 			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
 		LoginVO vo = new LoginVO();
 		
@@ -117,6 +118,87 @@ public class LoginController extends BaseController {
 				vo.setUser(getUser());
 			}else{
 				ActionLogUtil.insert(request, "用户名密码模式登录失败",baseVO.getInfo());
+			}
+			
+			return vo;
+		}
+	}
+	
+
+	/**
+	 * 注册的请求验证
+	 * @param username 要注册用户的用户名（必填）
+	 * @param password 要注册当用户的密码（必填）
+	 * @param code 图片验证码（必填）
+	 * @param storeid 此用户是通过哪个店铺注册的（必填）
+	 * @return vo result:
+	 * 			<ul>
+	 * 				<li>0:失败</li>
+	 * 				<li>1:成功</li>
+	 * 			</ul>
+	 */
+	@RequestMapping(value="reg${url.suffix}", method = RequestMethod.POST)
+	@ResponseBody
+	public LoginVO reg(HttpServletRequest request,Model model,
+			@RequestParam(value = "username", required = false, defaultValue="") String username,
+			@RequestParam(value = "password", required = false, defaultValue="") String password,
+			@RequestParam(value = "code", required = false, defaultValue="") String code,
+			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
+		LoginVO vo = new LoginVO();
+		if(username.length() == 0){
+			vo.setBaseVO(BaseVO.FAILURE, "请传入用户名");
+			return vo;
+		}
+		if(password.length() == 0){
+			vo.setBaseVO(BaseVO.FAILURE, "请传入密码");
+			return vo;
+		}
+		if(code.length() == 0){
+			vo.setBaseVO(BaseVO.FAILURE, "请传入验证码");
+			return vo;
+		}
+		if(storeid < 1){
+			vo.setBaseVO(BaseVO.FAILURE, "请传入店铺id");
+			return vo;
+		}
+		
+		//验证码校验
+		BaseVO capVO = com.xnx3.j2ee.util.CaptchaUtil.compare(request.getParameter("code"), request);
+		if(capVO.getResult() == BaseVO.FAILURE){
+			ActionLogUtil.insert(request, "用户名密码模式注册失败", "验证码出错，提交的验证码："+StringUtil.filterXss(request.getParameter("code")));
+			vo.setBaseVO(capVO);
+			return vo;
+		}else{
+			//验证码校验通过
+			User user = new User();
+			user.setUsername(StringUtil.filterXss(username));
+			user.setPassword(password);
+			BaseVO baseVO = userService.createUser(user, request);
+			
+			if(baseVO.getResult() == BaseVO.SUCCESS){
+				int userid = Lang.stringToInt(baseVO.getInfo(), 0);
+				ActionLogUtil.insert(request,userid, "注册成功","通过用户名密码");
+				
+				//将当前用户变为已登陆状态
+				userService.loginForUserId(request, userid);
+				
+				//将sessionid加入vo返回
+				HttpSession session = request.getSession();
+				vo.setToken(session.getId());
+				
+				//查询出此用户所在的店铺，加入缓存
+				Store store = sqlService.findById(Store.class, storeid);
+				if(store == null){
+					vo.setBaseVO(BaseVO.FAILURE, "store 不存在");
+					SessionUtil.logout();
+					return vo;
+				}
+				SessionUtil.setStore(store);
+				
+				//加入user信息
+				vo.setUser(getUser());
+			}else{
+				ActionLogUtil.insert(request, "用户名密码模式注册失败",baseVO.getInfo());
 			}
 			
 			return vo;
