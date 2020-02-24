@@ -97,6 +97,9 @@ public class Goods extends BaseEntity implements java.io.Serializable{
 	
 	@Column(name = "sale", columnDefinition="int(11) comment '已售数量，只要出售的，成功的，都记入这里。当然，如果退货了，这里就要减去了。这里是根据order进行筛选的。每成功一次或者退款一次，都会重新select count 统计一次'")
 	public Integer getSale() {
+		if(sale == null){
+			return 0;
+		}
 		return sale;
 	}
 
@@ -196,6 +199,9 @@ public class Goods extends BaseEntity implements java.io.Serializable{
 	
 	@Column(name = "fake_sale", columnDefinition="int(11) comment '假的已售数量，比如店家想顾客看到的已售数量多增加500，那这里数值就是500，假的，额外增加的数量。用户实际看到的数量是 sale+fakeSale 的和'")
 	public Integer getFakeSale() {
+		if(fakeSale == null){
+			return 0;
+		}
 		return fakeSale;
 	}
 
