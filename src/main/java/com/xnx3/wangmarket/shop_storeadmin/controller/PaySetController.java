@@ -5,9 +5,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
@@ -53,6 +55,7 @@ public class PaySetController extends BaseController {
 	 * @param name 当前设置的是哪种支付，可传入参数： alipay private weixinPay alipayAppId alipayAppPrivateKey weixinMchId weixinMchKey weixinAppletAppid
 	 * @param value 要设置的值。如 name 是 alipay private weixinPay，那么这个value便是0、1
 	 */
+	@ResponseBody
 	@RequestMapping(value="/setUse${url.suffix}",method = {RequestMethod.POST})
 	public BaseVO setUse(HttpServletRequest request,
 			@RequestParam(value = "name", required = false, defaultValue="") String name,
@@ -70,7 +73,7 @@ public class PaySetController extends BaseController {
 		}else if (name.equalsIgnoreCase("private")) {
 			paySet.setUsePrivatePay((short) (value.equals("1")? 1:0));
 		}else if (name.equalsIgnoreCase("weixinPay")) {
-			paySet.setUsePrivatePay((short) (value.equals("1")? 1:0));
+			paySet.setUseWeixinPay((short) (value.equals("1")? 1:0));
 		}else if (name.equalsIgnoreCase("alipayAppId")) {
 			paySet.setAlipayAppId(value);
 		}else if (name.equalsIgnoreCase("alipayAppPrivateKey")) {
@@ -96,6 +99,7 @@ public class PaySetController extends BaseController {
 	 * 此接口专门用来上传 crt 证书
 	 * @param name 当前是要上传哪种证书，可传入参数： alipayCertPublicKeyRSA2 alipayRootCert alipayAppCertPublicKey
 	 */
+	@ResponseBody
 	@RequestMapping(value="/uploadCrt${url.suffix}",method = {RequestMethod.POST})
 	public BaseVO uploadCrt(HttpServletRequest request,
 			@RequestParam(value = "name", required = false, defaultValue="") String name,
