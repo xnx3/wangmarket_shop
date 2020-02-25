@@ -27,7 +27,7 @@ public class GoodsCart implements java.io.Serializable{
 	 */
 	public static final int SELECTED_NO = 0;
 	
-	private Goods goods;	//当前商品的信息
+	private GoodsBean goods;	//当前商品的信息
 	private int number;		//此种商品数量，加入购物车中的数量
 	private int money;		//此种商品加入购物车中的总金额，单位是分。也就是 goods.price * number 的值
 	
@@ -44,12 +44,28 @@ public class GoodsCart implements java.io.Serializable{
 		this.selected = 1;
 	}
 
-	public Goods getGoods() {
+	public GoodsBean getGoods() {
 		return goods;
 	}
 
 	public void setGoods(Goods goods) {
-		this.goods = goods;
+		GoodsBean goodsBean = new GoodsBean();
+		if(goods != null){
+			goodsBean.setAddtime(goods.getAddtime());
+			goodsBean.setId(goods.getId());
+			goodsBean.setInventory(goods.getInventory());
+			goodsBean.setOriginalPrice(goods.getOriginalPrice());
+			goodsBean.setPrice(goods.getPrice());
+			goodsBean.setPutaway(goods.getPutaway());
+			goodsBean.setSale(goods.getSale() + goods.getFakeSale());
+			goodsBean.setStoreid(goods.getStoreid());
+			goodsBean.setTitle(goods.getTitle());
+			goodsBean.setTitlepic(goods.getTitlepic());
+			goodsBean.setTypeid(goods.getTypeid());
+			goodsBean.setUnits(goods.getUnits());
+			goodsBean.setUserBuyRestrict(goods.getUserBuyRestrict());
+		}
+		this.goods = goodsBean;
 	}
 
 	public int getNumber() {
