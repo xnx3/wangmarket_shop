@@ -35,7 +35,7 @@ public class CarouselImage extends BaseEntity{
 	private Integer id;			//自动编号
 	private String name;		//轮播图的名字，更多的是备注作用，给自己看的。用户看到的只是图片而已。限制40个字符
 	private String imageUrl;	//轮播图url，绝对路径
-	private Short type;			//类型，1：点击后到某个商品上，2：点击后到某个商品的模块上去  3点击后打开某个url，也就是打开一个h5页面
+	private Short type;			//类型，1：点击后到某个商品上，2：打开某个分类，进入分类列表，3点击后打开某个url，也就是打开一个h5页面
 	private String imgValue; 	//值，如url的路径、商品的id
 	private Integer rank;		//排序，数字越小越靠前
 	
@@ -65,7 +65,7 @@ public class CarouselImage extends BaseEntity{
 		this.imageUrl = imageUrl;
 	}
 	
-	@Column(name = "type", columnDefinition="tinyint(2) comment '类型，1：点击后到某个商品上，  2点击后到xxx模块上，  3点击后打开某个url，也就是打开一个h5页面'")
+	@Column(name = "type", columnDefinition="tinyint(2) comment '类型，1：点击后到某个商品上，2：打开某个分类，进入分类列表，3点击后打开某个url，也就是打开一个h5页面'")
 	public Short getType() {
 		return type;
 	}

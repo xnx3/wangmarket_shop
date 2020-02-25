@@ -12,7 +12,7 @@ public class GoodsBean{
 	private Integer inventory;	//库存数量
 	private Short putaway;		//是否上架在售，1出售中，0已下架
 	private Integer sale;		//已售数量，有假的数量在内。这里是原本 goods.sale + goods.fakeSale 的和
-	private String units;		//计量，单位。如个、斤、条，限制5字符
+	private String units;		//计量单位。如个、斤、条，限制5字符
 	private Integer price;		//单价，单位是分，实际购买需要支付的价格	
 	private Integer originalPrice;	//原价，单位是分，好看用的，显示出来一个价格，加一条删除线
 	private Integer addtime;	//商品添加时间，10位时间戳
