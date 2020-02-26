@@ -1,8 +1,14 @@
 package com.xnx3.wangmarket.shop.api.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.wangmarket.shop.api.vo.bean.OrderAddressBean;
+import com.xnx3.wangmarket.shop.api.vo.bean.OrderBean;
+import com.xnx3.wangmarket.shop.api.vo.bean.OrderGoodsBean;
+import com.xnx3.wangmarket.shop.api.vo.bean.StoreBean;
+import com.xnx3.wangmarket.shop.api.vo.bean.UserBean;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
@@ -14,41 +20,93 @@ import com.xnx3.wangmarket.shop.core.entity.Store;
  *
  */
 public class OrderVO extends BaseVO{
-	private Order order;		//订单信息
-	private List<OrderGoods> goodsList;	//订单内所含的商品信息列表
-	private User user;			//下单的用户的信息
-	private Store store;		//该订单所属的商家信息
-	private OrderAddress orderAddress;	//该订单配送的地址信息
+	private OrderBean order;		//订单信息
+	private List<OrderGoodsBean> goodsList;	//订单内所含的商品信息列表
+	private UserBean user;			//下单的用户的信息
+	private StoreBean store;		//该订单所属的商家信息
+	private OrderAddressBean orderAddress;	//该订单配送的地址信息
 	
-	public Order getOrder() {
+	public OrderBean getOrder() {
 		return order;
 	}
 	public void setOrder(Order order) {
-		this.order = order;
+		OrderBean bean = new OrderBean();
+		bean.setAddtime(order.getAddtime());
+		bean.setId(order.getId());
+		bean.setNo(order.getNo());
+		bean.setPayMoney(order.getPayMoney());
+		bean.setPayTime(order.getPayTime());
+		bean.setRemark(order.getRemark());
+		bean.setState(order.getState());
+		bean.setTotalMoney(order.getTotalMoney());
+		this.order = bean;
 	}
-	public List<OrderGoods> getGoodsList() {
+	public List<OrderGoodsBean> getGoodsList() {
 		return goodsList;
 	}
 	public void setGoodsList(List<OrderGoods> goodsList) {
-		this.goodsList = goodsList;
+		 List<OrderGoodsBean> beanList = new ArrayList<OrderGoodsBean>();
+		 if(goodsList != null) {
+			 for (int i = 0; i < goodsList.size(); i++) {
+				 OrderGoods orderGoods = goodsList.get(i);
+				 OrderGoodsBean bean = new OrderGoodsBean();
+				 bean.setGoodsid(orderGoods.getId());
+				 bean.setGoodsPrice(orderGoods.getGoodsPrice());
+				 bean.setGoodsTitle(orderGoods.getGoodsTitle());
+				 bean.setGoodsTitlepic(orderGoods.getGoodsTitlepic());
+				 bean.setGoodsUnits(orderGoods.getGoodsUnits());
+				 bean.setNumber(orderGoods.getNumber());
+				 bean.setOrderid(orderGoods.getOrderid());
+				 beanList.add(bean);
+			}
+		 }
+		this.goodsList = beanList;
 	}
-	public User getUser() {
+	public UserBean getUser() {
 		return user;
 	}
 	public void setUser(User user) {
-		this.user = user;
+		UserBean userBean = new UserBean();
+		userBean.setHead(user.getHead());
+		userBean.setId(user.getId());
+		userBean.setNickname(user.getNickname());
+		userBean.setPhone(user.getPhone());
+		userBean.setUsername(user.getUsername());
+		this.user = userBean;
 	}
-	public OrderAddress getOrderAddress() {
+	public OrderAddressBean getOrderAddress() {
 		return orderAddress;
 	}
 	public void setOrderAddress(OrderAddress orderAddress) {
-		this.orderAddress = orderAddress;
+		OrderAddressBean orderAddressBean = new OrderAddressBean();
+		orderAddressBean.setAddress(orderAddress.getAddress());
+		orderAddressBean.setLatitude(orderAddress.getLatitude());
+		orderAddressBean.setLongitude(orderAddress.getLongitude());
+		orderAddressBean.setPhone(orderAddress.getPhone());
+		orderAddressBean.setUsername(orderAddress.getUsername());
+		this.orderAddress = orderAddressBean;
 	}
-	public Store getStore() {
+	public StoreBean getStore() {
 		return store;
 	}
 	public void setStore(Store store) {
-		this.store = store;
+		StoreBean storeBean = new StoreBean();
+		storeBean.setAddress(storeBean.getAddress());
+		storeBean.setAddtime(storeBean.getAddtime());
+		storeBean.setCity(storeBean.getCity());
+		storeBean.setContacts(storeBean.getContacts());
+		storeBean.setDistrict(storeBean.getDistrict());
+		storeBean.setHead(storeBean.getHead());
+		storeBean.setId(storeBean.getId());
+		storeBean.setLatitude(storeBean.getLatitude());
+		storeBean.setLongitude(storeBean.getLongitude());
+		storeBean.setName(storeBean.getName());
+		storeBean.setNotice(storeBean.getNotice());
+		storeBean.setPhone(storeBean.getPhone());
+		storeBean.setProvince(storeBean.getProvince());
+		storeBean.setSale(storeBean.getSale());
+		storeBean.setState(storeBean.getState());
+		this.store = storeBean;
 	}
 	@Override
 	public String toString() {
