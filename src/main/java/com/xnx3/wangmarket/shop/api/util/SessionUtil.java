@@ -13,6 +13,8 @@ public class SessionUtil extends com.xnx3.j2ee.util.SessionUtil{
 	public static final String PLUGIN_NAME_SHOP_CART = "wangmarket_shop_cart";
 	//当前用户登录后，根据登录的来源是哪个店铺，将该用户归结于哪个店铺下，当用户调取如商品分类、banner等时，都会只取这个store店铺下的信息。这里便是记录当前用户登录后是关联的哪个店铺
 	public static final String PLUGIN_NAME_SHOP_USER_PARENT_STORE = "wangmarket_shop_user_parent_store";
+	//当用户调用支付宝支付 pay/alipay.json 接口后，会将生成的form存入session，在访问 alipay/pay.do 时会从这里取出数据，打开支付页面
+	public static final String PLUGIN_NAME_SHOP_ALIPAY_FORM = "wangmarket_shop_alipay_form";
 	
 	/**
 	 * 获取当前登录用户的购物车数据。若是不存在，则返回null
@@ -39,5 +41,21 @@ public class SessionUtil extends com.xnx3.j2ee.util.SessionUtil{
 	public static void setStore(Store store){
 		setPlugin(PLUGIN_NAME_SHOP_USER_PARENT_STORE, store);
 	}
+	
+	/**
+	 * 当用户调用支付宝支付 pay/alipay.json 接口后，会将生成的form存入session，在访问 alipay/pay.do 时会从这里取出数据，打开支付页面
+	 */
+	public static String getAlipayForm(){
+		return getPlugin(PLUGIN_NAME_SHOP_ALIPAY_FORM);
+	}
+	
+	/**
+	 * 当用户调用支付宝支付 pay/alipay.json 接口后，会将生成的form存入session，在访问 alipay/pay.do 时会从这里取出数据，打开支付页面
+	 */
+	public static void setAlipayForm(String form){
+		setPlugin(PLUGIN_NAME_SHOP_ALIPAY_FORM, form);
+	}
+	
+	
 }
 

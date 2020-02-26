@@ -23,6 +23,7 @@ public class SpringMVCInterceptorLogin implements SpringMVCInterceptorInterface{
  		list.add("/shop/api/user/**");
  		list.add("/shop/api/order/**");
  		list.add("/shop/api/address/**");
+ 		list.add("/shop/api/pay/*.json");	//只过滤json后缀的，其他do的不拦截
  		return list;
 	}
 
