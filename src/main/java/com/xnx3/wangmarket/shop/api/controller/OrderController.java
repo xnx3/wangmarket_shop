@@ -198,41 +198,6 @@ public class OrderController extends BasePluginController {
 		return vo;
 	}
 	
-	/**
-	 * 线下付款。此接口为标注订单状态为 线下支付
-	 * @author 管雷鸣
-	 * @param id 订单id
-	 */
-	@RequestMapping("privatePay${api.suffix}")
-	@ResponseBody
-	public BaseVO privatePay(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id){
-		//判断参数
-		if(id < 1) {
-			return error("请传入订单ID");
-		}
-		
-		//查找订单信息
-		Order order = sqlService.findById(Order.class, id);
-		if(order == null) {
-			return error("订单不存在");
-		}
-		if(order.getUserid() - getUserId() != 0) {
-			return error("订单不属于你，无权操作");
-		}
-		//判断订单状态，是否允许变为申请退款
-		if(!order.getState().equals(Order.STATE_CREATE_BUT_NO_PAY)) {
-			return error("订单状态异常");
-		}
-		
-		//修改订单状态
-		order.setState(Order.STATE_PRIVATE_PAY);
-		sqlService.save(order);
-		
-		//写日志
-		ActionLogUtil.insertUpdateDatabase(request, id, "订单线下支付", "订单id："+order.getId()+"，no:" + order.getNo());
-		return success();
-	}
 	
 	
 	/**
