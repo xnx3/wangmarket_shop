@@ -122,8 +122,8 @@ public class PayController extends BasePluginController {
 			return error("channel not find");
 		}
 		
-		ActionLogUtil.insert(request, "打开alipay支付页面", order.toString());
-		return success(SystemUtil.get("MASTER_SITE_URL")+"/shop/api/pay/pay.do");
+		ActionLogUtil.insert(request, "发起支付请求", order.toString());
+		return success(SystemUtil.get("MASTER_SITE_URL")+"shop/api/pay/pay.do?token="+request.getSession().getId());
 	}
 	
 	/**
