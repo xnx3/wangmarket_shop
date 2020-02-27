@@ -31,14 +31,16 @@ public class OrderVO extends BaseVO{
 	}
 	public void setOrder(Order order) {
 		OrderBean bean = new OrderBean();
-		bean.setAddtime(order.getAddtime());
-		bean.setId(order.getId());
-		bean.setNo(order.getNo());
-		bean.setPayMoney(order.getPayMoney());
-		bean.setPayTime(order.getPayTime());
-		bean.setRemark(order.getRemark());
-		bean.setState(order.getState());
-		bean.setTotalMoney(order.getTotalMoney());
+		if(order != null) {
+			bean.setAddtime(order.getAddtime());
+			bean.setId(order.getId());
+			bean.setNo(order.getNo());
+			bean.setPayMoney(order.getPayMoney());
+			bean.setPayTime(order.getPayTime());
+			bean.setRemark(order.getRemark());
+			bean.setState(order.getState());
+			bean.setTotalMoney(order.getTotalMoney());
+		}
 		this.order = bean;
 	}
 	public List<OrderGoodsBean> getGoodsList() {
@@ -67,11 +69,13 @@ public class OrderVO extends BaseVO{
 	}
 	public void setUser(User user) {
 		UserBean userBean = new UserBean();
-		userBean.setHead(user.getHead());
-		userBean.setId(user.getId());
-		userBean.setNickname(user.getNickname());
-		userBean.setPhone(user.getPhone());
-		userBean.setUsername(user.getUsername());
+		if(user != null) {
+			userBean.setHead(user.getHead());
+			userBean.setId(user.getId());
+			userBean.setNickname(user.getNickname());
+			userBean.setPhone(user.getPhone());
+			userBean.setUsername(user.getUsername());
+		}
 		this.user = userBean;
 	}
 	public OrderAddressBean getOrderAddress() {
@@ -79,11 +83,13 @@ public class OrderVO extends BaseVO{
 	}
 	public void setOrderAddress(OrderAddress orderAddress) {
 		OrderAddressBean orderAddressBean = new OrderAddressBean();
-		orderAddressBean.setAddress(orderAddress.getAddress());
-		orderAddressBean.setLatitude(orderAddress.getLatitude());
-		orderAddressBean.setLongitude(orderAddress.getLongitude());
-		orderAddressBean.setPhone(orderAddress.getPhone());
-		orderAddressBean.setUsername(orderAddress.getUsername());
+		if(orderAddress != null) {
+			orderAddressBean.setAddress(orderAddress.getAddress());
+			orderAddressBean.setLatitude(orderAddress.getLatitude());
+			orderAddressBean.setLongitude(orderAddress.getLongitude());
+			orderAddressBean.setPhone(orderAddress.getPhone());
+			orderAddressBean.setUsername(orderAddress.getUsername());
+		}
 		this.orderAddress = orderAddressBean;
 	}
 	public StoreBean getStore() {
@@ -91,21 +97,23 @@ public class OrderVO extends BaseVO{
 	}
 	public void setStore(Store store) {
 		StoreBean storeBean = new StoreBean();
-		storeBean.setAddress(storeBean.getAddress());
-		storeBean.setAddtime(storeBean.getAddtime());
-		storeBean.setCity(storeBean.getCity());
-		storeBean.setContacts(storeBean.getContacts());
-		storeBean.setDistrict(storeBean.getDistrict());
-		storeBean.setHead(storeBean.getHead());
-		storeBean.setId(storeBean.getId());
-		storeBean.setLatitude(storeBean.getLatitude());
-		storeBean.setLongitude(storeBean.getLongitude());
-		storeBean.setName(storeBean.getName());
-		storeBean.setNotice(storeBean.getNotice());
-		storeBean.setPhone(storeBean.getPhone());
-		storeBean.setProvince(storeBean.getProvince());
-		storeBean.setSale(storeBean.getSale());
-		storeBean.setState(storeBean.getState());
+		if(store != null) {
+			storeBean.setAddress(storeBean.getAddress());
+			storeBean.setAddtime(storeBean.getAddtime());
+			storeBean.setCity(storeBean.getCity());
+			storeBean.setContacts(storeBean.getContacts());
+			storeBean.setDistrict(storeBean.getDistrict());
+			storeBean.setHead(storeBean.getHead());
+			storeBean.setId(storeBean.getId());
+			storeBean.setLatitude(storeBean.getLatitude());
+			storeBean.setLongitude(storeBean.getLongitude());
+			storeBean.setName(storeBean.getName());
+			storeBean.setNotice(storeBean.getNotice());
+			storeBean.setPhone(storeBean.getPhone());
+			storeBean.setProvince(storeBean.getProvince());
+			storeBean.setSale(storeBean.getSale());
+			storeBean.setState(storeBean.getState());
+		}
 		this.store = storeBean;
 	}
 	@Override

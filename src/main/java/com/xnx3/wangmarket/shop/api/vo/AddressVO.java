@@ -17,13 +17,15 @@ public class AddressVO extends BaseVO {
 
 	public void setAddress(Address address) {
 		AddressBean addressBean = new AddressBean();
-		addressBean.setAddress(address.getAddress());
-		addressBean.setDefaultUse(address.getDefaultUse());
-		addressBean.setId(address.getId());
-		addressBean.setLatitude(address.getLatitude());
-		addressBean.setLongitude(address.getLongitude());
-		addressBean.setPhone(address.getPhone());
-		addressBean.setUsername(address.getUsername());
+		if(address != null) {
+			addressBean.setAddress(address.getAddress());
+			addressBean.setDefaultUse(address.getDefaultUse());
+			addressBean.setId(address.getId());
+			addressBean.setLatitude(address.getLatitude());
+			addressBean.setLongitude(address.getLongitude());
+			addressBean.setPhone(address.getPhone());
+			addressBean.setUsername(address.getUsername());
+		}
 		this.address = addressBean;
 	}
 

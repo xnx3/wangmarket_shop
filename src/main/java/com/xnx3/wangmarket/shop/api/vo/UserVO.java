@@ -18,11 +18,13 @@ public class UserVO extends BaseVO{
 
 	public void setUser(User user) {
 		UserBean userBean = new UserBean();
-		userBean.setHead(user.getHead());
-		userBean.setId(user.getId());
-		userBean.setNickname(user.getNickname());
-		userBean.setPhone(user.getPhone());
-		userBean.setUsername(user.getUsername());
+		if(user != null) {
+			userBean.setHead(user.getHead());
+			userBean.setId(user.getId());
+			userBean.setNickname(user.getNickname());
+			userBean.setPhone(user.getPhone());
+			userBean.setUsername(user.getUsername());
+		}
 		this.user = userBean;
 	}
 	

@@ -40,13 +40,15 @@ public class AddressListVO extends BaseVO {
 	}
 	public void setDefaultAddress(Address defaultAddress) {
 		AddressBean addressBean = new AddressBean();
-		addressBean.setAddress(defaultAddress.getAddress());
-		addressBean.setDefaultUse(defaultAddress.getDefaultUse());
-		addressBean.setId(defaultAddress.getId());
-		addressBean.setLatitude(defaultAddress.getLatitude());
-		addressBean.setLongitude(defaultAddress.getLongitude());
-		addressBean.setPhone(defaultAddress.getPhone());
-		addressBean.setUsername(defaultAddress.getUsername());
+		if(defaultAddress != null) {
+			addressBean.setAddress(defaultAddress.getAddress());
+			addressBean.setDefaultUse(defaultAddress.getDefaultUse());
+			addressBean.setId(defaultAddress.getId());
+			addressBean.setLatitude(defaultAddress.getLatitude());
+			addressBean.setLongitude(defaultAddress.getLongitude());
+			addressBean.setPhone(defaultAddress.getPhone());
+			addressBean.setUsername(defaultAddress.getUsername());
+		}
 		this.defaultAddress = addressBean;
 	}
 	
