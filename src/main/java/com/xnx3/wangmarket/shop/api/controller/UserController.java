@@ -33,7 +33,6 @@ public class UserController extends BaseController {
 	@RequestMapping("/getUser${api.suffix}")
 	public UserVO getUser(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		ActionLogUtil.insert(request, "获取当前登录的用户信息");
-	    
 		UserVO vo = new UserVO();
 		User user = getUser();
 		vo.setUser(user);
