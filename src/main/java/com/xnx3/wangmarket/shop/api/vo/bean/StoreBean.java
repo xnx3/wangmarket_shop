@@ -22,94 +22,156 @@ public class StoreBean {
 	private String district;	//店铺所在位置-市，区，如 寒亭区
 	private Integer addtime;	//店铺添加时间，开通时间。10位时间戳
 	private Integer sale;		//店铺已出售的商品总数量，总销量。这个一定是真实的，如果要造假数，可以在增加一个字段
+	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
-		this.id = id;
+		if(id == null){
+			this.id = 0;
+		}else{
+			this.id = id;
+		}
 	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		if(name == null){
+			this.name = "";
+		}else{
+			this.name = name;
+		}
 	}
 	public String getHead() {
 		return head;
 	}
 	public void setHead(String head) {
-		this.head = head;
+		if(head == null){
+			this.head = "";
+		}else{
+			this.head = head;
+		}
 	}
 	public String getNotice() {
 		return notice;
 	}
 	public void setNotice(String notice) {
-		this.notice = notice;
+		if(notice == null){
+			this.notice = "";
+		}else{
+			this.notice = notice;
+		}
 	}
 	public Short getState() {
 		return state;
 	}
 	public void setState(Short state) {
-		this.state = state;
+		if(state == null){
+			//如果为null，那就是未开业
+			this.state = Store.STATE_CLOSE;
+		}else{
+			this.state = state;
+		}
 	}
 	public String getContacts() {
 		return contacts;
 	}
 	public void setContacts(String contacts) {
-		this.contacts = contacts;
+		if(contacts == null){
+			this.contacts = "";
+		}else{
+			this.contacts = contacts;
+		}
 	}
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
-		this.phone = phone;
+		if(phone == null){
+			this.phone = "";
+		}else{
+			this.phone = phone;
+		}
 	}
 	public String getAddress() {
 		return address;
 	}
 	public void setAddress(String address) {
-		this.address = address;
+		if(address == null){
+			this.address = "";
+		}else{
+			this.address = address;
+		}
 	}
 	public Float getLongitude() {
 		return longitude;
 	}
 	public void setLongitude(Float longitude) {
-		this.longitude = longitude;
+		if(longitude == null){
+			this.longitude = 0f;
+		}else{
+			this.longitude = longitude;
+		}
 	}
 	public Float getLatitude() {
 		return latitude;
 	}
 	public void setLatitude(Float latitude) {
-		this.latitude = latitude;
+		if(latitude == null){
+			this.latitude = 0f;
+		}else{
+			this.latitude = latitude;
+		}
 	}
 	public String getProvince() {
 		return province;
 	}
 	public void setProvince(String province) {
-		this.province = province;
+		if(province == null){
+			this.province = "";
+		}else{
+			this.province = province;
+		}
 	}
 	public String getCity() {
 		return city;
 	}
 	public void setCity(String city) {
-		this.city = city;
+		if(city == null){
+			this.city = "";
+		}else{
+			this.city = city;
+		}
 	}
 	public String getDistrict() {
 		return district;
 	}
 	public void setDistrict(String district) {
-		this.district = district;
+		if(district == null){
+			this.district = null;
+		}else{
+			this.district = district;
+		}
 	}
 	public Integer getAddtime() {
 		return addtime;
 	}
 	public void setAddtime(Integer addtime) {
-		this.addtime = addtime;
+		if(addtime == null){
+			this.addtime = 0;
+		}else{
+			this.addtime = addtime;
+		}
 	}
 	public Integer getSale() {
 		return sale;
 	}
 	public void setSale(Integer sale) {
-		this.sale = sale;
+		if(sale == null){
+			this.sale = 0;
+		}else{
+			this.sale = sale;
+		}
 	}
 }
