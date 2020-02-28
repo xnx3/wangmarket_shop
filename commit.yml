@@ -3,39 +3,21 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'f1ffc3faf4cee1962a8620cb741cc10680356b09'
-    oldFile: !uuid 'ca483f940c7ab158145bab9012c4bc6834cd2841'
+    newFile: !uuid '78009f260d5f06ac654b02946716d62e1a2b0453'
+    oldFile: !uuid 'f1ffc3faf4cee1962a8620cb741cc10680356b09'
   /src/main:
-    newFile: !uuid '906d1ccfb66387d937ab330c942660681e9d8582'
-    oldFile: !uuid 'fce5199e0a139139631a491ec9dbeedb38253f2d'
-  /src/main/java:
-    newFile: !uuid '9717585a6f10c56482d4aadd8697376f6b7a36d8'
-    oldFile: !uuid 'fdcf11be6c6ac87d74d966eef86608b18a4b64cd'
-  /src/main/java/com:
-    newFile: !uuid 'ca2f714da203c9b78068ab75acc8052ef6dbe9c0'
-    oldFile: !uuid '74724d6ef623373381baf428769fe6150d084cad'
-  /src/main/java/com/xnx3:
-    newFile: !uuid '1ac4b2ebe06ec31bc91af36fa6a42b96d41ed452'
-    oldFile: !uuid '9a98bce315cc2d94d734c6d24b7817bbd15011a6'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid 'a4b893f2300b76731380fc9427464ef5a236065f'
-    oldFile: !uuid '48f1f0b17e14bfc468929a0fed5200ec408be2ee'
-  /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid '4e5ce9ed6171327d96044473bc6d825007a742b1'
-    oldFile: !uuid '969097dead0971c2bc70750be7e06a878b70e608'
-  /src/main/java/com/xnx3/wangmarket/shop/api:
-    newFile: !uuid 'ca04b3441b640eb3470c4e9b2aafd020e0004287'
-    oldFile: !uuid 'c870b230cbf219ea1e4c13f40682b8521284d053'
-  /src/main/java/com/xnx3/wangmarket/shop/api/vo:
-    newFile: !uuid 'ed23a83886042a71564915dda93938dafe3a2121'
-    oldFile: !uuid '5013650c260b3b595f3f2bd9768bbdd95525411a'
-  /src/main/java/com/xnx3/wangmarket/shop/api/vo/bean:
-    newFile: !uuid 'e62e0bf8482bc3f552022bb48bff71dedf6d77b5'
-    oldFile: !uuid 'ca8ebd9652b6558ea9166bfdac853ecae55c7d68'
-  /src/main/java/com/xnx3/wangmarket/shop/api/vo/bean/StoreBean.java:
-    newFile: !uuid 'c395015984aa9dee458815a22c8166c5163b9535'
-    oldFile: !uuid '52c7ce2415a2d32bcdfebf6d7681079e1777d4db'
-gitCommitId: !uuid '88d16864a826729b033d2fe474b76e86034b75e4'
+    newFile: !uuid '89e1c3fac5aa92fba5c74e60c80c3bf2e2eca562'
+    oldFile: !uuid '906d1ccfb66387d937ab330c942660681e9d8582'
+  /src/main/resources:
+    newFile: !uuid 'b0cc677ea683c69b98164fcbfebbfff4bc844248'
+    oldFile: !uuid 'a743abf6212eb72ed862c3a471cc93c625434dd1'
+  /src/main/resources/application.properties:
+    newFile: !uuid 'a487e0e78752a5da33c8fa74cb184566be57bdc2'
+    oldFile: !uuid 'fe82d2008169071de42d32e993397fc7dd1c85e1'
+  /线框图.rp:
+    newFile: !uuid '212e39a480880347f4618683a388215e45eec621'
+    oldFile: !uuid '3ccb2ff122f34804815306612829c90777be176b'
+gitCommitId: !uuid '136b61c4136d7997cbfd9baf7c87c883632f3aee'
 renames: {
   }
-revisionId: 47
+revisionId: 48
