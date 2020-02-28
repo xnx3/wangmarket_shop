@@ -31,14 +31,14 @@ public class StoreController extends BaseController {
 	@RequestMapping(value="getStore${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public StoreVO getStore(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id){
+			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){
 		StoreVO vo = new StoreVO();
-		if(id < 1){
+		if(storeid < 1){
 			vo.setBaseVO(StoreVO.FAILURE, "请传入店铺编号");
 			return vo;
 		}
 		
-		Store store = sqlService.findById(Store.class, id);
+		Store store = sqlService.findById(Store.class, storeid);
 		if(store == null){
 			vo.setBaseVO(StoreVO.FAILURE, "要查看的店铺不存在");
 			return vo;
