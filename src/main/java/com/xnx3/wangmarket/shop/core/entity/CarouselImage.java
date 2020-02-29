@@ -17,7 +17,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  *
  */
 @Entity()
-@Table(name = "shop_carousel_image", indexes={@Index(name="suoyin_index",columnList="rank")})
+@Table(name = "shop_carousel_image", indexes={@Index(name="suoyin_index",columnList="storeid,rank")})
 public class CarouselImage extends BaseEntity{
 	/**
 	 * 1：点击后到某个商品上
@@ -38,6 +38,7 @@ public class CarouselImage extends BaseEntity{
 	private Short type;			//类型，1：点击后到某个商品上，2：打开某个分类，进入分类列表，3点击后打开某个url，也就是打开一个h5页面
 	private String imgValue; 	//值，如url的路径、商品的id
 	private Integer rank;		//排序，数字越小越靠前
+	private Integer storeid;	//这个轮播图是哪个商家的，对应 store.id
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -87,6 +88,14 @@ public class CarouselImage extends BaseEntity{
 	}
 	public void setImgValue(String imgValue) {
 		this.imgValue = imgValue;
+	}
+	
+	@Column(name = "storeid", columnDefinition="int(11) comment '这个轮播图是哪个商家的，对应 store.id' defualt '0'")
+	public Integer getStoreid() {
+		return storeid;
+	}
+	public void setStoreid(Integer storeid) {
+		this.storeid = storeid;
 	}
 	@Override
 	public String toString() {
