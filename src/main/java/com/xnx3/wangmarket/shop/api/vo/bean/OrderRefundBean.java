@@ -16,30 +16,50 @@ public class OrderRefundBean {
 		return orderid;
 	}
 	public void setOrderid(Integer orderid) {
-		this.orderid = orderid;
+		if(orderid == null) {
+			this.orderid = 0;
+		}else {
+			this.orderid = orderid;
+		}
 	}
 	public Integer getStoreid() {
 		return storeid;
 	}
 	public void setStoreid(Integer storeid) {
-		this.storeid = storeid;
+		if(storeid == null) {
+			this.storeid = 0;
+		}else {
+			this.storeid = storeid;
+		}
 	}
 	public Short getState() {
 		return state;
 	}
 	public void setState(Short state) {
-		this.state = state;
+		if(state == null) {
+			this.state = 0;
+		}else {
+			this.state = state;
+		}
 	}
 	public Integer getAddtime() {
 		return addtime;
 	}
 	public void setAddtime(Integer addtime) {
-		this.addtime = addtime;
+		if(addtime == null) {
+			this.addtime = 0;
+		}else {
+			this.addtime = addtime;
+		}
 	}
 	public String getReason() {
 		return reason;
 	}
 	public void setReason(String reason) {
-		this.reason = reason;
+		if(reason == null) {
+			this.reason = "";
+		}else {
+			this.reason = reason;
+		}
 	}
 }

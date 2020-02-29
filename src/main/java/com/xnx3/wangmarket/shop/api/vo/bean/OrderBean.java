@@ -20,48 +20,80 @@ public class OrderBean {
 		return id;
 	}
 	public void setId(Integer id) {
-		this.id = id;
+		if(id == null) {
+			this.id = 0;
+		}else {
+			this.id = id;
+		}
 	}
 	public String getNo() {
 		return no;
 	}
 	public void setNo(String no) {
-		this.no = no;
+		if(no == null) {
+			this.no = "";
+		}else {
+			this.no = no;
+		}
 	}
 	public Integer getAddtime() {
 		return addtime;
 	}
 	public void setAddtime(Integer addtime) {
-		this.addtime = addtime;
+		if(addtime == null) {
+			this.addtime = 0;
+		}else {
+			this.addtime = addtime;
+		}
 	}
 	public Integer getTotalMoney() {
 		return totalMoney;
 	}
 	public void setTotalMoney(Integer totalMoney) {
-		this.totalMoney = totalMoney;
+		if(totalMoney == null) {
+			this.totalMoney = 0;
+		}else {
+			this.totalMoney = totalMoney;
+		}
 	}
 	public Integer getPayMoney() {
 		return payMoney;
 	}
 	public void setPayMoney(Integer payMoney) {
-		this.payMoney = payMoney;
+		if(payMoney == null) {
+			this.payMoney = 0;
+		}else {
+			this.payMoney = payMoney;
+		}
 	}
 	public Integer getPayTime() {
 		return payTime;
 	}
 	public void setPayTime(Integer payTime) {
-		this.payTime = payTime;
+		if(payTime == null) {
+			this.payTime = 0;
+		}else {
+			this.payTime = payTime;
+		}
 	}
 	public String getState() {
 		return state;
 	}
 	public void setState(String state) {
-		this.state = state;
+		if(state == null) {
+			this.state = "";
+		}else {
+			this.state = state;
+		}
 	}
 	public String getRemark() {
 		return remark;
 	}
 	public void setRemark(String remark) {
-		this.remark = remark;
+		if(remark == null) {
+			this.remark = "";
+		}else {
+			this.remark = remark;
+		}
 	}
 }

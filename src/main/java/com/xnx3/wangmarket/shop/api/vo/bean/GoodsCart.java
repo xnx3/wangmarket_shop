@@ -27,12 +27,12 @@ public class GoodsCart implements java.io.Serializable{
 	public static final int SELECTED_NO = 0;
 	
 	private GoodsBean goods;	//当前商品的信息
-	private int number;		//此种商品数量，加入购物车中的数量
-	private int money;		//此种商品加入购物车中的总金额，单位是分。也就是 goods.price * number 的值
+	private Integer number;		//此种商品数量，加入购物车中的数量
+	private Integer money;		//此种商品加入购物车中的总金额，单位是分。也就是 goods.price * number 的值
 	
-	private int selected;	//当前商品是否在购物车中被已选择。1已选择(默认)， 0未选择。在购物车界面，用户可以选择某些商品，进行结算，这里用户每选上一个，这里就会跟着改变
+	private Integer selected;	//当前商品是否在购物车中被已选择。1已选择(默认)， 0未选择。在购物车界面，用户可以选择某些商品，进行结算，这里用户每选上一个，这里就会跟着改变
 	
-	private int exceptional;	//当前商品是否是异常的， 0正常,可以正常下单,默认便是正常，  >0则是异常，如商品库存不足，商品已下架等
+	private Integer exceptional;	//当前商品是否是异常的， 0正常,可以正常下单,默认便是正常，  >0则是异常，如商品库存不足，商品已下架等
 	private String exceptionalInfo;	//异常信息，异常说明，比如 商品已下架
 	
 	
@@ -67,28 +67,40 @@ public class GoodsCart implements java.io.Serializable{
 		this.goods = goodsBean;
 	}
 
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setNumber(Integer number) {
+		if(number == null) {
+			this.number = 0;
+		}else {
+			this.number = number;
+		}
 	}
 
-	public int getMoney() {
+	public Integer getMoney() {
 		return money;
 	}
 
-	public void setMoney(int money) {
-		this.money = money;
+	public void setMoney(Integer money) {
+		if(money == null) {
+			this.money = 0;
+		}else {
+			this.money = money;
+		}
 	}
 
-	public int getExceptional() {
+	public Integer getExceptional() {
 		return exceptional;
 	}
 
-	public void setExceptional(int exceptional) {
-		this.exceptional = exceptional;
+	public void setExceptional(Integer exceptional) {
+		if(exceptional == null) {
+			this.exceptional = 0;
+		}else {
+			this.exceptional = exceptional;
+		}
 	}
 
 	public String getExceptionalInfo() {
@@ -96,15 +108,24 @@ public class GoodsCart implements java.io.Serializable{
 	}
 
 	public void setExceptionalInfo(String exceptionalInfo) {
-		this.exceptionalInfo = exceptionalInfo;
+		if(exceptionalInfo == null) {
+			this.exceptionalInfo = "";
+		}else {
+			this.exceptionalInfo = exceptionalInfo;
+		}
 	}
 
-	public int getSelected() {
+	public Integer getSelected() {
+		
 		return selected;
 	}
 
-	public void setSelected(int selected) {
-		this.selected = selected;
+	public void setSelected(Integer selected) {
+		if(selected == null) {
+			this.selected = 0;
+		}else {
+			this.selected = selected;
+		}
 	}
 	
 	/**

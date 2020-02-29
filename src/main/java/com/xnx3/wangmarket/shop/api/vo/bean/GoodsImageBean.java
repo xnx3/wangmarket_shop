@@ -14,6 +14,10 @@ public class GoodsImageBean {
 	}
 
 	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+		if(imageUrl == null) {
+			this.imageUrl = "";
+		}else {
+			this.imageUrl = imageUrl;
+		}
 	}
 }
