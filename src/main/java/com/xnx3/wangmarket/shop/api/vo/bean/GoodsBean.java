@@ -25,78 +25,130 @@ public class GoodsBean{
 		return id;
 	}
 	public void setId(Integer id) {
-		this.id = id;
+		if(id == null) {
+			this.id = 0;
+		}else {
+			this.id = id;
+		}
 	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
-		this.title = title;
+		if(title == null) {
+			this.title = "";
+		}else {
+			this.title = title;
+		}
 	}
 	public Integer getInventory() {
 		return inventory;
 	}
 	public void setInventory(Integer inventory) {
-		this.inventory = inventory;
+		if(inventory == null) {
+			this.inventory = 0 ;
+		}else {
+			this.inventory = inventory;
+		}
 	}
 	public Short getPutaway() {
 		return putaway;
 	}
 	public void setPutaway(Short putaway) {
-		this.putaway = putaway;
+		if(putaway == null) {
+			this.putaway = Goods.PUTAWAY_SELL;
+		}else {
+			this.putaway = putaway;
+		}
 	}
 	public Integer getSale() {
 		return sale;
 	}
 	public void setSale(Integer sale) {
-		this.sale = sale;
+		if(sale == null) {
+			this.sale = 0;
+		}else {
+			this.sale = sale;
+		}
 	}
 	public String getUnits() {
 		return units;
 	}
 	public void setUnits(String units) {
-		this.units = units;
+		if(price == null) {
+			this.units = "";
+		}else {
+			this.units = units;
+		}
 	}
 	public Integer getPrice() {
 		return price;
 	}
 	public void setPrice(Integer price) {
-		this.price = price;
+		if(price == null) {
+			this.price = 0;
+		}else {
+			this.price = price;
+		}
 	}
 	public Integer getOriginalPrice() {
 		return originalPrice;
 	}
 	public void setOriginalPrice(Integer originalPrice) {
-		this.originalPrice = originalPrice;
+		if(originalPrice == null) {
+			this.originalPrice = 0;
+		}else {
+			this.originalPrice = originalPrice;
+		}
 	}
 	public Integer getAddtime() {
 		return addtime;
 	}
 	public void setAddtime(Integer addtime) {
-		this.addtime = addtime;
+		if(addtime == null) {
+			this.addtime = 0;
+		}else {
+			this.addtime = addtime;
+		}
 	}
 	public Integer getStoreid() {
 		return storeid;
 	}
 	public void setStoreid(Integer storeid) {
-		this.storeid = storeid;
+		if(storeid == null) {
+			this.storeid = 0;
+		}else {
+			this.storeid = storeid;
+		}
 	}
 	public Integer getTypeid() {
 		return typeid;
 	}
 	public void setTypeid(Integer typeid) {
-		this.typeid = typeid;
+		if(typeid == null) {
+			this.typeid = 0;
+		}else {
+			this.typeid = typeid;
+		}
 	}
 	public String getTitlepic() {
 		return titlepic;
 	}
 	public void setTitlepic(String titlepic) {
-		this.titlepic = titlepic;
+		if(titlepic == null) {
+			this.titlepic = "";
+		}else {
+			this.titlepic = titlepic;
+		}
 	}
 	public Integer getUserBuyRestrict() {
 		return userBuyRestrict;
 	}
 	public void setUserBuyRestrict(Integer userBuyRestrict) {
-		this.userBuyRestrict = userBuyRestrict;
+		if(userBuyRestrict == null) {
+			this.userBuyRestrict = 0;
+		}else {
+			this.userBuyRestrict = userBuyRestrict;
+		}
 	}
 }

@@ -11,8 +11,8 @@ import net.sf.json.JSONObject;
  */
 public class StoreCart implements java.io.Serializable{
 	private Map<Integer, GoodsCart> goodsCartMap;	//该店铺购物车的商品列表。 key:goods.id 
-	private int number;			//该店铺购物车中商品的总数量
-	private int money;			//该店铺购物车中商品的总价格，单位是分
+	private Integer number;			//该店铺购物车中商品的总数量
+	private Integer money;			//该店铺购物车中商品的总价格，单位是分
 	private StoreBean store;		//当前店铺信息。适用于多商铺一块结算使用。
 	
 	public StoreCart() {
@@ -28,23 +28,35 @@ public class StoreCart implements java.io.Serializable{
 	}
 
 	public void setGoodsCartMap(Map<Integer, GoodsCart> goodsCartMap) {
-		this.goodsCartMap = goodsCartMap;
+		if(goodsCartMap == null) {
+			this.goodsCartMap = new HashMap<Integer, GoodsCart>();
+		}else {
+			this.goodsCartMap = goodsCartMap;
+		}
 	}
 
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setNumber(Integer number) {
+		if(number == null) {
+			this.number = 0;
+		}else {
+			this.number = number;
+		}
 	}
 
-	public int getMoney() {
+	public Integer getMoney() {
 		return money;
 	}
 
-	public void setMoney(int money) {
-		this.money = money;
+	public void setMoney(Integer money) {
+		if(money == null) {
+			this.money = 0;
+		}else {
+			this.money = money;
+		}
 	}
 
 	public StoreBean getStore() {

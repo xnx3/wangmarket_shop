@@ -15,24 +15,40 @@ public class CarouselImageBean {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		if(name == null) {
+			this.name = "";
+		}else {
+			this.name = name;
+		}
 	}
 	public String getImageUrl() {
 		return imageUrl;
 	}
 	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+		if(imageUrl == null) {
+			this.imageUrl = "";
+		}else {
+			this.imageUrl = imageUrl;
+		}
 	}
 	public Short getType() {
 		return type;
 	}
 	public void setType(Short type) {
-		this.type = type;
+		if(type == null) {
+			this.type = 0;
+		}else {
+			this.type = type;
+		}
 	}
 	public String getImgValue() {
 		return imgValue;
 	}
 	public void setImgValue(String imgValue) {
-		this.imgValue = imgValue;
+		if(imgValue == null) {
+			this.imgValue = "";
+		}else {
+			this.imgValue = imgValue;
+		}
 	}
 }

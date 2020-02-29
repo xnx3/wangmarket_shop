@@ -14,6 +14,10 @@ public class GoodsDataBean {
 	}
 
 	public void setDetail(String detail) {
-		this.detail = detail;
+		if(detail == null) {
+			this.detail = "";
+		}else {
+			this.detail = detail;
+		}
 	}
 }

@@ -16,30 +16,50 @@ public class OrderAddressBean {
 		return username;
 	}
 	public void setUsername(String username) {
-		this.username = username;
+		if(username == null) {
+			this.username = "";
+		}else {
+			this.username = username;
+		}
 	}
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
-		this.phone = phone;
+		if(phone == null) {
+			this.phone = "";
+		}else {
+			this.phone = phone;
+		}
 	}
 	public Double getLongitude() {
 		return longitude;
 	}
 	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
+		if(longitude == null) {
+			this.longitude = 0D;
+		}else {
+			this.longitude = longitude;
+		}
 	}
 	public Double getLatitude() {
 		return latitude;
 	}
 	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
+		if(latitude == null) {
+			this.latitude = 0D;
+		}else {
+			this.latitude = latitude;
+		}
 	}
 	public String getAddress() {
 		return address;
 	}
 	public void setAddress(String address) {
-		this.address = address;
+		if(address == null) {
+			this.address = "";
+		}else {
+			this.address = address;
+		}
 	}
 }

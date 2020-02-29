@@ -18,42 +18,70 @@ public class OrderGoodsBean {
 		return orderid;
 	}
 	public void setOrderid(Integer orderid) {
-		this.orderid = orderid;
+		if(orderid == null) {
+			this.orderid = 0;
+		}else {
+			this.orderid = orderid;
+		}
 	}
 	public Integer getGoodsid() {
 		return goodsid;
 	}
 	public void setGoodsid(Integer goodsid) {
-		this.goodsid = goodsid;
+		if(goodsid == null) {
+			this.goodsid = 0;
+		}else {
+			this.goodsid = goodsid;
+		}
 	}
 	public String getGoodsTitle() {
 		return goodsTitle;
 	}
 	public void setGoodsTitle(String goodsTitle) {
-		this.goodsTitle = goodsTitle;
+		if(goodsTitle == null) {
+			this.goodsTitle = "";
+		}else {
+			this.goodsTitle = goodsTitle;
+		}
 	}
 	public Integer getGoodsPrice() {
 		return goodsPrice;
 	}
 	public void setGoodsPrice(Integer goodsPrice) {
-		this.goodsPrice = goodsPrice;
+		if(goodsPrice == null) {
+			this.goodsPrice = 0;
+		}else {
+			this.goodsPrice = goodsPrice;
+		}
 	}
 	public String getGoodsUnits() {
 		return goodsUnits;
 	}
 	public void setGoodsUnits(String goodsUnits) {
-		this.goodsUnits = goodsUnits;
+		if(goodsUnits == null) {
+			this.goodsUnits = "";
+		}else {
+			this.goodsUnits = goodsUnits;
+		}
 	}
 	public String getGoodsTitlepic() {
 		return goodsTitlepic;
 	}
 	public void setGoodsTitlepic(String goodsTitlepic) {
-		this.goodsTitlepic = goodsTitlepic;
+		if(goodsTitlepic == null) {
+			this.goodsTitlepic = "";
+		}else {
+			this.goodsTitlepic = goodsTitlepic;
+		}
 	}
 	public Integer getNumber() {
 		return number;
 	}
 	public void setNumber(Integer number) {
-		this.number = number;
+		if(number == null) {
+			this.number = 0;
+		}else {
+			this.number = number;
+		}
 	}
 }
