@@ -27,6 +27,7 @@ import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.OrderRefund;
+import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.api.service.CartService;
 import com.xnx3.wangmarket.shop.api.service.OrderService;
@@ -209,6 +210,14 @@ public class OrderController extends BasePluginController {
 		orderAddress.setAddress(StringUtil.filterXss(addressAddress));
 		orderAddress.setUsername(StringUtil.filterXss(addressUsername));
 		sqlService.save(orderAddress);
+		
+		//创建订单未支付超时监控
+		OrderTimeout orderTimeout = new OrderTimeout();
+		orderTimeout.setId(order.getId());
+		orderTimeout.setState(order.getState());
+		//先统一设定半小时后未支付，就自动取消
+		orderTimeout.setExpiretime(DateUtil.timeForUnix10()+(30*60));
+		sqlService.save(orderTimeout);
 		
 		//该店铺的已售数量增加，因为店铺下可能会同一时刻产生多个订单，version 乐观锁容易造成下单异常，阻挡正常下单，所以直接进行update 销售数量
 		sqlService.executeSql("UPDATE shop_store SET sale = sale + " + allNumber + " WHERE id = "+store.getId());
