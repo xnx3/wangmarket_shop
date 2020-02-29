@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.xnx3.DateUtil;
+import com.xnx3.StringUtil;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
@@ -28,8 +29,11 @@ import com.xnx3.wangmarket.plugin.alipay.util.AlipayUtil;
 import com.xnx3.wangmarket.shop.api.util.AlipayCacheUtil;
 import com.xnx3.wangmarket.shop.api.util.SessionUtil;
 import com.xnx3.wangmarket.shop.core.entity.Order;
+import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.PayLog;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
+import com.xnx3.wangmarket.shop.core.entity.Store;
+
 import net.sf.json.JSONObject;
 
 /**
@@ -41,31 +45,6 @@ import net.sf.json.JSONObject;
 public class PayController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
-	
-	/**
-	 * 支付测试
-	 */
-	@RequestMapping("payTest${url.suffix}")
-	public String payTest(HttpServletRequest request,Model model){
-		PcOrderBean orderBean = new PcOrderBean();
-		orderBean.setOutTradeNo(DateUtil.timeForUnix10()+"");
-	    orderBean.setSubject("网市场云建站充值");
-	    orderBean.setTotalAmount(0.01f);
-	    orderBean.setPassbackParams("xxx");
-	    request.setAttribute("orderBean", orderBean);
-	    
-	    ActionLogUtil.insert(request, "支付测试接口，测试是否能支付成功");
-	    
-	    AlipayUtil alipay = AlipayCacheUtil.getAlipayUtil(1);
-	    try {
-	    	String form = alipay.pcPay(orderBean);
-			model.addAttribute("form", form);
-		} catch (AlipayApiException e) {
-			e.printStackTrace();
-		}
-	    return "plugin/alipay/pay";
-	}
-	
 
 	/**
 	 * 线下付款。此接口为标注订单状态为 线下支付

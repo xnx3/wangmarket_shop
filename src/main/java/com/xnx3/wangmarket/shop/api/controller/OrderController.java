@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,7 @@ import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.OrderRefund;
+import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.api.service.CartService;
 import com.xnx3.wangmarket.shop.api.service.OrderService;
@@ -63,6 +65,7 @@ public class OrderController extends BasePluginController {
 	 * @param address 收货地址，可不传。传入如 山东省潍坊市寒亭区华亚国际酒店E1308室
 	 * @return {@link OrderVO},若成功，则可以获取到 order 数据
 	 */
+	@Transactional
 	@RequestMapping("create${api.suffix}")
 	@ResponseBody
 	public OrderVO create(HttpServletRequest request,
@@ -101,6 +104,8 @@ public class OrderController extends BasePluginController {
 			buyGoodsList.add(buyGoods);
 		}
 		int storeid = 0;	//商家id
+		//这个是从数据库中查出来的最新的的商品列表信息，也就是当前订单下单的商品列表
+		Map<Integer, Goods> goodsMap = new HashMap<Integer, Goods>();
 		//从数据表中，取出当前的商品信息
 		for (int i = 0; i < buyGoodsList.size(); i++) {
 			BuyGoods buyGoods = buyGoodsList.get(i);	//购物车中要购买的商品
@@ -128,14 +133,29 @@ public class OrderController extends BasePluginController {
 				return vo;
 			}
 			buyGoodsList.get(i).setGoods(goods);
-			
-			//减库存，如果用户不支付，那么库存将会再加回来
-			goods.setInventory(goods.getInventory() - buyGoods.getNum());
+			//加入 goodsMap
+			goodsMap.put(goods.getId(), goods);
 		}
+		//查询店铺信息,看是否正常
+		Store store = sqlService.findById(Store.class, storeid);
+		if(store.getState() - Store.STATE_OPEN != 0){
+			//店铺状态不正常，不是正常的营业中，判断一下
+			if(store.getState() - Store.STATE_CLOSE == 0){
+				vo.setBaseVO(OrderVO.FAILURE, "当前店铺已打烊关店！不可下单");
+				return vo;
+			}
+			
+			vo.setBaseVO(OrderVO.FAILURE, "当前店铺状态已不是正常营业，无法下单");
+			return vo;
+		}
+		
 		//计算出当前要购买商品的总金额
 		int allMoney = 0;
+		int allNumber = 0;	//计算出当前购买商品的总数量
 		for (int i = 0; i < buyGoodsList.size(); i++) {
-			allMoney = allMoney + buyGoodsList.get(i).getGoods().getPrice();
+			BuyGoods buyGoods = buyGoodsList.get(i);	//购物车中要购买的某个商品
+			allMoney = allMoney + buyGoods.getGoods().getPrice() * buyGoods.getNum();
+			allNumber = allNumber + buyGoods.getNum();
 		}
 		
 		//当前登录的用户
@@ -144,8 +164,8 @@ public class OrderController extends BasePluginController {
 		/**** 创建订单 ****/
 		Order order = new Order();
 		order.setAddtime(DateUtil.timeForUnix10());
-//		order.setPayMoney(allMoney);
-		order.setPayMoney(1);//测试使用，0.01支付
+		order.setPayMoney(allMoney);
+//		order.setPayMoney(1);//测试使用，0.01支付
 		order.setRemark(StringUtil.filterXss(remark));
 		order.setState(Order.STATE_CREATE_BUT_NO_PAY);
 		order.setStoreid(storeid);
@@ -162,19 +182,25 @@ public class OrderController extends BasePluginController {
 		
 		/***** 创建订单-商品的关联，这个订单下有哪些商品 *****/
 		for (int i = 0; i < buyGoodsList.size(); i++) {
-			Goods goods = buyGoodsList.get(i).getGoods();
+			BuyGoods buyGoods = buyGoodsList.get(i);	//购物车中要购买的商品
+			
+			Goods goods = goodsMap.get(buyGoods.getGoods().getId());
 			OrderGoods orderGoods = new OrderGoods();
 			orderGoods.setGoodsid(goods.getId());
 			orderGoods.setGoodsPrice(goods.getPrice());
 			orderGoods.setGoodsTitle(goods.getTitle());
 			orderGoods.setGoodsTitlepic(goods.getTitlepic());
 			orderGoods.setGoodsUnits(goods.getUnits());
-			orderGoods.setNumber(buyGoodsList.get(i).getNum());
+			orderGoods.setNumber(buyGoods.getNum());
 			orderGoods.setOrderid(order.getId());
 			orderGoods.setUserid(user.getId());
 			sqlService.save(orderGoods);
+			
+			//减库存，如果用户后面不支付，或者订单退单，那么库存还会再加回来
+			goods.setInventory(goods.getInventory() - buyGoods.getNum());
+			sqlService.save(goods);
 		}
-
+		
 		//创建订单对应的地址信息
 		OrderAddress orderAddress = new OrderAddress();
 		orderAddress.setId(order.getId());
@@ -184,6 +210,17 @@ public class OrderController extends BasePluginController {
 		orderAddress.setAddress(StringUtil.filterXss(addressAddress));
 		orderAddress.setUsername(StringUtil.filterXss(addressUsername));
 		sqlService.save(orderAddress);
+		
+		//创建订单未支付超时监控
+		OrderTimeout orderTimeout = new OrderTimeout();
+		orderTimeout.setId(order.getId());
+		orderTimeout.setState(order.getState());
+		//先统一设定半小时后未支付，就自动取消
+		orderTimeout.setExpiretime(DateUtil.timeForUnix10()+(30*60));
+		sqlService.save(orderTimeout);
+		
+		//该店铺的已售数量增加，因为店铺下可能会同一时刻产生多个订单，version 乐观锁容易造成下单异常，阻挡正常下单，所以直接进行update 销售数量
+		sqlService.executeSql("UPDATE shop_store SET sale = sale + " + allNumber + " WHERE id = "+store.getId());
 		
 		//写日志
 		ActionLogUtil.insertUpdateDatabase(request, order.getId(), "创建订单", "no:"+order.getNo());

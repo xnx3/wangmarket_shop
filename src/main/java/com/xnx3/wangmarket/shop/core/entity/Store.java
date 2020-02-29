@@ -7,6 +7,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * 店铺信息。商城中可以有多个店铺，这个店铺就类似于淘宝店的性质
@@ -44,6 +45,8 @@ public class Store implements java.io.Serializable {
 	private String district;	//店铺所在位置-市，区，如 寒亭区
 	private Integer addtime;	//店铺添加时间，开通时间。10位时间戳
 	private Integer sale;		//店铺已出售的商品总数量，总销量。这个一定是真实的，如果要造假数，可以在增加一个字段
+	
+	private Integer version;	//乐观锁
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -167,13 +170,24 @@ public class Store implements java.io.Serializable {
 		this.addtime = addtime;
 	}
 	
-	@Column(name = "sale", columnDefinition="int(11) comment '店铺已出售的商品总数量，总销量。这个一定是真实的，如果要造假数，可以在增加一个字段'")
+	@Column(name = "sale", columnDefinition="int(11) comment '店铺已出售的商品总数量，总销量。这个一定是真实的，如果要造假数，可以在增加一个字段' default '0'")
 	public Integer getSale() {
 		return sale;
 	}
 	public void setSale(Integer sale) {
 		this.sale = sale;
 	}
+
+	@Version
+	@Column(name = "version", columnDefinition="int(11) comment '乐观锁' default 0")
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	
 	@Override
 	public String toString() {
 		return "Store [id=" + id + ", name=" + name + ", userid=" + userid + ", head=" + head + ", notice=" + notice
