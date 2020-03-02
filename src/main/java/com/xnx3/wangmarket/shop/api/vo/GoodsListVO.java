@@ -2,6 +2,8 @@ package com.xnx3.wangmarket.shop.api.vo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.api.vo.bean.GoodsBean;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
@@ -13,6 +15,7 @@ import com.xnx3.wangmarket.shop.core.entity.Goods;
  */
 public class GoodsListVO extends BaseVO{
 	private List<GoodsBean> list;	//商品列表
+	private Page page;				//分页信息
 
 	public List<GoodsBean> getList() {
 		return list;
@@ -43,5 +46,12 @@ public class GoodsListVO extends BaseVO{
 		this.list = beanList;
 	}
 
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
 	
 }
