@@ -77,7 +77,7 @@ public class CartController extends BasePluginController {
 	 * 清空用户在某个商家下的购物车数据。
 	 * @param storeid 要清除哪个店铺的购物车信息，对应 store.id。 如果不传这个参数，则是清空所有的购物车信息
 	 */
-	@RequestMapping(value="clearShopCart${api.suffix}",method= {RequestMethod.POST})
+	@RequestMapping(value="clearStoreCart${api.suffix}",method= {RequestMethod.POST})
 	@ResponseBody
 	public BaseVO clearStoreCart(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){

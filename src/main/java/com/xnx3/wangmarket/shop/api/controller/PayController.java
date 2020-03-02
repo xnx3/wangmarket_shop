@@ -49,19 +49,19 @@ public class PayController extends BasePluginController {
 	/**
 	 * 线下付款。此接口为标注订单状态为 线下支付
 	 * @author 管雷鸣
-	 * @param id 订单id
+	 * @param orderid 订单id
 	 */
 	@RequestMapping("privatePay${api.suffix}")
 	@ResponseBody
 	public BaseVO privatePay(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id){
+			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
 		//判断参数
-		if(id < 1) {
+		if(orderid < 1) {
 			return error("请传入订单ID");
 		}
 		
 		//查找订单信息
-		Order order = sqlService.findById(Order.class, id);
+		Order order = sqlService.findById(Order.class, orderid);
 		if(order == null) {
 			return error("订单不存在");
 		}
@@ -78,7 +78,7 @@ public class PayController extends BasePluginController {
 		sqlService.save(order);
 		
 		//写日志
-		ActionLogUtil.insertUpdateDatabase(request, id, "订单线下支付", "订单id："+order.getId()+"，no:" + order.getNo());
+		ActionLogUtil.insertUpdateDatabase(request, orderid, "订单线下支付", "订单id："+order.getId()+"，no:" + order.getNo());
 		return success();
 	}
 	
@@ -143,7 +143,7 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 请求这个网址就是要进行支付了
-	 * 来源页面需要使用 request.getSession().setAttribute("pluginAlipayOrderBean", orderBean); 设置支付的信息
+	 * 来源页面需要使用 {@link SessionUtil#setAlipayForm(String)} 来设置跳转支付的表单
 	 */
 	@RequestMapping("pay${url.suffix}")
 	public String pay(HttpServletRequest request,Model model){

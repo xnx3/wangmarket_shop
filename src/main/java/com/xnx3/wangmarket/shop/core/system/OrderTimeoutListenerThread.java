@@ -50,7 +50,7 @@ public class OrderTimeoutListenerThread extends Thread{
 		int currentTime = DateUtil.timeForUnix10();
 		//查询出超时的要处理的订单，一次最多查出1000条
 		List<OrderTimeout> orderTimeoutList = sqlservice.findBySqlQuery("SELECT * FROM shop_order_timeout WHERE expiretime > "+currentTime+" ORDER BY expiretime ASC LIMIT 1000", OrderTimeout.class);
-		
+//		ConsoleUtil.info("符合条件订单："+orderTimeoutList);
 		//将超时该处理的订单遍历，进行处理
 		for (int i = 0; i < orderTimeoutList.size(); i++) {
 			OrderTimeout orderTimeout = orderTimeoutList.get(i);

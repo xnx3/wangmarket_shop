@@ -34,9 +34,9 @@ public class AddressController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @return {@link AddressVO}
 	 */
-	@RequestMapping(value="/getDefaultAddress${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/getDefault${api.suffix}",method = {RequestMethod.POST})
 	@ResponseBody
-	public AddressVO getDefaultAddress(HttpServletRequest request) {
+	public AddressVO getDefault(HttpServletRequest request) {
 		AddressVO vo = new AddressVO();
 		User user = getUser();
 		

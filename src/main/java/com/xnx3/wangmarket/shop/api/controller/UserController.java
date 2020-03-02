@@ -4,11 +4,8 @@ import java.io.IOException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,6 +88,19 @@ public class UserController extends BaseController {
 			@RequestParam(value = "nickname", required = false, defaultValue = "") String nickname){
 		ActionLogUtil.insert(request, "修改昵称", StringUtil.filterXss(nickname));
 		return userService.updateNickname(request);
+	}
+	
+
+	/**
+	 * 上传头像
+	 * @param head 要上传的头像。如果上传的图片超过500，会自动被压缩为宽度500的尺寸
+	 */
+	@ResponseBody
+	@RequestMapping(value="/uploadHead${api.suffix}", method = RequestMethod.POST)
+	public BaseVO uploadHead(HttpServletRequest request){
+		BaseVO vo = userService.updateHeadByOSS(request, "head", 500);
+		ActionLogUtil.insert(request, "修改头像", getUser().toString());
+		return vo;
 	}
 	
 }
