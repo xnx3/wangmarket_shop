@@ -90,7 +90,7 @@ public class CarouselImage extends BaseEntity{
 		this.imgValue = imgValue;
 	}
 	
-	@Column(name = "storeid", columnDefinition="int(11) comment '这个轮播图是哪个商家的，对应 store.id' defualt '0'")
+	@Column(name = "storeid", columnDefinition="int(11) comment '这个轮播图是哪个商家的，对应 store.id' default '0'")
 	public Integer getStoreid() {
 		return storeid;
 	}
