@@ -3,6 +3,7 @@ package com.xnx3.wangmarket.shop.api.controller;
 import java.text.DecimalFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.xnx3.DateUtil;
+import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
@@ -28,6 +30,8 @@ import com.xnx3.wangmarket.plugin.alipay.bean.WapOrderBean;
 import com.xnx3.wangmarket.plugin.alipay.util.AlipayUtil;
 import com.xnx3.wangmarket.shop.api.util.AlipayCacheUtil;
 import com.xnx3.wangmarket.shop.api.util.SessionUtil;
+import com.xnx3.wangmarket.shop.api.vo.PaySetVO;
+import com.xnx3.wangmarket.shop.api.vo.bean.PaySetBean;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.PayLog;
@@ -45,7 +49,35 @@ import net.sf.json.JSONObject;
 public class PayController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
-
+	
+	/**
+	 * 获取当前商铺的支付列表，列出哪个支付使用，哪个支付不使用
+	 */
+	@ResponseBody
+	@RequestMapping("getUsableList${api.suffix}")
+	public BaseVO getUsableList(HttpServletRequest request,
+			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){
+		PaySetVO vo = new PaySetVO();
+		
+		if(storeid < 1){
+			return error("请传入storeid");
+		}
+		List<Map<String,Object>> list = sqlService.findMapBySqlQuery("SELECT use_alipay,use_private_pay,use_weixin_pay FROM shop_pay_set WHERE id = " + storeid);
+		Map<String,Object> map;
+		if(list.size() == 0){
+			map = new HashMap<String, Object>();
+		}else{
+			map = list.get(0);
+		}
+		PaySetBean paySetBean = new PaySetBean();
+		paySetBean.setUseAlipay((short) (map.get("use_alipay") != null ? Lang.stringToInt(map.get("use_alipay").toString() , 0):0));
+		paySetBean.setUsePrivatePay((short) (map.get("use_private_pay") != null ? Lang.stringToInt(map.get("use_private_pay").toString() , 0):0));
+		paySetBean.setUseWeixinPay((short) (map.get("use_weixin_pay") != null ? Lang.stringToInt(map.get("use_weixin_pay").toString() , 0):0));
+		vo.setPaySet(paySetBean);
+		
+		return vo;
+	}
+	
 	/**
 	 * 线下付款。此接口为标注订单状态为 线下支付
 	 * @author 管雷鸣
