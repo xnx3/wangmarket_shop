@@ -59,6 +59,12 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 			</a>
 		</li>
 		<li class="layui-nav-item">
+			<a href="javascript:loadUrl('/shop/store/carouselImage/list.do');">
+				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+				<span class="firstMenuFont">轮播图</span>
+			</a>
+		</li>
+		<li class="layui-nav-item">
 			<a href="javascript:loadUrl('/shop/store/user/list.do');">
 				<i class="layui-icon firstMenuIcon">&#xe632;</i>
 				<span class="firstMenuFont">用户管理</span>
@@ -86,7 +92,13 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 		<li class="layui-nav-item">
 			<a href="javascript:loadUrl('/shop/store/paySet/index.do');">
 				<i class="layui-icon firstMenuIcon">&#xe632;</i>
-				<span class="firstMenuFont">支付管理</span>
+				<span class="firstMenuFont">支付设置</span>
+			</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="javascript:loadUrl('/shop/store/orderRule/index.do');">
+				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+				<span class="firstMenuFont">订单设置</span>
 			</a>
 		</li>
 		
