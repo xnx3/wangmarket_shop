@@ -28,8 +28,10 @@ import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.OrderRefund;
+import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
 import com.xnx3.wangmarket.shop.api.service.CartService;
 import com.xnx3.wangmarket.shop.api.service.OrderService;
 import com.xnx3.wangmarket.shop.api.util.GoodsUtil;
@@ -53,6 +55,8 @@ public class OrderController extends BasePluginController {
 	private CartService cartService;
 	@Resource
 	private OrderService orderService;
+	@Resource
+	private OrderRuleService orderRuleService;
 	
 	/**
 	 * 创建订单
@@ -287,7 +291,6 @@ public class OrderController extends BasePluginController {
 	    //创建查询语句，只有SELECT、FROM，原生sql查询。其他的where、limit等会自动拼接
 	    sql.setSelectFromAndPage("SELECT * FROM shop_order", page);
 	    sql.setDefaultOrderBy("shop_order.id DESC");
-	    System.out.println(sql.getSql());
 	    //因只查询的一个表，所以可以将查询结果转化为实体类，用List接收。
 	    List<Order> list = sqlService.findBySql(sql, Order.class);
 	    vo.setOrderList(list);
@@ -381,6 +384,12 @@ public class OrderController extends BasePluginController {
 		//判断订单状态，是否允许变为申请退款， 已支付、线下支付 这两种状态允许申请退款
 		if(!(order.getState().equals(Order.STATE_PAY) || order.getState().equals(Order.STATE_PRIVATE_PAY))) {
 			return error("订单状态异常");
+		}
+		
+		//判断当前商家是否开启了订单允许退款功能
+		OrderRule orderRule = orderRuleService.getRole(order.getStoreid());
+		if(orderRule.getRefund() - OrderRule.OFF == 0){
+			return error("商家已设置不允许用户提出退款申请");
 		}
 		
 		//修改订单状态

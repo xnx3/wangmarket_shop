@@ -31,9 +31,9 @@ public class OrderRuleController extends BasePluginController {
 	 * @param storeid 要获取的信息是那个店铺的，店铺的id
 	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="list${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="getRule${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
-	public OrderRuleVO list(HttpServletRequest request,
+	public OrderRuleVO getRule(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid) {
 		OrderRule orderRule = orderRuleService.getRole(storeid);
 		OrderRuleVO vo = new OrderRuleVO();

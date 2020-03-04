@@ -16,14 +16,22 @@ import com.xnx3.j2ee.entity.BaseEntity;
 @Entity()
 @Table(name = "shop_order_rule")
 public class OrderRule extends BaseEntity implements java.io.Serializable {
+	/**
+	 * 正常
+	 */
+	public static final short NORMAL = 1;
+	/**
+	 * 关闭
+	 */
+	public static final short OFF = 0;
 	
 	private Integer id;			//编号，对应 store.id
 	private Short distribution;	//是否使用配送中这个状态，如果没有，订单可以有已支付直接变为已完成。1使用，0不使用。默认是1使用
 	private Short refund;		//是否使用退款这个状态，也就是是否允许用户退款。1使用，0不使用。默认是1使用
 	
 	public OrderRule() {
-		this.distribution = 1;
-		this.refund = 1;
+		this.distribution = NORMAL;
+		this.refund = NORMAL;
 	}
 	
 	@Id

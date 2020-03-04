@@ -1,23 +1,14 @@
 package com.xnx3.wangmarket.shop.core.service.impl;
 
-import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
-import com.xnx3.j2ee.Global;
 import com.xnx3.j2ee.dao.SqlDAO;
-import com.xnx3.j2ee.entity.System;
-import com.xnx3.j2ee.service.SystemService;
 import com.xnx3.j2ee.util.CacheUtil;
 import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
 
 @Service
 public class OrderRuleServiceImpl implements OrderRuleService {
-	private final static String CACHE_KEY = "store:orderRule:";
-	
 	@Resource
 	private SqlDAO sqlDAO;
 
@@ -37,7 +28,7 @@ public class OrderRuleServiceImpl implements OrderRuleService {
 			return orderRule;
 		}
 		
-		String key = CACHE_KEY+storeid;
+		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_ORDER_RULE.replace("{storeid}", storeid+"");
 		orderRule = (OrderRule)CacheUtil.get(key);
 		
 		if(orderRule == null){
@@ -64,7 +55,7 @@ public class OrderRuleServiceImpl implements OrderRuleService {
 		if(orderRule.getId() == null){
 			return;
 		}
-		String key = CACHE_KEY+orderRule.getId();
+		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_ORDER_RULE.replace("{storeid}", orderRule.getId()+"");
 		CacheUtil.set(key, orderRule);
 	}
 

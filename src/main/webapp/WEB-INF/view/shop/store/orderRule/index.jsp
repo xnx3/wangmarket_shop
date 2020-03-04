@@ -13,10 +13,12 @@ body{padding-left: 30px;}
 
 <div>
 	 订单是否有配送中这个状态
-  	<c:if test="${orderRule.distribution == 0}">关闭
+  	<c:if test="${orderRule.distribution == 0}">
+  		 当前已关闭
   		 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('distribution',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>	
   	</c:if>
-  	<c:if test="${orderRule.distribution == 1}">开启
+  	<c:if test="${orderRule.distribution == 1}">
+  		当前已开启
   		 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('distribution',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>	
 	</c:if>
 	<div style="color: gray;font-size: 12px">
@@ -28,10 +30,12 @@ body{padding-left: 30px;}
 </br></br>
 <div>
 	用户是否可退款
-  	<c:if test="${orderRule.refund == 0}">关闭
+  	<c:if test="${orderRule.refund == 0}">
+  		当前已关闭
   		 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('refund',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>	
   	</c:if>
-  	<c:if test="${orderRule.refund == 1}">开启
+  	<c:if test="${orderRule.refund == 1}">
+  		当前已开启
   		 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('refund',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>	
 	</c:if>
 	<div style="color: gray ;font-size: 12px;font-size: 12px">
