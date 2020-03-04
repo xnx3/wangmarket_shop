@@ -30,7 +30,7 @@ public class OrderTimeoutListenerThread extends Thread{
 		ConsoleUtil.log("OrderTimeoutListenerThread start");
 		while (true) {
 			try {
-				Thread.sleep(5*1000);	//5秒一次
+				Thread.sleep(10*1000);	//10秒一次 
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -49,29 +49,34 @@ public class OrderTimeoutListenerThread extends Thread{
 		//当前时间戳
 		int currentTime = DateUtil.timeForUnix10();
 		//查询出超时的要处理的订单，一次最多查出1000条
-		List<OrderTimeout> orderTimeoutList = sqlservice.findBySqlQuery("SELECT * FROM shop_order_timeout WHERE expiretime > "+currentTime+" ORDER BY expiretime ASC LIMIT 1000", OrderTimeout.class);
+		List<OrderTimeout> orderTimeoutList = sqlservice.findBySqlQuery("SELECT * FROM shop_order_timeout WHERE expiretime < "+currentTime+" ORDER BY expiretime ASC LIMIT 1000", OrderTimeout.class);
 //		ConsoleUtil.info("符合条件订单："+orderTimeoutList);
 		//将超时该处理的订单遍历，进行处理
 		for (int i = 0; i < orderTimeoutList.size(); i++) {
 			OrderTimeout orderTimeout = orderTimeoutList.get(i);
 			Order order = sqlservice.findById(Order.class, orderTimeout.getId());
+			ConsoleUtil.info(order.toString());
 			if(order.getState().equals(orderTimeout.getState())){
 				//状态符合，进行处理
 				if(order.getState().equals(Order.STATE_CREATE_BUT_NO_PAY)){
 					//已下单待付款，超时，那变为订单已取消
 					order.setState(Order.STATE_PAYTIMEOUT_CANCEL);
 					//取消订单了，同时释放库存
-					sqlservice.save(order);
+					int row = sqlservice.executeSql("UPDATE shop_order SET state = '"+Order.STATE_PAYTIMEOUT_CANCEL+"', version = version+1 WHERE id = "+order.getId()+" AND version = "+order.getVersion());
+					System.out.println("row : "+row+"  -- "+"UPDATE shop_order SET state = '"+Order.STATE_PAYTIMEOUT_CANCEL+"', version = version+1 WHERE id = "+order.getId()+" AND version = "+order.getVersion());
+					if(row == 0){
+						continue;
+					}
 
 					//查询出这个订单下有哪些商品
-					List<OrderGoods> orderGoodsList = sqlservice.findBySqlQuery("", OrderGoods.class);
+					List<OrderGoods> orderGoodsList = sqlservice.findBySqlQuery("SELECT * FROM shop_order_goods WHERE orderid = "+order.getId(), OrderGoods.class);
 					//统计一共有多少商品
 					int allNumber = 0;
 					for (int j = 0; j < orderGoodsList.size(); j++) {
-						OrderGoods orderGoods = orderGoodsList.get(i);
+						OrderGoods orderGoods = orderGoodsList.get(j);
 						allNumber = allNumber + orderGoods.getNumber();
 						//商品Goods销售数量-，库存+
-						sqlservice.executeSql("UPDATE Goods SET inventory = inventory +"+orderGoods.getNumber()+", sale = sale - "+orderGoods.getNumber()+" WHERE id = "+orderGoods.getGoodsid());
+						sqlservice.executeSql("UPDATE shop_goods SET inventory = inventory +"+orderGoods.getNumber()+", sale = sale - "+orderGoods.getNumber()+" WHERE id = "+orderGoods.getGoodsid());
 					}
 					//商铺的销量-
 					sqlservice.executeSql("UPDATE shop_store SET sale = sale - " + allNumber + " WHERE id = "+order.getStoreid());
