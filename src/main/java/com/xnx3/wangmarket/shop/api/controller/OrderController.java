@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.DateUtil;
@@ -40,7 +41,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
- * 商品相关
+ * 订单相关
  * @author 管雷鸣
  */
 @Controller(value="ShopOrderController")
@@ -66,7 +67,7 @@ public class OrderController extends BasePluginController {
 	 * @return {@link OrderVO},若成功，则可以获取到 order 数据
 	 */
 	@Transactional
-	@RequestMapping("create${api.suffix}")
+	@RequestMapping(value="create${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO create(HttpServletRequest request,
 			@RequestParam(value = "buygoods", required = false, defaultValue = "") String buygoods,
@@ -244,7 +245,7 @@ public class OrderController extends BasePluginController {
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 * @author 管雷鸣
 	 */
-	@RequestMapping("list${api.suffix}")
+	@RequestMapping(value="list${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderListVO list(HttpServletRequest request,
 			@RequestParam(value = "state", required = false, defaultValue = "") String state,
@@ -303,7 +304,7 @@ public class OrderController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @param id 订单id，order.id，要查看哪个订单的信息
 	 */
-	@RequestMapping("detail${api.suffix}")
+	@RequestMapping(value="detail${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO detail(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id){
@@ -359,7 +360,7 @@ public class OrderController extends BasePluginController {
 	 * @param id 订单id
 	 * @param reason 退款理由，非必填，如果想作为必填项，可以在客户端进行必填的判断
 	 */
-	@RequestMapping("refund${api.suffix}")
+	@RequestMapping(value="refund${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO refund(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
@@ -413,7 +414,7 @@ public class OrderController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @param id 订单id
 	 */
-	@RequestMapping("receiveGoods${api.suffix}")
+	@RequestMapping(value="receiveGoods${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO receiveGoods(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id){
@@ -457,7 +458,7 @@ public class OrderController extends BasePluginController {
 	 * @author 关光礼
 	 * @param id 订单id
 	 */
-	@RequestMapping("cancel${api.suffix}")
+	@RequestMapping(value="cancel${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO cancel(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id){
@@ -494,7 +495,7 @@ public class OrderController extends BasePluginController {
 	 * @param storeid 要统计的所在店铺id
 	 * @author 管雷鸣
 	 */
-	@RequestMapping("statistics${api.suffix}")
+	@RequestMapping(value="statistics${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderStateStatisticsVO statistics(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){

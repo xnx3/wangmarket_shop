@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
@@ -28,7 +29,7 @@ public class GoodsTypeController extends BasePluginController {
 	 * @param storeid 店铺id，对应 Store.id ,要获取的是哪个店铺的商品分类
 	 * @return {@link GoodsTypeListVO} 若不存在，则会new一个返回过来，不会存在null的情况
 	 */
-	@RequestMapping("list${api.suffix}")
+	@RequestMapping(value="list${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public GoodsTypeListVO list(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){

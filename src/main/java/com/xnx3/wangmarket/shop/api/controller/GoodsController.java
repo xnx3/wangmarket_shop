@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
@@ -45,7 +46,7 @@ public class GoodsController extends BasePluginController {
 	 * 
 	 * @return {@link GoodsListVO}
 	 */
-	@RequestMapping("list${api.suffix}")
+	@RequestMapping(value="list${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public GoodsListVO list(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
@@ -103,7 +104,7 @@ public class GoodsController extends BasePluginController {
 	 * @param goodsid 要查看的商品id，goods.id
 	 * @return GoodsDetailsVO
 	 */
-	@RequestMapping("detail${api.suffix}")
+	@RequestMapping(value="detail${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public GoodsDetailsVO detail(HttpServletRequest request,
 			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid){

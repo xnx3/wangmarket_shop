@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.alipay.api.AlipayApiException;
@@ -54,7 +55,7 @@ public class PayController extends BasePluginController {
 	 * 获取当前商铺的支付列表，列出哪个支付使用，哪个支付不使用
 	 */
 	@ResponseBody
-	@RequestMapping("getUsableList${api.suffix}")
+	@RequestMapping(value="getUsableList${api.suffix}", method = RequestMethod.POST)
 	public BaseVO getUsableList(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){
 		PaySetVO vo = new PaySetVO();
@@ -83,7 +84,7 @@ public class PayController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @param orderid 订单id
 	 */
-	@RequestMapping("privatePay${api.suffix}")
+	@RequestMapping(value="privatePay${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO privatePay(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
@@ -125,7 +126,7 @@ public class PayController extends BasePluginController {
 	 * @return {@link BaseVO} result 返回1 那么 info 返回要跳转到的支付页面url
 	 */
 	@ResponseBody
-	@RequestMapping("alipay${api.suffix}")
+	@RequestMapping(value="alipay${api.suffix}", method = RequestMethod.POST)
 	public BaseVO alipay(HttpServletRequest request,Model model,
 			@RequestParam(value = "orderid", required = false, defaultValue="0") int orderid,
 			@RequestParam(value = "channel", required = false, defaultValue="") String channel){

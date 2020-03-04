@@ -27,6 +27,7 @@ public class StoreController extends BaseController {
 
 	/**
 	 * 获取店铺信息， Store 的信息
+	 * @param storeid 要获取的信息是那个店铺的，店铺的id
 	 */
 	@RequestMapping(value="getStore${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody

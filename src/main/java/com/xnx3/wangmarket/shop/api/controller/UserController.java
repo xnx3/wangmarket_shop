@@ -36,7 +36,7 @@ public class UserController extends BaseController {
 	 * 获取当前登录的用户信息
 	 */
 	@ResponseBody
-	@RequestMapping("/getUser${api.suffix}")
+	@RequestMapping(value="getUser${api.suffix}", method = RequestMethod.POST)
 	public UserVO getUser(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		ActionLogUtil.insert(request, "获取当前登录的用户信息");
 		UserVO vo = new UserVO();
