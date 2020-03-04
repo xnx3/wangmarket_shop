@@ -3,57 +3,54 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'e1643b0bbac246b7a6c701174b953c48872171a9'
-    oldFile: !uuid '6a0f06b8f739ad54396a6945beefc90ba4d0cc29'
+    newFile: !uuid '46e079179a95fbe0d5d805ff430d036999c528c9'
+    oldFile: !uuid 'e1643b0bbac246b7a6c701174b953c48872171a9'
   /src/main:
-    newFile: !uuid '90bd918fd29465e36d482be6f91115aa2c4c6bbf'
-    oldFile: !uuid '8abf4da5ed0c7cac3b0045f9b2f321d2905a648f'
-  /src/main/java:
-    newFile: !uuid '3380b073148abe35cae993c6892f692d70b3ec88'
-    oldFile: !uuid '2e64546224c37f38dce6cd629f326e61996bd6e7'
-  /src/main/java/com:
-    newFile: !uuid '63b991e9033909f9bb0faef7e3efeecad7fbb59f'
-    oldFile: !uuid '585e0c04b5a31c0c7427cd1799d92438c5064806'
-  /src/main/java/com/xnx3:
-    newFile: !uuid '34cafe69ab69a2900933ec0b073f2e15411d6630'
-    oldFile: !uuid 'e5e89c6ab7c60ccb20c1105467ac68a13badd00a'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '38eaed4353734283dd2313f72d69eac31cbb06e8'
-    oldFile: !uuid '0d3fa55ba6ab54d3c80064910ea05973cff3698a'
-  /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid '177df6f6662c08980b5861c594116b556fdcc473'
-    oldFile: !uuid '22a919a196b475aebc73ee86c2eaf7ab7ebda175'
-  /src/main/java/com/xnx3/wangmarket/shop/api:
-    newFile: !uuid '545f4cf60c1a47e116beda822245469dac3e5f54'
-    oldFile: !uuid '077c4b7e5b12168736fcaf3c04b518a88cc54619'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller:
-    newFile: !uuid '4074755f56b531ff0239a1dd07cf09033202355e'
-    oldFile: !uuid 'd5fbe0df614150fe840e0a7bdc6b8bb9882f37ab'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller/PayController.java:
-    newFile: !uuid '64239238f58a2d0aaa88d7cc40284ec215581975'
-    oldFile: !uuid 'fcd9ce68de04fe8f98694685a97c425d08f71e01'
-  /src/main/java/com/xnx3/wangmarket/shop/api/vo:
-    newFile: !uuid 'b14961eb2e9d0cb20e0493a07b4022e4d5231d12'
-    oldFile: !uuid '67fc9af8a4611254ccc2cd48a7aa064ec786d6f5'
-  /src/main/java/com/xnx3/wangmarket/shop/api/vo/PaySetVO.java:
-    newFile: !uuid 'a8a6fb57f9de8d250a0c71895e70ed5a2d220241'
+    newFile: !uuid '05b0d59cd152a6680fac79babb42e6ee488bf2f8'
+    oldFile: !uuid '90bd918fd29465e36d482be6f91115aa2c4c6bbf'
+  /src/main/resources:
+    newFile: !uuid 'ab342e8acba0502877e41decd2ed828cd1a6d460'
+    oldFile: !uuid 'b0cc677ea683c69b98164fcbfebbfff4bc844248'
+  /src/main/resources/static:
+    newFile: !uuid '121d8d98414a799de2ebfb7d64138eadd2c3102d'
+    oldFile: !uuid 'f9874d582380f0382d02f14cd2a735ccda8234ac'
+  /src/main/resources/static/js:
+    newFile: !uuid '1d9431ec1ac1723ae6e21825a63333ef8edd2359'
+    oldFile: !uuid 'e8d61c914f29ea5c74c67042fa377f11f15f22da'
+  /src/main/resources/static/js/admin:
+    newFile: !uuid 'cf16fcba14137c8b737ab0756c841af2800d911c'
+    oldFile: !uuid '4fe2e153ab334098629ba8fee6e5161dfb93c60c'
+  /src/main/resources/static/js/admin/commonedit.js:
+    newFile: !uuid '1a671683668447f4163047800d7a4667e58c6ff7'
+    oldFile: !uuid '79a216634fa8990cf95d315872072cc673ab976c'
+  /src/main/resources/static/module:
+    newFile: !uuid 'f41ec3af2ac4f2958d8c4130e26a97fb54a44dfe'
+    oldFile: !uuid 'a330930b1ea999fab65e462ac40c60b98fbb9011'
+  /src/main/resources/static/module/msg:
+    newFile: !uuid '6310de696e00f7ebe4b7760b7e1c92687c6c6e07'
     oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/api/vo/bean:
-    newFile: !uuid '63be3c79e9dde342bf7fd3b9d1dfe35ed64f46e6'
-    oldFile: !uuid '7624a7d1294b7020b25a32fd67ffefb8106ab212'
-  /src/main/java/com/xnx3/wangmarket/shop/api/vo/bean/PaySetBean.java:
-    newFile: !uuid 'b2b5878d7ace0e7203b394dc4306d6d13312b1da'
+  /src/main/resources/static/module/msg/msg-1.0.1.js:
+    newFile: !uuid '34803e14ebf6b4075c374a1667e350519fc1cdc0'
     oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/core:
-    newFile: !uuid 'a3f2f67143f7a8633a5569e77d45839a66eaa467'
-    oldFile: !uuid 'c392aaa670b60760e2552aa2bacb7debed75ab7a'
-  /src/main/java/com/xnx3/wangmarket/shop/core/entity:
-    newFile: !uuid '58058940766f75ef540fe509d7c9ad8b8674eee4'
-    oldFile: !uuid 'd2a42923e15447a5bb3b13069ab2de719800bbf9'
-  /src/main/java/com/xnx3/wangmarket/shop/core/entity/PaySet.java:
-    newFile: !uuid '799c882162672c3fdaa690941c2dfbf020eb402d'
-    oldFile: !uuid '0d9c45fd669706b4df0445994943a70359c805b9'
-gitCommitId: !uuid '3f829132fb81d1b8988968a7cfa6d64e9bd0532f'
+  /src/main/webapp:
+    newFile: !uuid '8d66e42a9a34c37c67055c11f0809b26d362b0e4'
+    oldFile: !uuid '3e9e9fb28c618b8bf559d0df61f304e5a1db26e5'
+  /src/main/webapp/WEB-INF:
+    newFile: !uuid '2d30ec7d96fccadeda7c2d909b964ad832d36460'
+    oldFile: !uuid '5132d65d4c32be9176e1c18fe7c698328ced92b8'
+  /src/main/webapp/WEB-INF/view:
+    newFile: !uuid '3eb292df2b48f9a9f2ab0a7ecb0d7dbc57422616'
+    oldFile: !uuid 'eb0bee500d46d10e975194f5868f835f71e0870b'
+  /src/main/webapp/WEB-INF/view/iw:
+    newFile: !uuid '06cb60ec65a2266f830bbe6d0f0b392275586bfc'
+    oldFile: !uuid '7b2ae4765d76fcf02fcfb76b09c07d7fc365cb13'
+  /src/main/webapp/WEB-INF/view/iw/common:
+    newFile: !uuid '6fa10dd8bdc07c7f1a792bbd0ba100b12871506c'
+    oldFile: !uuid '790e6388b1483e38b900e77531176191ade78e1e'
+  /src/main/webapp/WEB-INF/view/iw/common/head.jsp:
+    newFile: !uuid '2e7c00e99984b0337543d34ef3297574ea1b0b34'
+    oldFile: !uuid '54338d3e6fe61a4a9fcfaee91d231a237784c369'
+gitCommitId: !uuid 'd501973391c136a2f1262a681eaa0c26ada1cf03'
 renames: {
   }
-revisionId: 58
+revisionId: 59
