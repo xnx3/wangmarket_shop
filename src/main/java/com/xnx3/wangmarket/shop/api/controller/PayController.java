@@ -1,7 +1,6 @@
 package com.xnx3.wangmarket.shop.api.controller;
 
 import java.text.DecimalFormat;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,15 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.alipay.api.AlipayApiException;
-import com.alipay.api.internal.util.AlipaySignature;
 import com.xnx3.DateUtil;
 import com.xnx3.Lang;
-import com.xnx3.StringUtil;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.ConsoleUtil;
-import com.xnx3.j2ee.util.SpringUtil;
 import com.xnx3.j2ee.util.SystemUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.plugin.alipay.bean.PcOrderBean;
@@ -34,11 +30,9 @@ import com.xnx3.wangmarket.shop.api.util.SessionUtil;
 import com.xnx3.wangmarket.shop.api.vo.PaySetVO;
 import com.xnx3.wangmarket.shop.api.vo.bean.PaySetBean;
 import com.xnx3.wangmarket.shop.core.entity.Order;
-import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.PayLog;
-import com.xnx3.wangmarket.shop.core.entity.PaySet;
-import com.xnx3.wangmarket.shop.core.entity.Store;
-
+import com.xnx3.wangmarket.shop.core.service.PayService;
+import com.xnx3.wangmarket.shop.core.vo.AlipayUtilVO;
 import net.sf.json.JSONObject;
 
 /**
@@ -50,6 +44,9 @@ import net.sf.json.JSONObject;
 public class PayController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private PayService payService;
+	
 	
 	/**
 	 * 获取当前商铺的支付列表，列出哪个支付使用，哪个支付不使用
@@ -145,12 +142,17 @@ public class PayController extends BasePluginController {
 		}
 		
 		/**** 订单校验完毕，可以支付 ****/
-		AlipayUtil alipay = AlipayCacheUtil.getAlipayUtil(order.getStoreid());
+		AlipayUtilVO vo = payService.getAlipayUtil(order.getStoreid());
+		if(vo.getResult() - AlipayUtilVO.FAILURE == 0){
+			//如果当前支付宝支付方式不符合，那么返回错误提示
+			return error(vo.getInfo());
+		}
+		
 		if(channel.equalsIgnoreCase("alipay_pc")){
 			//支付宝PC端电脑网页支付
 			PcOrderBean orderBean = new PcOrderBean(order.getNo(), order.getPayMoney()/100f, "商城支付", "");
 			try {
-				String form = alipay.pcPay(orderBean);
+				String form = vo.getAlipayUtil().pcPay(orderBean);
 				SessionUtil.setAlipayForm(form);
 			} catch (AlipayApiException e) {
 				e.printStackTrace();
@@ -160,7 +162,7 @@ public class PayController extends BasePluginController {
 			//支付宝手机端网页支付
 			WapOrderBean orderBean = new WapOrderBean(order.getNo(), order.getPayMoney()/100f, "商城支付", "", "http://www.leimingyun.com");
 			try {
-				String form = alipay.wapPay(orderBean);
+				String form = vo.getAlipayUtil().wapPay(orderBean);
 				SessionUtil.setAlipayForm(form);
 			} catch (AlipayApiException e) {
 				e.printStackTrace();

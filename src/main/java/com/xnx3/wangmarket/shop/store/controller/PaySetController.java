@@ -14,8 +14,10 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentMode.LocalServerMode;
 import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.core.service.PayService;
 
 
 /**
@@ -27,6 +29,8 @@ import com.xnx3.wangmarket.shop.core.entity.Store;
 public class PaySetController extends BaseController {
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private PayService payService;
 	
 	/**
 	 * 设置的首页
@@ -87,6 +91,8 @@ public class PaySetController extends BaseController {
 			return error("name 错误");
 		}
 		sqlService.save(paySet);
+		//更新持久缓存
+		payService.setPaySet(paySet);
 		
 		//日志记录
 		ActionLogUtil.insert(request, "商家支付设置，设置"+name, paySet.toString());
@@ -123,13 +129,15 @@ public class PaySetController extends BaseController {
 		
 		//将文件上传到服务器本身
 		try {
-			new LocalServerMode().put("mnt/shop/store/"+store.getId()+"/crt/"+name+".crt", file.getInputStream());
+			new LocalServerMode().put(Global.CERTIFICATE_PATH.replace("{storeid}", store.getId()+"")+name+".crt", file.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		//保存数据
 		sqlService.save(paySet);
+		//更新持久缓存
+		payService.setPaySet(paySet);
 		
 		//日志记录
 		ActionLogUtil.insert(request, "商家支付设置，上传"+name+".crt");

@@ -47,7 +47,6 @@ public class Order extends BaseEntity {
 	public static final String STATE_CANCELMONEY_ING = "refund_ing";	
 	/**
 	 * 已退款
-	 * 当用户下单后
 	 */
 	public static final String STATE_CANCELMONEY_FINISH = "refund_finish";	
 	/**
@@ -58,6 +57,11 @@ public class Order extends BaseEntity {
 	 * 支付完成，配送中
 	 */
 	public static final String STATE_DISTRIBUTION_ING = "distribution_ing";	
+	/**
+	 * 订单已完成，全部完成了
+	 */
+	public static final String STATE_FINISH = "finish";
+	
 	
 	private Integer id;			//订单id
 	private String no;			//订单号，这个是支付宝支付、微信支付传过去的订单号，也是给用户显示出来的订单号
