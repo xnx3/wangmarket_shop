@@ -83,6 +83,7 @@ public class GoodsController extends BasePluginController {
 	     * 具体规则可参考： http://note.youdao.com/noteshare?id=3ccef2de6a5cda01f95f832b02e356d0&sub=D53E681BBFF04822977C7CFBF8827863
 	     */
 	    sql.setSearchColumn(new String[]{"storeid=","typeid=","title"});
+	    sql.appendWhere("isdelete = "+Goods.ISDELETE_NORMAL);
 	    //查询user数据表的记录总条数。 传入的user：数据表的名字为user
 	    int count = sqlService.count("shop_goods", sql.getWhere());
 	    //创建分页，并设定每页显示15条
