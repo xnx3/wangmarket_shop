@@ -70,8 +70,8 @@
 	<c:forEach var="item" items="${goodsList }">
 		<tr>
 			<td style="text-align:center;">${item.id }</td>
-			<td style="text-align:center;">${item.goodsTitle }</td>
-			<td style="text-align:center;">${item.goodsPrice/100}/${item.goodsUnits }</td>
+			<td style="text-align:center;">${item.title }</td>
+			<td style="text-align:center;">${item.price/100}/${item.units }</td>
 			<td style="text-align:center;">${item.number }</td>
 		</tr>
 	</c:forEach>

@@ -20,10 +20,10 @@ public class OrderGoods {
 	private Integer orderid;		//订单的ID，对应 Order.id
 	private Integer goodsid;		//商品的id，对应 Goods.id
 	private Integer userid;			//购买者的用户ID，对应User.id
-	private String goodsTitle;		//商品名字，对应 Goods.title ，就是吧Goods的信息复制过来了，相当于给商品做了一个镜像
-	private Integer goodsPrice;		//商品单价，单位是分，对应 Goods.price
-	private String goodsUnits;		//商品单位，对应 Goods.units
-	private String goodsTitlepic;	//商品的标题图片，列表图，对应 Goods.titlepic	
+	private String title;		//商品名字，对应 Goods.title ，就是吧Goods的信息复制过来了，相当于给商品做了一个镜像
+	private Integer price;		//商品单价，单位是分，对应 Goods.price
+	private String units;		//商品单位，对应 Goods.units
+	private String titlepic;	//商品的标题图片，列表图，对应 Goods.titlepic	
 	private Integer number;			//该商品的购买的数量
 	
 	@Id
@@ -60,38 +60,36 @@ public class OrderGoods {
 		this.userid = userid;
 	}
 	
-	@Column(name = "goods_title", columnDefinition="char(40) comment '商品名字，对应 Goods.title ，就是吧Goods的信息复制过来了，相当于给商品做了一个镜像'")
-	public String getGoodsTitle() {
-		return goodsTitle;
+	@Column(name = "title", columnDefinition="char(40) comment '商品名字，对应 Goods.title ，就是吧Goods的信息复制过来了，相当于给商品做了一个镜像'")
+	public String getTitle() {
+		return title;
 	}
-	public void setGoodsTitle(String goodsTitle) {
-		this.goodsTitle = goodsTitle;
-	}
-	
-	@Column(name = "goods_price", columnDefinition="int(11) comment '商品单价，单位是分，对应 Goods.price'")
-	public Integer getGoodsPrice() {
-		return goodsPrice;
-	}
-	public void setGoodsPrice(Integer goodsPrice) {
-		this.goodsPrice = goodsPrice;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
-	@Column(name = "goods_units", columnDefinition="char(5) comment '商品单位，对应 Goods.units'")
-	public String getGoodsUnits() {
-		return goodsUnits;
+	@Column(name = "price", columnDefinition="int(11) comment '商品单价，单位是分，对应 Goods.price'")
+	public Integer getPrice() {
+		return price;
 	}
-	public void setGoodsUnits(String goodsUnits) {
-		this.goodsUnits = goodsUnits;
-	}
-	
-	@Column(name = "goods_titlepic", columnDefinition="char(100) comment '商品的标题图片，列表图，对应 Goods.titlepic'")
-	public String getGoodsTitlepic() {
-		return goodsTitlepic;
-	}
-	public void setGoodsTitlepic(String goodsTitlepic) {
-		this.goodsTitlepic = goodsTitlepic;
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 	
+	@Column(name = "units", columnDefinition="char(5) comment '商品单位，对应 Goods.units'")
+	public String getUnits() {
+		return units;
+	}
+	public void setUnits(String units) {
+		this.units = units;
+	}
+	@Column(name = "titlepic", columnDefinition="char(100) comment '商品的标题图片，列表图，对应 Goods.titlepic'")
+	public String getTitlepic() {
+		return titlepic;
+	}
+	public void setTitlepic(String titlepic) {
+		this.titlepic = titlepic;
+	}
 	@Column(name = "number", columnDefinition="int(11) comment '该商品的购买的数量'")
 	public Integer getNumber() {
 		if(number == null) {
@@ -102,12 +100,10 @@ public class OrderGoods {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	
 	@Override
 	public String toString() {
 		return "OrderGoods [id=" + id + ", orderid=" + orderid + ", goodsid=" + goodsid + ", userid=" + userid
-				+ ", goodsTitle=" + goodsTitle + ", goodsPrice=" + goodsPrice + ", goodsUnits=" + goodsUnits
-				+ ", goodsTitlepic=" + goodsTitlepic + ", number=" + number + "]";
+				+ ", title=" + title + ", price=" + price + ", units=" + units + ", titlepic=" + titlepic + ", number="
+				+ number + "]";
 	}
-	
 }

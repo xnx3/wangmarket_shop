@@ -195,10 +195,10 @@ public class OrderController extends BasePluginController {
 			Goods goods = goodsMap.get(buyGoods.getGoods().getId());
 			OrderGoods orderGoods = new OrderGoods();
 			orderGoods.setGoodsid(goods.getId());
-			orderGoods.setGoodsPrice(goods.getPrice());
-			orderGoods.setGoodsTitle(goods.getTitle());
-			orderGoods.setGoodsTitlepic(goods.getTitlepic());
-			orderGoods.setGoodsUnits(goods.getUnits());
+			orderGoods.setPrice(goods.getPrice());
+			orderGoods.setTitle(goods.getTitle());
+			orderGoods.setTitlepic(goods.getTitlepic());
+			orderGoods.setUnits(goods.getUnits());
 			orderGoods.setNumber(buyGoods.getNum());
 			orderGoods.setOrderid(order.getId());
 			orderGoods.setUserid(user.getId());
