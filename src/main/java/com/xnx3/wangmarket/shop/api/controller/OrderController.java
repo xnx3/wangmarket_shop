@@ -32,6 +32,7 @@ import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
+import com.xnx3.wangmarket.shop.core.service.PayService;
 import com.xnx3.wangmarket.shop.api.service.CartService;
 import com.xnx3.wangmarket.shop.api.service.OrderService;
 import com.xnx3.wangmarket.shop.api.util.GoodsUtil;
@@ -57,6 +58,8 @@ public class OrderController extends BasePluginController {
 	private OrderService orderService;
 	@Resource
 	private OrderRuleService orderRuleService;
+	@Resource
+	private PayService payService;
 	
 	/**
 	 * 创建订单
@@ -351,6 +354,9 @@ public class OrderController extends BasePluginController {
 		//查出订单所属的商家
 		Store store = sqlService.findById(Store.class, order.getStoreid());
 		vo.setStore(store);
+		
+		//加入商家支付设置
+		vo.setPaySet(payService.getPaySet(order.getStoreid()));
 		
 		//写日志
 		ActionLogUtil.insert(request, orderid, "查看订单详情", "id:"+orderid+", no:"+order.getNo());

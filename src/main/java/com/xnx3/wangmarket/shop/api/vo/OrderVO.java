@@ -7,11 +7,13 @@ import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.api.vo.bean.OrderAddressBean;
 import com.xnx3.wangmarket.shop.api.vo.bean.OrderBean;
 import com.xnx3.wangmarket.shop.api.vo.bean.OrderGoodsBean;
+import com.xnx3.wangmarket.shop.api.vo.bean.PaySetBean;
 import com.xnx3.wangmarket.shop.api.vo.bean.StoreBean;
 import com.xnx3.wangmarket.shop.api.vo.bean.UserBean;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
+import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 
 /**
@@ -25,6 +27,7 @@ public class OrderVO extends BaseVO{
 	private UserBean user;			//下单的用户的信息
 	private StoreBean store;		//该订单所属的商家信息
 	private OrderAddressBean orderAddress;	//该订单配送的地址信息
+	private PaySetBean paySet;		//当前商家的支付设置。如果该订单已下单，但未支付，此信息就能有用了
 	
 	public OrderBean getOrder() {
 		return order;
@@ -116,11 +119,19 @@ public class OrderVO extends BaseVO{
 		}
 		this.store = storeBean;
 	}
-	@Override
-	public String toString() {
-		return "OrderVO [order=" + order + ", goodsList=" + goodsList + ", user=" + user + ", store=" + store
-				+ ", orderAddress=" + orderAddress + "]";
+	public PaySetBean getPaySet() {
+		return paySet;
 	}
-	
+	public void setPaySet(PaySet paySet) {
+		if(paySet == null){
+			this.paySet = new PaySetBean();
+		}else{
+			PaySetBean bean = new PaySetBean();
+			bean.setUseAlipay(paySet.getUseAlipay());
+			bean.setUsePrivatePay(paySet.getUsePrivatePay());
+			bean.setUseWeixinPay(paySet.getUseWeixinPay());
+			this.paySet = bean;
+		}
+	}
 	
 }
