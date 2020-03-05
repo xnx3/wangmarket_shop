@@ -305,16 +305,16 @@ public class OrderController extends BasePluginController {
 	/**
 	 *查看订单详情
 	 * @author 管雷鸣
-	 * @param id 订单id，order.id，要查看哪个订单的信息
+	 * @param orderid 订单id，order.id，要查看哪个订单的信息
 	 */
 	@RequestMapping(value="detail${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO detail(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id){
+			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
 		OrderVO vo = new OrderVO();
 		
 		//判断参数
-		if(id < 1) {
+		if(orderid < 1) {
 			vo.setBaseVO(OrderVO.FAILURE, "请传入订单id");
 			return vo;
 		}
@@ -324,7 +324,7 @@ public class OrderController extends BasePluginController {
 		vo.setUser(user);
 		
 		//查找订单信息
-		Order order = sqlService.findById(Order.class, id);
+		Order order = sqlService.findById(Order.class, orderid);
 		if(order == null) {
 			vo.setBaseVO(OrderVO.FAILURE, "根据订单ID，未查到订单信息！");
 			return vo;
@@ -336,12 +336,12 @@ public class OrderController extends BasePluginController {
 		vo.setOrder(order);
 		
 		//查找订单内商品信息
-		String sql = "SELECT * FROM shop_order_goods WHERE orderid = " + id;
+		String sql = "SELECT * FROM shop_order_goods WHERE orderid = " + orderid;
 		List<OrderGoods> list = sqlService.findBySqlQuery(sql, OrderGoods.class);
 		vo.setGoodsList(list);
 		
 		//查找订单的收货地址信息
-		OrderAddress orderAddress = sqlService.findById(OrderAddress.class, id);
+		OrderAddress orderAddress = sqlService.findById(OrderAddress.class, orderid);
 		if(orderAddress == null){
 			//为了避免之前版本的订单没有address，兼容之前的
 			orderAddress = new OrderAddress();
@@ -353,28 +353,28 @@ public class OrderController extends BasePluginController {
 		vo.setStore(store);
 		
 		//写日志
-		ActionLogUtil.insert(request, id, "查看订单详情", "id:"+id+", no:"+order.getNo());
+		ActionLogUtil.insert(request, orderid, "查看订单详情", "id:"+orderid+", no:"+order.getNo());
 		return vo;
 	}
 	
 	/**
 	 * 申请退款
 	 * @author 管雷鸣
-	 * @param id 订单id
+	 * @param orderid 订单id
 	 * @param reason 退款理由，非必填，如果想作为必填项，可以在客户端进行必填的判断
 	 */
 	@RequestMapping(value="refund${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO refund(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
+			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid,
 			@RequestParam(value = "reason", required = false, defaultValue = "") String reason){
 		//判断参数
-		if(id < 1) {
+		if(orderid < 1) {
 			return error("请传入订单ID");
 		}
 		
 		//查找订单信息
-		Order order = sqlService.findById(Order.class, id);
+		Order order = sqlService.findById(Order.class, orderid);
 		if(order == null) {
 			return error("订单不存在");
 		}
@@ -399,7 +399,7 @@ public class OrderController extends BasePluginController {
 		//创建退款记录
 		OrderRefund log = new OrderRefund();
 		log.setAddtime(DateUtil.timeForUnix10());
-		log.setOrderid(id);
+		log.setOrderid(orderid);
 		log.setReason(StringUtil.filterXss(reason));
 		log.setState(OrderRefund.STATE_ING);
 		log.setStoreid(order.getStoreid());
@@ -413,7 +413,7 @@ public class OrderController extends BasePluginController {
 		}
 		
 		//写日志
-		ActionLogUtil.insertUpdateDatabase(request, id, "订单申请退款", "订单id："+order.getId()+"，no:" + order.getNo() + "， 退单理由：" + log.getReason());
+		ActionLogUtil.insertUpdateDatabase(request, orderid, "订单申请退款", "订单id："+order.getId()+"，no:" + order.getNo() + "， 退单理由：" + log.getReason());
 	
 		return success();
 	}
@@ -426,17 +426,17 @@ public class OrderController extends BasePluginController {
 	@RequestMapping(value="receiveGoods${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO receiveGoods(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id){
+			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
 		OrderVO vo = new OrderVO();
 		
 		//判断参数
-		if(id < 1) {
+		if(orderid < 1) {
 			vo.setBaseVO(OrderVO.FAILURE, "请传入ID");
 			return vo;
 		}
 		
 		//查找订单信息
-		Order order = sqlService.findById(Order.class, id);
+		Order order = sqlService.findById(Order.class, orderid);
 		if(order == null) {
 			vo.setBaseVO(OrderVO.FAILURE, "订单不存在");
 			return vo;
@@ -458,7 +458,7 @@ public class OrderController extends BasePluginController {
 		sqlService.save(order);
 		
 		//写日志
-		ActionLogUtil.insert(request, id, "订单确认收货", "订单:" + order.toString());
+		ActionLogUtil.insert(request, orderid, "订单确认收货", "订单:" + order.toString());
 		return vo;
 	}
 	
@@ -470,13 +470,13 @@ public class OrderController extends BasePluginController {
 	@RequestMapping(value="cancel${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO cancel(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id){
+			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
 		//判断参数
-		if(id < 1) {
+		if(orderid < 1) {
 			return error("请传入订单ID");
 		}
 		//查找订单信息
-		Order order = sqlService.findById(Order.class, id);
+		Order order = sqlService.findById(Order.class, orderid);
 		if(order == null) {
 			return error("订单不存在");
 		}
@@ -493,7 +493,7 @@ public class OrderController extends BasePluginController {
 		sqlService.save(order);
 		
 		//写日志
-		ActionLogUtil.insertUpdateDatabase(request, id,"取消订单", order.toString());
+		ActionLogUtil.insertUpdateDatabase(request, orderid,"取消订单", order.toString());
 		
 		return success();
 	}
