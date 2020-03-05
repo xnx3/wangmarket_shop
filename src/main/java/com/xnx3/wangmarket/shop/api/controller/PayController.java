@@ -52,8 +52,8 @@ public class PayController extends BasePluginController {
 	 * 获取当前商铺的支付列表，列出哪个支付使用，哪个支付不使用
 	 */
 	@ResponseBody
-	@RequestMapping(value="getUsableList${api.suffix}", method = RequestMethod.POST)
-	public BaseVO getUsableList(HttpServletRequest request,
+	@RequestMapping(value="getPaySet${api.suffix}", method = RequestMethod.POST)
+	public BaseVO getPaySet(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){
 		PaySetVO vo = new PaySetVO();
 		
