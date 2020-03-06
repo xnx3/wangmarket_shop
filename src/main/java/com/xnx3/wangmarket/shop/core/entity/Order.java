@@ -42,7 +42,7 @@ public class Order extends BaseEntity {
 	 */
 	public static final String STATE_PRIVATE_PAY = "private_pay";
 	/**
-	 * 退款中，用户点击申请退款，就会变成退款中的状态
+	 * 退单中，用户点击申请退款，就会变成退款中的状态
 	 */
 	public static final String STATE_CANCELMONEY_ING = "refund_ing";	
 	/**

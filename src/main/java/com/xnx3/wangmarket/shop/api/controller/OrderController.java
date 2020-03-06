@@ -29,9 +29,11 @@ import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.OrderRefund;
 import com.xnx3.wangmarket.shop.core.entity.OrderRule;
+import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
+import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
 import com.xnx3.wangmarket.shop.core.service.PayService;
 import com.xnx3.wangmarket.shop.api.service.CartService;
 import com.xnx3.wangmarket.shop.api.service.OrderService;
@@ -60,6 +62,8 @@ public class OrderController extends BasePluginController {
 	private OrderRuleService orderRuleService;
 	@Resource
 	private PayService payService;
+	@Resource
+	private OrderStateLogService orderStateLogService;
 	
 	/**
 	 * 创建订单
@@ -204,9 +208,8 @@ public class OrderController extends BasePluginController {
 			orderGoods.setUserid(user.getId());
 			sqlService.save(orderGoods);
 			
-			//减库存，如果用户后面不支付，或者订单退单，那么库存还会再加回来
-			goods.setInventory(goods.getInventory() - buyGoods.getNum());
-			sqlService.save(goods);
+			//增加商品销量、减去商品库存。 如果用户后面不支付，或者订单退单，那么库存、销量还会再变回来
+			sqlService.executeSql("UPDATE shop_goods SET sale = sale + " + orderGoods.getNumber() + ", inventory = inventory - "+buyGoods.getNum()+"  WHERE id = "+orderGoods.getGoodsid());
 		}
 		
 		//创建订单对应的地址信息
@@ -226,6 +229,13 @@ public class OrderController extends BasePluginController {
 		//先统一设定半小时后未支付，就自动取消
 		orderTimeout.setExpiretime(DateUtil.timeForUnix10()+(30*60));
 		sqlService.save(orderTimeout);
+		
+		//订单状态记录
+		OrderStateLog stateLog = new OrderStateLog();
+		stateLog.setAddtime(DateUtil.timeForUnix10());
+		stateLog.setState(order.getState());
+		stateLog.setOrderid(order.getId());
+		sqlService.save(stateLog);
 		
 		//该店铺的已售数量增加，因为店铺下可能会同一时刻产生多个订单，version 乐观锁容易造成下单异常，阻挡正常下单，所以直接进行update 销售数量
 		sqlService.executeSql("UPDATE shop_store SET sale = sale + " + allNumber + " WHERE id = "+store.getId());
@@ -357,6 +367,8 @@ public class OrderController extends BasePluginController {
 		
 		//加入商家支付设置
 		vo.setPaySet(payService.getPaySet(order.getStoreid()));
+		//加入商家订单设置
+		vo.setOrderRule(orderRuleService.getRole(order.getStoreid()));
 		
 		//写日志
 		ActionLogUtil.insert(request, orderid, "查看订单详情", "id:"+orderid+", no:"+order.getNo());
@@ -364,11 +376,12 @@ public class OrderController extends BasePluginController {
 	}
 	
 	/**
-	 * 申请退款
+	 * 申请退单
 	 * @author 管雷鸣
 	 * @param orderid 订单id
 	 * @param reason 退款理由，非必填，如果想作为必填项，可以在客户端进行必填的判断
 	 */
+	@Transactional
 	@RequestMapping(value="refund${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO refund(HttpServletRequest request,
@@ -412,6 +425,13 @@ public class OrderController extends BasePluginController {
 		log.setUserid(getUserId());
 		sqlService.save(log);
 		
+		//订单状态改变记录
+		OrderStateLog stateLog = new OrderStateLog();
+		stateLog.setAddtime(DateUtil.timeForUnix10());
+		stateLog.setState(order.getState());
+		stateLog.setOrderid(order.getId());
+		sqlService.save(stateLog);
+		
 		//商品的数量改动
 		BaseVO vo = orderService.orderCancelGoodsNumberChange(order);
 		if(vo.getResult() - BaseVO.FAILURE == 0){
@@ -425,10 +445,80 @@ public class OrderController extends BasePluginController {
 	}
 	
 	/**
+	 * 取消退单申请
+	 * @param orderid 要取消退单申请的订单id
+	 * @return
+	 */
+	@Transactional
+	@RequestMapping(value="cancelRefund${api.suffix}", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseVO cancelRefund(HttpServletRequest request,
+			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
+		//判断参数
+		if(orderid < 1) {
+			return error("请传入订单ID");
+		}
+		
+		//查找订单信息
+		Order order = sqlService.findById(Order.class, orderid);
+		if(order == null) {
+			return error("订单不存在");
+		}
+		if(order.getUserid() - getUserId() != 0) {
+			return error("订单不属于你，无权操作");
+		}
+		//判断订单状态，是否允许变为申请退款， 已支付、线下支付 这两种状态允许申请退款
+		if(!(order.getState().equals(Order.STATE_CANCELMONEY_ING))) {
+			return error("订单状态异常");
+		}
+		
+		//判断当前商家是否开启了订单允许退款功能
+		OrderRule orderRule = orderRuleService.getRole(order.getStoreid());
+		if(orderRule.getRefund() - OrderRule.OFF == 0){
+			return error("商家已设置不允许用户提出退款申请，所以你取消退款也是取消不了的");
+		}
+		
+		//查出这个订单申请退单之前是哪个状态
+		List<OrderStateLog> stateLogList = orderStateLogService.getLogList(order.getId());
+		String befureState = "";	//订单申请退单之前的状态
+		for (int i = 0; i < stateLogList.size(); i++) {
+			OrderStateLog log = stateLogList.get(i);
+			if(log.getState().equals(order.getState())){
+				//当前状态能跟日志的对起来，那么去下一条状态日志，就是退单之前的状态了
+				befureState = stateLogList.get(i+1).getState();
+				break;	//退出for循环
+			}
+		}
+		
+		//修改订单状态
+		order.setState(befureState);
+		sqlService.save(order);
+		
+		//订单状态改变记录
+		OrderStateLog stateLog = new OrderStateLog();
+		stateLog.setAddtime(DateUtil.timeForUnix10());
+		stateLog.setState(order.getState());
+		stateLog.setOrderid(order.getId());
+		sqlService.save(stateLog);
+		
+		//商品的数量改动
+		BaseVO vo = orderService.orderCancelGoodsNumberChange(order);
+		if(vo.getResult() - BaseVO.FAILURE == 0){
+			return vo;
+		}
+		
+		//写日志
+		ActionLogUtil.insertUpdateDatabase(request, orderid, "订单取消退单申请", order.toString());
+	
+		return success();
+	}
+	
+	/**
 	 * 收到商品，确认收货
 	 * @author 管雷鸣
 	 * @param id 订单id
 	 */
+	@Transactional
 	@RequestMapping(value="receiveGoods${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO receiveGoods(HttpServletRequest request,
@@ -463,6 +553,13 @@ public class OrderController extends BasePluginController {
 		order.setState(Order.STATE_RECEIVE_GOODS);
 		sqlService.save(order);
 		
+		//订单状态改变记录
+		OrderStateLog stateLog = new OrderStateLog();
+		stateLog.setAddtime(DateUtil.timeForUnix10());
+		stateLog.setState(order.getState());
+		stateLog.setOrderid(order.getId());
+		sqlService.save(stateLog);
+		
 		//写日志
 		ActionLogUtil.insert(request, orderid, "订单确认收货", "订单:" + order.toString());
 		return vo;
@@ -473,6 +570,7 @@ public class OrderController extends BasePluginController {
 	 * @author 关光礼
 	 * @param id 订单id
 	 */
+	@Transactional
 	@RequestMapping(value="cancel${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO cancel(HttpServletRequest request,
@@ -497,6 +595,25 @@ public class OrderController extends BasePluginController {
 		//修改订单状态
 		order.setState(Order.STATE_MY_CANCEL);
 		sqlService.save(order);
+		
+		//订单状态改变记录
+		OrderStateLog stateLog = new OrderStateLog();
+		stateLog.setAddtime(DateUtil.timeForUnix10());
+		stateLog.setState(order.getState());
+		stateLog.setOrderid(order.getId());
+		sqlService.save(stateLog);
+		
+		int allNumber = 0;
+		//商品销量减少回去、库存增加回来
+		List<OrderGoods> orderGoodsList = sqlService.findBySqlQuery("SELECT * FROM shop_order_goods WHERE orderid = "+order.getId(), OrderGoods.class);
+		for (int i = 0; i < orderGoodsList.size(); i++) {
+			OrderGoods orderGoods = orderGoodsList.get(i);
+			sqlService.executeSql("UPDATE shop_goods SET sale = sale - " + orderGoods.getNumber() + ", inventory = inventory + "+orderGoods.getNumber()+" WHERE id = "+orderGoods.getGoodsid());
+			allNumber = allNumber + orderGoods.getNumber();
+		}
+
+		//商城的销量减去
+		sqlService.executeSql("UPDATE shop_store SET sale = sale - " + allNumber + " WHERE id = "+order.getStoreid());
 		
 		//写日志
 		ActionLogUtil.insertUpdateDatabase(request, orderid,"取消订单", order.toString());

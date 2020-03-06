@@ -8,6 +8,7 @@ import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.util.SpringUtil;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
+import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 
 /**
@@ -67,6 +68,13 @@ public class OrderTimeoutListenerThread extends Thread{
 					if(row == 0){
 						continue;
 					}
+					
+					//订单状态改变记录
+					OrderStateLog stateLog = new OrderStateLog();
+					stateLog.setAddtime(DateUtil.timeForUnix10());
+					stateLog.setState(order.getState());
+					stateLog.setOrderid(order.getId());
+					sqlservice.save(stateLog);
 
 					//查询出这个订单下有哪些商品
 					List<OrderGoods> orderGoodsList = sqlservice.findBySqlQuery("SELECT * FROM shop_order_goods WHERE orderid = "+order.getId(), OrderGoods.class);
