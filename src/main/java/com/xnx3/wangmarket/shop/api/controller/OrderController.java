@@ -40,6 +40,7 @@ import com.xnx3.wangmarket.shop.api.service.OrderService;
 import com.xnx3.wangmarket.shop.api.util.GoodsUtil;
 import com.xnx3.wangmarket.shop.api.util.SessionUtil;
 import com.xnx3.wangmarket.shop.api.vo.OrderListVO;
+import com.xnx3.wangmarket.shop.api.vo.OrderStateLogListVO;
 import com.xnx3.wangmarket.shop.api.vo.OrderStateStatisticsVO;
 import com.xnx3.wangmarket.shop.api.vo.OrderVO;
 import net.sf.json.JSONArray;
@@ -241,7 +242,7 @@ public class OrderController extends BasePluginController {
 		sqlService.executeSql("UPDATE shop_store SET sale = sale + " + allNumber + " WHERE id = "+store.getId());
 		
 		//写日志
-		ActionLogUtil.insertUpdateDatabase(request, order.getId(), "创建订单", "no:"+order.getNo());
+		ActionLogUtil.insertUpdateDatabase(request, order.getId(), "创建订单", order.toString());
 		
 		//购物车中，将这些下单的商品去掉
 		for (int i = 0; i < buyGoodsList.size(); i++) {
@@ -442,6 +443,43 @@ public class OrderController extends BasePluginController {
 		ActionLogUtil.insertUpdateDatabase(request, orderid, "订单申请退款", "订单id："+order.getId()+"，no:" + order.getNo() + "， 退单理由：" + log.getReason());
 	
 		return success();
+	}
+	
+
+	/**
+	 * 查看订单状态的变动日志记录
+	 * @author 管雷鸣
+	 * @param orderid 订单id，要获取的是那个订单
+	 */
+	@RequestMapping(value="getStateChangeLog${api.suffix}", method = RequestMethod.POST)
+	@ResponseBody
+	public OrderStateLogListVO getStateChangeLog(HttpServletRequest request,
+			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
+		OrderStateLogListVO vo = new OrderStateLogListVO(); 
+		
+		//判断参数
+		if(orderid < 1) {
+			vo.setBaseVO(BaseVO.FAILURE, "请传入订单ID");
+			return vo;
+		}
+		//查找订单信息
+		Order order = sqlService.findById(Order.class, orderid);
+		if(order == null) {
+			vo.setBaseVO(BaseVO.FAILURE, "订单不存在");
+			return vo;
+		}
+		if(order.getUserid() - getUserId() != 0) {
+			vo.setBaseVO(BaseVO.FAILURE, "订单不属于你，无权操作");
+			return vo;
+		}
+		
+		List<OrderStateLog> orderStateLogList = orderStateLogService.getLogList(orderid);
+		vo.setOrderStateLogList(orderStateLogList);
+		
+		//写日志
+		ActionLogUtil.insert(request, orderid, "获取订单状态改变日志");
+	
+		return vo;
 	}
 	
 	/**

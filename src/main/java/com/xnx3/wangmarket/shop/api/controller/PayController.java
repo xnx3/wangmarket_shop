@@ -30,6 +30,7 @@ import com.xnx3.wangmarket.shop.api.util.SessionUtil;
 import com.xnx3.wangmarket.shop.api.vo.PaySetVO;
 import com.xnx3.wangmarket.shop.api.vo.bean.PaySetBean;
 import com.xnx3.wangmarket.shop.core.entity.Order;
+import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.entity.PayLog;
 import com.xnx3.wangmarket.shop.core.service.PayService;
 import com.xnx3.wangmarket.shop.core.vo.AlipayUtilVO;
@@ -106,6 +107,13 @@ public class PayController extends BasePluginController {
 		//修改订单状态
 		order.setState(Order.STATE_PRIVATE_PAY);
 		sqlService.save(order);
+		
+		//订单状态改变记录
+		OrderStateLog stateLog = new OrderStateLog();
+		stateLog.setAddtime(DateUtil.timeForUnix10());
+		stateLog.setState(order.getState());
+		stateLog.setOrderid(order.getId());
+		sqlService.save(stateLog);
 		
 		//写日志
 		ActionLogUtil.insertUpdateDatabase(request, orderid, "订单线下支付", "订单id："+order.getId()+"，no:" + order.getNo());
@@ -312,6 +320,13 @@ public class PayController extends BasePluginController {
 		payLog.setStoreid(order.getStoreid());
 		payLog.setUserid(order.getUserid());
 		sqlService.save(payLog);
+
+		//订单状态改变记录
+		OrderStateLog stateLog = new OrderStateLog();
+		stateLog.setAddtime(DateUtil.timeForUnix10());
+		stateLog.setState(order.getState());
+		stateLog.setOrderid(order.getId());
+		sqlService.save(stateLog);
 		
 		ActionLogUtil.insertUpdateDatabase(request, "支付成功", "payLog:"+payLog.toString());
 		return success();
