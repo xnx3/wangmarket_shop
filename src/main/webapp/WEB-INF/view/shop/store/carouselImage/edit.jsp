@@ -18,9 +18,9 @@
 	
 	<!-- 标题图片、封面图片。若是使用，可以在 栏目管理 中，编辑栏目时，有个 信息录入的选项卡，找到 标题图片，点击 使用 即可。若是自己添加的输入模型，请保留 id="sitecolumn_editUseTitlepic" ,不然栏目设置中的是否使用图集功能将会失效！ -->
 	<div class="layui-form-item" id="icon_div">
-		<label class="layui-form-label" id="label_columnName">缩略图</label>
+		<label class="layui-form-label" id="label_columnName">图片</label>
 		<div class="layui-input-block">
-			<input name="icon" id="titlePicInput" type="text" autocomplete="off" placeholder="点击右侧添加" class="layui-input" value="${item.imageUrl }" style="padding-right: 120px;">
+			<input name="imageUrl" id="titlePicInput" type="text" autocomplete="off" placeholder="点击右侧添加" class="layui-input" value="${item.imageUrl }" style="padding-right: 120px;">
 			<button type="button" class="layui-btn" id="uploadImagesButton" style="float: right;margin-top: -38px;">
 				<i class="layui-icon layui-icon-upload"></i>
 			</button>

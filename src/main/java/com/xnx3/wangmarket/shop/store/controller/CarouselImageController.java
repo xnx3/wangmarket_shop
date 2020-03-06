@@ -18,6 +18,7 @@ import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.UploadFileVO;
+import com.xnx3.wangmarket.shop.Global;
 import com.xnx3.wangmarket.shop.core.entity.CarouselImage;
 
 /**
@@ -26,7 +27,7 @@ import com.xnx3.wangmarket.shop.core.entity.CarouselImage;
  */
 @Controller(value="ShopStoreCarouselImageController")
 @RequestMapping("/shop/store/carouselImage/")
-public class CarouselImageController extends BasePluginController {
+public class CarouselImageController extends BaseController {
 	@Resource
 	private SqlService sqlService;
 	
@@ -41,6 +42,7 @@ public class CarouselImageController extends BasePluginController {
 		Sql sql = new Sql(request);
 		//配置查询那个表
 		sql.setSearchTable("shop_carousel_image");
+		sql.appendWhere("storeid = "+getStoreId());
 		//查询条件
 		//配置按某个字端搜索内容
 		sql.setSearchColumn(new String[] {"name","type"});
@@ -71,7 +73,6 @@ public class CarouselImageController extends BasePluginController {
 	 * @param slideshowId 上传的录播图信息id
 	 * @param file 上传的图片文件
 	 */
-	//@RequiresPermissions("slideshowUploadImg")
 	@ResponseBody
 	@RequestMapping(value = "/uploadImg${url.suffix}",method = {RequestMethod.POST})
 	public BaseVO carouselImageUploadImg(HttpServletRequest request ,
@@ -83,10 +84,10 @@ public class CarouselImageController extends BasePluginController {
 			return error("ID信息错误");
 		}
 		// 上传图片
-		UploadFileVO vo = AttachmentUtil.uploadImageByMultipartFile("slideshow/", file);
+		UploadFileVO vo = AttachmentUtil.uploadImageByMultipartFile(Global.ATTACHMENT_FILE_CAROUSEL_IMAGE.replace("{storeid}", getStoreId()+""), file);
 		
 		if(vo.getResult() == 0) {
-			return error("轮播图上传失败");
+			return error(vo.getInfo());
 		}
 		// 修改 url
 		CarouselImage carouselImage = sqlService.findById(CarouselImage.class, slideshowId);
@@ -134,11 +135,15 @@ public class CarouselImageController extends BasePluginController {
 		if(id == null) {
 			// 添加
 			fCarouselImage = new CarouselImage();
+			fCarouselImage.setStoreid(getStoreId());
 		}else {
 			//修改
 			fCarouselImage = sqlService.findById(CarouselImage.class, id);
 			if(fCarouselImage == null) {
 				return error("根据ID,没查到该轮播图");
+			}
+			if(fCarouselImage.getStoreid() - getStoreId() != 0){
+				return error("轮播图不属于你，无法保存");
 			}
 		}
 		
@@ -147,6 +152,8 @@ public class CarouselImageController extends BasePluginController {
 		fCarouselImage.setRank(carouselImage.getRank());
 		fCarouselImage.setType(carouselImage.getType());
 		fCarouselImage.setImgValue(carouselImage.getImgValue());
+		fCarouselImage.setImageUrl(carouselImage.getImageUrl());
+		
 		//保存实体
 		sqlService.save(fCarouselImage);
 		

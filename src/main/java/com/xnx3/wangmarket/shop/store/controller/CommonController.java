@@ -18,6 +18,7 @@ import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.UploadFileVO;
+import com.xnx3.wangmarket.shop.Global;
 
 
 /**
@@ -26,7 +27,7 @@ import com.xnx3.j2ee.vo.UploadFileVO;
  */
 @Controller(value="ShopStoreCommonController")
 @RequestMapping("/shop/store/common")
-public class CommonController extends BasePluginController {
+public class CommonController extends BaseController {
 	@Resource
 	private SqlService sqlService;
 	
@@ -36,11 +37,12 @@ public class CommonController extends BasePluginController {
 	@RequestMapping(value="uploadImage${url.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public UploadFileVO uploadImage(Model model,HttpServletRequest request){
-		UploadFileVO uploadFileVO = AttachmentUtil.uploadImage("goodsList/", request, "image", 0);
+		String path = Global.ATTACHMENT_FILE_CAROUSEL_IMAGE.replace("{storeid}", getStoreId()+"");
+		UploadFileVO uploadFileVO = AttachmentUtil.uploadImage(path, request, "image", 0);
 		
 		if(uploadFileVO.getResult() == UploadFileVO.SUCCESS){
 			//上传成功，写日志
-			ActionLogUtil.insert(request, "商品详情里图片上传", uploadFileVO.getPath());
+			ActionLogUtil.insert(request, "商家上传图片", uploadFileVO.getPath());
 		}
 		
 		return uploadFileVO;
