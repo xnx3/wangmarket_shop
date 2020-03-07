@@ -38,7 +38,6 @@ public class OrderController extends BaseController {
 		//配置查询那个表
 		sql.setSearchTable("shop_order");
 		//查询条件
-		//sql.appendWhere("isdelete = " + GoodsType.ISDELETE_NORMAL);
 		sql.appendWhere("storeid = " + getStoreId());
 		//配置按某个字端搜索内容
 		sql.setSearchColumn(new String[] {"no","state"});
@@ -76,6 +75,12 @@ public class OrderController extends BaseController {
 		if(id > 0) {
 			//查到订单信息
 			Order order = sqlService.findById(Order.class, id);
+			if(order == null){
+				return error(model, "订单不存在");
+			}
+			if(order.getStoreid() - getStoreId() != 0){
+				return error(model, "订单不属于你，无法查看");
+			}
 			
 			//查到配送信息
 			OrderAddress address = sqlService.findById(OrderAddress.class, id);

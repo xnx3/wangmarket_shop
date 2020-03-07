@@ -9,16 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import com.xnx3.BaseVO;
-import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
-import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
-import com.xnx3.j2ee.vo.UploadFileVO;
-import com.xnx3.wangmarket.shop.Global;
 import com.xnx3.wangmarket.shop.core.entity.CarouselImage;
 
 /**
@@ -68,37 +63,6 @@ public class CarouselImageController extends BaseController {
 	}
 	
 	/**
-	 * 上传录播图图片
-	 * @author 关光礼
-	 * @param slideshowId 上传的录播图信息id
-	 * @param file 上传的图片文件
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/uploadImg${url.suffix}",method = {RequestMethod.POST})
-	public BaseVO carouselImageUploadImg(HttpServletRequest request ,
-			@RequestParam(value = "slideshow_id", required = false, defaultValue = "0") int slideshowId,
-			MultipartFile file) {
-		
-		// 校验参数
-		if(slideshowId < 1) {
-			return error("ID信息错误");
-		}
-		// 上传图片
-		UploadFileVO vo = AttachmentUtil.uploadImageByMultipartFile(Global.ATTACHMENT_FILE_CAROUSEL_IMAGE.replace("{storeid}", getStoreId()+""), file);
-		
-		if(vo.getResult() == 0) {
-			return error(vo.getInfo());
-		}
-		// 修改 url
-		CarouselImage carouselImage = sqlService.findById(CarouselImage.class, slideshowId);
-		carouselImage.setImageUrl(vo.getUrl());
-		sqlService.save(carouselImage);
-		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, slideshowId, "Id为" + slideshowId + "的轮播图上传图片", "上传图片返回路径:" + vo.getUrl());
-		return success();
-	}
-	
-	/**
 	 * 跳转添加。修改页面
 	 * @author 关光礼
 	 * @param id 如修改操作，传入修改的数据id，添加测不传参
@@ -109,6 +73,12 @@ public class CarouselImageController extends BaseController {
 		
 		if(id != 0) {
 			CarouselImage carouselImage = sqlService.findById(CarouselImage.class, id);
+			if(carouselImage == null){
+				return error(model, "要修改的轮播图不存在");
+			}
+			if(carouselImage.getStoreid() - getStoreId() != 0){
+				return error(model, "该轮播图不属于你，无法修改");
+			}
 			model.addAttribute("item", carouselImage);
 			ActionLogUtil.insert(request, getUserId(), "查看轮播图ID为" + id+ "的详情，跳转到编辑页面");
 		}else {
@@ -122,13 +92,11 @@ public class CarouselImageController extends BaseController {
 	/**
 	 * 添加修改轮播图
 	 * @author 关光礼
-	 * @param CarouselImage 接受参数的实体类
-	 * @return
+	 * @param carouselImage 接受参数的实体类
 	 */
 	@ResponseBody
 	@RequestMapping(value="/save${url.suffix}" ,method = {RequestMethod.POST})
 	public com.xnx3.j2ee.vo.BaseVO save(HttpServletRequest request,CarouselImage carouselImage) {
-		
 		Integer id = carouselImage.getId();
 		//创建一个实体
 		CarouselImage fCarouselImage;
@@ -172,7 +140,6 @@ public class CarouselImageController extends BaseController {
 	@RequestMapping(value="/delete${url.suffix}",method = {RequestMethod.POST})
 	public BaseVO delete(HttpServletRequest request,
 			@RequestParam(value = "id",defaultValue = "0", required = false) int id) {
-		
 		if(id < 1) {
 			return error("请传入id参数");
 		}
@@ -180,6 +147,9 @@ public class CarouselImageController extends BaseController {
 		CarouselImage carouselImage = sqlService.findById(CarouselImage.class, id);
 		if(carouselImage == null) {
 			return error("根据ID,没查到该实体");
+		}
+		if(carouselImage.getStoreid() - getStoreId() != 0){
+			return error("轮播图不属于你，无法删除");
 		}
 		
 		sqlService.delete(carouselImage);

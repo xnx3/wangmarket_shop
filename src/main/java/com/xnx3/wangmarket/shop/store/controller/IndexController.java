@@ -14,6 +14,7 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.vo.UploadFileVO;
+import com.xnx3.wangmarket.shop.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
@@ -64,10 +65,11 @@ public class IndexController extends BaseController {
 			return error("ID信息错误");
 		}
 		// 上传图片
-		UploadFileVO vo = AttachmentUtil.uploadImageByMultipartFile("slideshow/", file);
+		String path = Global.ATTACHMENT_FILE_CAROUSEL_IMAGE.replace("{storeid}", getStoreId()+"");
+		UploadFileVO vo = AttachmentUtil.uploadImageByMultipartFile(path, file);
 		
 		if(vo.getResult() == 0) {
-			return error("轮播图上传失败");
+			return error(vo.getInfo());
 		}
 		// 查找商家
 		Store store = sqlService.findById(Store.class, storeId);
@@ -87,22 +89,16 @@ public class IndexController extends BaseController {
 	//@RequiresPermissions("slideshowUploadImg")
 	@RequestMapping(value = "/toEditPage${url.suffix}")
 	public String toEditPage(HttpServletRequest request ,Model model,
-			@RequestParam(value = "storeId", required = false, defaultValue = "0") int storeId,
 			@RequestParam(value = "type", required = false, defaultValue = "0") int type) {
-		
-		// 校验参数
-		if(storeId < 1) {
-			return error(model,"ID信息错误");
-		}
 		// 查找商家
-		Store store = sqlService.findById(Store.class, storeId);
+		Store store = sqlService.findById(Store.class, getStoreId());
 		if(store == null || store.getId() - getStoreId() != 0) {
 			return error(model,"商家信息异常");
 		}
 		model.addAttribute("item", store);
 		model.addAttribute("type", type);
 		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, storeId, "Id为" + storeId + "的商家的区域信息编辑页面");
+		ActionLogUtil.insertUpdateDatabase(request, store.getId(), "Id为" + store.getId() + "的商家的区域信息编辑页面");
 		return "/shop/store/index/edit";
 	}
 	
@@ -125,7 +121,6 @@ public class IndexController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/save${url.suffix}",method = {RequestMethod.POST})
 	public BaseVO save(HttpServletRequest request ,Model model,
-			@RequestParam(value = "storeId", required = false, defaultValue = "0") int storeId,
 			@RequestParam(value = "name", required = false, defaultValue = "") String name,
 			@RequestParam(value = "state", required = false, defaultValue = "0") short state,
 			@RequestParam(value = "contacts", required = false, defaultValue = "") String contacts,
@@ -137,13 +132,8 @@ public class IndexController extends BaseController {
 			@RequestParam(value = "latitude", required = false, defaultValue = "0") float latitude,
 			@RequestParam(value = "district", required = false, defaultValue = "") String district) {
 		
-		// 校验参数
-		if(storeId < 1) {
-			return error("ID信息错误");
-		}
-		
 		//查找商家
-		Store store = sqlService.findById(Store.class, storeId);
+		Store store = sqlService.findById(Store.class, getStoreId());
 		if(store.getId() - getStoreId() != 0) {
 			return error("身份信息错误");
 		}
@@ -195,7 +185,7 @@ public class IndexController extends BaseController {
 		//修改缓存的商家信息
 		SessionUtil.setStore(store);
 		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, storeId, "Id为" + storeId + "的商家修改信息", "修改信息:" + store.toString());
+		ActionLogUtil.insertUpdateDatabase(request, store.getId(), "Id为" + store.getId() + "的商家修改信息", "修改信息:" + store.toString());
 		return success();
 	}
 	

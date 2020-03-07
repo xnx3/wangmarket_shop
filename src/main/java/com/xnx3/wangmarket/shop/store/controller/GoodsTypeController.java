@@ -18,6 +18,7 @@ import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.UploadFileVO;
+import com.xnx3.wangmarket.shop.Global;
 import com.xnx3.wangmarket.shop.core.entity.GoodsType;
 
 
@@ -86,13 +87,20 @@ public class GoodsTypeController extends BaseController {
 			return error("ID信息错误");
 		}
 		// 上传图片
-		UploadFileVO vo = AttachmentUtil.uploadImageByMultipartFile("goodsType/", file);
+		String path = Global.ATTACHMENT_FILE_CAROUSEL_IMAGE.replace("{storeid}", getStoreId()+"");
+		UploadFileVO vo = AttachmentUtil.uploadImageByMultipartFile(path+"goodsType/", file);
 		
 		if(vo.getResult() == 0) {
-			return error("上传失败");
+			return error(vo.getInfo());
 		}
 		// 修改 url
 		GoodsType goodsType = sqlService.findById(GoodsType.class, id);
+		if(goodsType == null){
+			return error("要修改的分类不存在");
+		}
+		if(goodsType.getStoreid() - getStoreId() != 0){
+			return error("该分类不属于你，无法操作。");
+		}
 		goodsType.setIcon(vo.getUrl());
 		sqlService.save(goodsType);
 		//日志记录
@@ -111,6 +119,12 @@ public class GoodsTypeController extends BaseController {
 		
 		if(id != 0) {
 			GoodsType goodsType = sqlService.findById(GoodsType.class, id);
+			if(goodsType == null){
+				return error(model,"要修改的分类不存在");
+			}
+			if(goodsType.getStoreid() - getStoreId() != 0){
+				return error(model,"该分类不属于你，无法操作。");
+			}
 			model.addAttribute("item", goodsType);
 			ActionLogUtil.insert(request, getUserId(), "查看商品分类ID为" + id+ "的详情，跳转到编辑页面");
 		}else {
@@ -143,8 +157,11 @@ public class GoodsTypeController extends BaseController {
 		}else {
 			//修改
 			fGoodsType = sqlService.findById(GoodsType.class, id);
-			if(fGoodsType == null) {
-				return error("根据ID,没查到该商品分类");
+			if(fGoodsType == null){
+				return error("要修改的分类不存在");
+			}
+			if(fGoodsType.getStoreid() - getStoreId() != 0){
+				return error("该分类不属于你，无法操作。");
 			}
 		}
 		
@@ -183,6 +200,9 @@ public class GoodsTypeController extends BaseController {
 		GoodsType goodsType = sqlService.findById(GoodsType.class, id);
 		if(goodsType == null) {
 			return error("根据ID,没查到该实体");
+		}
+		if(goodsType.getStoreid() - getStoreId() != 0){
+			return error("该分类不属于你，无法操作。");
 		}
 		goodsType.setIsdelete(GoodsType.ISDELETE_DELETE);
 		sqlService.save(goodsType);

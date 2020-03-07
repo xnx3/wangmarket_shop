@@ -20,6 +20,7 @@ import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.UploadFileVO;
+import com.xnx3.wangmarket.shop.Global;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
 import com.xnx3.wangmarket.shop.core.entity.GoodsData;
 import com.xnx3.wangmarket.shop.core.entity.GoodsImage;
@@ -72,37 +73,6 @@ public class GoodsController extends BaseController {
 		return "/shop/store/goods/list";
 	}
 	
-	/**
-	 * 上传商品图片
-	 * @author 关光礼
-	 * @param id 上 上传商品id
-	 * @param file 上传的图片文件
-	 */
-	//@RequiresPermissions("slideshowUploadImg")
-	@ResponseBody
-	@RequestMapping(value = "/uploadImg${url.suffix}" ,method = {RequestMethod.POST})
-	public BaseVO goodsUploadImg(HttpServletRequest request ,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
-			MultipartFile file) {
-		
-		// 校验参数
-		if(id < 1) {
-			return error("ID信息错误");
-		}
-		// 上传图片
-		UploadFileVO vo = AttachmentUtil.uploadImageByMultipartFile("Goods/", file);
-		
-		if(vo.getResult() == 0) {
-			return error("上传失败");
-		}
-		// 修改 url
-		Goods goods = sqlService.findById(Goods.class, id);
-		goods.setTitlepic(vo.getUrl());
-		sqlService.save(goods);
-		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, id, "Id为" + id + "的商品上传图片", "上传图片返回路径:" + vo.getUrl());
-		return success();
-	}
 	
 	/**
 	 * 跳转添加。修改页面
@@ -116,6 +86,12 @@ public class GoodsController extends BaseController {
 		if(id > 0) {
 			//查找商品
 			Goods goods = sqlService.findById(Goods.class, id);
+			if(goods == null){
+				return error(model, "商品不存在");
+			}
+			if(goods.getStoreid() - getStoreId() != 0){
+				return error(model, "商品不属于你");
+			}
 			model.addAttribute("item", goods);
 			//查找商品描述
 			GoodsData goodsData = sqlService.findAloneByProperty(GoodsData.class, "id", id);
@@ -124,7 +100,6 @@ public class GoodsController extends BaseController {
 			GoodsImage  imgs = sqlService.findAloneByProperty(GoodsImage.class, "goodsid", id);
 		} 
 		ActionLogUtil.insert(request, getUserId(), "查看商品ID为" + (id == 0 ? "":id)+ "的详情，跳转到编辑页面");
-//		model.addAttribute("text",text);
 		return "/shop/store/goods/edit";
 		
 	}
@@ -132,18 +107,16 @@ public class GoodsController extends BaseController {
 	/**
 	 * 添加修改商品
 	 * @author 关光礼
-	 * @param Goods 接受参数的实体类
-	 * @return
+	 * @param inputGoods 接受参数的实体类
 	 */
 	@ResponseBody
 	@RequestMapping(value="/save${url.suffix}",method = {RequestMethod.POST})
-	public com.xnx3.j2ee.vo.BaseVO save(HttpServletRequest request,Goods inputGoods,
-			@RequestParam(value = "extend.photos", required = false, defaultValue = "") String photos) {
+	public com.xnx3.j2ee.vo.BaseVO save(HttpServletRequest request,Goods inputGoods) {
 		
 		Integer id = inputGoods.getId();
 		//创建一个实体
 		Goods goods;
-		if(id == null) {
+		if(id == null || id - 0 == 0) {
 			// 添加
 			goods = new Goods();
 			goods.setIsdelete(Goods.ISDELETE_NORMAL);
@@ -156,7 +129,10 @@ public class GoodsController extends BaseController {
 			//修改
 			goods = sqlService.findById(Goods.class, id);
 			if(goods == null) {
-				return error("根据ID,没查到该商品分类");
+				return error("根据ID,没查到该商品");
+			}
+			if(goods.getStoreid() - getStoreId() != 0){
+				return error("商品不属于你");
 			}
 		}
 		//接受时间参数
@@ -222,7 +198,6 @@ public class GoodsController extends BaseController {
 	@RequestMapping(value="/delete${url.suffix}",method = {RequestMethod.POST})
 	public BaseVO delete(HttpServletRequest request,
 			@RequestParam(value = "id",defaultValue = "0", required = false) int id) {
-		
 		if(id < 1) {
 			return error("请传入id参数");
 		}
@@ -230,6 +205,9 @@ public class GoodsController extends BaseController {
 		Goods goods = sqlService.findById(Goods.class, id);
 		if(goods == null) {
 			return error("根据ID,没查到该实体");
+		}
+		if(goods.getStoreid() - getStoreId() != 0){
+			return error("商品不属于你");
 		}
 		goods.setIsdelete(Goods.ISDELETE_DELETE);
 		sqlService.save(goods);
@@ -241,13 +219,12 @@ public class GoodsController extends BaseController {
 	/**
 	 * 修改商品的上下架
 	 * @author 关光礼
-	 * @param id 删除商品分类id
+	 * @param id 删除商品id
 	 */
 	@ResponseBody
 	@RequestMapping(value="/updatePutaway${url.suffix}",method = {RequestMethod.POST})
 	public BaseVO updatePutaway(HttpServletRequest request,
 			@RequestParam(value = "id",defaultValue = "0", required = false) int id) {
-		
 		if(id < 1) {
 			return error("请传入id参数");
 		}
@@ -255,6 +232,9 @@ public class GoodsController extends BaseController {
 		Goods goods = sqlService.findById(Goods.class, id);
 		if(goods == null) {
 			return error("根据ID,没查到该实体");
+		}
+		if(goods.getStoreid() - getStoreId() != 0){
+			return error("商品不属于你");
 		}
 		//判断并修改状态
 		if(goods.getPutaway() == Goods.PUTAWAY_NOT_SELL) {
@@ -267,63 +247,7 @@ public class GoodsController extends BaseController {
 		ActionLogUtil.insertUpdateDatabase(request, "ID是" + id + "的商品的状态修改", "修改后状态:" + goods.getPutaway());
 		return success();
 	}
-	
-	/**
-	 * 跳转添加或修改商品描述页面
-	 * @author 关光礼
-	 * @param id 如修改操作，传入修改的数据id，添加测不传参
-	 */
-	@RequestMapping("toDetailPage${url.suffix}")
-	public String toDescriptionPage(Model model ,HttpServletRequest request,
-		@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
-		
-		if(id < 1) {
-			return error(model,"请传入ID信息" );
-		}else {
-			GoodsData goodsData = sqlService.findById(GoodsData.class, id);
-			model.addAttribute("item", goodsData);
-			ActionLogUtil.insert(request, id, "查看商品ID为" + id+ "的描述，跳转到编辑页面");
-		}
-		
-		model.addAttribute("id", id);
-		return "/shop/store/goods/detail";
-	}
-	
-	/**
-	 * 添加修改商品描述
-	 * @author 关光礼
-	 * @param Goods 接受参数的实体类
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value="/saveDetail${url.suffix}",method = {RequestMethod.POST})
-	public com.xnx3.j2ee.vo.BaseVO saveDetail(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
-			@RequestParam(value = "detail", required = false, defaultValue = "") String detail) {
-		
-		if(id < 1) {
-			return error("请传入ID信息" );
-		}
-		
-		if(detail.trim().equals("")) {
-			return error("请传入商品描述信息" );
-		}
-		GoodsData goodsData = sqlService.findById(GoodsData.class, id);
-		
-		//判断是否为空，为空创建实体，并设置id信息
-		if(goodsData == null) {
-			goodsData = new GoodsData();
-			goodsData.setId(id);
-		}
-		//赋值
-		goodsData.setDetail(detail);
-		sqlService.save(goodsData);
-		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, goodsData.getId(),"Id为" + goodsData.getId() + "的商品描述添加或修改，内容:" + goodsData.toString());
-		
-		return success();
-	}
-	
+
 	/**
 	 * 跳转添加或修改商品图片列表页面
 	 * @author 关光礼
@@ -332,7 +256,6 @@ public class GoodsController extends BaseController {
 	@RequestMapping("imgList${url.suffix}")
 	public String imgList(Model model ,HttpServletRequest request,
 		@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
-		
 		if(id < 1) {
 			return error(model,"请传入ID信息" );
 		}
@@ -377,7 +300,6 @@ public class GoodsController extends BaseController {
 	@RequestMapping("deleteImg${url.suffix}")
 	public BaseVO deleteImg(Model model ,HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
-		
 		if(id < 1) {
 			return error("请传入图片ID信息" );
 		}
@@ -385,48 +307,18 @@ public class GoodsController extends BaseController {
 		if(img == null) {
 			return error("根据ID,没查到该实体");
 		}
+		//查出商品信息，从而判断这个图片是不是这个人的
+		Goods goods = sqlService.findById(Goods.class, id);
+		if(goods == null) {
+			return error("该图所属商品不存在");
+		}
+		if(goods.getStoreid() - getStoreId() != 0){
+			return error("该图不属于你，无法操作");
+		}
+		
 		sqlService.delete(img);
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, id, "Id为" + id + "的商品列表图片删除", "删除内容" + img.toString());
-		return success();
-	}
-	
-	/**
-	 * 上传商品详情里图片列表
-	 * @author 关光礼
-	 * @param id 上 上传商品id
-	 * @param file 上传的图片文件
-	 */
-	//@RequiresPermissions("slideshowUploadImg")
-	@ResponseBody
-	@RequestMapping(value = "/uploadImgList${url.suffix}" ,method = {RequestMethod.POST})
-	public BaseVO uploadImgList(HttpServletRequest request ,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
-			@RequestParam(value = "goodId", required = false, defaultValue = "0") int goodId,
-			MultipartFile file) {
-		
-
-		if(goodId < 1) {
-			return error("请传入商品ID信息" );
-		}
-		// 上传图片
-		UploadFileVO vo = AttachmentUtil.uploadImageByMultipartFile("Goods/", file);
-		
-		if(vo.getResult() == 0) {
-			return error("上传失败");
-		}
-		// 修改 url
-		String sql = "SELECT * FROM shop_goods_image WHERE id = " + id + " AND goodsid= " + goodId;
-		GoodsImage goodsImage = sqlService.findAloneBySqlQuery(sql, GoodsImage.class);
-		if(goodsImage == null) {
-			goodsImage = new GoodsImage();
-		}
-		goodsImage.setImageUrl(vo.getUrl());
-		goodsImage.setGoodsid(goodId);
-		sqlService.save(goodsImage);
-		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, id, "Id为" + id + "的商品列表上传图片", "上传图片返回路径:" + vo.getUrl());
-		
 		return success();
 	}
 	
@@ -439,8 +331,6 @@ public class GoodsController extends BaseController {
 	public String toEditImgPage(Model model ,HttpServletRequest request,
 		@RequestParam(value = "id", required = false, defaultValue = "0") int id,
 		@RequestParam(value = "goodId", required = false, defaultValue = "0") int goodId) {
-		
-		
 		if(goodId < 1) {
 			return error(model, "请传入商品Id信息");
 		}
@@ -452,19 +342,16 @@ public class GoodsController extends BaseController {
 		
 		model.addAttribute("goodId", goodId);
 		return "/shop/store/goods/editImg";
-		
 	}
 	
 	/**
-	 * 添加修改商品分类
+	 * 添加、修改商品轮播图
 	 * @author 关光礼
-	 * @param Goods 接受参数的实体类
-	 * @return
+	 * @param inputImg 接受参数的实体类
 	 */
 	@ResponseBody
 	@RequestMapping(value="/imgSave${url.suffix}",method = {RequestMethod.POST})
 	public com.xnx3.j2ee.vo.BaseVO imgSave(HttpServletRequest request,GoodsImage inputImg) {
-		
 		if(inputImg.getGoodsid() == null) {
 			return error("请传入商品ID信息");
 		}
@@ -472,17 +359,24 @@ public class GoodsController extends BaseController {
 		Integer id = inputImg.getId();
 		//创建一个实体
 		GoodsImage img;
-		if(id == null) {
+		if(id == null || id - 0 == 0) {
 			//添加
 			img = new GoodsImage();
 			img.setGoodsid(inputImg.getGoodsid());
 		}else {
 			//修改
-			// 修改 url
 			String sql = "SELECT * FROM shop_goods_image WHERE id = " + id + " AND goodsid= " + inputImg.getGoodsid();
 			img = sqlService.findAloneBySqlQuery(sql, GoodsImage.class);
 			if(img == null) {
 				return error("根据ID,没查到该商品分类");
+			}
+			//查出商品信息，从而判断修改的这个图片是不是这个人的
+			Goods goods = sqlService.findById(Goods.class, id);
+			if(goods == null) {
+				return error("该图所属商品不存在");
+			}
+			if(goods.getStoreid() - getStoreId() != 0){
+				return error("该图不属于你，无法操作");
 			}
 		}
 		//给实体赋值
@@ -500,6 +394,4 @@ public class GoodsController extends BaseController {
 		
 		return success();
 	}
-	
-
 }
