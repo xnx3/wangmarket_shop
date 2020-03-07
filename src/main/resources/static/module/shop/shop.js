@@ -157,7 +157,7 @@ var shop = {
 		},
 		//支付
 		pay:{
-			getUsableList:"shop/api/pay/getUsableList.json",	//获取当前商铺的支付列表，列出哪个支付使用，哪个支付不使用
+			getPaySet:"shop/api/pay/getPaySet.json",	//获取当前商铺的支付列表，列出哪个支付使用，哪个支付不使用
 			privatePay:"shop/api/pay/privatePay.json",	//订单线下支付，私下支付
 			alipay:"shop/api/pay/alipay.json",	//支付宝支付
 		},

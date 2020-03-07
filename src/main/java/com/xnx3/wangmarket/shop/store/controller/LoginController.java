@@ -71,7 +71,6 @@ public class LoginController extends BaseController {
 			if(baseVO.getResult() == BaseVO.SUCCESS){
 				ActionLogUtil.insert(request, "用户名密码模式登录成功");
 				//判断当前用户是否是商家，看用户是否对应 Store
-//				Store store = sqlService.findAloneByProperty(Store.class, "userid", getUserId());
 				Store store = sqlService.findAloneBySqlQuery("SELECT * FROM shop_store WHERE userid = "+getUserId(), Store.class);
 				if(store == null){
 					SessionUtil.logout();	//退出登录

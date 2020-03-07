@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
@@ -31,11 +33,13 @@ public class UserController extends BasePluginController {
 	 */
 	@RequestMapping("/list${url.suffix}")
 	public String list(HttpServletRequest request,Model model) {
+		User user = getUser();
 		
 		//创建Sql
 		Sql sql = new Sql(request);
 		//配置查询那个表
 		sql.setSearchTable("user");
+		sql.appendWhere("referrerid = "+user.getId());
 		//查询条件
 		//配置按某个字端搜索内容
 		//sql.setSearchColumn(new String[] {"phone","userid"});
