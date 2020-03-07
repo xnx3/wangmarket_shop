@@ -147,6 +147,12 @@ public class LoginController extends BaseController {
 			vo.setBaseVO(BaseVO.FAILURE, "请传入店铺id");
 			return vo;
 		}
+		//注册的用户所在的店铺
+		Store store = sqlService.findById(Store.class, storeid);
+		if(store == null){
+			vo.setBaseVO(BaseVO.FAILURE, "你所在的商铺不存在");
+			return vo;
+		}
 		
 		//验证码校验
 		BaseVO capVO = com.xnx3.j2ee.util.CaptchaUtil.compare(request.getParameter("code"), request);
@@ -159,6 +165,7 @@ public class LoginController extends BaseController {
 			User user = new User();
 			user.setUsername(StringUtil.filterXss(username));
 			user.setPassword(password);
+			user.setReferrerid(store != null? store.getUserid():0);
 			BaseVO baseVO = userService.createUser(user, request);
 			
 			if(baseVO.getResult() == BaseVO.SUCCESS){
@@ -171,14 +178,6 @@ public class LoginController extends BaseController {
 				//将sessionid加入vo返回
 				HttpSession session = request.getSession();
 				vo.setToken(session.getId());
-				
-				//查询出此用户所在的店铺，加入缓存
-				Store store = sqlService.findById(Store.class, storeid);
-				if(store == null){
-					vo.setBaseVO(BaseVO.FAILURE, "store 不存在");
-					SessionUtil.logout();
-					return vo;
-				}
 				SessionUtil.setStore(store);
 				
 				//加入user信息
