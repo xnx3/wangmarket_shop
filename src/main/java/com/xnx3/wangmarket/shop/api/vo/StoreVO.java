@@ -19,21 +19,21 @@ public class StoreVO extends BaseVO{
 	public void setStore(Store store) {
 		StoreBean storeBean = new StoreBean();
 		if(store != null) {
-			storeBean.setAddress(storeBean.getAddress());
-			storeBean.setAddtime(storeBean.getAddtime());
-			storeBean.setCity(storeBean.getCity());
-			storeBean.setContacts(storeBean.getContacts());
-			storeBean.setDistrict(storeBean.getDistrict());
-			storeBean.setHead(storeBean.getHead());
-			storeBean.setId(storeBean.getId());
-			storeBean.setLatitude(storeBean.getLatitude());
-			storeBean.setLongitude(storeBean.getLongitude());
-			storeBean.setName(storeBean.getName());
-			storeBean.setNotice(storeBean.getNotice());
-			storeBean.setPhone(storeBean.getPhone());
-			storeBean.setProvince(storeBean.getProvince());
-			storeBean.setSale(storeBean.getSale());
-			storeBean.setState(storeBean.getState());
+			storeBean.setAddress(store.getAddress());
+			storeBean.setAddtime(store.getAddtime());
+			storeBean.setCity(store.getCity());
+			storeBean.setContacts(store.getContacts());
+			storeBean.setDistrict(store.getDistrict());
+			storeBean.setHead(store.getHead());
+			storeBean.setId(store.getId());
+			storeBean.setLatitude(store.getLatitude());
+			storeBean.setLongitude(store.getLongitude());
+			storeBean.setName(store.getName());
+			storeBean.setNotice(store.getNotice());
+			storeBean.setPhone(store.getPhone());
+			storeBean.setProvince(store.getProvince());
+			storeBean.setSale(store.getSale());
+			storeBean.setState(store.getState());
 		}
 		this.store = storeBean;
 	}
