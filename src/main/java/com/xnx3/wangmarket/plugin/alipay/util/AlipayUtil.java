@@ -33,9 +33,11 @@ public class AlipayUtil {
 	private String alipayCertPublicKeyRSA2;
 	//支付宝根证书路径
 	private String alipayRootCert;
+	//PC网页支付、手机网页支付用到，支付成功后，跳转到哪个url
+	private String noticeUrl;
 	
 	//支付成功后异步通知的url
-	public static final String NOTICE_URL = "https://api.shop.leimingyun.com/shop/api/pay/alipayCallback.do";
+//	public static final String NOTICE_URL = "https://api.shop.leimingyun.com/shop/api/pay/alipayCallback.do";
 	public static final String RETURN_URL = "http://api.shop.leimingyun.com/plugin/alipay/alipaySuccessJumpPage.do";
 	//编码
 	public static final String CHARSET = "UTF-8";
@@ -90,7 +92,9 @@ public class AlipayUtil {
 		
 		//构造API请求
 		AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
-		request.setNotifyUrl(NOTICE_URL);
+		if(this.noticeUrl != null){
+			request.setNotifyUrl(noticeUrl);
+		}
 		request.setReturnUrl(RETURN_URL);
 		request.setBizContent(pcOrderBean.getJsonString());
 		
@@ -112,8 +116,9 @@ public class AlipayUtil {
 		
 		//构造API请求
 		AlipayTradeWapPayRequest request = new AlipayTradeWapPayRequest();
-		request.setNotifyUrl(NOTICE_URL);
-		request.setReturnUrl(RETURN_URL);
+		if(this.noticeUrl != null){
+			request.setNotifyUrl(noticeUrl);
+		}
 		request.setBizContent(wapOrderBean.getJsonString());
 		
 		AlipayClient client = getAlipayClient();
@@ -195,4 +200,13 @@ public class AlipayUtil {
 
         return retMap;
     }
+    
+    /**
+     * PC网页支付、手机网页支付用到，支付成功后，跳转到哪个url
+     * @param noticeUrl 要跳转的url，传入如 http://www.leimingyun.com
+     */
+	public void setNoticeUrl(String noticeUrl) {
+		this.noticeUrl = noticeUrl;
+	}
+    
 }
