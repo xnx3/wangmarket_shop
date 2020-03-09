@@ -1,8 +1,11 @@
 package com.xnx3.wangmarket.shop.store.controller;
 
+import java.io.IOException;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.xnx3.BaseVO;
+import com.xnx3.j2ee.generateCache.BaseGenerate;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
@@ -19,7 +23,9 @@ import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.UploadFileVO;
 import com.xnx3.wangmarket.shop.Global;
+import com.xnx3.wangmarket.shop.api.vo.bean.GoodsTypeBean;
 import com.xnx3.wangmarket.shop.core.entity.GoodsType;
+import com.xnx3.wangmarket.shop.core.service.GoodsTypeService;
 
 
 /**
@@ -31,6 +37,8 @@ import com.xnx3.wangmarket.shop.core.entity.GoodsType;
 public class GoodsTypeController extends BaseController {
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private GoodsTypeService goodsTypeService;
 	
 	/**
 	 * 查看商品分类
@@ -178,8 +186,7 @@ public class GoodsTypeController extends BaseController {
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, fGoodsType.getId(),"Id为" + fGoodsType.getId() + "的商品分类添加或修改，内容:" + fGoodsType.toString());
 		
-		//重新生成js文件
-		new com.xnx3.wangmarket.shop.store.generateCache.GoodsType();
+		goodsTypeService.clearCache(getStoreId());//清除缓存
 		return success();
 	}
 	
@@ -206,9 +213,34 @@ public class GoodsTypeController extends BaseController {
 		}
 		goodsType.setIsdelete(GoodsType.ISDELETE_DELETE);
 		sqlService.save(goodsType);
+		
+		goodsTypeService.clearCache(getStoreId());//清除缓存
+		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, "删除ID是" + id + "的商品分类", "删除内容:" + goodsType.toString());
 		return success();
 	}
-
+	
+	
+	@RequestMapping(value="/getGoodsTypeJs${url.suffix}",method = {RequestMethod.GET})
+	public void getGoodsTypeJs(HttpServletRequest request,HttpServletResponse response) {
+		List<GoodsTypeBean> list = goodsTypeService.getGoodsType(getStoreId());
+		
+		BaseGenerate generate = new BaseGenerate();
+		generate.createCacheObject("typeid");
+		for (int i = 0; i < list.size(); i++) {
+			generate.cacheAdd(list.get(i).getId(), list.get(i).getTitle());
+		}
+		generate.addCommonJsFunction();
+		
+		//输出
+		response.setCharacterEncoding("utf-8");//第一句，设置服务器端编码
+		response.setContentType("text/html;charset=utf-8");//第二句，设置浏览器端解码
+		try {
+			response.getWriter().write(generate.content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

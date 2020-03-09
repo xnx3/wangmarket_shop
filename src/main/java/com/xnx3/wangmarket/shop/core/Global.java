@@ -18,6 +18,9 @@ public class Global {
 	 * 证书所在服务器路径,每个店铺的证书都有单独的文件夹。存储时 {storeid}会替换为 store.id 数字
 	 */
 	public static final String CERTIFICATE_PATH = "/mnt/store/{storeid}/";
-	
+	/**
+	 * 商家的商品分类列表缓存
+	 */
+	public static final String CACHE_KEY_STORE_GOODSTYPE = "shop:store:goodsType:{storeid}";
 	
 }

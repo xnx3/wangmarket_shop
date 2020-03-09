@@ -5,7 +5,7 @@
 <jsp:include page="../../../iw/common/head.jsp">
 	<jsp:param name="title" value="编辑"/>
 </jsp:include>
-<script src="/<%=Global.CACHE_FILE %>GoodsType_typeid.js"></script>
+<script src="/shop/store/goodsType/getGoodsTypeJs.do"></script>
 <script src="/<%=Global.CACHE_FILE %>GoodsType_putaway.js"></script>
 
 <style type="text/css" >

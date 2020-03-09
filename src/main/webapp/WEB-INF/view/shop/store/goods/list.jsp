@@ -16,7 +16,7 @@
     padding-bottom: 10px;
 	}
 </style>
-<script src="/<%=Global.CACHE_FILE %>GoodsType_typeid.js"></script>
+<script src="/shop/store/goodsType/getGoodsTypeJs.do"></script>
 <div style="height:10px;"></div>
 <jsp:include page="../../../iw/common/list/formSearch_formStart.jsp" ></jsp:include>
 
