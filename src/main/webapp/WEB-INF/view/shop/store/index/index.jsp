@@ -53,64 +53,64 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 <div id="leftMenu" class="layui-nav layui-nav-tree layui-nav-side menu">
 	<ul class="">
 		<li class="layui-nav-item">
-			<a href="javascript:loadUrl('/shop/store/index/welcome.do');">
-				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+			<a href="javascript:loadUrl('/shop/store/index/welcome.do');" class="itemA">
+				<i class="layui-icon firstMenuIcon">&#xe60b;</i>
 				<span class="firstMenuFont">商家信息</span>
 			</a>
 		</li>
 		<li class="layui-nav-item">
-			<a href="javascript:loadUrl('/shop/store/carouselImage/list.do');">
-				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+			<a href="javascript:loadUrl('/shop/store/carouselImage/list.do');" class="itemA">
+				<i class="layui-icon firstMenuIcon">&#xe634;</i>
 				<span class="firstMenuFont">轮播图</span>
 			</a>
 		</li>
 		<li class="layui-nav-item">
-			<a href="javascript:loadUrl('/shop/store/user/list.do');">
-				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+			<a href="javascript:loadUrl('/shop/store/user/list.do');" class="itemA">
+				<i class="layui-icon firstMenuIcon">&#xe66f;</i>
 				<span class="firstMenuFont">用户管理</span>
 			</a>
 		</li>
 		<li class="layui-nav-item">
-			<a href="javascript:loadUrl('/shop/store/goodsType/list.do');">
-				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+			<a href="javascript:loadUrl('/shop/store/goodsType/list.do');" class="itemA">
+				<i class="layui-icon firstMenuIcon">&#xe62a;</i>
 				<span class="firstMenuFont">商品分类</span>
 			</a>
 		</li>
 		<li class="layui-nav-item">
-			<a href="javascript:loadUrl('/shop/store/goods/list.do');">
-				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+			<a href="javascript:loadUrl('/shop/store/goods/list.do');" class="itemA">
+				<i class="layui-icon firstMenuIcon">&#xe600;</i>
 				<span class="firstMenuFont">商品管理</span>
 			</a>
 		</li>
 		<li class="layui-nav-item">
-			<a href="javascript:loadUrl('/shop/store/order/list.do');">
-				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+			<a href="javascript:loadUrl('/shop/store/order/list.do');" class="itemA">
+				<i class="layui-icon firstMenuIcon">&#xe60a;</i>
 				<span class="firstMenuFont">订单管理</span>
 			</a>
 		</li>
 		
 		<li class="layui-nav-item">
-			<a href="javascript:loadUrl('/shop/store/paySet/index.do');">
-				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+			<a href="javascript:loadUrl('/shop/store/paySet/index.do');" class="itemA">
+				<i class="layui-icon firstMenuIcon">&#xe620;</i>
 				<span class="firstMenuFont">支付设置</span>
 			</a>
 		</li>
 		<li class="layui-nav-item">
-			<a href="javascript:loadUrl('/shop/store/orderRule/index.do');">
-				<i class="layui-icon firstMenuIcon">&#xe632;</i>
+			<a href="javascript:loadUrl('/shop/store/orderRule/index.do');" class="itemA">
+				<i class="layui-icon firstMenuIcon">&#xe620;</i>
 				<span class="firstMenuFont">订单设置</span>
 			</a>
 		</li>
 		
 		<li class="layui-nav-item" id="updatePassword">
-			<a href="javascript:updatePassword();" id="xiugaimima">
+			<a href="javascript:updatePassword();" id="xiugaimima" class="itemA">
 				<i class="layui-icon firstMenuIcon">&#xe642;</i>
 				<span class="firstMenuFont">更改密码</span>
 			</a>
 		</li>
 
 		<li class="layui-nav-item" id="logout">
-			<a href="/user/logout.do">
+			<a href="/user/logout.do" class="itemA">
 				<i class="layui-icon firstMenuIcon">&#xe633;</i>
 				<span class="firstMenuFont">退出登陆</span>
 			</a>
@@ -125,8 +125,12 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 </div>
 
 <script>
+/*** 下面四个是在网市场云建站系统中使用的 ***/
 document.getElementById('updatePassword').style.display='none';
 document.getElementById('logout').style.display='none';
+document.getElementById('leftMenu').style.backgroundColor='#EAEDF1';
+$(".itemA").css("color","#333333");
+
 
 layui.use('element', function(){
   var element = layui.element;
