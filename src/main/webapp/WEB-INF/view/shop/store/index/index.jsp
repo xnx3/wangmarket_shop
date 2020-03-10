@@ -102,14 +102,14 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 			</a>
 		</li>
 		
-		<li class="layui-nav-item">
+		<li class="layui-nav-item" id="updatePassword">
 			<a href="javascript:updatePassword();" id="xiugaimima">
 				<i class="layui-icon firstMenuIcon">&#xe642;</i>
 				<span class="firstMenuFont">更改密码</span>
 			</a>
 		</li>
 
-		<li class="layui-nav-item">
+		<li class="layui-nav-item" id="logout">
 			<a href="/user/logout.do">
 				<i class="layui-icon firstMenuIcon">&#xe633;</i>
 				<span class="firstMenuFont">退出登陆</span>
@@ -125,6 +125,9 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 </div>
 
 <script>
+document.getElementById('updatePassword').style.display='none';
+document.getElementById('logout').style.display='none';
+
 layui.use('element', function(){
   var element = layui.element;
 });

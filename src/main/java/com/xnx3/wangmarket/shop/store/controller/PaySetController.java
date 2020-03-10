@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.xnx3.Lang;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentMode.LocalServerMode;
@@ -18,6 +20,7 @@ import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.service.PayService;
+import com.xnx3.wangmarket.shop.store.util.FileUtil;
 
 
 /**
@@ -117,6 +120,11 @@ public class PaySetController extends BaseController {
 			paySet.setId(store.getId());
 		}
 		
+		if(!Lang.findFileSuffix(file.getOriginalFilename()).equalsIgnoreCase("crt")){
+			//不是crt后缀，提示错误
+			return error("请上传后缀为crt的证书文件");
+		}
+		
 		if(name.equalsIgnoreCase("alipayCertPublicKeyRSA2")){
 			paySet.setAlipayCertPublicKeyRSA2("alipayCertPublicKeyRSA2.crt");
 		}else if (name.equalsIgnoreCase("alipayRootCert")) {
@@ -129,9 +137,13 @@ public class PaySetController extends BaseController {
 		
 		//将文件上传到服务器本身
 		try {
-			new LocalServerMode().put(Global.CERTIFICATE_PATH.replace("{storeid}", store.getId()+"")+name+".crt", file.getInputStream());
+			BaseVO vo = FileUtil.put(Global.CERTIFICATE_PATH.replace("{storeid}", store.getId()+"")+name+".crt", file.getInputStream());
+			if(vo.getResult() - BaseVO.FAILURE == 0){
+				return vo;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			return error(e.getMessage());
 		}
 		
 		//保存数据

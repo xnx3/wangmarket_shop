@@ -146,6 +146,7 @@ layui.use('upload', function(){
 	var uploadInst = upload.render({
 	  elem: '.aa' //绑定元素
 	 ,field : 'file'
+	 ,exts:'crt'
 	 ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
 			iw.loading('上传中...');
 		}

@@ -31,9 +31,9 @@ public class PaySet extends BaseEntity {
 	private String weixinAppletAppid;	//微信小程序id
 	
 	public PaySet() {
-		this.useAlipay = ISFREEZE_FREEZE;
-		this.useWeixinPay = ISFREEZE_FREEZE;
-		this.usePrivatePay = ISFREEZE_NORMAL;
+		this.useAlipay = 0;
+		this.useWeixinPay = 0;
+		this.usePrivatePay = 1;
 	}
 	
 	@Id
