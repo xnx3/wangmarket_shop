@@ -37,8 +37,8 @@ public class AlipayUtil {
 	private String noticeUrl;
 	
 	//支付成功后异步通知的url
-//	public static final String NOTICE_URL = "https://api.shop.leimingyun.com/shop/api/pay/alipayCallback.do";
-	public static final String RETURN_URL = "http://api.shop.leimingyun.com/plugin/alipay/alipaySuccessJumpPage.do";
+	public static final String NOTICE_URL = "http://api.shop.leimingyun.com/shop/api/pay/alipayCallback.do";
+//	public static final String RETURN_URL = "http://api.shop.leimingyun.com/plugin/alipay/alipaySuccessJumpPage.do";
 	//编码
 	public static final String CHARSET = "UTF-8";
 	//sign type
@@ -95,7 +95,8 @@ public class AlipayUtil {
 		if(this.noticeUrl != null){
 			request.setNotifyUrl(noticeUrl);
 		}
-		request.setReturnUrl(RETURN_URL);
+		request.setNotifyUrl(NOTICE_URL);
+//		request.setReturnUrl(RETURN_URL);
 		request.setBizContent(pcOrderBean.getJsonString());
 		
 		AlipayClient client = getAlipayClient();
