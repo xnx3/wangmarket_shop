@@ -35,6 +35,7 @@ import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
 import com.xnx3.wangmarket.shop.core.service.PayService;
+import com.xnx3.wangmarket.shop.core.util.DoubleUtil;
 import com.xnx3.wangmarket.shop.api.service.CartService;
 import com.xnx3.wangmarket.shop.api.service.OrderService;
 import com.xnx3.wangmarket.shop.api.util.GoodsUtil;
@@ -86,8 +87,8 @@ public class OrderController extends BasePluginController {
 			@RequestParam(value = "remark", required = false, defaultValue = "") String remark,
 			@RequestParam(value = "username", required = false, defaultValue = "") String addressUsername,
 			@RequestParam(value = "phone", required = false, defaultValue = "") String addressPhone,
-			@RequestParam(value = "longitude", required = false, defaultValue = "") Double addressLongitude,
-			@RequestParam(value = "latitude", required = false, defaultValue = "") Double addressLatitude,
+			@RequestParam(value = "longitude", required = false, defaultValue = "0") String addressLongitude,
+			@RequestParam(value = "latitude", required = false, defaultValue = "0") String addressLatitude,
 			@RequestParam(value = "address", required = false, defaultValue = "") String addressAddress
 			){
 		OrderVO vo = new OrderVO();
@@ -216,8 +217,8 @@ public class OrderController extends BasePluginController {
 		//创建订单对应的地址信息
 		OrderAddress orderAddress = new OrderAddress();
 		orderAddress.setId(order.getId());
-		orderAddress.setLatitude(addressLatitude);
-		orderAddress.setLongitude(addressLongitude);
+		orderAddress.setLatitude(DoubleUtil.stringToDouble(addressLatitude, 0d));
+		orderAddress.setLongitude(DoubleUtil.stringToDouble(addressLongitude, 0d));
 		orderAddress.setPhone(StringUtil.filterXss(addressPhone));
 		orderAddress.setAddress(StringUtil.filterXss(addressAddress));
 		orderAddress.setUsername(StringUtil.filterXss(addressUsername));
