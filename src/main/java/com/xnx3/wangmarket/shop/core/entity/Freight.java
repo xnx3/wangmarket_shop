@@ -15,7 +15,7 @@ import javax.persistence.Table;
  *
  */
 @Entity()
-@Table(name = "shop_freight", indexes={@Index(name="suoyin_index",columnList="putaway,sale,fake_sale,price,addtime,storeid,typeid,isdelete,")})
+@Table(name = "shop_freight", indexes={@Index(name="suoyin_index",columnList="storeid")})
 public class Freight {
 	
 	private Integer id;			//自动编号
