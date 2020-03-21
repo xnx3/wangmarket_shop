@@ -11,6 +11,7 @@ public class CarouselImageBean {
 	private String imageUrl;	//轮播图url，绝对路径
 	private Short type;			//类型，1：点击后到某个商品上，2：打开某个分类，进入分类列表，3点击后打开某个url，也就是打开一个h5页面
 	private String imgValue; 	//值，如url的路径、商品的id
+	private Integer storeId;	//商店Id
 	public String getName() {
 		return name;
 	}
@@ -51,4 +52,16 @@ public class CarouselImageBean {
 			this.imgValue = imgValue;
 		}
 	}
+	public Integer getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(Integer storeId) {
+		if(storeId == null) {
+			this.storeId = 0;
+		}else {
+			this.storeId = storeId;
+		}
+	}
+	
+	
 }

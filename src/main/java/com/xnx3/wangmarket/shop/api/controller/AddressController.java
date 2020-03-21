@@ -99,6 +99,63 @@ public class AddressController extends BasePluginController {
 	}
 	
 	/**
+	 * 用户保存地址，包含新增、修改
+	 * copy 管雷鸣
+	 * @author 关光礼
+	 * @param id 要修改的地址id， address.id ，如果这里不传入，或者传入0，则是新增地址
+	 * @param username 收货人名字
+	 * @param phone 收货人电话
+	 * @param address 收货人地址
+	 * @param longitude 经纬度，如 12.223344
+	 * @param latitude 经纬度，如 12.223344
+	 */
+	@RequestMapping(value="/unisave${api.suffix}",method = {RequestMethod.POST})
+	@ResponseBody
+	public BaseVO unisave(HttpServletRequest request,
+			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
+			@RequestParam(value = "username", required = false, defaultValue = "") String username,
+			@RequestParam(value = "phone", required = false, defaultValue = "") String phone,
+			@RequestParam(value = "address", required = false, defaultValue = "") String address,
+			@RequestParam(value = "longitude", required = false, defaultValue = "0") Double longitude,
+			@RequestParam(value = "latitude", required = false, defaultValue = "0") Double latitude,
+			@RequestParam(value = "default", required = false, defaultValue = "false") String isDefault){
+		User user = getUser();
+		
+		Address add = null;
+		if(id > 0){
+			//修改
+			add = sqlService.findById(Address.class, id);
+			if(add == null){
+				return error("修改的地址不存在");
+			}
+			if(add.getUserid() - user.getId() != 0){
+				return error("地址不属于你，无法修改");
+			}
+		}else{
+			//新增
+			add = new Address();
+			add.setUserid(user.getId());
+		}
+		add.setAddress(StringUtil.filterXss(address));
+		add.setLatitude(latitude);
+		add.setLongitude(longitude);
+		add.setPhone(StringUtil.filterXss(phone));
+		add.setUsername(StringUtil.filterXss(username));
+		if(isDefault.trim().equals("true")) {
+			//先将该用户默认的地址设为不是默认的
+			sqlService.executeSql("UPDATE shop_address SET default_use = 0 WHERE userid = "+getUserId()+" AND default_use = 1");
+			//再将传入的地址设为默认
+			add.setDefaultUse((short) 1);
+		}
+		sqlService.save(add);
+
+		//日志记录
+		ActionLogUtil.insertUpdateDatabase(request, id,"保存收货地址", address.toString());
+		
+		return success();
+	}
+	
+	/**
 	 * 获取用户地址列表，包含默认地址跟其他非默认地址列表
 	 * @author 管雷鸣
 	 * @return AddressVO

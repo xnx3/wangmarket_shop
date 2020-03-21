@@ -28,6 +28,7 @@ public class CarouselImageVO extends BaseVO{
 				carouselImageBean.setImgValue(carouselImage.getImgValue());
 				carouselImageBean.setName(carouselImage.getName());
 				carouselImageBean.setType(carouselImage.getType());
+				carouselImageBean.setStoreId(carouselImage.getStoreid());
 				beanList.add(carouselImageBean);
 			}
 		}

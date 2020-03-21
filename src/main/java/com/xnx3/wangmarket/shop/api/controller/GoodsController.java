@@ -52,7 +52,7 @@ public class GoodsController extends BasePluginController {
 			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
 			@RequestParam(value = "typeid", required = false, defaultValue="0") int typeid,
 			@RequestParam(value = "orderBy", required = false, defaultValue="0") int orderBy,
-			@RequestParam(value = "title", required = false, defaultValue="0") int title,
+			@RequestParam(value = "title", required = false, defaultValue="") String title,
 			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber){
 		GoodsListVO vo = new GoodsListVO();
 		if(everyNumber > 100){
@@ -82,7 +82,10 @@ public class GoodsController extends BasePluginController {
 	     * 设置可搜索字段。这里填写的跟user表的字段名对应。只有这里配置了的字段，才会有效。这里没有配置，则不会进行筛选
 	     * 具体规则可参考： http://note.youdao.com/noteshare?id=3ccef2de6a5cda01f95f832b02e356d0&sub=D53E681BBFF04822977C7CFBF8827863
 	     */
-	    sql.setSearchColumn(new String[]{"storeid=","typeid=","title"});
+	    sql.setSearchColumn(new String[]{"storeid=","title"});
+	    if(typeid > 0) {
+	    	sql.appendWhere("typeid = " + typeid);
+	    }
 	    sql.appendWhere("isdelete = "+Goods.ISDELETE_NORMAL);
 	    //查询user数据表的记录总条数。 传入的user：数据表的名字为user
 	    int count = sqlService.count("shop_goods", sql.getWhere());
