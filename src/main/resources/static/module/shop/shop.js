@@ -129,6 +129,7 @@ var shop = {
 			getGoodsCart:"shop/api/cart/getGoodsCart.json",	//获取某个商品在当前店铺的购物车信息
 			change:"shop/api/cart/change.json",	//获取某个商品在当前店铺的购物车信息
 			goodsCartSelected:"shop/api/cart/goodsCartSelected.json",	//设置某个商品在购物车中是否选中
+			storeCartSelected:"shop/api/cart/storeCartSelected.json",	//购物车中某个店铺下的商品，全选或全部不选所有购物车中的商品
 		},
 		//订单规则
 		orderRule:{
