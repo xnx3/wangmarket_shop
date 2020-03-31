@@ -21,6 +21,7 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.LoginVO;
 import com.xnx3.wangmarket.plugin.createStoreApi.entity.UserQuickLogin;
+import com.xnx3.wangmarket.plugin.createStoreApi.vo.RegVO;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
@@ -53,13 +54,13 @@ public class IndexController extends BasePluginController {
 	 */
 	@RequestMapping(value="reg${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
-	public LoginVO reg(HttpServletRequest request,Model model,
+	public RegVO reg(HttpServletRequest request,Model model,
 			@RequestParam(value = "username", required = false, defaultValue="") String username,
 			@RequestParam(value = "password", required = false, defaultValue="") String password,
 			@RequestParam(value = "referrerid", required = false, defaultValue="1") int referrerid,
 			@RequestParam(value = "regstoreid", required = false, defaultValue="0") int regstoreid,
 			@RequestParam(value = "token", required = false, defaultValue="") String token){
-		LoginVO vo = new LoginVO();
+		RegVO vo = new RegVO();
 		if(!TOKNE_MY.equals(token)){
 			vo.setBaseVO(BaseVO.FAILURE, "token failure");
 			return vo;
@@ -107,6 +108,14 @@ public class IndexController extends BasePluginController {
 			//将sessionid加入vo返回
 			HttpSession session = request.getSession();
 			vo.setToken(session.getId());
+			
+			//取得用户开通的商铺的id
+			Store store = sqlService.findAloneBySqlQuery("SELECT * FROM shop_store WHERE userid = "+userid, Store.class);
+			if(store != null){
+				vo.setStoreid(store.getId());
+			}else{
+				vo.setStoreid(0);
+			}
 			
 			//加入user信息
 			vo.setUser(getUser());
