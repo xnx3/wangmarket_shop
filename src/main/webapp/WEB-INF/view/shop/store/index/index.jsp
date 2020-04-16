@@ -48,6 +48,12 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 	padding-left:48px;
 	font-size: 13px;
 }
+.layui-nav-tree .layui-nav-item a:hover {
+	background-color: #FFFFFF;
+}
+.layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover{
+	background-color: #FFFFFF;
+}
 </style>
 
 <div id="leftMenu" class="layui-nav layui-nav-tree layui-nav-side menu">
