@@ -1,0 +1,96 @@
+package com.xnx3.wangmarket.plugin.firstOrderAward.controller;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.xnx3.j2ee.service.SqlService;
+import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.wangmarket.plugin.firstOrderAward.entity.Award;
+import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
+import com.xnx3.wangmarket.shop.store.util.SessionUtil;
+
+/**
+ * 推广用户，用户下单消费后，推广人获赠某个商品
+ * @author 管雷鸣
+ */
+@Controller(value="FirstOrderAwardIndexPluginController")
+@RequestMapping("/plugin/firstOrderAward/")
+public class IndexController extends BasePluginController {
+	@Resource
+	private SqlService sqlService;
+	
+
+	/**
+	 * 设置哪个商品作为赠品，奖品
+	 * @param code 64位登录码
+	 * @param token 约定的token
+	 * @return 若成功，info返回session id
+	 */
+	@RequestMapping("setAward${url.suffix}")
+	public String setAward(HttpServletRequest request,Model model,
+			@RequestParam(value = "code", required = false, defaultValue="") String code,
+			@RequestParam(value = "token", required = false, defaultValue="") String token){
+		if(!haveStoreAuth()){
+			return error(model, "请先登录");
+		}
+		
+		Store store = SessionUtil.getStore();
+		Award award = sqlService.findById(Award.class, store.getId());
+		if(award == null){
+			award = new Award();
+			award.setId(store.getId());
+			award.setIsUse(Award.IS_USE_NO); //默认不使用
+			sqlService.save(award);
+		}
+//		if(award != null && award.getIsUse() - Award.IS_USE_YES == 0){
+//			//如果已经开启了，那么直接跳转到查看统计数据界面
+//			model.addAttribute("url", "see.do");
+//		}else{
+//			//没有设置完，进入设置界面
+//			model.addAttribute("url", "set.do");
+//		}
+//		
+		ActionLogUtil.insertUpdateDatabase(request, "进入设置页面");
+		model.addAttribute("award", award);
+		return "plugin/firstOrderAward/setAward";
+	}
+	
+
+	/**
+	 * 管理后台设置保存是否使用
+	 * @param isUse 是否使用， 1使用， 0不使用
+	 * @author 管雷鸣
+	 */
+	@ResponseBody
+	@RequestMapping("updateIsUse${url.suffix}")
+	public BaseVO updateIsUse(HttpServletRequest request, Model model,
+			@RequestParam(value = "isUse", required = false, defaultValue = "0") int isUse) {
+		if(!haveStoreAuth()){
+			return error("请先登录");
+		}
+		
+		Store store = SessionUtil.getStore();
+		Award award = sqlService.findById(Award.class, store.getId());
+		if(award == null){
+			award = new Award();
+			award.setId(store.getId());
+		}
+		award.setIsUse(isUse == 1? Award.IS_USE_YES:Award.IS_USE_NO);//默认不使用
+		sqlService.save(award);
+		
+		//日志
+		ActionLogUtil.insertUpdateDatabase(request, "修改 isUse 为"+(award.getIsUse()-Award.IS_USE_YES == 0? "使用":"不使用"));
+		//MQ通知改动,向 domain 项目发送mq更新消息
+//		DomainMQ.send("cnzz", new PluginMQ(site).jsonAppend(JSONObject.fromObject(EntityUtil.entityToMap(cnzz))).toString());
+		
+		return success();
+	}
+	
+}

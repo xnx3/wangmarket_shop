@@ -23,4 +23,10 @@ public class Global {
 	 */
 	public static final String CACHE_KEY_STORE_GOODSTYPE = "shop:store:goodsType:{storeid}";
 	
+	/**
+	 * 权限相关
+	 * 商城的角色id
+	 */
+	public static final int STORE_ROLE_ID = 8;
+	
 }

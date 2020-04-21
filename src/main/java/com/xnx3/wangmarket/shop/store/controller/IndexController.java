@@ -1,4 +1,6 @@
 package com.xnx3.wangmarket.shop.store.controller;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.xnx3.BaseVO;
 import com.xnx3.StringUtil;
+import com.xnx3.j2ee.pluginManage.PluginManage;
+import com.xnx3.j2ee.pluginManage.PluginRegister;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentUtil;
@@ -17,6 +21,7 @@ import com.xnx3.j2ee.vo.UploadFileVO;
 import com.xnx3.wangmarket.shop.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
+import com.xnx3.wangmarket.shop.store.util.TemplateAdminMenuUtil;
 
 /**
  * 代理后台
@@ -33,6 +38,19 @@ public class IndexController extends BaseController {
 	 */
 	@RequestMapping("index${url.suffix}")
 	public String index(HttpServletRequest request,Model model){
+		//获取网站后台管理系统有哪些功能插件，也一块列出来,以直接在网站后台中显示出来
+		String pluginMenu = "";
+		if(PluginManage.cmsSiteClassManage.size() > 0){
+			for (Map.Entry<String, PluginRegister> entry : PluginManage.cmsSiteClassManage.entrySet()) {
+				PluginRegister plugin = entry.getValue();
+				pluginMenu += "<dd class=\"twoMenu\"><a id=\""+entry.getKey()+"\" class=\"subMenuItem\" href=\"javascript:loadIframeByUrl('"+plugin.menuHref()+"'), notUseTopTools();\">"+plugin.menuTitle()+"</a></dd>";
+			}
+		}
+		model.addAttribute("pluginMenu", pluginMenu);
+		
+		//左侧菜单
+		model.addAttribute("menuHTML", TemplateAdminMenuUtil.getLeftMenuHtml());
+		
 		return "/shop/store/index/index";
 	}
 	

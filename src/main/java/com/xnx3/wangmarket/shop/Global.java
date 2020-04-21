@@ -8,6 +8,4 @@ package com.xnx3.wangmarket.shop;
 public class Global {
 	//商家图片存放目录
 	public final static String ATTACHMENT_FILE_CAROUSEL_IMAGE = "store/{storeid}/images/";
-	
-	
 }

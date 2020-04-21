@@ -1,6 +1,5 @@
 <%@page import="com.xnx3.wangmarket.Authorization"%>
 <%@page import="com.xnx3.j2ee.entity.User"%>
-<%@page import="com.xnx3.j2ee.Global"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib uri="http://www.xnx3.com/java_xnx3/xnx3_tld" prefix="x" %>
@@ -9,7 +8,7 @@
 	<jsp:param name="title" value="管理后台"/>
 </jsp:include>
 <script src="${STATIC_RESOURCE_PATH}js/fun.js"></script>
-<script src="/js/admin/commonedit.js?v=<%=Global.VERSION %>"></script>
+<script src="/js/admin/commonedit.js?v="></script>
 
 <style>
 body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}

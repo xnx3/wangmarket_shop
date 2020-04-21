@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xnx3.DateUtil;
 import com.xnx3.Lang;
 import com.xnx3.StringUtil;
@@ -22,6 +21,7 @@ import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.LoginVO;
 import com.xnx3.wangmarket.plugin.createStoreApi.entity.UserQuickLogin;
 import com.xnx3.wangmarket.plugin.createStoreApi.vo.RegVO;
+import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
@@ -79,6 +79,7 @@ public class IndexController extends BasePluginController {
 		user.setUsername(StringUtil.filterXss(username));
 		user.setPassword(password);
 		user.setReferrerid(referrerid);
+		user.setAuthority(Global.STORE_ROLE_ID+"");
 		BaseVO baseVO = userService.createUser(user, request);
 		if(baseVO.getResult() == BaseVO.SUCCESS){
 			int userid = Lang.stringToInt(baseVO.getInfo(), 0);
