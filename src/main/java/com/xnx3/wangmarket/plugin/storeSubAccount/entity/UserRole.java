@@ -1,4 +1,4 @@
-package com.xnx3.wangmarket.plugin.siteSubAccount.entity;
+package com.xnx3.wangmarket.plugin.storeSubAccount.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * @author 管雷鸣
  */
 @Entity
-@Table(name = "plugin_storesubaccount_user_role", indexes={@Index(name="userid_index",columnList="userid,siteid")})
+@Table(name = "plugin_storesubaccount_user_role", indexes={@Index(name="userid_index",columnList="userid,storeid")})
 public class UserRole implements java.io.Serializable {
 
 	private Integer id;	
@@ -32,7 +32,8 @@ public class UserRole implements java.io.Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	
+	@Column(name = "userid", columnDefinition="int(11) comment '用户id'")
 	public Integer getUserid() {
 		return userid;
 	}
@@ -40,11 +41,12 @@ public class UserRole implements java.io.Serializable {
 	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
-
+	
+	@Column(name = "storeid", columnDefinition="int(11) comment '对应商城id， store.id'")
 	public Integer getStoreid() {
 		return storeid;
 	}
-
+	
 	public void setStoreid(Integer storeid) {
 		this.storeid = storeid;
 	}

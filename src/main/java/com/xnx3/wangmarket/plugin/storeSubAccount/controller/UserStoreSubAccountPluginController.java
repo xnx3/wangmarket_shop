@@ -1,4 +1,4 @@
-package com.xnx3.wangmarket.plugin.siteSubAccount.controller;
+package com.xnx3.wangmarket.plugin.storeSubAccount.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +19,7 @@ import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.util.SystemUtil;
-import com.xnx3.wangmarket.plugin.siteSubAccount.entity.UserRole;
+import com.xnx3.wangmarket.plugin.storeSubAccount.entity.UserRole;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreUser;

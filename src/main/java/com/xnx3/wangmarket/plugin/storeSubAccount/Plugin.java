@@ -1,4 +1,4 @@
-package com.xnx3.wangmarket.plugin.siteSubAccount;
+package com.xnx3.wangmarket.plugin.storeSubAccount;
 
 import com.xnx3.j2ee.pluginManage.PluginRegister;
 
