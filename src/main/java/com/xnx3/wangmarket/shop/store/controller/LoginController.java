@@ -116,7 +116,7 @@ public class LoginController extends BaseController {
 				}else{
 					//是商城管理者，拥有所有权限的
 					//得到当前用户站点的相关信息，加入userBean，以存入Session缓存起来
-					store = sqlService.findAloneBySqlQuery("SELECT * FROM store WHERE userid = "+getUserId()+" ORDER BY id DESC", Store.class);
+					store = sqlService.findAloneBySqlQuery("SELECT * FROM shop_store WHERE userid = "+getUserId()+" ORDER BY id DESC", Store.class);
 					ConsoleUtil.info("商城管理者，拥有网站所有权限:"+user.getUsername());
 					
 					//将拥有所有功能的管理权限，将功能菜单全部遍历出来，赋予这个用户
