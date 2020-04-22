@@ -3,6 +3,7 @@ package com.xnx3.wangmarket.shop.core.pluginManage.controller;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.util.SessionUtil;
 import com.xnx3.j2ee.util.SystemUtil;
+import com.xnx3.wangmarket.shop.core.Global;
 
 /**
  * 所有shop插件的 Controller 都继承此
@@ -21,7 +22,7 @@ public class BasePluginController extends com.xnx3.j2ee.pluginManage.controller.
 			return false;
 		}
 		
-		if(com.xnx3.j2ee.Func.isAuthorityBySpecific(user.getAuthority(), SystemUtil.get("ROLE_SUPERADMIN_ID"))){
+		if(com.xnx3.j2ee.Func.isAuthorityBySpecific(user.getAuthority(), Global.STORE_ROLE_ID+"")){
 			return true;
 		}
 		return false;

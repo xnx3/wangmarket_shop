@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.BaseVO;
 import com.xnx3.Lang;
 import com.xnx3.j2ee.entity.User;
-import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.Page;
@@ -23,6 +22,7 @@ import com.xnx3.wangmarket.plugin.storeSubAccount.entity.UserRole;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreUser;
+import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 import com.xnx3.wangmarket.shop.store.util.TemplateAdminMenuUtil;
 import com.xnx3.wangmarket.shop.store.util.TemplateAdminMenu.MenuBean;
@@ -45,18 +45,18 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 	 */
 	@RequestMapping("list${url.suffix}")
 	public String list(HttpServletRequest request,Model model){
-		if(!haveSiteAuth()){
+		if(!haveStoreAuth()){
 			return error(model, "请先登录");
 		}
 		Store store = SessionUtil.getStore();
 		
 		Sql sql = new Sql(request);
 //		sql.setSearchColumn(new String[]{"username","email","nickname","phone","id=","regtime(date:yyyy-MM-dd hh:mm:ss)>"});
-		sql.appendWhere("store_user.storeid="+store.getId());
-		int count = sqlService.count("store_user", sql.getWhere());
+		sql.appendWhere("shop_store_user.storeid="+store.getId());
+		int count = sqlService.count("shop_store_user", sql.getWhere());
 		Page page = new Page(count, SystemUtil.getInt("LIST_EVERYPAGE_NUMBER"), request);
-		sql.appendWhere("store_user.id = user.id");
-		sql.setSelectFromAndPage("SELECT user.* FROM user,store_user", page);
+		sql.appendWhere("shop_store_user.id = user.id");
+		sql.setSelectFromAndPage("SELECT user.* FROM user,shop_store_user", page);
 		sql.setDefaultOrderBy("user.id DESC");
 		sql.setOrderByField(new String[]{"id","lasttime"});
 		List<User> list = sqlService.findBySql(sql, User.class);
@@ -73,6 +73,9 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 	@RequestMapping("edit${url.suffix}")
 	public String edit(HttpServletRequest request,Model model,
 			@RequestParam(value = "userid", required = false , defaultValue="0") int userid){
+		if(!haveStoreAuth()){
+			return error(model, "请先登录");
+		}
 		
 		//将 TemplateMenuEnum 枚举中定义的菜单拿出来，等级层次分清，以便随时使用
 		Map<String, MenuBean> menuMap = new HashMap<String, MenuBean>();
@@ -141,6 +144,9 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 			@RequestParam(value = "password", required = false , defaultValue="") String password,
 			@RequestParam(value = "userid", required = false , defaultValue="0") int userid,
 			@RequestParam(value = "menu", required = false , defaultValue="") String menu){
+		if(!haveStoreAuth()){
+			return error("请先登录");
+		}
 		
 		//将传入的menu进行拆分，为数组
 		String[] menus = menu.split(",");
@@ -246,6 +252,9 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 	@ResponseBody
 	public BaseVO deleteUser(HttpServletRequest request,Model model,
 			@RequestParam(value = "userid", required = false , defaultValue="0") int userid){
+		if(!haveStoreAuth()){
+			return error("请先登录");
+		}
 		
 		//查询出当前修改的子用户的信息
 		User user = sqlService.findById(User.class, userid);
@@ -279,6 +288,9 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 	public BaseVO updatePassword(HttpServletRequest request,Model model,
 			@RequestParam(value = "userid", required = false , defaultValue="0") int userid,
 			@RequestParam(value = "newPassword", required = false , defaultValue="") String newPassword){
+		if(!haveStoreAuth()){
+			return error("请先登录");
+		}
 		
 		//查询出当前修改的子用户的信息
 		User user = sqlService.findById(User.class, userid);

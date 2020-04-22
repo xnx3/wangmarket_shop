@@ -15,7 +15,7 @@ public enum TemplateMenuEnum {
 	SYSTEM_OrderRule("paySet", "订单设置", "javascript:loadUrl('/shop/store/orderRule/index.do');", "&#xe620;", ""),
 	SYSTEM_Api("Api", "API接口", "javascript:loadUrl('http://shop.wang.market/');", "&#xe620;", ""),
 	
-	SYSTEM_XiuGaiMiMa("xiugaimima", "修改密码", "javascript:updatePassword();", "", "system"),
+	SYSTEM_XiuGaiMiMa("xiugaimima", "修改密码", "javascript:updatePassword();", "", ""),
 
 	PLUGIN("plugin", "功能插件", "javascript:;", "&#xe857;", "");
 	

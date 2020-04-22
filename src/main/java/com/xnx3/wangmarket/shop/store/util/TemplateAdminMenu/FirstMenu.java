@@ -66,7 +66,7 @@ public class FirstMenu {
 	public String gainMenuHTML(){
 		StringBuffer sb = new StringBuffer();
 		sb.append("<li class=\"layui-nav-item\""+((this.firstMenu_li_id != null && this.firstMenu_li_id.length() > 0)? " id=\""+this.firstMenu_li_id+"\" ":"")+">"
-				+ "	<a "+((this.firstMenu_a_id != null || this.firstMenu_a_id.length() > 0)? "id=\""+this.firstMenu_a_id+"\"":"")+" href=\""+this.firstMenu_a_href+"\">"
+				+ "	<a "+((this.firstMenu_a_id != null || this.firstMenu_a_id.length() > 0)? "id=\""+this.firstMenu_a_id+"\"":"")+" href=\""+this.firstMenu_a_href+"\" class=\"itemA\" style=\"color: rgb(51, 51, 51);\">"
 				+ "		<i class=\"layui-icon firstMenuIcon\">"+this.firstMenu_icon+"</i>"
 				+ "		<span class=\"firstMenuFont\">"+this.firstMenu_font+"</span>"
 				+ "	</a>");

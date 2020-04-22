@@ -43,7 +43,7 @@ public class IndexController extends BaseController {
 		if(PluginManage.cmsSiteClassManage.size() > 0){
 			for (Map.Entry<String, PluginRegister> entry : PluginManage.cmsSiteClassManage.entrySet()) {
 				PluginRegister plugin = entry.getValue();
-				pluginMenu += "<dd class=\"twoMenu\"><a id=\""+entry.getKey()+"\" class=\"subMenuItem\" href=\"javascript:loadIframeByUrl('"+plugin.menuHref()+"'), notUseTopTools();\">"+plugin.menuTitle()+"</a></dd>";
+				pluginMenu += "<dd class=\"twoMenu\"><a id=\""+entry.getKey()+"\" class=\"subMenuItem\" href=\"javascript:loadUrl('"+plugin.menuHref()+"');\">"+plugin.menuTitle()+"</a></dd>";
 			}
 		}
 		model.addAttribute("pluginMenu", pluginMenu);
