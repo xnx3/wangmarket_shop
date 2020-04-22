@@ -12,7 +12,7 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
-import com.xnx3.wangmarket.shop.api.vo.OrderRuleVO;
+import com.xnx3.wangmarket.shop.core.vo.OrderRuleVO;
 
 /**
  * 订单相关

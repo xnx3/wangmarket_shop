@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
-import com.xnx3.wangmarket.shop.api.service.GoodsService;
-import com.xnx3.wangmarket.shop.api.vo.GoodsTypeListVO;
+import com.xnx3.wangmarket.shop.core.service.GoodsService;
+import com.xnx3.wangmarket.shop.core.vo.GoodsTypeListVO;
 
 /**
  * 商品分类相关

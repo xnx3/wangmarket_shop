@@ -23,9 +23,9 @@ import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.UploadFileVO;
 import com.xnx3.wangmarket.shop.Global;
-import com.xnx3.wangmarket.shop.api.vo.bean.GoodsTypeBean;
 import com.xnx3.wangmarket.shop.core.entity.GoodsType;
 import com.xnx3.wangmarket.shop.core.service.GoodsTypeService;
+import com.xnx3.wangmarket.shop.core.vo.bean.GoodsTypeBean;
 
 
 /**

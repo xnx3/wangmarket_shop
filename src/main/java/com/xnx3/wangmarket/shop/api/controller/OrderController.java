@@ -32,18 +32,18 @@ import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.core.service.CartService;
 import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
+import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
 import com.xnx3.wangmarket.shop.core.service.PayService;
 import com.xnx3.wangmarket.shop.core.util.DoubleUtil;
-import com.xnx3.wangmarket.shop.api.service.CartService;
-import com.xnx3.wangmarket.shop.api.service.OrderService;
+import com.xnx3.wangmarket.shop.core.vo.OrderListVO;
+import com.xnx3.wangmarket.shop.core.vo.OrderStateLogListVO;
+import com.xnx3.wangmarket.shop.core.vo.OrderStateStatisticsVO;
+import com.xnx3.wangmarket.shop.core.vo.OrderVO;
 import com.xnx3.wangmarket.shop.api.util.GoodsUtil;
 import com.xnx3.wangmarket.shop.api.util.SessionUtil;
-import com.xnx3.wangmarket.shop.api.vo.OrderListVO;
-import com.xnx3.wangmarket.shop.api.vo.OrderStateLogListVO;
-import com.xnx3.wangmarket.shop.api.vo.OrderStateStatisticsVO;
-import com.xnx3.wangmarket.shop.api.vo.OrderVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -577,7 +577,7 @@ public class OrderController extends BasePluginController {
 			return vo;
 		}
 		if(order.getUserid() - getUserId() != 0) {
-			vo.setBaseVO(OrderVO.FAILURE, "订单不属于你，无权查看！");
+			vo.setBaseVO(OrderVO.FAILURE, "订单不属于你，无权操作！");
 			return vo;
 		}
 		//判断订单状态是否允许变为已确认收货。 已支付、线下支付、配送中 这两种状态可以变为确认收货

@@ -13,10 +13,10 @@ import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
-import com.xnx3.wangmarket.shop.api.service.GoodsService;
-import com.xnx3.wangmarket.shop.api.vo.GoodsDetailsVO;
-import com.xnx3.wangmarket.shop.api.vo.GoodsListVO;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
+import com.xnx3.wangmarket.shop.core.service.GoodsService;
+import com.xnx3.wangmarket.shop.core.vo.GoodsDetailsVO;
+import com.xnx3.wangmarket.shop.core.vo.GoodsListVO;
 
 /**
  * 商品相关

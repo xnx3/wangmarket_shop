@@ -6,11 +6,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.xnx3.j2ee.dao.SqlDAO;
 import com.xnx3.j2ee.util.CacheUtil;
-import com.xnx3.wangmarket.shop.api.vo.bean.GoodsTypeBean;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.GoodsType;
 import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.service.GoodsTypeService;
+import com.xnx3.wangmarket.shop.core.vo.bean.GoodsTypeBean;
 
 @Service
 public class GoodsTypeServiceImpl implements GoodsTypeService {

@@ -3,7 +3,6 @@ package com.xnx3.wangmarket.shop.store.util;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreUser;
 import java.util.Map;
-import com.xnx3.wangmarket.shop.api.vo.CartVO;
 
 /**
  * sessison

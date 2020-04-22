@@ -27,13 +27,14 @@ import com.xnx3.wangmarket.plugin.alipay.bean.WapOrderBean;
 import com.xnx3.wangmarket.plugin.alipay.util.AlipayUtil;
 import com.xnx3.wangmarket.shop.api.util.AlipayCacheUtil;
 import com.xnx3.wangmarket.shop.api.util.SessionUtil;
-import com.xnx3.wangmarket.shop.api.vo.PaySetVO;
-import com.xnx3.wangmarket.shop.api.vo.bean.PaySetBean;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.entity.PayLog;
 import com.xnx3.wangmarket.shop.core.service.PayService;
 import com.xnx3.wangmarket.shop.core.vo.AlipayUtilVO;
+import com.xnx3.wangmarket.shop.core.vo.PaySetVO;
+import com.xnx3.wangmarket.shop.core.vo.bean.PaySetBean;
+
 import net.sf.json.JSONObject;
 
 /**

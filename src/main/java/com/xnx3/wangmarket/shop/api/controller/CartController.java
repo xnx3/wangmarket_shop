@@ -14,12 +14,12 @@ import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
-import com.xnx3.wangmarket.shop.api.service.CartService;
-import com.xnx3.wangmarket.shop.api.vo.CartVO;
-import com.xnx3.wangmarket.shop.api.vo.GoodsCartVO;
-import com.xnx3.wangmarket.shop.api.vo.StoreCartVO;
-import com.xnx3.wangmarket.shop.api.vo.bean.GoodsCart;
-import com.xnx3.wangmarket.shop.api.vo.bean.StoreCart;
+import com.xnx3.wangmarket.shop.core.service.CartService;
+import com.xnx3.wangmarket.shop.core.vo.CartVO;
+import com.xnx3.wangmarket.shop.core.vo.GoodsCartVO;
+import com.xnx3.wangmarket.shop.core.vo.StoreCartVO;
+import com.xnx3.wangmarket.shop.core.vo.bean.GoodsCart;
+import com.xnx3.wangmarket.shop.core.vo.bean.StoreCart;
 
 /**
  * 商城相关功能

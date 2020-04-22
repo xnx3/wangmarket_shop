@@ -1,7 +1,7 @@
 package com.xnx3.wangmarket.shop.api.util;
 
 import com.xnx3.wangmarket.shop.core.entity.Store;
-import com.xnx3.wangmarket.shop.api.vo.CartVO;
+import com.xnx3.wangmarket.shop.core.vo.CartVO;
 
 /**
  * 商城相关的sessison

@@ -12,6 +12,7 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.plugin.firstOrderAward.entity.Award;
+import com.xnx3.wangmarket.shop.core.entity.Goods;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
@@ -91,6 +92,46 @@ public class IndexController extends BasePluginController {
 //		DomainMQ.send("cnzz", new PluginMQ(site).jsonAppend(JSONObject.fromObject(EntityUtil.entityToMap(cnzz))).toString());
 		
 		return success();
+	}
+	
+
+	/**
+	 * 商家管理后台设置奖品的 goodsid
+	 * @param goodsid 奖品的goods.id
+	 * @author 管雷鸣
+	 */
+	@ResponseBody
+	@RequestMapping("/updateGoodsid${url.suffix}")
+	public BaseVO updateGoodsid(HttpServletRequest request, Model model,
+			@RequestParam(value = "goodsid", required = false, defaultValue = "0") int goodsid) {
+		if(!haveStoreAuth()){
+			return error("请先登录");
+		}
+		
+		Store store = SessionUtil.getStore();
+		Goods goods = sqlService.findById(Goods.class, goodsid);
+		if(goods == null){
+			return error("商品不存在");
+		}
+		if(goods.getStoreid() - store.getId() != 0){
+			return error("该商品不属于您，您无权使用");
+		}
+		
+		Award award = sqlService.findById(Award.class, store.getId());
+		if(award == null){
+			award = new Award();
+			award.setId(store.getId());
+			award.setIsUse(Award.IS_USE_YES);//因为都要设置goodsid了，肯定是启用了
+		}
+		award.setGoodsid(goodsid);
+		sqlService.save(award);
+		
+		//日志
+		ActionLogUtil.insertUpdateDatabase(request, "修改推广送礼的奖品");
+		//MQ通知改动,向 domain 项目发送mq更新消息
+//		DomainMQ.send("cnzz", new PluginMQ(site).jsonAppend(JSONObject.fromObject(EntityUtil.entityToMap(cnzz))).toString());
+		
+		return success(goods.getTitle());
 	}
 	
 }

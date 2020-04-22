@@ -1,4 +1,3 @@
-<%@page import="com.xnx3.j2ee.Global"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib uri="http://www.xnx3.com/java_xnx3/xnx3_tld" prefix="x" %>
@@ -56,9 +55,11 @@
 			<td style="text-align:center;">
 			<script type="text/javascript">document.write(typeid['${item['typeid']}']);</script>
 			</td>
-			<td style="text-align:center;">${item.title }</td>
+			<td style="text-align:left;">
+				<x:substring maxLength="12" text="${item.title }"></x:substring>
+			</td>
 			<td style="text-align:center;">
-			<a  href="${item.titlepic}" target="_black"><img src = '${item.titlepic }' /></a>
+				<a href="${item.titlepic}" target="_black"><img src = '${item.titlepic }' /></a>
 			</td>
 			<td style="text-align:center;">${item.inventory }</td>
 			<td style="text-align:center;">${item.alarmNum }</td>

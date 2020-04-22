@@ -16,8 +16,8 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.Address;
-import com.xnx3.wangmarket.shop.api.vo.AddressListVO;
-import com.xnx3.wangmarket.shop.api.vo.AddressVO;
+import com.xnx3.wangmarket.shop.core.vo.AddressListVO;
+import com.xnx3.wangmarket.shop.core.vo.AddressVO;
 
 /**
  * 用户收货地址相关，一个用户会有多个收货地址，但一个用户默认的收货地址只有一个

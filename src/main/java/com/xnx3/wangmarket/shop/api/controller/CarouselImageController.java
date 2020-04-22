@@ -7,13 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xnx3.BaseVO;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.wangmarket.shop.core.entity.CarouselImage;
-import com.xnx3.wangmarket.shop.api.vo.CarouselImageVO;
+import com.xnx3.wangmarket.shop.core.vo.CarouselImageVO;
 
 /**
  * 首页的轮播图

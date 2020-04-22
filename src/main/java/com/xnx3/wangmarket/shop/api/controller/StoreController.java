@@ -11,7 +11,7 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.wangmarket.shop.core.entity.Store;
-import com.xnx3.wangmarket.shop.api.vo.StoreVO;
+import com.xnx3.wangmarket.shop.core.vo.StoreVO;
 
 /**
  * 店铺相关

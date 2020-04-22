@@ -1,7 +1,8 @@
 package com.xnx3.wangmarket.shop.core.service;
 
 import java.util.List;
-import com.xnx3.wangmarket.shop.api.vo.bean.GoodsTypeBean;
+
+import com.xnx3.wangmarket.shop.core.vo.bean.GoodsTypeBean;
 
 /**
  * 订单状态变动的日志相关

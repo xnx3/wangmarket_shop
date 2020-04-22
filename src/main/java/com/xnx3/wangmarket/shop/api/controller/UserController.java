@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.wangmarket.shop.core.vo.UserVO;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.Global;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
-import com.xnx3.wangmarket.shop.api.vo.UserVO;
 
 /**
  * 当前登录的用户相关
