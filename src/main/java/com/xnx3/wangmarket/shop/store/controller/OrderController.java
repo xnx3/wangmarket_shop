@@ -40,7 +40,7 @@ public class OrderController extends BaseController {
 		//查询条件
 		sql.appendWhere("storeid = " + getStoreId());
 		//配置按某个字端搜索内容
-		sql.setSearchColumn(new String[] {"no","state"});
+		sql.setSearchColumn(new String[] {"no","state="});
 		// 查询数据表的记录总条数
 		int count = sqlService.count("shop_order", sql.getWhere());
 		

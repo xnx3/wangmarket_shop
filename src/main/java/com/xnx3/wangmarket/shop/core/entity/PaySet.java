@@ -3,7 +3,6 @@ package com.xnx3.wangmarket.shop.core.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.Table;
 import com.xnx3.j2ee.entity.BaseEntity;
 
@@ -26,6 +25,9 @@ public class PaySet extends BaseEntity {
 	private String alipayRootCert;			//支付宝根证书路径
 	private String alipayAppCertPublicKey;	//支付宝应用公钥证书路径
 	
+	private String weixinOfficialAccountsAppid;		//微信公众号的 AppId
+	private String weixinOfficialAccountsAppSecret;	//微信公众号的 AppSecret
+	private String weixinOfficialAccountsToken;		//微信公众号的 token，这个是跟微信公众号中约定好的固定的token
 	private String weixinMchId;		//微信支付商户号
 	private String weixinMchKey;	//微信支付商户key，在微信商户平台-帐户设置-安全设置-API安全-API密钥-设置API密钥这个里面设置的KEY
 	private String weixinAppletAppid;	//微信小程序id
@@ -144,14 +146,44 @@ public class PaySet extends BaseEntity {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	@Column(name = "weixin_official_accounts_appid", columnDefinition="varchar(50) comment '微信公众号的 AppId' default ''")
+	public String getWeixinOfficialAccountsAppid() {
+		return weixinOfficialAccountsAppid;
+	}
+
+	public void setWeixinOfficialAccountsAppid(String weixinOfficialAccountsAppid) {
+		this.weixinOfficialAccountsAppid = weixinOfficialAccountsAppid;
+	}
+	
+	@Column(name = "weixin_official_accounts_appsecret", columnDefinition="varchar(70) comment '微信公众号的 AppSecret' default ''")
+	public String getWeixinOfficialAccountsAppSecret() {
+		return weixinOfficialAccountsAppSecret;
+	}
+
+	public void setWeixinOfficialAccountsAppSecret(String weixinOfficialAccountsAppSecret) {
+		this.weixinOfficialAccountsAppSecret = weixinOfficialAccountsAppSecret;
+	}
+	
+	@Column(name = "weixin_official_accounts_token", columnDefinition="varchar(100) comment '微信公众号的 token，这个是跟微信公众号中约定好的固定的token' default ''")
+	public String getWeixinOfficialAccountsToken() {
+		return weixinOfficialAccountsToken;
+	}
+
+	public void setWeixinOfficialAccountsToken(String weixinOfficialAccountsToken) {
+		this.weixinOfficialAccountsToken = weixinOfficialAccountsToken;
+	}
 
 	@Override
 	public String toString() {
 		return "PaySet [id=" + id + ", useAlipay=" + useAlipay + ", usePrivatePay=" + usePrivatePay + ", useWeixinPay="
 				+ useWeixinPay + ", alipayAppId=" + alipayAppId + ", alipayAppPrivateKey=" + alipayAppPrivateKey
 				+ ", alipayCertPublicKeyRSA2=" + alipayCertPublicKeyRSA2 + ", alipayRootCert=" + alipayRootCert
-				+ ", alipayAppCertPublicKey=" + alipayAppCertPublicKey + ", weixinMchId=" + weixinMchId
+				+ ", alipayAppCertPublicKey=" + alipayAppCertPublicKey + ", weixinOfficialAccountsAppid="
+				+ weixinOfficialAccountsAppid + ", weixinOfficialAccountsAppSecret=" + weixinOfficialAccountsAppSecret
+				+ ", weixinOfficialAccountsToken=" + weixinOfficialAccountsToken + ", weixinMchId=" + weixinMchId
 				+ ", weixinMchKey=" + weixinMchKey + ", weixinAppletAppid=" + weixinAppletAppid + "]";
 	}
+
 	
 }

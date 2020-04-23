@@ -18,7 +18,7 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.vo.UploadFileVO;
-import com.xnx3.wangmarket.shop.Global;
+import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 import com.xnx3.wangmarket.shop.store.util.TemplateAdminMenuUtil;

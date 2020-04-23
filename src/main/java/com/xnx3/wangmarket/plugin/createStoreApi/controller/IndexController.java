@@ -1,5 +1,8 @@
 package com.xnx3.wangmarket.plugin.createStoreApi.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +17,7 @@ import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ActionLogUtil;
@@ -34,6 +38,8 @@ import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 public class IndexController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private SqlCacheService sqlCacheService;
 	@Resource
 	private UserService userService;
 	
@@ -145,19 +151,27 @@ public class IndexController extends BasePluginController {
 			return error(model,"登录码长度不合格");
 		}
 		
-		UserQuickLogin u = sqlService.findById(UserQuickLogin.class, code);
+		UserQuickLogin u = sqlCacheService.findById(UserQuickLogin.class, code);
 		if(u == null){
 			return error(model,"用户不存在");
 		}
 		//将当前用户变为已登陆状态
 		userService.loginForUserId(request, u.getUserid());
 		//判断当前用户是否是商家，看用户是否对应 Store
-		Store store = sqlService.findAloneBySqlQuery("SELECT * FROM shop_store WHERE userid = "+u.getUserid(), Store.class);
+		Store store = sqlCacheService.findAloneByProperty(Store.class, "userid", u.getUserid());
+//		Store store = sqlService.findAloneBySqlQuery("SELECT * FROM shop_store WHERE userid = "+u.getUserid(), Store.class);
 		if(store == null){
 			SessionUtil.logout();	//退出登录
 			return error(model,"您不是商铺管理人员，无法登陆");
 		}
 		SessionUtil.setStore(store);	//加入session缓存
+		
+		//将拥有所有功能的管理权限，将功能菜单全部遍历出来，赋予这个用户
+		Map<String, String> menuMap = new HashMap<String, String>();
+		for (com.xnx3.wangmarket.shop.store.util.TemplateAdminMenu.TemplateMenuEnum e : com.xnx3.wangmarket.shop.store.util.TemplateAdminMenu.TemplateMenuEnum.values()) {
+			menuMap.put(e.id, "1");
+		}
+		SessionUtil.setStoreMenuRole(menuMap);
 		
 		ActionLogUtil.insertUpdateDatabase(request, "用户登录成功","userid:"+u.getUserid());
 		return redirect("shop/store/index/index.do");

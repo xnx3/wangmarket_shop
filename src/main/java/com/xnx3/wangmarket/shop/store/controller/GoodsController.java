@@ -20,7 +20,6 @@ import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.UploadFileVO;
-import com.xnx3.wangmarket.shop.Global;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
 import com.xnx3.wangmarket.shop.core.entity.GoodsData;
 import com.xnx3.wangmarket.shop.core.entity.GoodsImage;

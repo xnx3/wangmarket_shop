@@ -86,6 +86,13 @@ body{padding-left: 30px;}
   	<c:if test="${paySet.useWeixinPay == 1}">
 	<div id="WX" style="display: block;">
 	</c:if>
+		</br>微信公众号 AppId:&nbsp;&nbsp;${paySet.weixinOfficialAccountsAppid }
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsAppid','${paySet.weixinOfficialAccountsAppid}','微信公众号 AppId');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		</br>微信公众号 AppSecret:&nbsp;&nbsp;${paySet.weixinOfficialAccountsAppSecret }
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsAppSecret','${paySet.weixinOfficialAccountsAppSecret}','微信公众号 AppSecret');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		</br>微信公众号 token:&nbsp;&nbsp;${paySet.weixinOfficialAccountsToken }
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsToken','${paySet.weixinOfficialAccountsToken}','微信公众号 token（约定好的固定的token）');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		
 		</br>商户号:${paySet.weixinMchId }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinMchId','${paySet.weixinMchId}','商户号编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		
@@ -94,6 +101,7 @@ body{padding-left: 30px;}
 		
 		</br>微信小程序ID:&nbsp;&nbsp;${paySet.weixinAppletAppid }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinAppletAppid','${paySet.weixinAppletAppid}','商微信小程序ID编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		
 	</div>
 </div>
 
@@ -103,7 +111,7 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 
 function updateState(name1,value1) {
 	parent.iw.loading("更改中");    //显示“操作中”的等待提示
-	$.post('/shop/store/paySet/setUse.do?name=' + name1 + '&value=' + value1 , function(data){
+	$.post('/shop/store/paySet/update.do?name=' + name1 + '&value=' + value1 , function(data){
 	    parent.iw.loadClose();    //关闭“操作中”的等待提示
 	    if(data.result == '1'){
 	        parent.iw.msgSuccess('操作成功');
@@ -125,7 +133,7 @@ function addOrUpdate(name1,value1,text){
 		  area: ['300px', '100px'] //自定义文本域宽高
 		}, function(value, index, elem){
 		  parent.iw.loading("操作中"); 
-		  $.post('/shop/store/paySet/setUse.do?name=' + name1 + '&value=' + value , function(data){
+		  $.post('/shop/store/paySet/update.do?name=' + name1 + '&value=' + value , function(data){
 			    parent.iw.loadClose();    //关闭“操作中”的等待提示
 			    if(data.result == '1'){
 			        parent.iw.msgSuccess('操作成功');

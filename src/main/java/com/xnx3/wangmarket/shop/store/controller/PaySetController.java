@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.xnx3.Lang;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.j2ee.util.CacheUtil;
 import com.xnx3.j2ee.util.AttachmentMode.LocalServerMode;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.Global;
@@ -57,13 +58,13 @@ public class PaySetController extends BaseController {
 	}
 	
 	/**
-	 * 设置线下支付、支付宝支付、微信支付 这三个的启用状态
-	 * @param name 当前设置的是哪种支付，可传入参数： alipay private weixinPay alipayAppId alipayAppPrivateKey weixinMchId weixinMchKey weixinAppletAppid
+	 * 设置 payset 表的字段
+	 * @param name 当前设置的是哪种支付或者哪个参数，可传入参数为 payset 表的字段，如： alipay private weixinPay alipayAppId alipayAppPrivateKey weixinMchId weixinMchKey weixinAppletAppid
 	 * @param value 要设置的值。如 name 是 alipay private weixinPay，那么这个value便是0、1
 	 */
 	@ResponseBody
-	@RequestMapping(value="/setUse${url.suffix}",method = {RequestMethod.POST})
-	public BaseVO setUse(HttpServletRequest request,
+	@RequestMapping(value="update${url.suffix}",method = {RequestMethod.POST})
+	public BaseVO update(HttpServletRequest request,
 			@RequestParam(value = "name", required = false, defaultValue="") String name,
 			@RequestParam(value = "value", required = false, defaultValue="0") String value) {
 		Store store = getStore();	//当前登录的商家的信息
@@ -90,6 +91,18 @@ public class PaySetController extends BaseController {
 			paySet.setWeixinMchKey(value);
 		}else if (name.equalsIgnoreCase("weixinAppletAppid")) {
 			paySet.setWeixinAppletAppid(value);
+		}else if (name.equalsIgnoreCase("weixinOfficialAccountsAppid")) {
+			paySet.setWeixinOfficialAccountsAppid(value);
+			//清理weixinService的缓存
+			CacheUtil.delete(Global.CACHE_KEY_STORE_WEIXIN_UTIL.replace("{storeid}", store.getId()+""));
+		}else if (name.equalsIgnoreCase("weixinOfficialAccountsAppSecret")) {
+			paySet.setWeixinOfficialAccountsAppSecret(value);
+			//清理weixinService的缓存
+			CacheUtil.delete(Global.CACHE_KEY_STORE_WEIXIN_UTIL.replace("{storeid}", store.getId()+""));
+		}else if (name.equalsIgnoreCase("weixinOfficialAccountsToken")) {
+			paySet.setWeixinOfficialAccountsToken(value);
+			//清理weixinService的缓存
+			CacheUtil.delete(Global.CACHE_KEY_STORE_WEIXIN_UTIL.replace("{storeid}", store.getId()+""));
 		}else{
 			return error("name 错误");
 		}

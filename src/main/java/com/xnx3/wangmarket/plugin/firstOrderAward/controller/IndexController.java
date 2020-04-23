@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xnx3.j2ee.entity.User;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
@@ -18,120 +20,34 @@ import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginControlle
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
 /**
- * 推广用户，用户下单消费后，推广人获赠某个商品
+ * 推广用户，用户下单消费后，推广人获赠某个商品。用户端使用的
  * @author 管雷鸣
  */
 @Controller(value="FirstOrderAwardIndexPluginController")
-@RequestMapping("/plugin/firstOrderAward/")
+@RequestMapping("/plugin/firstOrderAward/stire/")
 public class IndexController extends BasePluginController {
 	@Resource
-	private SqlService sqlService;
+	private SqlCacheService sqlCacheService;
 	
-
 	/**
-	 * 设置哪个商品作为赠品，奖品
-	 * @param code 64位登录码
-	 * @param token 约定的token
+	 * 分享出去的链接，点击链接进入的url，也就是入口url,拿到openid自动注册为用户,并关联推荐人
+	 * 
+	 * http://shop.imall.net.cn/plugin/weixinH5Auth/hiddenAuthJump.do?storeid=1&url=http://shop.imall.net.cn/plugin/firstOrderAward/stire/shareEntry.do%3Finviteid=1%26storeid=1%26storeidaa=1
+	 * 
+	 * @param inviteid 邀请人userid
+	 * @param storeid 进入的商城的id， store.id
 	 * @return 若成功，info返回session id
 	 */
-	@RequestMapping("setAward${url.suffix}")
-	public String setAward(HttpServletRequest request,Model model,
-			@RequestParam(value = "code", required = false, defaultValue="") String code,
-			@RequestParam(value = "token", required = false, defaultValue="") String token){
-		if(!haveStoreAuth()){
-			return error(model, "请先登录");
-		}
+	@RequestMapping("shareEntry${url.suffix}")
+	public String shareEntry(HttpServletRequest request,Model model,
+			@RequestParam(value = "inviteid", required = false, defaultValue="0") int inviteid,
+			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
+		System.out.println(request.getQueryString());
 		
-		Store store = SessionUtil.getStore();
-		Award award = sqlService.findById(Award.class, store.getId());
-		if(award == null){
-			award = new Award();
-			award.setId(store.getId());
-			award.setIsUse(Award.IS_USE_NO); //默认不使用
-			sqlService.save(award);
-		}
-//		if(award != null && award.getIsUse() - Award.IS_USE_YES == 0){
-//			//如果已经开启了，那么直接跳转到查看统计数据界面
-//			model.addAttribute("url", "see.do");
-//		}else{
-//			//没有设置完，进入设置界面
-//			model.addAttribute("url", "set.do");
-//		}
-//		
-		ActionLogUtil.insertUpdateDatabase(request, "进入设置页面");
-		model.addAttribute("award", award);
-		return "plugin/firstOrderAward/setAward";
+		User user = sqlCacheService.findById(User.class, inviteid);
+		
+		return "plugin/firstOrderAward/store/setAward";
 	}
-	
 
-	/**
-	 * 管理后台设置保存是否使用
-	 * @param isUse 是否使用， 1使用， 0不使用
-	 * @author 管雷鸣
-	 */
-	@ResponseBody
-	@RequestMapping("updateIsUse${url.suffix}")
-	public BaseVO updateIsUse(HttpServletRequest request, Model model,
-			@RequestParam(value = "isUse", required = false, defaultValue = "0") int isUse) {
-		if(!haveStoreAuth()){
-			return error("请先登录");
-		}
-		
-		Store store = SessionUtil.getStore();
-		Award award = sqlService.findById(Award.class, store.getId());
-		if(award == null){
-			award = new Award();
-			award.setId(store.getId());
-		}
-		award.setIsUse(isUse == 1? Award.IS_USE_YES:Award.IS_USE_NO);//默认不使用
-		sqlService.save(award);
-		
-		//日志
-		ActionLogUtil.insertUpdateDatabase(request, "修改 isUse 为"+(award.getIsUse()-Award.IS_USE_YES == 0? "使用":"不使用"));
-		//MQ通知改动,向 domain 项目发送mq更新消息
-//		DomainMQ.send("cnzz", new PluginMQ(site).jsonAppend(JSONObject.fromObject(EntityUtil.entityToMap(cnzz))).toString());
-		
-		return success();
-	}
-	
-
-	/**
-	 * 商家管理后台设置奖品的 goodsid
-	 * @param goodsid 奖品的goods.id
-	 * @author 管雷鸣
-	 */
-	@ResponseBody
-	@RequestMapping("/updateGoodsid${url.suffix}")
-	public BaseVO updateGoodsid(HttpServletRequest request, Model model,
-			@RequestParam(value = "goodsid", required = false, defaultValue = "0") int goodsid) {
-		if(!haveStoreAuth()){
-			return error("请先登录");
-		}
-		
-		Store store = SessionUtil.getStore();
-		Goods goods = sqlService.findById(Goods.class, goodsid);
-		if(goods == null){
-			return error("商品不存在");
-		}
-		if(goods.getStoreid() - store.getId() != 0){
-			return error("该商品不属于您，您无权使用");
-		}
-		
-		Award award = sqlService.findById(Award.class, store.getId());
-		if(award == null){
-			award = new Award();
-			award.setId(store.getId());
-			award.setIsUse(Award.IS_USE_YES);//因为都要设置goodsid了，肯定是启用了
-		}
-		award.setGoodsid(goodsid);
-		sqlService.save(award);
-		
-		//日志
-		ActionLogUtil.insertUpdateDatabase(request, "修改推广送礼的奖品");
-		//MQ通知改动,向 domain 项目发送mq更新消息
-//		DomainMQ.send("cnzz", new PluginMQ(site).jsonAppend(JSONObject.fromObject(EntityUtil.entityToMap(cnzz))).toString());
-		
-		return success(goods.getTitle());
-	}
 	
 }
