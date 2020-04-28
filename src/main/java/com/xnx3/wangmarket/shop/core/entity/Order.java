@@ -10,6 +10,8 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.xnx3.DateUtil;
+import com.xnx3.StringUtil;
 import com.xnx3.j2ee.entity.BaseEntity;
 
 
@@ -75,6 +77,10 @@ public class Order extends BaseEntity {
 	private String remark;		//用户备注，限制100个字符
 	
 	private Integer version;	//乐观锁
+	
+	public Order() {
+		this.no = (StringUtil.intTo36(DateUtil.timeForUnix10())+StringUtil.getRandom09AZ(4)).toUpperCase() ; //小写字母变大写
+	}
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

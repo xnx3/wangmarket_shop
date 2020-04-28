@@ -9,7 +9,10 @@
 <div id="shifouqiyong" class="layui-form" style="padding-top:10%; text-align:center;">
 	<span id="qiyongtishi">是否启用推广领奖品功能</span> &nbsp;&nbsp;&nbsp;
 	<input type="checkbox" id="switchInputId" name="isUse" value="1" lay-filter="isUse" lay-skin="switch" lay-text="开启|关闭" <c:if test="${award.isUse == 1}">checked</c:if>>
-	<div style="color:gray; padding:5px;">用户A推荐给用户B，当用户B首单消费成功后，用户A会自动以0元的价格购买某件商品</div>
+	<div style="color:gray; padding:5px; ">
+		用户A推荐给用户B，当用户B首单消费成功后，系统会自动给用户A会以0元的价格购买某件商品并成功下单。
+		注意，用户B的这个首单必须是支付金额大于0元的
+	</div>
 	
 	<style>
 	.shiyongbuzhou{
