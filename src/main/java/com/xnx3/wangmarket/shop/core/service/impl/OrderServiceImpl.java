@@ -239,23 +239,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public OrderVO receiveGoods(int orderid, int userid) {
+	public OrderVO receiveGoods(Order order) {
 		OrderVO vo = new OrderVO();
 		
-		//判断参数
-		if(orderid < 1) {
-			vo.setBaseVO(OrderVO.FAILURE, "请传入订单ID");
-			return vo;
-		}
-		
-		//查找订单信息
-		Order order = sqlService.findById(Order.class, orderid);
 		if(order == null) {
 			vo.setBaseVO(OrderVO.FAILURE, "订单不存在");
-			return vo;
-		}
-		if(userid > -1 && order.getUserid() - userid != 0) {
-			vo.setBaseVO(OrderVO.FAILURE, "订单不属于你，无权操作！");
 			return vo;
 		}
 		//判断订单状态是否允许变为已确认收货。 已支付、线下支付、配送中 这两种状态可以变为确认收货

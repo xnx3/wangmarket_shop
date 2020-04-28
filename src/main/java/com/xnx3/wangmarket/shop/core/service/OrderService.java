@@ -28,9 +28,8 @@ public interface OrderService {
 	
 	/**
 	 * 确认收货
-	 * @param orderid 要确认收货的订单id，对应 order.id
-	 * @param userid 判断这个要确认收货的订单是否是这个用户的。如果userid 传入 -1 那么忽略这个判断。如果大于等于0，则取出订单的 order.userid 来判断是否跟此处传入的相等，如果相等，才能操作，如果不相等，则无权操作 
+	 * @param order 要确认收货的订单。需要传入之前判断用户是否有进行确认订单的权限
 	 * @return {@link OrderVO} 除了result、info外，只有order是有信息的
 	 */
-	public OrderVO receiveGoods(int orderid, int userid);
+	public OrderVO receiveGoods(Order order);
 }

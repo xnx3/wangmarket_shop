@@ -506,7 +506,7 @@ public class OrderController extends BasePluginController {
 		if(order.getUserid() - getUserId() != 0) {
 			return error("订单不属于你，无权操作");
 		}
-		//判断订单状态，是否允许变为申请退款， 已支付、线下支付 这两种状态允许申请退款
+		//判断订单状态，是否允许变为拒绝退款，只有申请退单中的状态才可以拒绝退款
 		if(!(order.getState().equals(Order.STATE_CANCELMONEY_ING))) {
 			return error("订单状态异常");
 		}
@@ -580,27 +580,15 @@ public class OrderController extends BasePluginController {
 			vo.setBaseVO(OrderVO.FAILURE, "订单不属于你，无权操作！");
 			return vo;
 		}
-		//判断订单状态是否允许变为已确认收货。 已支付、线下支付、配送中 这两种状态可以变为确认收货
-		if(order.getState().equals(Order.STATE_PAY) || order.getState().equals(Order.STATE_PRIVATE_PAY) || order.getState().equals(Order.STATE_DISTRIBUTION_ING)){
-			//正常，符合状态改变
+		
+		vo = orderService.receiveGoods(order);
+		if(vo.getResult() - OrderVO.SUCCESS == 0){
+			//写日志
+			ActionLogUtil.insertUpdateDatabase(request, order.getId(), "订单确认收货成功", "用户确认收货。订单:" + order.toString());
 		}else{
-			//异常
-			vo.setBaseVO(OrderVO.FAILURE, "订单状态异常");
-			return vo;
+			ActionLogUtil.insertUpdateDatabase(request, order.getId(), "订单确认收货失败", vo.getInfo()+",订单:" + order.toString());
 		}
 		
-		order.setState(Order.STATE_RECEIVE_GOODS);
-		sqlService.save(order);
-		
-		//订单状态改变记录
-		OrderStateLog stateLog = new OrderStateLog();
-		stateLog.setAddtime(DateUtil.timeForUnix10());
-		stateLog.setState(order.getState());
-		stateLog.setOrderid(order.getId());
-		sqlService.save(stateLog);
-		
-		//写日志
-		ActionLogUtil.insert(request, orderid, "订单确认收货", "订单:" + order.toString());
 		return vo;
 	}
 	

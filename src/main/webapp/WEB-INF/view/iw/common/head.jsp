@@ -36,6 +36,7 @@ if(description == null ){
 <link rel="stylesheet" href="${STATIC_RESOURCE_PATH}module/layui/css/layui.css">
 <script src="${STATIC_RESOURCE_PATH}module/layui/layui.js"></script>
 <script src="${STATIC_RESOURCE_PATH}module/msg/msg-1.0.1.js"></script>
+<script src="https://res.weiunity.com/request/request.js"></script>
 <script>
 //加载 layer 模块
 layui.use('layer', function(){
