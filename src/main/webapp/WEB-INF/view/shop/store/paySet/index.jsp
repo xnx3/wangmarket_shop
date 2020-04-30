@@ -99,8 +99,10 @@ body{padding-left: 30px;}
 		</br>商户key:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.weixinMchKey }"></x:substring>
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinMchKey','${paySet.weixinMchKey}','商户key编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		
-		</br>微信小程序ID:&nbsp;&nbsp;${paySet.weixinAppletAppid }
-		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinAppletAppid','${paySet.weixinAppletAppid}','商微信小程序ID编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		</br>微信小程序appid:&nbsp;&nbsp;${paySet.weixinAppletAppid }
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinAppletAppid','${paySet.weixinAppletAppid}','商微信小程序appid编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		</br>微信小程序appsecret:&nbsp;&nbsp;${paySet.weixinAppletAppSecret }
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinAppletAppSecret','${paySet.weixinAppletAppSecret}','商微信小程序appsecret编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		
 	</div>
 </div>
