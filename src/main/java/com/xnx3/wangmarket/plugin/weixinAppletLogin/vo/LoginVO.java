@@ -1,6 +1,6 @@
-package com.xnx3.wangmarket.weixin.vo;
+package com.xnx3.wangmarket.plugin.weixinAppletLogin.vo;
 
-import com.xnx3.wangmarket.weixin.entity.WeiXinUser;
+import com.xnx3.wangmarket.plugin.weixinAppletLogin.entity.WeiXinUser;
 
 /**
  * 微信小程序登录，返回的响应

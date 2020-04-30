@@ -30,7 +30,8 @@ public class PaySet extends BaseEntity {
 	private String weixinOfficialAccountsToken;		//微信公众号的 token，这个是跟微信公众号中约定好的固定的token
 	private String weixinMchId;		//微信支付商户号
 	private String weixinMchKey;	//微信支付商户key，在微信商户平台-帐户设置-安全设置-API安全-API密钥-设置API密钥这个里面设置的KEY
-	private String weixinAppletAppid;	//微信小程序id
+	private String weixinAppletAppid;		//微信小程序的appid
+	private String weixinAppletAppSecret;	//微信小程序的appSecret
 	
 	public PaySet() {
 		this.useAlipay = 0;
@@ -172,6 +173,15 @@ public class PaySet extends BaseEntity {
 
 	public void setWeixinOfficialAccountsToken(String weixinOfficialAccountsToken) {
 		this.weixinOfficialAccountsToken = weixinOfficialAccountsToken;
+	}
+
+	@Column(name = "weixin_applet_appsecret", columnDefinition="varchar(40) comment '微信小程序的appSecret' default ''")
+	public String getWeixinAppletAppSecret() {
+		return weixinAppletAppSecret;
+	}
+
+	public void setWeixinAppletAppSecret(String weixinAppletAppSecret) {
+		this.weixinAppletAppSecret = weixinAppletAppSecret;
 	}
 
 	@Override

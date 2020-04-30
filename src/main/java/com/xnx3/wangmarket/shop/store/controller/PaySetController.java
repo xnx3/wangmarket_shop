@@ -91,6 +91,12 @@ public class PaySetController extends BaseController {
 			paySet.setWeixinMchKey(value);
 		}else if (name.equalsIgnoreCase("weixinAppletAppid")) {
 			paySet.setWeixinAppletAppid(value);
+			//清理weixinService的缓存
+			CacheUtil.delete(Global.CACHE_KEY_STORE_WEIXIN_APPLET_UTIL.replace("{storeid}", store.getId()+""));
+		}else if (name.equalsIgnoreCase("weixinAppletAppSecret")) {
+			paySet.setWeixinAppletAppSecret(value);
+			//清理weixinService的缓存
+			CacheUtil.delete(Global.CACHE_KEY_STORE_WEIXIN_APPLET_UTIL.replace("{storeid}", store.getId()+""));
 		}else if (name.equalsIgnoreCase("weixinOfficialAccountsAppid")) {
 			paySet.setWeixinOfficialAccountsAppid(value);
 			//清理weixinService的缓存

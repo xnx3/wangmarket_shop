@@ -20,6 +20,8 @@ public class Global {
 	public static final String CACHE_KEY_STORE_GOODSTYPE = "shop:store:goodsType:{storeid}";
 	//商家设置的微信相关参数，进而缓存的 WeiXinUtil 工具类
 	public static final String CACHE_KEY_STORE_WEIXIN_UTIL = "shop:store:weixin:util:{storeid}";
+	//商家设置的微信相关参数，进而缓存的 WeiXinAppletUtil 工具类
+	public static final String CACHE_KEY_STORE_WEIXIN_APPLET_UTIL = "shop:store:weixin:applet_util:{storeid}";
 	
 	//商家图片存放目录。存放的图片如轮播图、分类图片、产品列表图等
 	public final static String ATTACHMENT_FILE_CAROUSEL_IMAGE = "store/{storeid}/images/";
