@@ -63,88 +63,12 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 				</a>
 			</li>
 		</shiro:hasPermission>
-		<shiro:hasPermission name="adminSite">
-			<li class="layui-nav-item">
-				<a href="javascript:loadUrl('/admin/site/list.do');">
-					<i class="layui-icon firstMenuIcon">&#xe857;</i>
-					<span class="firstMenuFont">网站管理</span>
-				</a>
-			</li>
-		</shiro:hasPermission>
-		<shiro:hasPermission name="adminSite">
-			<li class="layui-nav-item">
-				<a href="javascript:loadUrl('/admin/news/list.do');">
-					<i class="layui-icon firstMenuIcon">&#xe632;</i>
-					<span class="firstMenuFont">文章管理</span>
-				</a>
-			</li>
-		</shiro:hasPermission>
-		<shiro:hasPermission name="adminMessage"> 
-			<li class="layui-nav-item">
-				<a href="javascript:loadUrl('/admin/message/list.do');">
-					<i class="layui-icon firstMenuIcon">&#xe63a;</i>
-					<span class="firstMenuFont">站内信息</span>
-				</a>
-			</li>
-		</shiro:hasPermission>
-			
-		<shiro:hasPermission name="adminBbs"> 
-			<li class="layui-nav-item">
-				<a href="javascript:;">
-					<i class="layui-icon firstMenuIcon">&#xe606;</i>
-					<span class="firstMenuFont">论坛管理</span>
-				</a>
-				<dl class="layui-nav-child">
-					<shiro:hasPermission name="adminBbsClassList">
-						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/bbs/classList.do');">分类板块</a></dd>
-					</shiro:hasPermission>
-					<shiro:hasPermission name="adminBbsPostList"> 
-						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/bbs/postList.do');">帖子管理</a></dd>
-					</shiro:hasPermission>
-					<shiro:hasPermission name="adminBbsPostCommentList">
-						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/bbs/commentList.do');">回帖管理</a></dd>
-					</shiro:hasPermission>
-				</dl>
-			</li>
-		</shiro:hasPermission>
-		
-		<shiro:hasPermission name="adminLog"> 
-			<li class="layui-nav-item" id="rizhitongji" style="display:none;">
-				<a href="javascript:;">
-					<i class="layui-icon firstMenuIcon">&#xe62c;</i>
-					<span class="firstMenuFont">日志统计</span>
-				</a>
-				<dl class="layui-nav-child">
-					<shiro:hasPermission name="adminLogList">
-						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/log/list.do');">用户动作</a></dd>
-					</shiro:hasPermission>
-					<shiro:hasPermission name="adminLog">
-						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/requestLog/fangwenList.do');">访问记录</a></dd>
-					</shiro:hasPermission>
-					<shiro:hasPermission name="adminSmsLog"> 
-						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/smslog/list.do');">手机验证</a></dd>
-					</shiro:hasPermission>
-					<shiro:hasPermission name="adminPayLog"> 
-						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/payLog/list.do');">在线支付</a></dd>
-					</shiro:hasPermission>
-					<shiro:hasPermission name="adminLogCartogram">
-						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/log/cartogram.do');">动作统计</a></dd>
-					</shiro:hasPermission>
-					<shiro:hasPermission name="adminLog">
-						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/requestLog/fangwentongji.do');">访问统计</a></dd>
-					</shiro:hasPermission>
-				</dl>
-			</li>
-		</shiro:hasPermission>
-		<script>
-		if(${useDomainLog}){
-			try{
-				//代理后台是没有这个按钮id的
-				document.getElementById('rizhitongji').style.display='';
-			}catch(e){}
-		}
-		</script>
-		
+		<li class="layui-nav-item">
+			<a href="javascript:loadUrl('/shop/superadmin/store/list.do');">
+				<i class="layui-icon firstMenuIcon">&#xe612;</i>
+				<span class="firstMenuFont">店铺管理</span>
+			</a>
+		</li>
 		<shiro:hasPermission name="adminRole"> 
 			<li class="layui-nav-item" id="adminRole">
 				<a href="javascript:;">
@@ -188,55 +112,6 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 				</dl>
 			</li>
 		</shiro:hasPermission>
-		
-		
-		<!-- agency start -->
-		<shiro:hasPermission name="agencyIndex">
-			<li class="layui-nav-item" id="agencyNotice">
-				<a href="javascript:loadUrl('/agency/systemSet.do');">
-					<i class="layui-icon firstMenuIcon">&#xe620;</i>
-					<span class="firstMenuFont">系统设置</span>
-				</a>
-			</li>
-		</shiro:hasPermission>
-		<shiro:hasPermission name="agencyIndex">
-			<li class="layui-nav-item">
-				<a href="javascript:loadUrl('/agency/userList.do');">
-					<i class="layui-icon firstMenuIcon">&#xe857;</i>
-					<span class="firstMenuFont">网站管理</span>
-				</a>
-			</li>
-		</shiro:hasPermission>
-		
-		
-		<shiro:hasPermission name="agencyUserList">
-			<li class="layui-nav-item">
-				<a href="javascript:loadUrl('/agency/subAgencyList.do?orderBy=expiretime_ASC');">
-					<i class="layui-icon firstMenuIcon">&#xe612;</i>
-					<span class="firstMenuFont">下级代理</span>
-				</a>
-			</li>
-		</shiro:hasPermission>
-		
-		<% if(com.xnx3.wangmarket.domain.Log.aliyunLogUtil != null){ %>
-		<shiro:hasPermission name="AgencyNormalAdd">
-			<li class="layui-nav-item">
-				<a href="javascript:loadUrl('/agency/actionLogList.do');">
-					<i class="layui-icon firstMenuIcon">&#xe62a;</i>
-					<span class="firstMenuFont">操作日志</span>
-				</a>
-			</li>
-		</shiro:hasPermission>
-		<shiro:hasPermission name="AgencyNormalAdd">
-			<li class="layui-nav-item">
-				<a href="javascript:loadUrl('/agency/siteSizeLogList.do');">
-					<i class="layui-icon firstMenuIcon">&#xe62a;</i>
-					<span class="firstMenuFont">站币日志</span>
-				</a>
-			</li>
-		</shiro:hasPermission>
-		<% } %>
-		<!-- agency end -->
 		
 		<li class="layui-nav-item">
 			<a href="javascript:updatePassword();" id="xiugaimima">
