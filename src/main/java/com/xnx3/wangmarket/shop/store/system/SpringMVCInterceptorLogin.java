@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import com.xnx3.j2ee.pluginManage.interfaces.SpringMVCInterceptorInterface;
-import com.xnx3.wangmarket.shop.api.util.SessionUtil;
+import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
 /**
  * shop项目,拦截器，拦截是否已登陆，未登录，跳转到登录页面
@@ -19,11 +20,14 @@ public class SpringMVCInterceptorLogin implements SpringMVCInterceptorInterface{
 	public List<String> pathPatterns() {
 		List<String> list = new ArrayList<String>();
  		list.add("/shop/store/carouselImage/**");
+ 		list.add("/shop/store/common/**");
  		list.add("/shop/store/goods/**");
  		list.add("/shop/store/goodsType/**");
  		list.add("/shop/store/index/**");
- 		list.add("/shop/store/user/**");
+ 		list.add("/shop/store/order/**");
  		list.add("/shop/store/orderRule/**");
+ 		list.add("/shop/store/paySet/**");
+ 		list.add("/shop/store/user/**");
  		return list;
 	}
 
@@ -35,6 +39,13 @@ public class SpringMVCInterceptorLogin implements SpringMVCInterceptorInterface{
 		//未登录
 		if(!SessionUtil.isLogin()){
 			response.sendRedirect("/shop/store/login/login.do");
+			return false;
+		}
+		
+		Store store = SessionUtil.getStore();
+		if(store == null || store.getId() == null || store.getId() - 0 == 0){
+			//无权使用，自己没有所管理的店铺
+			response.sendRedirect("/403.do");
 			return false;
 		}
 		
