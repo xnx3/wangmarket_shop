@@ -17,7 +17,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  * @author 管雷鸣
  */
 @Entity()
-@Table(name = "shop_goods", indexes={@Index(name="suoyin_index",columnList="putaway,sale,fake_sale,price,addtime,storeid,typeid,isdelete,")})
+@Table(name = "shop_goods", indexes={@Index(name="suoyin_index",columnList="putaway,sale,fake_sale,price,addtime,storeid,typeid,isdelete,rank")})
 public class Goods extends BaseEntity implements java.io.Serializable{
 
 	/**
@@ -46,6 +46,8 @@ public class Goods extends BaseEntity implements java.io.Serializable{
 	private String titlepic;	//该商品的标题图片、列表图片,图片的绝对路径
 	private Short isdelete;		//该商品是否已被删除
 	private Integer userBuyRestrict;	//用户购买限制。如果值是0，则可以任意购买，没有什么限制，如果是1，则代表每个用户只能购买一个，如果是2，代表每个用户只能购买2个以内，不超过2个。 只要是下单了，未退单成功的，都算是购买了
+	private Integer rank;		//排序，数字越小越靠前
+	private String intro;		//简介说明，限制40个字符
 	private Integer version;	//乐观锁
 	
 	@Id
@@ -208,7 +210,26 @@ public class Goods extends BaseEntity implements java.io.Serializable{
 	public void setFakeSale(Integer fakeSale) {
 		this.fakeSale = fakeSale;
 	}
-	
+	@Column(name = "rank", columnDefinition="int(11) comment '排序，数字越小越靠前'")
+	public Integer getRank() {
+		if(this.rank == null){
+			this.rank = 0;
+		}
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
+	@Column(name = "intro", columnDefinition="char(40) comment '简介说明，限制40个字符'")
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+
 	@Version
 	@Column(name = "version", columnDefinition="int(11) comment '乐观锁' default 0")
 	public Integer getVersion() {
@@ -219,13 +240,14 @@ public class Goods extends BaseEntity implements java.io.Serializable{
 		this.version = version;
 	}
 	
+
 	@Override
 	public String toString() {
 		return "Goods [id=" + id + ", title=" + title + ", inventory=" + inventory + ", alarmNum=" + alarmNum
 				+ ", putaway=" + putaway + ", sale=" + sale + ", fakeSale=" + fakeSale + ", units=" + units + ", price="
 				+ price + ", originalPrice=" + originalPrice + ", addtime=" + addtime + ", updatetime=" + updatetime
 				+ ", storeid=" + storeid + ", typeid=" + typeid + ", titlepic=" + titlepic + ", isdelete=" + isdelete
-				+ ", userBuyRestrict=" + userBuyRestrict + ", version=" + version + "]";
+				+ ", userBuyRestrict=" + userBuyRestrict + ", rank=" + rank + ", version=" + version + "]";
 	}
 	
 }
