@@ -23,6 +23,7 @@ import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.Global;
 import com.xnx3.j2ee.dao.SqlDAO;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.shiro.ShiroFunc;
 import com.xnx3.j2ee.util.AttachmentUtil;
@@ -41,6 +42,8 @@ public class UserServiceImpl implements UserService{
 
 	@Resource
 	private SqlDAO sqlDAO;
+	@Resource
+	private SqlCacheService sqlCacheService;
 
 	public SqlDAO getSqlDAO() {
 		return sqlDAO;
@@ -48,6 +51,14 @@ public class UserServiceImpl implements UserService{
 
 	public void setSqlDAO(SqlDAO sqlDAO) {
 		this.sqlDAO = sqlDAO;
+	}
+
+	public SqlCacheService getSqlCacheService() {
+		return sqlCacheService;
+	}
+
+	public void setSqlCacheService(SqlCacheService sqlCacheService) {
+		this.sqlCacheService = sqlCacheService;
 	}
 
 	public User findByPhone(Object phone){
@@ -179,12 +190,6 @@ public class UserServiceImpl implements UserService{
 		user.setLasttime(DateUtil.timeForUnix10());
 //		user.setNickname(user.getUsername());
 		user.setAuthority(Global.system.get("USER_REG_ROLE"));
-		user.setCurrency(0);
-		user.setReferrerid(0);
-		user.setFreezemoney(0);
-		user.setMoney(0);
-		user.setIsfreeze(User.ISFREEZE_NORMAL);
-		user.setHead("default.png");
 		
 		String inviteid = null;
 		if(request.getSession().getAttribute("inviteid")!=null){
@@ -194,7 +199,7 @@ public class UserServiceImpl implements UserService{
 		User referrerUser1 = null;
 		if(inviteid!=null&&inviteid.length()>0){
 			int referrerid = Lang.stringToInt(inviteid, 0);
-			referrerUser1 = sqlDAO.findById(User.class, referrerid);	//一级下线
+			referrerUser1 = sqlCacheService.findById(User.class, referrerid);	//一级下线
 			if(referrerUser1!=null){
 				user.setReferrerid(referrerid);
 			}
@@ -237,17 +242,17 @@ public class UserServiceImpl implements UserService{
 				referrerAddAward(referrerUser1, Global.system.get("INVITEREG_AWARD_ONE"), user);
 				
 				if(referrerUser1.getReferrerid()>0){	//一级下线有上级推荐人，拿到二级下线
-					User referrerUser2 = sqlDAO.findById(User.class, referrerUser1.getReferrerid());
+					User referrerUser2 = sqlCacheService.findById(User.class, referrerUser1.getReferrerid());
 					if(referrerUser2!=null){
 						referrerAddAward(referrerUser2, Global.system.get("INVITEREG_AWARD_TWO"), user);
 						
 						if(referrerUser2.getReferrerid()>0){	//二级下线有上级推荐人，拿到三级下线
-							User referrerUser3 = sqlDAO.findById(User.class, referrerUser2.getReferrerid());
+							User referrerUser3 = sqlCacheService.findById(User.class, referrerUser2.getReferrerid());
 							if(referrerUser3!=null){
 								referrerAddAward(referrerUser3, Global.system.get("INVITEREG_AWARD_THREE"), user);
 								
 								if(referrerUser3.getReferrerid()>0){	//三级下线有上级推荐人，拿到四级下线
-									User referrerUser4 = sqlDAO.findById(User.class, referrerUser3.getReferrerid());
+									User referrerUser4 = sqlCacheService.findById(User.class, referrerUser3.getReferrerid());
 									if(referrerUser4!=null){
 										referrerAddAward(referrerUser4, Global.system.get("INVITEREG_AWARD_FOUR"), user);
 									}

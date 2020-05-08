@@ -42,6 +42,12 @@ public class User extends BaseEntity {
 
 	/** default constructor */
 	public User() {
+		this.currency = 0;
+		this.referrerid = 0;
+		this.freezemoney = 0;
+		this.money = 0;
+		this.isfreeze = ISDELETE_NORMAL;
+		this.head = "default.png";
 	}
 	/**
 	 * 手机号

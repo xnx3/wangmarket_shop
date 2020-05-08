@@ -51,7 +51,7 @@ public class IndexController extends BasePluginController {
 	 * @param username 要注册用户的用户名（必填）
 	 * @param password 要注册当用户的密码（必填）
 	 * @param referrerid 注册成功的这个用户，他的上级是哪个。这个就是上级的user.id
-	 * @param regstoreid 要注册开通的这个商铺的id，这里制定商铺的id编号
+	 * @param regstoreid 要注册开通的这个商铺的id，这里制定商铺的id编号。如果没有指定，则是随机分配一个id
 	 * @return vo result:
 	 * 			<ul>
 	 * 				<li>0:失败</li>

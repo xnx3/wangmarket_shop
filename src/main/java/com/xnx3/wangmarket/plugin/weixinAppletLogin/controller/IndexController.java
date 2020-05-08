@@ -50,6 +50,7 @@ public class IndexController extends BasePluginController {
 	 * 3. 利用 unionid 来判断用户是否存在及设置用户自动登陆状态
 	 * @param code 微信小程序获取的随机code
 	 * @param storeid 要登录哪个商铺，也就是要使用哪个商铺的微信设置的参数
+	 * @param referrerid 推荐人id，这个在创建用户信息时，会计入用户的 user.referrerid
 	 * @return {@link LoginVO} 登陆结果。根据getResult() 进行判断
 	 * 		<ul>
 	 * 			<li> {@link LoginVO}.getResult() == {@link LoginVO}.SUCCESS : 自动登陆成功。 同时，有一种情况，用户第一次登陆，也就是刚注册时，getInfo() 会返回字符串 "reg" ,小程序端需要根据此判断，若用户是第一次注册，那么需要将用户微信的 userInfo 信息传给服务器,以充实 User 数据表  </li>
@@ -60,7 +61,8 @@ public class IndexController extends BasePluginController {
 	@ResponseBody
 	public LoginVO loginByCode(HttpServletRequest request, Model model,
 			@RequestParam(value = "code", required = false, defaultValue="") String code,
-			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
+			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
+			@RequestParam(value = "referrerid", required = false, defaultValue="0") int referrerid){
 		LoginVO vo = new LoginVO();
 		if(storeid < 1){
 			vo.setBaseVO(LoginVO.FAILURE, "请传入您的商铺编号storeid");
@@ -81,7 +83,6 @@ public class IndexController extends BasePluginController {
 			return vo;
 		}
 		
-		
 		WeiXinAppletUtil weixinAppletUtil = weiXinService.getWeiXinAppletUtil(storeid);
 		if(weixinAppletUtil == null){
 			vo.setBaseVO(LoginVO.FAILURE, "请先为您的商铺设置微信小程序的appid、appsecret。在本系统的商家后台-支付设置中，进行设置");
@@ -99,6 +100,16 @@ public class IndexController extends BasePluginController {
 				user.setUsername(Lang.uuid());
 				user.setPassword(Lang.uuid());
 				user.setNickname("nick name");
+				
+				//判断其是否有推荐人
+				if(referrerid > 0){
+					//从user表中，看是否有这个userid,也就是这个推荐人是否真的存在
+					User referrerUser = sqlCacheService.findById(User.class, referrerid);
+					if(referrerUser != null){
+						user.setReferrerid(referrerid);
+					}
+				}
+				
 				BaseVO regVO = userService.reg(user, request);
 				if(regVO.getResult() - BaseVO.SUCCESS == 0){
 					//自动注册成功，保存 WeixinUser
