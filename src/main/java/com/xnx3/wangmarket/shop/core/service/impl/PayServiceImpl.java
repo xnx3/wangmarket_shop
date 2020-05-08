@@ -10,6 +10,8 @@ import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.service.PayService;
 import com.xnx3.wangmarket.shop.core.vo.AlipayUtilVO;
+import com.xnx3.wangmarket.shop.core.vo.WeiXinPayUtilVO;
+import com.xnx3.weixin.WeiXinPayUtil;
 
 @Service
 public class PayServiceImpl implements PayService {
@@ -76,6 +78,20 @@ public class PayServiceImpl implements PayService {
 		String path = Global.CERTIFICATE_PATH.replace("{storeid}", storeid+"");
 		AlipayUtil alipayUtil = new AlipayUtil(paySet.getAlipayAppId(), paySet.getAlipayAppPrivateKey(), path+paySet.getAlipayAppCertPublicKey(), path+paySet.getAlipayCertPublicKeyRSA2(), path+paySet.getAlipayRootCert());
 		vo.setAlipayUtil(alipayUtil);
+		return vo;
+	}
+
+	@Override
+	public WeiXinPayUtilVO getWeiXinPayUtil(int storeid) {
+		WeiXinPayUtilVO vo = new WeiXinPayUtilVO();
+		PaySet paySet = getPaySet(storeid);
+		if(paySet.getUseWeixinPay() - 0 == 0){
+			//支付设置
+			vo.setBaseVO(BaseVO.FAILURE, "该商家未开启微信支付");
+			return vo;
+		}
+		WeiXinPayUtil util = new WeiXinPayUtil(paySet.getWeixinOfficialAccountsAppid(), paySet.getWeixinMchId(), paySet.getWeixinMchKey());
+		vo.setWeiXinPayUtil(util);
 		return vo;
 	}
 	
