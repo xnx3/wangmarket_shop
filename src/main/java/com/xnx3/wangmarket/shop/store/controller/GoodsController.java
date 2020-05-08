@@ -167,6 +167,7 @@ public class GoodsController extends BaseController {
 		goods.setTypeid(inputGoods.getTypeid());
 		goods.setUpdatetime(DateUtil.timeForUnix10());
 		goods.setTitlepic(inputGoods.getTitlepic());
+		goods.setIntro(inputGoods.getIntro());
 		//保存实体
 		sqlService.save(goods);
 		
