@@ -6,7 +6,7 @@ var shop = {
 	//购物车信息，缓存
 	cart:null,
 	//请求host，域名，格式如 http://weixin.shop.leimingyun.com/ 最后以 / 结尾
-	host:'http://api.shop.leimingyun.com/',
+	host:'http://api.imall.net.cn/',
 	//当前使用的店铺编号，store.id
 	storeid:1,
 	
@@ -161,6 +161,7 @@ var shop = {
 			getPaySet:"shop/api/pay/getPaySet.json",	//获取当前商铺的支付列表，列出哪个支付使用，哪个支付不使用
 			privatePay:"shop/api/pay/privatePay.json",	//订单线下支付，私下支付
 			alipay:"shop/api/pay/alipay.json",	//支付宝支付
+			weixinCreateOrder:"shop/api/pay/weixinCreateOrder.json",	//微信创建订单，获取支付的参数
 		},
 		//商家店铺
 		store:{

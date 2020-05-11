@@ -29,4 +29,10 @@ public interface WeiXinService {
 	 * @return 当前店铺的商铺的微信小程序工具类。如果返回null，则是当前店铺未设置使用微信小程序
 	 */
 	public WeiXinAppletUtil getWeiXinAppletUtil(int storeid);
+	
+	/**
+	 * 获取服务商（潍坊雷鸣云）的 {@link WeiXinUtil} 。这里也就是获取 payset.id = 0 的参数生成的 WeiXinUtil
+	 * @return 服务商的 {@link WeiXinUtil}
+	 */
+	public WeiXinUtil getServiceProviderWeiXinUtil();
 }

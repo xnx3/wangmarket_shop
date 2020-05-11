@@ -1,6 +1,6 @@
 package com.xnx3.wangmarket.plugin.weixinAppletLogin.vo;
 
-import com.xnx3.wangmarket.plugin.weixinAppletLogin.entity.WeiXinUser;
+import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
 
 /**
  * 微信小程序登录，返回的响应
@@ -8,14 +8,20 @@ import com.xnx3.wangmarket.plugin.weixinAppletLogin.entity.WeiXinUser;
  *
  */
 public class LoginVO extends com.xnx3.j2ee.vo.LoginVO{
-	private WeiXinUser weixinUser;	//对应 user 的weixin信息
+	private UserWeiXin userWeiXin;	//对应 user 的weixin信息
 
-	public WeiXinUser getWeixinUser() {
-		return weixinUser;
+	public UserWeiXin getUserWeiXin() {
+		return userWeiXin;
 	}
 
-	public void setWeixinUser(WeiXinUser weixinUser) {
-		this.weixinUser = weixinUser;
+	public void setUserWeiXin(UserWeiXin userWeiXin) {
+		this.userWeiXin = userWeiXin;
 	}
+
+	@Override
+	public String toString() {
+		return "LoginVO [userWeiXin=" + userWeiXin + ", toString()=" + super.toString() + "]";
+	}
+	
 	
 }

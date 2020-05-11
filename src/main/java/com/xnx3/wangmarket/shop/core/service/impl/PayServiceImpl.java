@@ -5,10 +5,12 @@ import org.springframework.stereotype.Service;
 import com.xnx3.BaseVO;
 import com.xnx3.j2ee.dao.SqlDAO;
 import com.xnx3.j2ee.util.CacheUtil;
+import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.wangmarket.plugin.alipay.util.AlipayUtil;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.service.PayService;
+import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.vo.AlipayUtilVO;
 import com.xnx3.wangmarket.shop.core.vo.WeiXinPayUtilVO;
 import com.xnx3.weixin.WeiXinPayUtil;
@@ -17,6 +19,8 @@ import com.xnx3.weixin.WeiXinPayUtil;
 public class PayServiceImpl implements PayService {
 	@Resource
 	private SqlDAO sqlDAO;
+	@Resource
+	private PaySetService paySetService;
 
 	public SqlDAO getSqlDAO() {
 		return sqlDAO;
@@ -25,50 +29,18 @@ public class PayServiceImpl implements PayService {
 	public void setSqlDAO(SqlDAO sqlDAO) {
 		this.sqlDAO = sqlDAO;
 	}
-
-	@Override
-	public PaySet getPaySet(int storeid) {
-		PaySet paySet;
-		if(storeid < 1){
-			paySet = new PaySet();
-			return paySet;
-		}
-		
-		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_PAY_SER.replace("{storeid}", storeid+"");
-		paySet = (PaySet)CacheUtil.get(key);
-		
-		if(paySet == null){
-			//缓存中不存在，去数据库取数据
-			paySet = sqlDAO.findById(PaySet.class, storeid);
-			if(paySet != null){
-				//数据库中有这个数据，取出这个数据来了，那么将至加入缓存
-				setPaySet(paySet);
-			}
-		}
-		if(paySet == null){
-			//如果依旧还是null，那可能这个数据就是不存在的，new一个新对象
-			paySet = new PaySet();
-		}
-		
-		return paySet;
+	
+	public PaySetService getPaySetService() {
+		return paySetService;
 	}
 
-	@Override
-	public void setPaySet(PaySet paySet) {
-		if(paySet == null){
-			return;
-		}
-		if(paySet.getId() == null){
-			return;
-		}
-		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_PAY_SER.replace("{storeid}", paySet.getId()+"");
-		CacheUtil.set(key, paySet);
+	public void setPaySetService(PaySetService paySetService) {
+		this.paySetService = paySetService;
 	}
-	
-	
+
 	public AlipayUtilVO getAlipayUtil(int storeid){
 		AlipayUtilVO vo = new AlipayUtilVO();
-		PaySet paySet = getPaySet(storeid);
+		PaySet paySet = paySetService.getPaySet(storeid);
 		if(paySet.getUseAlipay() - 0 == 0){
 			//支付设置
 			vo.setBaseVO(BaseVO.FAILURE, "该商家未开启支付宝支付");
@@ -84,13 +56,26 @@ public class PayServiceImpl implements PayService {
 	@Override
 	public WeiXinPayUtilVO getWeiXinPayUtil(int storeid) {
 		WeiXinPayUtilVO vo = new WeiXinPayUtilVO();
-		PaySet paySet = getPaySet(storeid);
+		PaySet paySet = paySetService.getPaySet(storeid);
 		if(paySet.getUseWeixinPay() - 0 == 0){
 			//支付设置
 			vo.setBaseVO(BaseVO.FAILURE, "该商家未开启微信支付");
 			return vo;
 		}
-		WeiXinPayUtil util = new WeiXinPayUtil(paySet.getWeixinOfficialAccountsAppid(), paySet.getWeixinMchId(), paySet.getWeixinMchKey());
+		
+		WeiXinPayUtil util;
+		//判断一下当前是用的300元认证的公众号，还是免认证的我们服务商通道
+		if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
+			//使用我们服务商通道
+			PaySet servicePaySet = paySetService.getSerivceProviderPaySet();
+			util = new WeiXinPayUtil(servicePaySet.getWeixinOfficialAccountsAppid(), servicePaySet.getWeixinMchId(), servicePaySet.getWeixinMchKey());
+			util.openServiceProviderMode(paySet.getWeixinSerivceProviderSubMchId());
+			util.setServiceProviderSubAppletAppid(paySet.getWeixinAppletAppid());
+		}else{
+			//正常微信支付
+			util = new WeiXinPayUtil(paySet.getWeixinOfficialAccountsAppid(), paySet.getWeixinMchId(), paySet.getWeixinMchKey());
+		}
+		
 		vo.setWeiXinPayUtil(util);
 		return vo;
 	}

@@ -6,6 +6,7 @@ import com.xnx3.j2ee.util.CacheUtil;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.service.PayService;
+import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.service.WeiXinService;
 import com.xnx3.weixin.WeiXinAppletUtil;
 import com.xnx3.weixin.WeiXinUtil;
@@ -13,7 +14,7 @@ import com.xnx3.weixin.WeiXinUtil;
 @Service
 public class WeiXinServiceImpl implements WeiXinService {
 	@Resource
-	private PayService payService;
+	private PaySetService paySetService;
 
 	@Override
 	public WeiXinUtil getWeiXinUtil(int storeid) {
@@ -21,7 +22,7 @@ public class WeiXinServiceImpl implements WeiXinService {
 		WeiXinUtil util = (WeiXinUtil) CacheUtil.get(cacheKey);
 		if(util == null){
 			//缓存中不存在，取出用户设置的数据，new 一个新的微信工具类
-			PaySet payset = payService.getPaySet(storeid);
+			PaySet payset = paySetService.getPaySet(storeid);
 			if(payset == null){
 				//数据库中没有这个数据，这个店铺id根本不存在，直接返回null
 				return null;
@@ -33,7 +34,6 @@ public class WeiXinServiceImpl implements WeiXinService {
 			
 			util = new WeiXinUtil(payset.getWeixinOfficialAccountsAppid(), payset.getWeixinOfficialAccountsAppSecret(), payset.getWeixinOfficialAccountsToken());
 			CacheUtil.setWeekCache(cacheKey, util);
-			System.out.println("new yige util:"+util);
 		}
 		
 		return util;
@@ -45,7 +45,7 @@ public class WeiXinServiceImpl implements WeiXinService {
 		WeiXinAppletUtil util = (WeiXinAppletUtil) CacheUtil.get(cacheKey);
 		if(util == null){
 			//缓存中不存在，取出用户设置的数据，new 一个新的微信工具类
-			PaySet payset = payService.getPaySet(storeid);
+			PaySet payset = paySetService.getPaySet(storeid);
 			if(payset == null){
 				//数据库中没有这个数据，这个店铺id根本不存在，直接返回null
 				return null;
@@ -60,6 +60,11 @@ public class WeiXinServiceImpl implements WeiXinService {
 		}
 		
 		return util;
+	}
+
+	@Override
+	public WeiXinUtil getServiceProviderWeiXinUtil() {
+		return getWeiXinUtil(0);
 	}
 	
 }

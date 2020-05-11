@@ -7,13 +7,18 @@
 
 <style>
 body{padding-left: 30px;}
+.title{font-size: 16px;font-weight: bold; padding-top:3px;}
+#Ali,#WX{
+	padding-left:20px;
+}
 </style>
 
 <div style="height: 30px"></div>
 <!-- 线下支付 -->
 
 <div>
-	是否开启线下支付的方式？当前已
+	<span class="title">是否开启线下支付的方式？</span>
+	当前已
   	<c:if test="${paySet.usePrivatePay == 0}">关闭
   		 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('private',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>	
   	</c:if>
@@ -29,7 +34,8 @@ body{padding-left: 30px;}
 </br></br>
 <!-- 支付宝支付 -->
 <div>
-	是否开启支付宝支付的方式？当前已
+	<span class="title">是否开启支付宝支付的方式？</span>
+	当前已
   	<c:if test="${paySet.useAlipay == 0}">关闭
   		 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('alipay',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>	
   	</c:if>
@@ -69,15 +75,16 @@ body{padding-left: 30px;}
 </br>
 <!-- 微信支付 -->
 <div>
-	是否开启微信支付的方式？当前已
+	<span class="title">是否开启微信支付的方式？</span>
+	当前已
   	<c:if test="${paySet.useWeixinPay == 0}">关闭
   		 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinPay',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>	
   	</c:if>
   	<c:if test="${paySet.useWeixinPay == 1}">开启
-  		 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinPay',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>	
+  		 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinPay',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>
 	</c:if>
 	<div style="color: gray;font-size: 12px">
-	<p>说明：开启后，当用户下单进行支付时，可以通过微信进行在线支付</p>
+		<p>说明：开启后，当用户下单进行支付时，可以通过微信进行在线支付</p>
 	</div>
 	
 	<c:if test="${paySet.useWeixinPay == 0}">
@@ -86,19 +93,51 @@ body{padding-left: 30px;}
   	<c:if test="${paySet.useWeixinPay == 1}">
 	<div id="WX" style="display: block;">
 	</c:if>
+
+	
+	<span class="title">是否已进行了微信公众号的300元认证? </span>
+	当前使用 
+	<c:if test="${paySet.useWeixinServiceProviderPay == 0}">
+		已花钱认证
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinServiceProviderPay',1);" style="margin-left: 3px;margin-top:-1px;">使用免认证费的</botton>
+	</c:if>
+	<c:if test="${paySet.useWeixinServiceProviderPay == 1}">
+		未花钱认证
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinServiceProviderPay',0);" style="margin-left: 3px;margin-top:-1px;">使用300元认证的</botton>
+	</c:if>
+	<div style="color: gray;font-size: 12px">
+		<p>
+			说明：要使用微信支付，要有一个已认证的微信公众号，而这个公众号的认证需要每年花费300元。我方与微信合作，可以让你节省这每年300元的费用。
+			<!-- 网市场云建站系统代理商、购买过授权版本、以及我公司的合作企业，可以联系我们开通免300认证费的微信支付。 -->
+		</p>
+	</div>
+	<!-- 是否使用我们作为服务商 -->
+	<c:if test="${paySet.useWeixinServiceProviderPay == 0}">
 		</br>微信公众号 AppId:&nbsp;&nbsp;${paySet.weixinOfficialAccountsAppid }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsAppid','${paySet.weixinOfficialAccountsAppid}','微信公众号 AppId');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		</br>微信公众号 AppSecret:&nbsp;&nbsp;${paySet.weixinOfficialAccountsAppSecret }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsAppSecret','${paySet.weixinOfficialAccountsAppSecret}','微信公众号 AppSecret');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		</br>微信公众号 token:&nbsp;&nbsp;${paySet.weixinOfficialAccountsToken }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsToken','${paySet.weixinOfficialAccountsToken}','微信公众号 token（约定好的固定的token）');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
-		
 		</br>商户号:${paySet.weixinMchId }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinMchId','${paySet.weixinMchId}','商户号编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		
 		</br>商户key:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.weixinMchKey }"></x:substring>
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinMchKey','${paySet.weixinMchKey}','商户key编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		
+	</c:if>
+	<c:if test="${paySet.useWeixinServiceProviderPay == 1}">
+		</br>商户号:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.weixinSerivceProviderSubMchId }"></x:substring>
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinSerivceProviderSubMchId','${paySet.weixinSerivceProviderSubMchId}','商户key编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		此处请联系您的上级服务人员开通
+	</c:if>
+	
+	
+	</br>
+	</br>
+	</br>
+	<span class="title">微信小程序参数设置（如果您使用微信小程序，需要设置以下参数）</span>
+		<!-- 如果您使用的是微信 -->
 		</br>微信小程序appid:&nbsp;&nbsp;${paySet.weixinAppletAppid }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinAppletAppid','${paySet.weixinAppletAppid}','商微信小程序appid编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		</br>微信小程序appsecret:&nbsp;&nbsp;${paySet.weixinAppletAppSecret }

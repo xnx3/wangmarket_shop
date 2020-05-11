@@ -1,6 +1,5 @@
 package com.xnx3.wangmarket.plugin.weixinAppletLogin.controller;
 
-import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -14,13 +13,11 @@ import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
-import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.UserVO;
-import com.xnx3.wangmarket.plugin.weixinAppletLogin.entity.WeiXinUser;
-import com.xnx3.wangmarket.plugin.weixinAppletLogin.util.SessionUtil;
 import com.xnx3.wangmarket.plugin.weixinAppletLogin.vo.LoginVO;
+import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.core.service.WeiXinService;
 import com.xnx3.weixin.WeiXinAppletUtil;
@@ -75,7 +72,8 @@ public class IndexController extends BasePluginController {
 			//已登录过了
 //			vo.setBaseVO(LoginVO.FAILURE, "请传入您的商铺编号storeid");
 			vo.setUser(getUser());
-			vo.setWeixinUser(SessionUtil.getWeiXinUser());
+			vo.setInfo("您已经是登录状态了，所以不再返回 userWeixin 字段了。只有未登录状态下，登录成功，才会返回 userWeixin");
+//			vo.setUserWeiXin(sqlCacheService.findAloneByProperty(UserWeiXin.class, , value));
 			return vo;
 		}
 		if(code.length() == 0){
@@ -92,9 +90,9 @@ public class IndexController extends BasePluginController {
 		if(jvo.getResult() - Jscode2sessionResultVO.SUCCESS == 0){
 			//登陆成功
 			
-			WeiXinUser weiXinUser = sqlCacheService.findAloneByProperty(WeiXinUser.class, "openid", jvo.getOpenid());
+			UserWeiXin userWeixin = sqlCacheService.findById(UserWeiXin.class, jvo.getOpenid());
 			User user = null;
-			if(weiXinUser == null){
+			if(userWeixin == null){
 				//此用户还未注册，进行注册用户
 				user = new User();
 				user.setUsername(Lang.uuid());
@@ -113,19 +111,20 @@ public class IndexController extends BasePluginController {
 				BaseVO regVO = userService.reg(user, request);
 				if(regVO.getResult() - BaseVO.SUCCESS == 0){
 					//自动注册成功，保存 WeixinUser
-					WeiXinUser weixinUser = new WeiXinUser();
-					weixinUser.setUserid(user.getId());
-					weixinUser.setOpenid(jvo.getOpenid());
-					weixinUser.setUnionid(jvo.getUnionid());
-					ConsoleUtil.log(weixinUser.toString());
-					sqlService.save(weixinUser);
+					userWeixin = new UserWeiXin();
+					userWeixin.setUserid(user.getId());
+					userWeixin.setOpenid(jvo.getOpenid());
+					userWeixin.setUnionid(jvo.getUnionid());
+					userWeixin.setStoreid(storeid);
+					ConsoleUtil.log(userWeixin.toString());
+					sqlService.save(userWeixin);
 					//缓存
-					SessionUtil.setWeiXinUser(weixinUser);
+//					SessionUtil.setWeiXinUser(weixinUser);
 					
 					ConsoleUtil.info("reg --- > "+user.toString());
 					vo.setUser(getUser());
 					vo.setInfo("reg");
-					vo.setWeixinUser(weixinUser);
+					vo.setUserWeiXin(userWeixin);
 					
 					return vo;
 				}else{
@@ -136,15 +135,15 @@ public class IndexController extends BasePluginController {
 			}else{
 				//用户已经注册过了
 				//设置当前用户为登陆的状态
-				BaseVO loginVO = userService.loginForUserId(request, weiXinUser.getUserid());
+				BaseVO loginVO = userService.loginForUserId(request, userWeixin.getUserid());
 				if(loginVO.getResult() - BaseVO.FAILURE == 0){
 					vo.setBaseVO(UserVO.FAILURE, loginVO.getInfo());
 					return vo;
 				}else{
 					//缓存微信相关信息
-					SessionUtil.setWeiXinUser(weiXinUser);
+//					SessionUtil.setWeiXinUser(weiXinUser);
 					vo.setUser(getUser());
-					vo.setWeixinUser(weiXinUser);
+					vo.setUserWeiXin(userWeixin);
 					return vo;
 				}
 			}

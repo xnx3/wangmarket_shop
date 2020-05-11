@@ -238,30 +238,30 @@ public class UserServiceImpl implements UserService{
 			sqlDAO.save(userRole);
 			
 			//推荐人增加奖励
-			if(user.getReferrerid()>0){	//是否有直接推荐人
-				referrerAddAward(referrerUser1, Global.system.get("INVITEREG_AWARD_ONE"), user);
-				
-				if(referrerUser1.getReferrerid()>0){	//一级下线有上级推荐人，拿到二级下线
-					User referrerUser2 = sqlCacheService.findById(User.class, referrerUser1.getReferrerid());
-					if(referrerUser2!=null){
-						referrerAddAward(referrerUser2, Global.system.get("INVITEREG_AWARD_TWO"), user);
-						
-						if(referrerUser2.getReferrerid()>0){	//二级下线有上级推荐人，拿到三级下线
-							User referrerUser3 = sqlCacheService.findById(User.class, referrerUser2.getReferrerid());
-							if(referrerUser3!=null){
-								referrerAddAward(referrerUser3, Global.system.get("INVITEREG_AWARD_THREE"), user);
-								
-								if(referrerUser3.getReferrerid()>0){	//三级下线有上级推荐人，拿到四级下线
-									User referrerUser4 = sqlCacheService.findById(User.class, referrerUser3.getReferrerid());
-									if(referrerUser4!=null){
-										referrerAddAward(referrerUser4, Global.system.get("INVITEREG_AWARD_FOUR"), user);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+//			if(user.getReferrerid()>0){	//是否有直接推荐人
+//				referrerAddAward(referrerUser1, Global.system.get("INVITEREG_AWARD_ONE"), user);
+//				
+//				if(referrerUser1.getReferrerid()>0){	//一级下线有上级推荐人，拿到二级下线
+//					User referrerUser2 = sqlCacheService.findById(User.class, referrerUser1.getReferrerid());
+//					if(referrerUser2!=null){
+//						referrerAddAward(referrerUser2, Global.system.get("INVITEREG_AWARD_TWO"), user);
+//						
+//						if(referrerUser2.getReferrerid()>0){	//二级下线有上级推荐人，拿到三级下线
+//							User referrerUser3 = sqlCacheService.findById(User.class, referrerUser2.getReferrerid());
+//							if(referrerUser3!=null){
+//								referrerAddAward(referrerUser3, Global.system.get("INVITEREG_AWARD_THREE"), user);
+//								
+//								if(referrerUser3.getReferrerid()>0){	//三级下线有上级推荐人，拿到四级下线
+//									User referrerUser4 = sqlCacheService.findById(User.class, referrerUser3.getReferrerid());
+//									if(referrerUser4!=null){
+//										referrerAddAward(referrerUser4, Global.system.get("INVITEREG_AWARD_FOUR"), user);
+//									}
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
 			
 //				logDao.insert("USER_REGISTER_SUCCESS");
 			baseVO.setBaseVO(BaseVO.SUCCESS, user.getId()+"");

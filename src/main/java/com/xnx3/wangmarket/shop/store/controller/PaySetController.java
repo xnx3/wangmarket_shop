@@ -21,6 +21,7 @@ import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.service.PayService;
+import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.store.util.FileUtil;
 
 
@@ -34,7 +35,7 @@ public class PaySetController extends BaseController {
 	@Resource
 	private SqlService sqlService;
 	@Resource
-	private PayService payService;
+	private PaySetService paySetService;
 	
 	/**
 	 * 设置的首页
@@ -81,6 +82,8 @@ public class PaySetController extends BaseController {
 			paySet.setUsePrivatePay((short) (value.equals("1")? 1:0));
 		}else if (name.equalsIgnoreCase("weixinPay")) {
 			paySet.setUseWeixinPay((short) (value.equals("1")? 1:0));
+		}else if (name.equalsIgnoreCase("weixinServiceProviderPay")) {
+			paySet.setUseWeixinServiceProviderPay((short) (value.equals("1")? 1:0));
 		}else if (name.equalsIgnoreCase("alipayAppId")) {
 			paySet.setAlipayAppId(value);
 		}else if (name.equalsIgnoreCase("alipayAppPrivateKey")) {
@@ -109,12 +112,16 @@ public class PaySetController extends BaseController {
 			paySet.setWeixinOfficialAccountsToken(value);
 			//清理weixinService的缓存
 			CacheUtil.delete(Global.CACHE_KEY_STORE_WEIXIN_UTIL.replace("{storeid}", store.getId()+""));
+		}else if (name.equalsIgnoreCase("weixinSerivceProviderSubMchId")) {
+			paySet.setWeixinSerivceProviderSubMchId(value);
+			//清理weixinService的缓存
+			CacheUtil.delete(Global.CACHE_KEY_STORE_WEIXIN_UTIL.replace("{storeid}", store.getId()+""));
 		}else{
 			return error("name 错误");
 		}
 		sqlService.save(paySet);
 		//更新持久缓存
-		payService.setPaySet(paySet);
+		paySetService.setPaySet(paySet);
 		
 		//日志记录
 		ActionLogUtil.insert(request, "商家支付设置，设置"+name, paySet.toString());
@@ -168,7 +175,7 @@ public class PaySetController extends BaseController {
 		//保存数据
 		sqlService.save(paySet);
 		//更新持久缓存
-		payService.setPaySet(paySet);
+		paySetService.setPaySet(paySet);
 		
 		//日志记录
 		ActionLogUtil.insert(request, "商家支付设置，上传"+name+".crt");

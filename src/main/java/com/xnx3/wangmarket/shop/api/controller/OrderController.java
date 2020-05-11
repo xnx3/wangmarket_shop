@@ -37,6 +37,7 @@ import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
 import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
 import com.xnx3.wangmarket.shop.core.service.PayService;
+import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.util.DoubleUtil;
 import com.xnx3.wangmarket.shop.core.vo.OrderListVO;
 import com.xnx3.wangmarket.shop.core.vo.OrderStateLogListVO;
@@ -63,7 +64,7 @@ public class OrderController extends BasePluginController {
 	@Resource
 	private OrderRuleService orderRuleService;
 	@Resource
-	private PayService payService;
+	private PaySetService paySetService;
 	@Resource
 	private OrderStateLogService orderStateLogService;
 	
@@ -368,7 +369,7 @@ public class OrderController extends BasePluginController {
 		vo.setStore(store);
 		
 		//加入商家支付设置
-		vo.setPaySet(payService.getPaySet(order.getStoreid()));
+		vo.setPaySet(paySetService.getPaySet(order.getStoreid()));
 		//加入商家订单设置
 		vo.setOrderRule(orderRuleService.getRole(order.getStoreid()));
 		
