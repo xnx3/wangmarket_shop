@@ -60,7 +60,8 @@ public class GoodsController extends BaseController {
 		sql.setSelectFromAndPage("SELECT * FROM shop_goods ", page);
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
 		sql.setDefaultOrderBy("id DESC");
-		
+		//其余可以选择的排序字段
+		sql.setOrderByField(new String[]{"id","inventory","sale","price"});
 		// 按照上方条件查询出该实体总数 用集合来装
 		List<Goods> list = sqlService.findBySql(sql,Goods.class);
 		
@@ -167,6 +168,7 @@ public class GoodsController extends BaseController {
 		goods.setTypeid(inputGoods.getTypeid());
 		goods.setUpdatetime(DateUtil.timeForUnix10());
 		goods.setTitlepic(inputGoods.getTitlepic());
+		goods.setIntro(inputGoods.getIntro());
 		//保存实体
 		sqlService.save(goods);
 		
@@ -390,6 +392,34 @@ public class GoodsController extends BaseController {
 		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, img.getId(),"Id为" + img.getId() + "的商品的图片添加或修改，内容:" + img.toString());
+		
+		return success();
+	}
+	/**
+	 * 更改栏目排序。CMS模式使用。（PC、手机模式使用js排序）
+	 * @param id 栏目id
+	 * @param rank 排序编号。数字越小越靠前
+	 * @return
+	 */
+	@RequestMapping(value="updateRank${url.suffix}", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseVO updateRank(HttpServletRequest request,
+			@RequestParam(value = "id", required = false , defaultValue="0") int id,
+			@RequestParam(value = "rank", required = false , defaultValue="0") int rank){
+		Goods goods = new Goods();
+		if(id < 1){
+			return error("请传入要操作的栏目编号");
+		}
+		goods = sqlService.findById(Goods.class, id);
+		if(goods == null){
+			return error("要操作的栏目不存在");
+		}
+		
+		goods.setRank(rank);
+		sqlService.save(goods);
+		
+		//记录日志
+		ActionLogUtil.insertUpdateDatabase(request, goods.getId(), "更改栏目排序", rank+"");
 		
 		return success();
 	}

@@ -109,6 +109,16 @@
 		计量，单位。如个、斤、条等。默认个</div>
 	</div>
 	
+	<div class="layui-form-item" id="xnx3_editMode">
+		<label class="layui-form-label" id="columnEditMode">简介</label>
+		<div class="layui-input-block">
+			<textarea rows="2" cols="30" name="intro" id="intro" class="layui-input" style="height: auto; padding-left: 0px; border: 1px soild;"
+			maxlength="40">${item.intro }</textarea>
+		</div>
+		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
+		商品的简介,最多40字</div>
+	</div>
+	
 	
 	<!-- 内容编辑方式，当独立页面时才会有效，才会显示。选择是使用内容富文本编辑框编辑，还是使用模板的方式编辑 -->
 	<div class="layui-form-item" id="xnx3_editMode">
@@ -126,6 +136,7 @@
 		</div>
 	</div>
 </form>
+
 
 <!-- 配置文件 -->
 <script type="text/javascript" src="/module/ueditor/ueditor.config.js"></script>
@@ -231,6 +242,10 @@ layui.use('upload', function(){
 		if($("#originalPrice").val() == ''){
 			iw.msgFailure("请输入原价");
 			return ;
+		}
+		if($("#intro").val().length > 10){
+			msg.failure('简介限制40个字符之内');
+			return;
 		}
 		var price = $("#price").val();
 		var originalPrice = $("#originalPrice").val();
