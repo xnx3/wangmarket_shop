@@ -20,6 +20,8 @@ import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.vo.UploadFileVO;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.core.entity.StoreData;
+import com.xnx3.wangmarket.shop.core.service.StoreService;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 import com.xnx3.wangmarket.shop.store.util.TemplateAdminMenuUtil;
 
@@ -32,6 +34,9 @@ import com.xnx3.wangmarket.shop.store.util.TemplateAdminMenuUtil;
 public class IndexController extends BaseController {
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private StoreService storeService;
+	
 	
 	/**
 	 * 登录成功后的首页
@@ -59,9 +64,15 @@ public class IndexController extends BaseController {
 	 */
 	@RequestMapping("welcome${url.suffix}")
 	public String welcome(HttpServletRequest request,Model model){
-		Store store = sqlService.findById(Store.class, getStoreId());
+		int storeid = getStoreId();
+		Store store = sqlService.findById(Store.class, storeid);
+		StoreData storeData = sqlService.findById(StoreData.class, storeid);
+		if(storeData == null){
+			storeData = new StoreData();
+		}
 		
 		model.addAttribute("store", store);
+		model.addAttribute("storeData", storeData);
 		return "/shop/store/index/welcome";
 	}
 	
@@ -200,10 +211,40 @@ public class IndexController extends BaseController {
 		sqlService.save(store);
 		model.addAttribute("store", store);
 		
+		
 		//修改缓存的商家信息
 		SessionUtil.setStore(store);
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, store.getId(), "Id为" + store.getId() + "的商家修改信息", "修改信息:" + store.toString());
+		return success();
+	}
+	
+	/**
+	 * 修改商家的变长表字段的信息
+	 * @param notice 公告
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveStoreData${url.suffix}",method = {RequestMethod.POST})
+	public BaseVO saveStoreData(HttpServletRequest request ,
+			@RequestParam(value = "notice", required = false, defaultValue = "") String notice) {
+		//查找商家
+		StoreData storeData = sqlService.findById(StoreData.class, getStoreId());
+		if(storeData == null){
+			storeData = new StoreData();
+			storeData.setId(getStoreId());
+		}
+		if(notice.length() > 0){
+			storeData.setNotice(notice);
+		}
+		
+		//保存
+		sqlService.save(storeData);
+		
+		//清理缓存
+		storeService.clearStoreDataCache(storeData.getId());
+		
+		//日志记录
+		ActionLogUtil.insertUpdateDatabase(request, storeData.getId(), "Id为" + storeData.getId() + "的商家修改storeData信息");
 		return success();
 	}
 	

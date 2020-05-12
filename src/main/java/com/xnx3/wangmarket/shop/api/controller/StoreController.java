@@ -11,6 +11,7 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.core.service.StoreService;
 import com.xnx3.wangmarket.shop.core.vo.StoreVO;
 
 /**
@@ -24,6 +25,8 @@ public class StoreController extends BaseController {
 	private UserService userService;
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private StoreService storeService;
 
 	/**
 	 * 获取店铺信息， Store 的信息
@@ -46,6 +49,8 @@ public class StoreController extends BaseController {
 		}
 		
 		vo.setStore(store);
+		vo.setStoreData(storeService.getStoreDataByCache(store.getId()));
+		
 		ActionLogUtil.insert(request, "获取店铺信息", store.toString());
 		return vo;
 	}

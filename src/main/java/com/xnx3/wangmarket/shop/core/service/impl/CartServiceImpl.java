@@ -196,7 +196,7 @@ public class CartServiceImpl implements CartService {
 									store.setLatitude(Float.parseFloat(JSONUtil.getString(storeJson, "latitude")));
 									store.setLongitude(Float.parseFloat(JSONUtil.getString(storeJson, "longitude")));
 									store.setName(JSONUtil.getString(storeJson, "name"));
-									store.setNotice(JSONUtil.getString(storeJson, "notice"));
+//									store.setNotice(JSONUtil.getString(storeJson, "notice"));
 									store.setPhone(JSONUtil.getString(storeJson, "phone"));
 									store.setProvince(JSONUtil.getString(storeJson, "province"));
 									store.setSale(JSONUtil.getInt(storeJson, "sale"));

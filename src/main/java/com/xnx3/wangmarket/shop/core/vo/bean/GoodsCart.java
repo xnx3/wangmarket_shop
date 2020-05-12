@@ -63,6 +63,7 @@ public class GoodsCart implements java.io.Serializable{
 			goodsBean.setTypeid(goods.getTypeid());
 			goodsBean.setUnits(goods.getUnits());
 			goodsBean.setUserBuyRestrict(goods.getUserBuyRestrict());
+			goodsBean.setIntro(goods.getIntro());
 		}
 		this.goods = goodsBean;
 	}

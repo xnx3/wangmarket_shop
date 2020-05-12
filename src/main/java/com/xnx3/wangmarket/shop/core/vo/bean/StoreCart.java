@@ -76,7 +76,7 @@ public class StoreCart implements java.io.Serializable{
 			storeBean.setLatitude(store.getLatitude());
 			storeBean.setLongitude(store.getLongitude());
 			storeBean.setName(store.getName());
-			storeBean.setNotice(store.getNotice());
+//			storeBean.setNotice(store.getNotice());
 			storeBean.setPhone(store.getPhone());
 			storeBean.setProvince(store.getProvince());
 			storeBean.setSale(store.getSale());

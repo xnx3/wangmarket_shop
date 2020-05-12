@@ -10,7 +10,7 @@ public class StoreBean {
 	private Integer id;			//店铺编号，自动编号
 	private String name;		//店铺名字，限20个字符
 	private String head;		//店铺图片，图标，图片的绝对路径
-	private String notice;		//店铺公告，限制150个字符
+//	private String notice;		//店铺公告，限制150个字符
 	private Short state;		//店铺状态，0审核中，1营业中，2已打烊
 	private String contacts;	//店铺店家联系人，限制10个字符
 	private String phone;		//店铺店家联系电话
@@ -22,6 +22,11 @@ public class StoreBean {
 	private String district;	//店铺所在位置-市，区，如 寒亭区
 	private Integer addtime;	//店铺添加时间，开通时间。10位时间戳
 	private Integer sale;		//店铺已出售的商品总数量，总销量。这个一定是真实的，如果要造假数，可以在增加一个字段
+	
+	/*
+	 * 下面字段是从 StoreData 变长表取出来的
+	 */
+	private String notice;		//店铺公告 
 	
 	public Integer getId() {
 		return id;

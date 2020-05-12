@@ -33,7 +33,7 @@ public class Store implements java.io.Serializable {
 	private String name;		//店铺名字，限20个字符
 	private Integer userid;		//店铺所属用户，哪个用户创建的，对应 User.id
 	private String head;		//店铺图片，图标，图片的绝对路径
-	private String notice;		//店铺公告，限制150个字符
+//	private String notice;		//店铺公告，限制150个字符 转移到了  StoreData 中
 	private Short state;		//店铺状态，0审核中，1营业中，2已打烊
 	private String contacts;	//店铺店家联系人，限制10个字符
 	private String phone;		//店铺店家联系电话
@@ -82,13 +82,13 @@ public class Store implements java.io.Serializable {
 		this.head = head;
 	}
 	
-	@Column(name = "notice", columnDefinition="char(150) comment '店铺公告'")
-	public String getNotice() {
-		return notice;
-	}
-	public void setNotice(String notice) {
-		this.notice = notice;
-	}
+//	@Column(name = "notice", columnDefinition="char(150) comment '店铺公告'")
+//	public String getNotice() {
+//		return notice;
+//	}
+//	public void setNotice(String notice) {
+//		this.notice = notice;
+//	}
 	
 	@Column(name = "state", columnDefinition="tinyint(2) comment '店铺状态，0审核中，1营业中，2已打烊'")
 	public Short getState() {
@@ -190,7 +190,7 @@ public class Store implements java.io.Serializable {
 	
 	@Override
 	public String toString() {
-		return "Store [id=" + id + ", name=" + name + ", userid=" + userid + ", head=" + head + ", notice=" + notice
+		return "Store [id=" + id + ", name=" + name + ", userid=" + userid + ", head=" + head 
 				+ ", state=" + state + ", contacts=" + contacts + ", phone=" + phone + ", address=" + address
 				+ ", longitude=" + longitude + ", latitude=" + latitude + ", province=" + province + ", city=" + city
 				+ ", district=" + district + ", addtime=" + addtime + ", sale=" + sale + "]";

@@ -93,7 +93,13 @@
 			</td>
 		</tr>
 		
-		
+		<tr>
+			<td class="iw_table_td_view_name">店铺公告</td>
+			<td>${storeData.notice }</td>
+			<td>
+				<a class="layui-btn layui-btn-sm" onclick="updateStoreData('notice','${storeData.notice}','编辑公告')" style="margin-left: 0;"><i class="layui-icon">&#xe642;</i></a>
+			</td>
+		</tr>
 
     </tbody>
 </table>
@@ -132,6 +138,39 @@ function addOrUpdate(id,value,name,text){
 			});
 		});
 }
+/*
+ * 编辑StoreData的字段
+ * @param name 字段的名字
+ * @param value 字段默认值
+ * @param text 弹出窗口的提示文字
+ * @author 管雷鸣
+ */
+function updateStoreData(name, value,text){
+	layer.prompt({
+	  formType: 2,
+	  value: value,
+	  title: text,
+	  area: ['300px', '100px'] //自定义文本域宽高
+	}, function(value, index, elem){
+	  parent.iw.loading("操作中"); 
+	  var data;
+	  if(name == 'notice'){
+	  	data = {'notice':value};
+	  }
+	  $.post('/shop/store/index/saveStoreData.do',data,  function(data){
+		    parent.iw.loadClose();    //关闭“操作中”的等待提示
+		    if(data.result == '1'){
+		        parent.iw.msgSuccess('操作成功');
+		        window.location.reload();	//刷新当前页
+		     }else if(data.result == '0'){
+		         parent.iw.msgFailure(data.info);
+		     }else{
+		         parent.iw.msgFailure();
+		     }
+		});
+	});
+}
+
 //id,商家id，
 function stateUpdate(id) {
 	var value = 2;
