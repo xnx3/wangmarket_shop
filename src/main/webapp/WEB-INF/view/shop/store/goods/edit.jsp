@@ -243,7 +243,7 @@ layui.use('upload', function(){
 			iw.msgFailure("请输入原价");
 			return ;
 		}
-		if($("#intro").val().length > 10){
+		if($("#intro").val().length > 40){
 			msg.failure('简介限制40个字符之内');
 			return;
 		}
