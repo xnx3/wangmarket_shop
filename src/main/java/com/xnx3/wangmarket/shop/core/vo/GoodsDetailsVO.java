@@ -39,6 +39,7 @@ public class GoodsDetailsVO extends BaseVO{
 			goodsBean.setTypeid(goods.getTypeid());
 			goodsBean.setUnits(goods.getUnits());
 			goodsBean.setUserBuyRestrict(goods.getUserBuyRestrict());
+			goodsBean.setIntro(goods.getIntro());
 		}
 		this.goods = goodsBean;
 	}
