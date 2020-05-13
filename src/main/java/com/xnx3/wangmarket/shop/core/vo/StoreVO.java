@@ -49,8 +49,8 @@ public class StoreVO extends BaseVO{
 		}
 		if(this.store == null){
 			this.store = new StoreBean();
-			this.store.setNotice(storeData.getNotice());
 		}
+		this.store.setNotice(storeData.getNotice());
 	}
 	
 }
