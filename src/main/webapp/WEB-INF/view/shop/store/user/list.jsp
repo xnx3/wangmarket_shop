@@ -13,7 +13,7 @@
 		<th style="text-align:center;">用户ID</th>
         <th style="text-align:center;">登录用户名</th>
          <th style="text-align:center;">注册时间</th>
-        <th style="text-align:center;">最后上线时间</th>
+         <th style="text-align:center;">注册IP</th>
     </tr> 
   </thead>
   <tbody id="tbody">
@@ -21,8 +21,10 @@
 		<tr>
 			<td style="text-align:center;">${item.id }</td>
 			<td style="text-align:center;">${item.username }</td>
-			<td style="text-align:center;">${item.addtime }</td>
-			<td style="text-align:center;">${item.lasttime }</td>
+			<td style="text-align:center;">
+				<x:time linuxTime="${item.regtime }"></x:time>
+			</td>
+			<td style="text-align:center;">${item.ip }</td>
 		</tr>
 	</c:forEach>
   </tbody>
