@@ -21,7 +21,7 @@ import com.xnx3.j2ee.util.SystemUtil;
 import com.xnx3.wangmarket.plugin.storeSubAccount.entity.UserRole;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
-import com.xnx3.wangmarket.shop.core.entity.StoreUser;
+import com.xnx3.wangmarket.shop.core.entity.StoreChildUser;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 import com.xnx3.wangmarket.shop.store.util.TemplateAdminMenuUtil;
@@ -52,11 +52,11 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 		
 		Sql sql = new Sql(request);
 //		sql.setSearchColumn(new String[]{"username","email","nickname","phone","id=","regtime(date:yyyy-MM-dd hh:mm:ss)>"});
-		sql.appendWhere("shop_store_user.storeid="+store.getId());
-		int count = sqlService.count("shop_store_user", sql.getWhere());
+		sql.appendWhere("shop_store_child_user.storeid="+store.getId());
+		int count = sqlService.count("shop_store_child_user", sql.getWhere());
 		Page page = new Page(count, SystemUtil.getInt("LIST_EVERYPAGE_NUMBER"), request);
-		sql.appendWhere("shop_store_user.id = user.id");
-		sql.setSelectFromAndPage("SELECT user.* FROM user,shop_store_user", page);
+		sql.appendWhere("shop_store_child_user.id = user.id");
+		sql.setSelectFromAndPage("SELECT user.* FROM user,shop_store_child_user", page);
 		sql.setDefaultOrderBy("user.id DESC");
 		sql.setOrderByField(new String[]{"id","lasttime"});
 		List<User> list = sqlService.findBySql(sql, User.class);
@@ -208,7 +208,7 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 			}
 			
 			//成功
-			StoreUser storeUser = new StoreUser();
+			StoreChildUser storeUser = new StoreChildUser();
 			storeUser.setId(userid);
 			storeUser.setStoreid(store.getId());
 			sqlService.save(storeUser);
@@ -267,7 +267,7 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 		}
 		sqlService.delete(user);
 		//删除 site user表的关联
-		StoreUser storeUser = sqlService.findById(StoreUser.class, user.getId());
+		StoreChildUser storeUser = sqlService.findById(StoreChildUser.class, user.getId());
 		if(storeUser != null){
 			sqlService.delete(storeUser);
 		}

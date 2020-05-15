@@ -737,9 +737,9 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		/*******更改User状态******/
-		user.setLasttime(DateUtil.timeForUnix10());
-		user.setLastip(IpUtil.getIpAddress(request));
-		sqlDAO.save(user);
+//		user.setLasttime(DateUtil.timeForUnix10());
+//		user.setLastip(IpUtil.getIpAddress(request));
+//		sqlDAO.save(user);
 		ConsoleUtil.debug("设置指定userId为登陆用户，设置后得User："+user);
 		
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getUsername());

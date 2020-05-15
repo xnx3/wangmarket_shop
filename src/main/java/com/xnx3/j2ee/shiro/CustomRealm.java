@@ -47,10 +47,10 @@ public class CustomRealm extends AuthorizingRealm {
     	
     	User user = sqlService.findAloneBySqlQuery("SELECT * FROM user WHERE username = '"+username+"'", User.class);
 		
-		if(user!=null){
-			user.setLasttime(DateUtil.timeForUnix10());
-			sqlService.save(user);
-		}
+//		if(user!=null){
+//			user.setLasttime(DateUtil.timeForUnix10());
+//			sqlService.save(user);
+//		}
     	
         if (user != null) {  
         	com.xnx3.j2ee.bean.ActiveUser activeUser = new com.xnx3.j2ee.bean.ActiveUser();

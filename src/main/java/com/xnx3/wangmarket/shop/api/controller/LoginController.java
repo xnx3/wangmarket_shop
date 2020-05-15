@@ -16,12 +16,14 @@ import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.entity.User;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.LoginVO;
 import com.xnx3.media.CaptchaUtil;
 import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.core.entity.StoreUser;
 import com.xnx3.wangmarket.shop.api.util.SessionUtil;
 
 /**
@@ -35,6 +37,8 @@ public class LoginController extends BaseController {
 	private UserService userService;
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private SqlCacheService sqlCacheService;
 	
 
 	/**
@@ -82,7 +86,29 @@ public class LoginController extends BaseController {
 			BaseVO baseVO =  userService.loginByUsernameAndPassword(request);
 			vo.setBaseVO(baseVO);
 			if(baseVO.getResult() == BaseVO.SUCCESS){
+				User user = getUser();
 				ActionLogUtil.insert(request, "用户名密码模式登录成功");
+				
+				//判断一下是否传入了storeid这个参数
+				if(storeid > 0){
+					//判断一下用户是否已经关联上这个商家了，如果没关联，还要将这个用户关联为这个商家的用户
+					StoreUser storeUser = sqlCacheService.findBySql(StoreUser.class, "userid="+user.getId()+" AND storeid="+storeid);
+					if(storeUser == null){
+						storeUser = new StoreUser();
+						storeUser.setStoreid(storeid);
+						storeUser.setUserid(user.getId());
+						sqlService.save(storeUser);
+					}
+					
+					//查询出此用户所在的店铺，加入缓存
+					Store store = sqlService.findById(Store.class, storeid);
+					if(store == null){
+						vo.setBaseVO(BaseVO.FAILURE, "store 不存在");
+						SessionUtil.logout();
+						return vo;
+					}
+					SessionUtil.setStore(store);
+				}
 				
 				//登录成功,BaseVO.info字段将赋予成功后跳转的地址，所以这里要再进行判断
 				vo.setInfo("admin/index/index.do");
@@ -91,17 +117,8 @@ public class LoginController extends BaseController {
 				HttpSession session = request.getSession();
 				vo.setToken(session.getId());
 				
-				//查询出此用户所在的店铺，加入缓存
-				Store store = sqlService.findById(Store.class, storeid);
-				if(store == null){
-					vo.setBaseVO(BaseVO.FAILURE, "store 不存在");
-					SessionUtil.logout();
-					return vo;
-				}
-				SessionUtil.setStore(store);
-				
 				//加入user信息
-				vo.setUser(getUser());
+				vo.setUser(user);
 			}else{
 				ActionLogUtil.insert(request, "用户名密码模式登录失败",baseVO.getInfo());
 			}
@@ -171,6 +188,12 @@ public class LoginController extends BaseController {
 			if(baseVO.getResult() == BaseVO.SUCCESS){
 				int userid = Lang.stringToInt(baseVO.getInfo(), 0);
 				ActionLogUtil.insert(request,userid, "注册成功","通过用户名密码");
+				
+				//注册成功后，将这个用户加入这个商家名下，是这个商家的客户
+				StoreUser storeUser = new StoreUser();
+				storeUser.setStoreid(storeid);
+				storeUser.setUserid(userid);
+				sqlService.save(storeUser);
 				
 				//将当前用户变为已登陆状态
 				userService.loginForUserId(request, userid);

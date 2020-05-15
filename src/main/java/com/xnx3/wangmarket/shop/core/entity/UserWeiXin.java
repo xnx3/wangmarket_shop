@@ -13,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user_weixin", indexes={@Index(name="suoyin_index",columnList="storeid,unionid,userid")})
-public class UserWeiXin {
+public class UserWeiXin implements java.io.Serializable{
 	private String openid;		//用户在微信的openid
 	private Integer userid;		//对应user.id	
 	private Integer storeid;	//对应store.id，用户是通过哪个店铺注册获取的openid

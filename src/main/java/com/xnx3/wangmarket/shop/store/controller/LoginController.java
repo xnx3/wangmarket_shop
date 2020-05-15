@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,7 @@ import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
-import com.xnx3.wangmarket.shop.core.entity.StoreUser;
+import com.xnx3.wangmarket.shop.core.entity.StoreChildUser;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
 /**
@@ -89,9 +88,9 @@ public class LoginController extends BaseController {
 				//得到当前登录的用户的信息
 				User user = getUser();
 				//得到当前用户，在网市场中，user的扩展表 site_user 的信息
-				StoreUser storeUser = sqlService.findById(StoreUser.class, user.getId());
+				StoreChildUser storeUser = sqlService.findById(StoreChildUser.class, user.getId());
 				if(storeUser == null){
-					storeUser = new StoreUser();
+					storeUser = new StoreChildUser();
 				}
 				//缓存进session
 				SessionUtil.setStoreUser(storeUser);

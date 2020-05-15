@@ -17,6 +17,7 @@ import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.UserVO;
 import com.xnx3.wangmarket.plugin.weixinAppletLogin.vo.LoginVO;
+import com.xnx3.wangmarket.shop.core.entity.StoreUser;
 import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.core.service.WeiXinService;
@@ -109,49 +110,57 @@ public class IndexController extends BasePluginController {
 				}
 				
 				BaseVO regVO = userService.reg(user, request);
-				if(regVO.getResult() - BaseVO.SUCCESS == 0){
-					//自动注册成功，保存 WeixinUser
-					userWeixin = new UserWeiXin();
-					userWeixin.setUserid(user.getId());
-					userWeixin.setOpenid(jvo.getOpenid());
-					userWeixin.setUnionid(jvo.getUnionid());
-					userWeixin.setStoreid(storeid);
-					ConsoleUtil.log(userWeixin.toString());
-					sqlService.save(userWeixin);
-					//缓存
-//					SessionUtil.setWeiXinUser(weixinUser);
-					
-					ConsoleUtil.info("reg --- > "+user.toString());
-					vo.setUser(getUser());
-					vo.setInfo("reg");
-					vo.setUserWeiXin(userWeixin);
-					
-					return vo;
-				}else{
+				if(regVO.getResult() - BaseVO.FAILURE == 0){
 					//自动注册失败
 					vo.setBaseVO(regVO);
 					return vo;
 				}
+				//自动注册成功，保存 WeixinUser
+				userWeixin = new UserWeiXin();
+				userWeixin.setUserid(user.getId());
+				userWeixin.setOpenid(jvo.getOpenid());
+				userWeixin.setUnionid(jvo.getUnionid());
+				userWeixin.setStoreid(storeid);
+				ConsoleUtil.log(userWeixin.toString());
+				sqlService.save(userWeixin);
+				//缓存
+//				SessionUtil.setWeiXinUser(weixinUser);
+				
+				ConsoleUtil.info("reg --- > "+user.toString());
+				vo.setUser(getUser());
+				vo.setInfo("reg");
+				vo.setUserWeiXin(userWeixin);
 			}else{
 				//用户已经注册过了
+				
 				//设置当前用户为登陆的状态
 				BaseVO loginVO = userService.loginForUserId(request, userWeixin.getUserid());
 				if(loginVO.getResult() - BaseVO.FAILURE == 0){
 					vo.setBaseVO(UserVO.FAILURE, loginVO.getInfo());
 					return vo;
-				}else{
-					//缓存微信相关信息
-//					SessionUtil.setWeiXinUser(weiXinUser);
-					vo.setUser(getUser());
-					vo.setUserWeiXin(userWeixin);
-					return vo;
 				}
+				
+				user = getUser();
+				//缓存微信相关信息
+//				SessionUtil.setWeiXinUser(weiXinUser);
+				vo.setUser(user);
+				vo.setUserWeiXin(userWeixin);
+			}
+			
+			//判断一下用户是否已经关联上这个商家了，如果没关联，还要将这个用户关联为这个商家的用户
+			StoreUser storeUser = sqlCacheService.findBySql(StoreUser.class, "userid="+user.getId()+" AND storeid="+storeid);
+			if(storeUser == null){
+				storeUser = new StoreUser();
+				storeUser.setStoreid(storeid);
+				storeUser.setUserid(user.getId());
+				sqlService.save(storeUser);
 			}
 		}else{
 			// jscode2session 获取失败
 			vo.setBaseVO(BaseVO.FAILURE, jvo.getInfo());
-			return vo;
 		}
+		
+		return vo;
 	}
 	
 }

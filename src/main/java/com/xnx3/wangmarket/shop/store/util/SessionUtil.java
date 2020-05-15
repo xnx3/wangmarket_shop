@@ -1,7 +1,7 @@
 package com.xnx3.wangmarket.shop.store.util;
 
 import com.xnx3.wangmarket.shop.core.entity.Store;
-import com.xnx3.wangmarket.shop.core.entity.StoreUser;
+import com.xnx3.wangmarket.shop.core.entity.StoreChildUser;
 import java.util.Map;
 
 /**
@@ -54,7 +54,7 @@ public class SessionUtil extends com.xnx3.j2ee.util.SessionUtil{
 	 * 获取当前用户登陆的商家信息。若是不存在，则返回null
 	 * @return
 	 */
-	public static StoreUser getStoreUser(){
+	public static StoreChildUser getStoreUser(){
 		return getPlugin(PLUGIN_NAME_SHOP_STORE_USER);
 	}
 	
@@ -62,7 +62,7 @@ public class SessionUtil extends com.xnx3.j2ee.util.SessionUtil{
 	 * 设置当前登录的商家信息
 	 * @param storeUser {@link Site}当前登录用户所管理的站点信息
 	 */
-	public static void setStoreUser(StoreUser storeUser){
+	public static void setStoreUser(StoreChildUser storeUser){
 		setPlugin(PLUGIN_NAME_SHOP_STORE_USER, storeUser);
 	}
 	
