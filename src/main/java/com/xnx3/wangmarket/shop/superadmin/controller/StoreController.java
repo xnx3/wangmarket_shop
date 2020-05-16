@@ -79,4 +79,15 @@ public class StoreController extends BaseController {
 		return "/shop/superadmin/store/edit";
 	}
 	
+
+	/**
+	 * 开通店铺提交保存的
+	 */
+	@ResponseBody
+	@RequestMapping("addSubmit${url.suffix}")
+	public String addSubmit(HttpServletRequest request, Model model){
+		ActionLogUtil.insert(request, "进入开通店铺的页面");
+		return "/shop/superadmin/store/edit";
+	}
+	
 }

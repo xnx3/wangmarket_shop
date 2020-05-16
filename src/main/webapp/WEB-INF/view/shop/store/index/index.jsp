@@ -147,6 +147,13 @@ loadUrl('welcome.do');
 function menuAppend(appendHtml){
 	document.getElementById("menuAppend").innerHTML = document.getElementById("menuAppend").innerHTML + appendHtml; 
 }
+
+try{
+	//如果从网市场插件进来的，要关闭进入中的提示
+	parent.msg.close();
+}catch(e){
+	console.log(e);
+}
 </script>
 
 
