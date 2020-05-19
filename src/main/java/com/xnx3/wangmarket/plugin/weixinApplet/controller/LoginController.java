@@ -1,4 +1,4 @@
-package com.xnx3.wangmarket.plugin.weixinAppletLogin.controller;
+package com.xnx3.wangmarket.plugin.weixinApplet.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +16,7 @@ import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.UserVO;
-import com.xnx3.wangmarket.plugin.weixinAppletLogin.vo.LoginVO;
+import com.xnx3.wangmarket.plugin.weixinApplet.vo.LoginVO;
 import com.xnx3.wangmarket.shop.core.entity.StoreUser;
 import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
@@ -30,7 +30,7 @@ import com.xnx3.weixin.vo.Jscode2sessionResultVO;
  */
 @Controller(value="WeixinAppletLoginIndexPluginController")
 @RequestMapping("/plugin/weixinAppletLogin/")
-public class IndexController extends BasePluginController {
+public class LoginController extends BasePluginController {
 	@Resource
 	private SqlCacheService sqlCacheService;
 	@Resource
@@ -90,6 +90,7 @@ public class IndexController extends BasePluginController {
 		Jscode2sessionResultVO jvo = weixinAppletUtil.jscode2session(code);
 		if(jvo.getResult() - Jscode2sessionResultVO.SUCCESS == 0){
 			//登陆成功
+			vo.setSessionKey(jvo.getSessionKey());
 			
 			UserWeiXin userWeixin = sqlCacheService.findById(UserWeiXin.class, jvo.getOpenid());
 			User user = null;

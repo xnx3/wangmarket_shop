@@ -1,4 +1,4 @@
-package com.xnx3.wangmarket.plugin.weixinAppletLogin.vo;
+package com.xnx3.wangmarket.plugin.weixinApplet.vo;
 
 import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
 
@@ -9,6 +9,7 @@ import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
  */
 public class LoginVO extends com.xnx3.j2ee.vo.LoginVO{
 	private UserWeiXin userWeiXin;	//对应 user 的weixin信息
+	private String sessionKey;		//小程序使用code登录之后，会返回一个 sessionKey
 
 	public UserWeiXin getUserWeiXin() {
 		return userWeiXin;
@@ -18,10 +19,18 @@ public class LoginVO extends com.xnx3.j2ee.vo.LoginVO{
 		this.userWeiXin = userWeiXin;
 	}
 
+	public String getSessionKey() {
+		return sessionKey;
+	}
+
+	public void setSessionKey(String sessionKey) {
+		this.sessionKey = sessionKey;
+	}
+
 	@Override
 	public String toString() {
-		return "LoginVO [userWeiXin=" + userWeiXin + ", toString()=" + super.toString() + "]";
+		return "LoginVO [userWeiXin=" + userWeiXin + ", sessionKey=" + sessionKey + "]";
 	}
-	
+
 	
 }

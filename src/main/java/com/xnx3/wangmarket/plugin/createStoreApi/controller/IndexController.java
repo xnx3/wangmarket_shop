@@ -28,6 +28,7 @@ import com.xnx3.j2ee.vo.LoginVO;
 import com.xnx3.net.AuthHttpUtil;
 import com.xnx3.net.HttpResponse;
 import com.xnx3.wangmarket.Authorization;
+import com.xnx3.wangmarket.plugin.createStoreApi.entity.AuthStoreBind;
 import com.xnx3.wangmarket.plugin.createStoreApi.entity.UserQuickLogin;
 import com.xnx3.wangmarket.plugin.createStoreApi.vo.RegVO;
 import com.xnx3.wangmarket.shop.core.Global;
@@ -130,6 +131,12 @@ public class IndexController extends BasePluginController {
 			Store store = sqlService.findAloneBySqlQuery("SELECT * FROM shop_store WHERE userid = "+userid, Store.class);
 			if(store != null){
 				vo.setStoreid(store.getId());
+				
+				//保存商铺跟授权码的关联
+				AuthStoreBind authStoreBind = new AuthStoreBind();
+				authStoreBind.setAuth(token);
+				authStoreBind.setId(store.getId());
+				sqlService.save(authStoreBind);
 			}else{
 				vo.setStoreid(0);
 			}
