@@ -67,31 +67,35 @@ public class IndexController extends BasePluginController {
 	/**
 	 * 微信登录 
 	 * @param code 微信网页授权的code
-	 * @param storeid 要登录的是哪个店铺
+	 * @param storeid 要登录的是哪个店铺，必须的
 	 * @param referrerid 推荐人id，这个在创建用户信息时，会计入用户的 user.referrerid。 可不填
-	 * @return
+	 * @param url 授权拿到openid登录成功后，要跳转到的url页面。格式如： http://demo.imall.net.cn/index.html%3Fa=1%26b=2  注意，像是 ? & 要传入URL转码字符
+	 * 				<ul>
+	 * 					<li>站内跳转，如：user/info.do	内网页面，前面无须/，默认自动补齐之前路径。此便是跳转到当前项目根目录下/user/info.do页面，
+	 * 					<li>站外跳转，如：http://www.xnx3.com	外网页面，写全即可，也或者 //www.xnx3.com 也是直接跳转到外网
+	 * 				</ul>
 	 */
-	@ResponseBody
 	@RequestMapping("wxAuthLogin${url.suffix}")
-	public BaseVO wxAuthLogin(HttpServletRequest request,Model model,
+	public String wxAuthLogin(HttpServletRequest request,Model model,
 			@RequestParam(value = "code", required = false, defaultValue="") String code,
 			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
-			@RequestParam(value = "referrerid", required = false, defaultValue="0") int referrerid){
+			@RequestParam(value = "referrerid", required = false, defaultValue="0") int referrerid,
+			@RequestParam(value = "url", required = false, defaultValue="") String url){
 		ConsoleUtil.log(request.getQueryString());
 		if(code.length() == 0){
-			return error("code未发现");
+			return error(model,"code未发现");
 		}
 		if(storeid < 1){
-			return error("请传入店铺编号");
+			return error(model,"请传入店铺编号");
 		}
 		
 		WeiXinUtil util = weiXinService.getWeiXinUtil(storeid);
 		if(util == null){
-			return error("当前店铺未设置微信公众号");
+			return error(model,"当前店铺未设置微信公众号");
 		}
 		String openid = util.getOauth2OpenId(code);
 		if(openid == null || openid.length() == 0){
-			return error("获取用户openid失败");
+			return error(model,"获取用户openid失败");
 		}
 		
 		//判断此人是否已注册过
@@ -125,22 +129,27 @@ public class IndexController extends BasePluginController {
 				sqlService.save(userWeixin);
 				
 				ConsoleUtil.info("reg --- > "+user.toString());
-				
-				return success(user.getId()+"");
 			}else{
 				//自动注册失败
-				return error(regVO.getInfo());
+				return error(model,regVO.getInfo());
 			}
 		}else{
 			//用户已经注册过了
 			//设置当前用户为登陆的状态
 			BaseVO loginVO = userService.loginForUserId(request, userWeixin.getUserid());
 			if(loginVO.getResult() - BaseVO.FAILURE == 0){
-				return error(loginVO.getInfo());
-			}else{
-				return success(userWeixin.getUserid()+"");
+				return error(model,loginVO.getInfo());
 			}
 		}
+		
+		String sessionid = request.getSession().getId();
+		if(url.indexOf("?") > -1){
+			url = url + "&";
+		}else{
+			url = url + "?";
+		}
+		url = url + "token="+sessionid;
+		return redirect(url);
 	}
 	
 	

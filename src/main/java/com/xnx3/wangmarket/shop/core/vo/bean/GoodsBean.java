@@ -6,7 +6,7 @@ import com.xnx3.wangmarket.shop.core.entity.Goods;
  * {@link Goods} 的简化，不必要返回的数据去掉
  * @author 管雷鸣
  */
-public class GoodsBean{
+public class GoodsBean implements java.io.Serializable{
 	private Integer id;			//商品id，自动编号
 	private String title;		//商品标题，限制40字符
 	private Integer inventory;	//库存数量

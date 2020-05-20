@@ -352,11 +352,11 @@
 		</dependency>
 		
 		<!-- xnx3-util -->
-		<dependency>
+		<!-- <dependency>
 		 	<groupId>com.xnx3.util</groupId>
 			<artifactId>xnx3-util</artifactId>
 			<version>1.0.0</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 		  <groupId>com.xnx3.json</groupId>
 		  <artifactId>json</artifactId>
@@ -401,6 +401,13 @@
 	        <version>1.0</version>  
 	        <scope>system</scope>  
     		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/xssProtect-0.1.jar</systemPath>  
+	    </dependency>
+	    <dependency> 
+	        <groupId>com.xnx3.util</groupId>  
+	        <artifactId>xnx3-util</artifactId>  
+	        <version>1.1.1</version>  
+	        <scope>system</scope>  
+    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/xnx3-util-1.1.1.jar</systemPath>  
 	    </dependency>
 		<!-- iw end --> 
        

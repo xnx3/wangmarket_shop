@@ -338,7 +338,7 @@ class SerializeUtils{
 				throw new Exception("Failed to serialize", ex);
 			}
 		} catch (Exception ex) {
-			ConsoleUtil.debug(ex.getMessage());
+			ex.printStackTrace();
 		}
 		return result;
 	}

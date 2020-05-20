@@ -6,7 +6,7 @@ import com.xnx3.wangmarket.shop.core.entity.Store;
  * {@link Store} 的简化，不必要返回的数据去掉
  * @author 管雷鸣
  */
-public class StoreBean {
+public class StoreBean implements java.io.Serializable{
 	private Integer id;			//店铺编号，自动编号
 	private String name;		//店铺名字，限20个字符
 	private String head;		//店铺图片，图标，图片的绝对路径
