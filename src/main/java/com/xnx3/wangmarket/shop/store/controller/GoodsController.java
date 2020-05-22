@@ -59,7 +59,7 @@ public class GoodsController extends BaseController {
 		// 查询出总页数
 		sql.setSelectFromAndPage("SELECT * FROM shop_goods ", page);
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
-		sql.setDefaultOrderBy("id DESC");
+		sql.setDefaultOrderBy("rank ASC");
 		//其余可以选择的排序字段
 		sql.setOrderByField(new String[]{"id","inventory","sale","price"});
 		// 按照上方条件查询出该实体总数 用集合来装

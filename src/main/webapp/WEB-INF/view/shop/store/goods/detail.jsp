@@ -59,12 +59,12 @@
 		}
 		
 		//表单序列化
-		parent.iw.loading("保存中");
+		parent.msg.loading("保存中");
 		$.post("/admin/goods/saveDetail.do" , d, function (result) {
-			parent.iw.loadClose();
+			parent.msg.close();
 			var obj = JSON.parse(result);
 			if(obj.result == '1'){
-				parent.parent.iw.msgSuccess("操作成功");
+				parent.msg.success('操作成功');
 				parent.layer.close(index);	//关闭当前窗口
 				window.location.href = '/admin/goods/list.do';
 			}else if(obj.result == '0'){

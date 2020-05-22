@@ -49,8 +49,8 @@
         <th style="text-align:center;">上下架</th>
         <th style="text-align:center;">已售数量</th>
         <th style="text-align:center;">价格</th>
-        <th style="text-align:center;">操作</th>
         <th style="text-align:center;">排序</th>
+        <th style="text-align:center;">操作</th>
     </tr> 
   </thead>
   <tbody id="tbody">
@@ -79,13 +79,13 @@
 			
 			<td style="text-align:center;">${item.sale }</td>
 			<td style="text-align:center;">${item.price /100}</td>
-			
+			<td width="50" onclick="updateRank('${item.id }', '${item.rank }', '${item.title }');" style="cursor:pointer;">${item.rank }</td>
 			<td style="text-align:center;width: 200px;">
 		 	   <a class="layui-btn layui-btn-sm" onclick="imgList('${item.id }')" style="margin-left: 0;"><i class="layui-icon">轮播图</i></a>	 
 		 	   <a class="layui-btn layui-btn-sm" onclick="addOrUpdate('${item.id }')" style="margin-left: 0;"><i class="layui-icon">&#xe642;</i></a>	 
 		 	   <a class="layui-btn layui-btn-sm" onclick="deleteMes('${item.id }')" style="margin-left: 0"><i class="layui-icon">&#xe640;</i></a>
 			</td>
-			 <td width="50" onclick="updateRank('${item.id }', '${item.rank }', '${item.title }');" style="cursor:pointer;">${item.rank }</td>
+			
 		</tr>
 	</c:forEach>
   </tbody>
