@@ -17,6 +17,7 @@ import com.xnx3.wangmarket.plugin.firstOrderAward.entity.Award;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
+import com.xnx3.wangmarket.shop.core.service.SMSService;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
 /**
@@ -28,6 +29,8 @@ import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 public class IndexController extends BasePluginController {
 	@Resource
 	private SqlCacheService sqlCacheService;
+	@Resource
+	private SMSService smsService;
 	
 	/**
 	 * 分享出去的链接，点击链接进入的url，也就是入口url,拿到openid自动注册为用户,并关联推荐人
@@ -44,7 +47,7 @@ public class IndexController extends BasePluginController {
 			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
 		System.out.println(request.getQueryString());
 		
-		User user = sqlCacheService.findById(User.class, inviteid);
+//		smsService.send(4356, "17076012262", "恭喜您，成功邀请到一位好友", "tongzhi", request);
 		
 		return "plugin/firstOrderAward/store/setAward";
 	}

@@ -13,7 +13,15 @@ public class Global {
 	/**
 	 * 商家的支付方式设置的持久化缓存Key {storeid} 便是替换为 store.id
 	 */
-	public final static String CACHE_KEY_PAY_SER = "shop:store:paySet:{storeid}";
+	public final static String CACHE_KEY_PAY_SET = "shop:store:paySet:{storeid}";
+	//商家的短信接口设置的持久化缓存key 
+	public final static String CACHE_KEY_SMS_SET = "shop:store:sms:set:{storeid}";
+	//商家短信接口发送类 SMSUtil 的缓存
+	public final static String CACHE_KEY_SMS_UTIL_SET = "shop:store:sms:util:{storeid}";
+	//商家短信接口发送短信的限额，记录用户发送的频率。控制避免短信通道被他人利用
+	public final static String CACHE_KEY_SMS_QUOTA = "shop:store:sms:quota:{storeid}";
+	
+	
 	/**
 	 * 商家的商品分类列表缓存
 	 */

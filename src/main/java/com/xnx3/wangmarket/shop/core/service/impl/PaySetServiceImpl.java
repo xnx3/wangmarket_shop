@@ -28,7 +28,7 @@ public class PaySetServiceImpl implements PaySetService {
 			return paySet;
 		}
 		
-		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_PAY_SER.replace("{storeid}", storeid+"");
+		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_PAY_SET.replace("{storeid}", storeid+"");
 		paySet = (PaySet)CacheUtil.get(key);
 		
 		if(paySet == null){
@@ -55,7 +55,7 @@ public class PaySetServiceImpl implements PaySetService {
 		if(paySet.getId() == null){
 			return;
 		}
-		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_PAY_SER.replace("{storeid}", paySet.getId()+"");
+		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_PAY_SET.replace("{storeid}", paySet.getId()+"");
 		CacheUtil.set(key, paySet);
 	}
 

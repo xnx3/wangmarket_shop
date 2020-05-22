@@ -7,12 +7,12 @@ import javax.persistence.Table;
 import com.xnx3.j2ee.entity.BaseEntity;
 
 /**
- * 收货地址
+ * 店铺自己的支付接口设置
  * @author 管雷鸣
  */
 @Entity()
 @Table(name = "shop_pay_set")
-public class PaySet extends BaseEntity {
+public class PaySet extends BaseEntity implements java.io.Serializable{
 	
 	private Integer id;			//编号，对应 store.id
 	private Short useAlipay;	//是否使用支付宝支付的支付方式，1使用；0不使用。默认不使用。

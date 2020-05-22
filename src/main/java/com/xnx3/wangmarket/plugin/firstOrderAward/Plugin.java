@@ -16,6 +16,8 @@ import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderReceiveGoodsInterface;
+import com.xnx3.wangmarket.shop.core.service.SMSService;
+import com.xnx3.wangmarket.shop.core.service.impl.SMSServiceImpl;
 
 /**
  * 推广送礼，推广后，客户首次下单并成功消费，推广人可以免费得到某件商品
@@ -30,6 +32,7 @@ public class Plugin implements OrderReceiveGoodsInterface{
 	public void finish(Order order) {
 		SqlService sqlService = SpringUtil.getSqlService();
 		SqlCacheService sqlCacheService = SpringUtil.getBean(SqlCacheServiceImpl.class);
+		SMSService smsService = SpringUtil.getBean(SMSServiceImpl.class);
 		
 		//判断这个下单成功的用户是否是有推荐人
 		User user = sqlCacheService.findById(User.class, order.getUserid());
@@ -96,6 +99,14 @@ public class Plugin implements OrderReceiveGoodsInterface{
 						sqlService.save(stateLog);
 						//该店铺的已售数量增加，因为店铺下可能会同一时刻产生多个订单，version 乐观锁容易造成下单异常，阻挡正常下单，所以直接进行update 销售数量
 						sqlService.executeSql("UPDATE shop_store SET sale = sale + 1 WHERE id = "+order.getStoreid());
+						
+						//通知邀请人这个好消息
+						User parentUser = sqlCacheService.findById(User.class, user.getReferrerid());
+						try {
+							smsService.send(order.getStoreid(), parentUser.getPhone(), "恭喜您，您推荐的下级用户"+((user.getPhone() != null && user.getPhone().length() == 11) ? user.getPhone():"")+"首单消费完成，您拿到奖励，免费获得【"+goods.getTitle()+"】1"+goods.getUnits()+"。加油，分享给更多的人，他们首次消费完成，你都能得到奖励", "tongzhi", null);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 						
 						//写日志
 						ActionLogUtil.insertUpdateDatabase(null, createOrder.getId(), "推荐下级首单消费，奖励产品", order.toString());
