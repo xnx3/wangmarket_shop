@@ -28,6 +28,8 @@ public class SpringMVCInterceptorLogin implements SpringMVCInterceptorInterface{
  		list.add("/shop/store/orderRule/**");
  		list.add("/shop/store/paySet/**");
  		list.add("/shop/store/user/**");
+ 		list.add("/shop/store/sms/**");
+ 		list.add("/shop/store/email/**");
  		return list;
 	}
 

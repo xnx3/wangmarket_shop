@@ -173,16 +173,16 @@ function addOrUpdate(name1,value1,text){
 		  title: text,
 		  area: ['300px', '100px'] //自定义文本域宽高
 		}, function(value, index, elem){
-		  parent.iw.loading("操作中"); 
+		  parent.msg.loading("操作中"); 
 		  $.post('/shop/store/paySet/update.do?name=' + name1 + '&value=' + value , function(data){
-			    parent.iw.loadClose();    //关闭“操作中”的等待提示
+			    parent.msg.close();    //关闭“操作中”的等待提示
 			    if(data.result == '1'){
-			        parent.iw.msgSuccess('操作成功');
+			        parent.msg.success('操作成功');
 			        window.location.reload();	//刷新当前页
 			     }else if(data.result == '0'){
-			         parent.iw.msgFailure(data.info);
+			         parent.msg.failure(data.info);
 			     }else{
-			         parent.iw.msgFailure();
+			         parent.msg.failure();
 			     }
 			});
 		});

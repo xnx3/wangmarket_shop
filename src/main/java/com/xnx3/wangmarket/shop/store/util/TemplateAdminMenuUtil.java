@@ -105,6 +105,12 @@ public class TemplateAdminMenuUtil {
 			//将生成的html，加入进来
 			sb.append(Menu.gainMenuHTML());
 		}	
+		//短信设置
+		if(map.get(TemplateMenuEnum.SYSTEM_SmsSet.id) != null){
+			FirstMenu Menu = new FirstMenu("li_"+TemplateMenuEnum.SYSTEM_SmsSet.id, TemplateMenuEnum.SYSTEM_SmsSet.id, TemplateMenuEnum.SYSTEM_SmsSet.href, TemplateMenuEnum.SYSTEM_SmsSet.icon, TemplateMenuEnum.SYSTEM_SmsSet.name);
+			//将生成的html，加入进来
+			sb.append(Menu.gainMenuHTML());
+		}	
 		//API
 		if(map.get(TemplateMenuEnum.SYSTEM_Api.id) != null){
 			FirstMenu Menu = new FirstMenu("li_"+TemplateMenuEnum.SYSTEM_Api.id, TemplateMenuEnum.SYSTEM_Api.id, TemplateMenuEnum.SYSTEM_Api.href, TemplateMenuEnum.SYSTEM_Api.icon, TemplateMenuEnum.SYSTEM_Api.name);

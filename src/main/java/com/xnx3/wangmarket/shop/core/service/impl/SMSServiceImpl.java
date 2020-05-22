@@ -50,7 +50,7 @@ public class SMSServiceImpl implements SMSService {
 		SmsSet set = smsSetService.getSMSSet(storeid);
 		
 		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_SMS_UTIL_SET.replace("{storeid}", storeid+"");
-		SMSUtil util = (SMSUtil)CacheUtil.get(key);
+		SMSUtil util = getSMSUtil(storeid);
 		if(util == null){
 			//util不存在，那么需要new一个
 			if(set == null){
@@ -138,6 +138,12 @@ public class SMSServiceImpl implements SMSService {
 		}
 		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_SMS_UTIL_SET.replace("{storeid}", storeid+"");
 		CacheUtil.set(key, smsUtil);
+	}
+	
+	@Override
+	public SMSUtil getSMSUtil(int storeid) {
+		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_SMS_UTIL_SET.replace("{storeid}", storeid+"");
+		return (SMSUtil)CacheUtil.get(key);
 	}
 	
 }

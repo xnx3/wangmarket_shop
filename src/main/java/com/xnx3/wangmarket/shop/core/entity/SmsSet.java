@@ -47,7 +47,7 @@ public class SmsSet extends BaseEntity implements java.io.Serializable{
 	}
 	
 	@Column(name = "uid", columnDefinition="int(11) comment '短信平台登录的uid' default '0'")
-	public int getUid() {
+	public Integer getUid() {
 		return uid;
 	}
 

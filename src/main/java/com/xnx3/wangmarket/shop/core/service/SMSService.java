@@ -36,4 +36,11 @@ public interface SMSService {
 	 * @param smsSet 商家的短信接口设置
 	 */
 	public void setSMSUtil(int storeid, SMSUtil smsUtil);
+	
+	/**
+	 * 获取某个商家的 {@link SMSUtil}
+	 * @param storeid 要获取的是哪个商家的，对应 Store.id
+	 * @return 如果这个商家未设置，那么会返回null 
+	 */
+	public SMSUtil getSMSUtil(int storeid);
 }
