@@ -103,8 +103,6 @@ public class AddressController extends BasePluginController {
 			if(isDefault.equals("1")){
 				//将该地址设为默认地址
 				
-				//先将该用户默认的地址设为不是默认的
-				sqlService.executeSql("UPDATE shop_address SET default_use = 0 WHERE userid = "+user.getId()+" AND default_use = 1");
 				//再将传入的地址设为默认
 				add.setDefaultUse((short) 1);
 			}else if(isDefault.equals("0")){
@@ -113,6 +111,10 @@ public class AddressController extends BasePluginController {
 			}
 		}
 		sqlService.save(add);
+		//如果是一起设置了默认地址，那么需要把之前的默认地址全部取消掉
+		if(isDefault.equals("1")){
+			sqlService.executeSql("UPDATE shop_address SET default_use = 0 WHERE userid = "+user.getId()+" AND default_use = 1 AND id <> "+add.getId());
+		}
 
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, id,"保存收货地址", address.toString());
