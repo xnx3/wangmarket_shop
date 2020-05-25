@@ -54,11 +54,11 @@ body{padding-left: 30px;}
 	<div id="Ali" style="display: block;">
 	</c:if>
 		<span style="color: gray">RSA2密钥;PKCS8格式</span>
-		</br>APP应用的id: &nbsp;&nbsp; <x:substring maxLength="10" text="${paySet.alipayAppId }"></x:substring>
+		</br>APP应用的id: &nbsp;&nbsp; ${paySet.alipayAppId }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('alipayAppId','${paySet.alipayAppId}','APP应用的id编辑')"  style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		
-		</br>APP应用的私钥:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.alipayAppPrivateKey }"></x:substring>
-		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('alipayAppPrivateKey','${paySet.alipayAppPrivateKey}','APP应用的私钥编辑')"  style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		</br>APP应用的私钥:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.alipayAppPrivateKey }" more="******"></x:substring>
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('alipayAppPrivateKey','','APP应用的私钥编辑')"  style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		
 		</br>支付宝公钥证书路径:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.alipayCertPublicKeyRSA2 }"></x:substring>
 		 <a class="layui-btn layui-btn-xs aa" lay-data = "{url: '/shop/store/paySet/uploadCrt.do?name=alipayCertPublicKeyRSA2'}" style="margin-top: 3px;">编辑</a>	 
@@ -100,35 +100,42 @@ body{padding-left: 30px;}
 	<c:if test="${paySet.useWeixinServiceProviderPay == 0}">
 		已花钱认证
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinServiceProviderPay',1);" style="margin-left: 3px;margin-top:-1px;">使用免认证费的</botton>
+		<div style="color: gray;font-size: 12px">
+			<p>
+				说明：要使用微信支付，要有一个已认证的微信公众号-服务号。这个公众号的认证需要每年花费300元。
+			</p>
+		</div>
 	</c:if>
 	<c:if test="${paySet.useWeixinServiceProviderPay == 1}">
 		未花钱认证
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinServiceProviderPay',0);" style="margin-left: 3px;margin-top:-1px;">使用300元认证的</botton>
+		<div style="color: gray;font-size: 12px">
+			<p>
+				我方与微信合作，可以让你节省这每年300元的费用。不过建议还是使用每年300认证那种
+			</p>
+		</div>
 	</c:if>
-	<div style="color: gray;font-size: 12px">
-		<p>
-			说明：要使用微信支付，要有一个已认证的微信公众号，而这个公众号的认证需要每年花费300元。我方与微信合作，可以让你节省这每年300元的费用。
-			<!-- 网市场云建站系统代理商、购买过授权版本、以及我公司的合作企业，可以联系我们开通免300认证费的微信支付。 -->
-		</p>
-	</div>
+	
 	<!-- 是否使用我们作为服务商 -->
 	<c:if test="${paySet.useWeixinServiceProviderPay == 0}">
 		</br>微信公众号 AppId:&nbsp;&nbsp;${paySet.weixinOfficialAccountsAppid }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsAppid','${paySet.weixinOfficialAccountsAppid}','微信公众号 AppId');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
-		</br>微信公众号 AppSecret:&nbsp;&nbsp;${paySet.weixinOfficialAccountsAppSecret }
-		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsAppSecret','${paySet.weixinOfficialAccountsAppSecret}','微信公众号 AppSecret');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
-		</br>微信公众号 token:&nbsp;&nbsp;${paySet.weixinOfficialAccountsToken }
-		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsToken','${paySet.weixinOfficialAccountsToken}','微信公众号 token（约定好的固定的token）');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		</br>微信公众号 AppSecret:&nbsp;&nbsp; <x:substring maxLength="10" text="${paySet.weixinOfficialAccountsAppSecret }" more="******"></x:substring> 
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsAppSecret','','微信公众号 AppSecret');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		<!--  
+			</br>微信公众号 token:&nbsp;&nbsp;${paySet.weixinOfficialAccountsToken }
+			<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinOfficialAccountsToken','${paySet.weixinOfficialAccountsToken}','微信公众号 token（约定好的固定的token）');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		-->
 		</br>商户号:${paySet.weixinMchId }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinMchId','${paySet.weixinMchId}','商户号编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		
-		</br>商户key:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.weixinMchKey }"></x:substring>
-		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinMchKey','${paySet.weixinMchKey}','商户key编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		</br>商户key:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.weixinMchKey }" more="******"></x:substring>
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinMchKey','','商户key编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		
 	</c:if>
 	<c:if test="${paySet.useWeixinServiceProviderPay == 1}">
 		</br>商户号:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.weixinSerivceProviderSubMchId }"></x:substring>
-		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinSerivceProviderSubMchId','${paySet.weixinSerivceProviderSubMchId}','商户key编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinSerivceProviderSubMchId','${paySet.weixinSerivceProviderSubMchId}','商自己的商户号');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		此处请联系您的上级服务人员开通
 	</c:if>
 	
@@ -140,8 +147,8 @@ body{padding-left: 30px;}
 		<!-- 如果您使用的是微信 -->
 		</br>微信小程序appid:&nbsp;&nbsp;${paySet.weixinAppletAppid }
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinAppletAppid','${paySet.weixinAppletAppid}','商微信小程序appid编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
-		</br>微信小程序appsecret:&nbsp;&nbsp;${paySet.weixinAppletAppSecret }
-		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinAppletAppSecret','${paySet.weixinAppletAppSecret}','商微信小程序appsecret编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
+		</br>微信小程序appsecret:&nbsp;&nbsp; <x:substring maxLength="10" text="${paySet.weixinAppletAppSecret }" more="******"></x:substring> 
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinAppletAppSecret','','商微信小程序appsecret编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
 		
 	</div>
 </div>

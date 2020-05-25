@@ -1,8 +1,5 @@
 package com.xnx3.wangmarket.shop.store.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -11,12 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xnx3.Lang;
 import com.xnx3.SMSUtil;
-import com.xnx3.StringUtil;
 import com.xnx3.j2ee.util.ActionLogUtil;
-import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.util.SafetyUtil;
 import com.xnx3.j2ee.Func;
 import com.xnx3.j2ee.entity.User;
@@ -106,7 +100,6 @@ public class SmsController extends BaseController {
 			error("name异常");
 		}
 		//保存进数据库
-		System.out.println(smsSet);
 		sqlService.save(smsSet);
 		//更新缓存
 		smsSetService.setSMSSet(smsSet);

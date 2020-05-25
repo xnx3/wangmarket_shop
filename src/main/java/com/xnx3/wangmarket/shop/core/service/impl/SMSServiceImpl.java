@@ -49,7 +49,6 @@ public class SMSServiceImpl implements SMSService {
 		//取得当前店铺的短信设置
 		SmsSet set = smsSetService.getSMSSet(storeid);
 		
-		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_SMS_UTIL_SET.replace("{storeid}", storeid+"");
 		SMSUtil util = getSMSUtil(storeid);
 		if(util == null){
 			//util不存在，那么需要new一个
@@ -63,15 +62,9 @@ public class SMSServiceImpl implements SMSService {
 				vo.setBaseVO(2, "当前店铺开启短信发送");
 				return vo;
 			}
-			
-			if(set != null && set.getUseSms() - 1 == 0){
-				//数据库中有这个数据，并且开启了使用，那么取出这个数据来，new SMSUtil 对象
-				util = new SMSUtil(set.getUid(), set.getPassword());
-				setSMSUtil(storeid, util);
-			}
 		}
 		
-		//判断一下发送规则，看是否达到发送上限
+		/** 判断一下发送规则，看是否达到发送上限 **/
 		if(phone==null || phone.length() != 11){
 			return BaseVO.failure(LanguageUtil.show("sms_sendSmsPhoneNumberFailure"));
 		}
@@ -143,7 +136,19 @@ public class SMSServiceImpl implements SMSService {
 	@Override
 	public SMSUtil getSMSUtil(int storeid) {
 		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_SMS_UTIL_SET.replace("{storeid}", storeid+"");
-		return (SMSUtil)CacheUtil.get(key);
+		SMSUtil util = (SMSUtil)CacheUtil.get(key);
+		if(util == null){
+			//取得当前店铺的短信设置
+			SmsSet set = smsSetService.getSMSSet(storeid);
+			if(set != null && set.getUseSms() - 1 == 0 && set.getUid() != null && set.getPassword() != null){
+				//数据库中有这个数据，并且开启了使用，那么取出这个数据来，new SMSUtil 对象
+				util = new SMSUtil(set.getUid(), set.getPassword());
+				//将它加入缓存
+				setSMSUtil(storeid, util);
+			}
+		}
+
+		return util;
 	}
 	
 }
