@@ -1,9 +1,5 @@
 package com.xnx3.wangmarket.shop.core.service;
 
-import com.xnx3.wangmarket.plugin.alipay.util.AlipayUtil;
-import com.xnx3.wangmarket.shop.core.entity.OrderRule;
-import com.xnx3.wangmarket.shop.core.entity.PaySet;
-import com.xnx3.wangmarket.shop.core.vo.AlipayUtilVO;
 import com.xnx3.weixin.WeiXinAppletUtil;
 import com.xnx3.weixin.WeiXinUtil;
 

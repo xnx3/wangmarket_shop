@@ -46,6 +46,7 @@ import com.xnx3.weixin.XmlUtil;
 import com.xnx3.weixin.weixinPay.PayCallBackParamsVO;
 import com.xnx3.weixin.weixinPay.request.AppletOrder;
 import com.xnx3.weixin.weixinPay.request.JSAPIOrder;
+import com.xnx3.weixin.weixinPay.response.JSAPIParamsVO;
 import com.xnx3.weixin.weixinPay.response.ParamsVO;
 
 import net.sf.json.JSONObject;
@@ -260,11 +261,11 @@ public class PayController extends BasePluginController {
 		if(channel.equalsIgnoreCase("weixin_jsapi")){
 			//JSAPI
 			
-			//判断一下微信小程序当前使用的是否是服务商模式
+			//判断一下 JSAPI 当前使用的是否是服务商模式
 			if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
 				//使用的是服务商模式，目前服务商模式，客户是不需要认证的，省了认证费用，都是使用的服务商的主体
 				com.xnx3.weixin.weixinPay.request.serviceProvider.JSAPIOrder requestOrder = new com.xnx3.weixin.weixinPay.request.serviceProvider.JSAPIOrder(openid, order.getPayMoney(), notifyUrl);
-				requestOrder.setSubOpenid(openid);
+//				requestOrder.setSubOpenid(openid);
 				requestOrder.setClientIp(IpUtil.getIpAddress(request));
 				requestOrder.setOutTradeNo(order.getNo());
 				return vo.getWeiXinPayUtil().createOrder(requestOrder);

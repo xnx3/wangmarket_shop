@@ -13,6 +13,7 @@ import com.obs.services.ObsClient;
 import com.obs.services.exception.ObsException;
 import com.obs.services.model.AccessControlList;
 import com.obs.services.model.DeleteObjectResult;
+import com.obs.services.model.HeaderResponse;
 import com.obs.services.model.ListObjectsRequest;
 import com.obs.services.model.ObjectListing;
 import com.obs.services.model.ObjectMetadata;
@@ -312,6 +313,20 @@ public class OBSHandler {
 		obsBucket.setBucketStorageClass(StorageClassEnum.STANDARD);
 		// 创建桶
 		getObsClient().createBucket(obsBucket);
+		try{
+		    // 创建桶成功
+//		    HeaderResponse response = getObsClient().createBucket("bucketname");
+		    HeaderResponse response = getObsClient().createBucket(obsBucket);
+		    System.out.println(response.getRequestId());
+		}catch (ObsException e){
+		    // 创建桶失败
+		    System.out.println("HTTP Code: " + e.getResponseCode());
+		    System.out.println("Error Code:" + e.getErrorCode());
+		    System.out.println("Error Message: " + e.getErrorMessage());
+		    
+		    System.out.println("Request ID:" + e.getErrorRequestId());
+		    System.out.println("Host ID:" + e.getErrorHostId());
+		}
 		//设置桶策略
 		String json = "{"
 				+ "\"Statement\":["

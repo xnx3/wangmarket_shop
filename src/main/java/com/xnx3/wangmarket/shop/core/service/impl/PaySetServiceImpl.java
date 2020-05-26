@@ -1,9 +1,12 @@
 package com.xnx3.wangmarket.shop.core.service.impl;
 
 import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import com.xnx3.j2ee.dao.SqlDAO;
 import com.xnx3.j2ee.util.CacheUtil;
+import com.xnx3.net.HttpUtil;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.service.PaySetService;
 
@@ -64,7 +67,5 @@ public class PaySetServiceImpl implements PaySetService {
 		int storeid = 0;	//服务商的payset.id = 0
 		return getPaySet(storeid);
 	}
-	
-	
 	
 }

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.xnx3.j2ee.util.CacheUtil;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
-import com.xnx3.wangmarket.shop.core.service.PayService;
 import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.service.WeiXinService;
 import com.xnx3.weixin.WeiXinAppletUtil;
@@ -61,10 +60,9 @@ public class WeiXinServiceImpl implements WeiXinService {
 		
 		return util;
 	}
-
+	
 	@Override
 	public WeiXinUtil getServiceProviderWeiXinUtil() {
 		return getWeiXinUtil(0);
 	}
-	
 }
