@@ -37,7 +37,7 @@
     <tr>
 		<th style="text-align:center;">ID</th>
 		<th style="text-align:center;">订单号</th>
-        <th style="text-align:center;">应付金额</th>
+        <th style="text-align:center;">付款金额</th>
         <th style="text-align:center;">状态</th>
         <th style="text-align:center;">下单时间</th>
         <th style="text-align:center;">操作</th>
@@ -48,7 +48,7 @@
 			<tr>
 				<td style="text-align:center;">${item.id }</td>
 				<td style="text-align:center;">${item.no }</td>
-				<td style="text-align:center;">${item.payMoney }</td>
+				<td style="text-align:center;">${item.payMoney/100 }元</td>
 				<td style="text-align:center;">
 				<script type="text/javascript">document.write(state['${item['state']}']);</script>
 				</td>
