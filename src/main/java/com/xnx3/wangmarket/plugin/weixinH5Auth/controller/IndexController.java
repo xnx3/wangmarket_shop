@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xnx3.DateUtil;
 import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.entity.User;
@@ -16,11 +16,16 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.j2ee.vo.UserVO;
+import com.xnx3.net.HttpResponse;
+import com.xnx3.wangmarket.shop.core.entity.PaySet;
+import com.xnx3.wangmarket.shop.core.entity.StoreUser;
 import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
+import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.service.WeiXinService;
 import com.xnx3.weixin.WeiXinUtil;
+
+import net.sf.json.JSONObject;
 
 /**
  * 跳转页面，获取用户openid
@@ -37,6 +42,8 @@ public class IndexController extends BasePluginController {
 	private SqlService sqlService;
 	@Resource
 	private UserService userService;
+	@Resource
+	private PaySetService paySetService;
 
 	/**
 	 * 微信h5授权获取用户openid，也仅仅只是获取用户的openid，获取不到其他信息。
@@ -89,11 +96,32 @@ public class IndexController extends BasePluginController {
 			return error(model,"请传入店铺编号");
 		}
 		
-		WeiXinUtil util = weiXinService.getWeiXinUtil(storeid);
-		if(util == null){
-			return error(model,"当前店铺未设置微信公众号");
+		/**** 获取用户的openid ***/
+		String openid = null;
+		//判断一下该用户使用的是否是服务商模式
+		PaySet paySet = paySetService.getPaySet(storeid);
+		if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
+			//使用服务商模式
+			paySet = paySetService.getSerivceProviderPaySet();
+			System.out.println(paySet.toString());
+			
+			com.xnx3.net.HttpUtil httpUtil = new com.xnx3.net.HttpUtil();
+			HttpResponse httpResponse = httpUtil.get(WeiXinUtil.OAUTH2_ACCESS_TOKEN_URL.replace("APPID", paySet.getWeixinOfficialAccountsAppid()).replace("SECRET", paySet.getWeixinOfficialAccountsAppSecret()).replace("CODE", code));
+			JSONObject json = JSONObject.fromObject(httpResponse.getContent());
+			if(json.get("errcode") == null){
+				//没有出错，获取网页access_token成功
+				openid = json.getString("openid");
+			}else{
+				ConsoleUtil.debug("获取网页授权openid失败！返回值："+httpResponse.getContent());
+			}
+		}else{
+			//使用自己的公众号
+			WeiXinUtil util = weiXinService.getWeiXinUtil(storeid);
+			if(util == null){
+				return error(model,"当前店铺未设置微信公众号");
+			}
+			openid = util.getOauth2OpenId(code);
 		}
-		String openid = util.getOauth2OpenId(code);
 		if(openid == null || openid.length() == 0){
 			return error(model,"获取用户openid失败");
 		}
@@ -103,8 +131,9 @@ public class IndexController extends BasePluginController {
 		User user = null;
 		if(userWeixin == null){
 			//此用户还未注册，进行注册用户
+			String username = StringUtil.intTo36(DateUtil.timeForUnix10())+StringUtil.getRandom09AZ(6);
 			user = new User();
-			user.setUsername(Lang.uuid());
+			user.setUsername(username);
 			user.setPassword(Lang.uuid());
 			user.setNickname("nick name");
 			
@@ -127,6 +156,12 @@ public class IndexController extends BasePluginController {
 				userWeixin.setStoreid(storeid);
 				ConsoleUtil.log(userWeixin.toString());
 				sqlService.save(userWeixin);
+				
+				//保存 store user 的关系
+				StoreUser storeUser = new StoreUser();
+				storeUser.setStoreid(storeid);
+				storeUser.setUserid(user.getId());
+				sqlService.save(storeUser);
 				
 				ConsoleUtil.info("reg --- > "+user.toString());
 			}else{

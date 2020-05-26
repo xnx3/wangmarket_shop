@@ -124,6 +124,13 @@ public class LoginController extends BasePluginController {
 				userWeixin.setStoreid(storeid);
 				ConsoleUtil.log(userWeixin.toString());
 				sqlService.save(userWeixin);
+				
+				//保存 store user 的关系
+				StoreUser storeUser = new StoreUser();
+				storeUser.setStoreid(storeid);
+				storeUser.setUserid(user.getId());
+				sqlService.save(storeUser);
+				
 				//缓存
 //				SessionUtil.setWeiXinUser(weixinUser);
 				
