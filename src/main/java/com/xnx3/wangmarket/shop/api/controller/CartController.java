@@ -173,8 +173,10 @@ public class CartController extends BasePluginController {
 	 * @return 某个店铺的购物车数据
 	 */
 	private StoreCartVO cartVoToStoreCartVo(CartVO cartVO, int storeid){
-		StoreCart storeCart = cartVO.getStoreCartMap().get(storeid);
 		StoreCartVO vo = new StoreCartVO();
+		vo.setBaseVO(cartVO.getResult(), cartVO.getInfo());
+		
+		StoreCart storeCart = cartVO.getStoreCartMap().get(storeid);
 		if(storeCart == null){
 			vo.setMoney(0);
 			vo.setNumber(0);
@@ -183,7 +185,6 @@ public class CartController extends BasePluginController {
 			vo.setMoney(storeCart.getMoney());
 			vo.setNumber(storeCart.getNumber());
 			vo.setGoodsCartMap(storeCart.getGoodsCartMap());
-			vo.setBaseVO(cartVO.getResult(), cartVO.getInfo());
 		}
 		return vo;
 	}
