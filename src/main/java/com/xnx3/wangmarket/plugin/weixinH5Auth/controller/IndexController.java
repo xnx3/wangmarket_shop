@@ -69,7 +69,7 @@ public class IndexController extends BasePluginController {
 		
 		url = url.replace("?", "%3F").replaceAll("&", "%26");
 		url = SystemUtil.get("MASTER_SITE_URL")+"plugin/weixinH5Auth/wxAuthLogin.do?storeid=1%26url="+url;
-		String jumpUrl = util.getOauth2SimpleUrl(url);
+		String jumpUrl = util.getOauth2ExpertUrl(url);
 		ConsoleUtil.log(jumpUrl);
 		return redirect(jumpUrl);
 	}
