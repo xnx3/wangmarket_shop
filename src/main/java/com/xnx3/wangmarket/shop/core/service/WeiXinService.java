@@ -11,7 +11,7 @@ import com.xnx3.weixin.WeiXinUtil;
 public interface WeiXinService {
 	
 	/**
-	 * 获取某个商铺的微信公众号工具类
+	 * 获取某个商铺的微信公众号工具类。如果这个店铺是使用的服务商公众号，那么返回的也是服务商公众号的 {@link WeiXinUtil}
 	 * 获取顺序，首先从缓存中获取，缓存中没有再从数据库中拉数据进行缓存
 	 * @param storeid 要获取的微信公众号工具类是哪个商城的
 	 * @return 当前店铺的商铺的微信公众号工具类。如果返回null，则是当前店铺未设置使用微信公众号

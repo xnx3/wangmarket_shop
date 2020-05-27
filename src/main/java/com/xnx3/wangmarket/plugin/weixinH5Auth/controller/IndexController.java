@@ -15,6 +15,7 @@ import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ConsoleUtil;
+import com.xnx3.j2ee.util.SystemUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.net.HttpResponse;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
@@ -50,7 +51,7 @@ public class IndexController extends BasePluginController {
 	 * 进入后会直接进行重定向到传入的url页面，在这个url页面即可或得到用户的openid 。注意，传入的url，域名一定是提前在微信公众号接口权限表-网页服务-网页帐号-网页授权获取用户基本信息 中配置的网址
 	 * @param storeid 进入的是哪个店铺
 	 * @param referrerid 推荐人id，这个在创建用户信息时，会计入用户的 user.referrerid。 可不填
-	 * @param url 要跳转到的url页面，这里可以拿到用户的openid。格式如： http://demo.imall.net.cn/index.html%3Fa=1%26b=2  注意，像是 ? & 要传入URL转码字符 
+	 * @param url 登录成功后要跳转到的url页面，格式如： http://demo.imall.net.cn/index.html?a=1&b=2 
 	 */
 	@RequestMapping("hiddenAuthJump${url.suffix}")
 	public String hiddenAuthJump(HttpServletRequest request,Model model,
@@ -60,15 +61,17 @@ public class IndexController extends BasePluginController {
 		if(storeid < 1){
 			return error(model, "请传入店铺编号");
 		}
-		
+		//https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx07f3db3a6bbedfbe&redirect_uri=http://shop.imall.net.cn/plugin/weixinH5Auth/wxAuthLogin.do?storeid=1%26url=http://demo.imall.net.cn&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
 		WeiXinUtil util = weiXinService.getWeiXinUtil(storeid);
 		if(util == null){
 			return error(model, "当前店铺未设置微信公众号");
 		}
+		
+		url = url.replace("?", "%3F").replaceAll("&", "%26");
+		url = SystemUtil.get("MASTER_SITE_URL")+"plugin/weixinH5Auth/wxAuthLogin.do?storeid=1%26url="+url;
 		String jumpUrl = util.getOauth2SimpleUrl(url);
 		ConsoleUtil.log(jumpUrl);
-//		return redirect(StringUtil.urlToString(jumpUrl));
-		return "/plugin/weixinH5Auth/hiddenAuthJump";
+		return redirect(jumpUrl);
 	}
 	
 	/**
@@ -102,11 +105,11 @@ public class IndexController extends BasePluginController {
 		PaySet paySet = paySetService.getPaySet(storeid);
 		if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
 			//使用服务商模式
-			paySet = paySetService.getSerivceProviderPaySet();
-			System.out.println(paySet.toString());
+			PaySet serivcePaySet = paySetService.getSerivceProviderPaySet();
+			System.out.println("serivcePaySet:"+serivcePaySet.toString());
 			
 			com.xnx3.net.HttpUtil httpUtil = new com.xnx3.net.HttpUtil();
-			HttpResponse httpResponse = httpUtil.get(WeiXinUtil.OAUTH2_ACCESS_TOKEN_URL.replace("APPID", paySet.getWeixinOfficialAccountsAppid()).replace("SECRET", paySet.getWeixinOfficialAccountsAppSecret()).replace("CODE", code));
+			HttpResponse httpResponse = httpUtil.get(WeiXinUtil.OAUTH2_ACCESS_TOKEN_URL.replace("APPID", serivcePaySet.getWeixinOfficialAccountsAppid()).replace("SECRET", serivcePaySet.getWeixinOfficialAccountsAppSecret()).replace("CODE", code));
 			JSONObject json = JSONObject.fromObject(httpResponse.getContent());
 			if(json.get("errcode") == null){
 				//没有出错，获取网页access_token成功

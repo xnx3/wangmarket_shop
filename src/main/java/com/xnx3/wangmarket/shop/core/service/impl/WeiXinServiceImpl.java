@@ -26,12 +26,18 @@ public class WeiXinServiceImpl implements WeiXinService {
 				//数据库中没有这个数据，这个店铺id根本不存在，直接返回null
 				return null;
 			}
-			if(payset.getWeixinOfficialAccountsAppid() == null || payset.getWeixinOfficialAccountsAppid().length() == 0){
-				//这个商户并没有设置过微信公众号相关参数
-				return null;
+			if(payset.getUseWeixinServiceProviderPay() - 1 == 0){
+				//使用服务商模式
+				PaySet serivcePaySet = paySetService.getSerivceProviderPaySet();
+				util = new WeiXinUtil(serivcePaySet.getWeixinOfficialAccountsAppid(), serivcePaySet.getWeixinOfficialAccountsAppSecret(), serivcePaySet.getWeixinOfficialAccountsToken());
+			}else{
+				if(payset.getWeixinOfficialAccountsAppid() == null || payset.getWeixinOfficialAccountsAppid().length() == 0){
+					//这个商户并没有设置过微信公众号相关参数
+					return null;
+				}
+				util = new WeiXinUtil(payset.getWeixinOfficialAccountsAppid(), payset.getWeixinOfficialAccountsAppSecret(), payset.getWeixinOfficialAccountsToken());
 			}
 			
-			util = new WeiXinUtil(payset.getWeixinOfficialAccountsAppid(), payset.getWeixinOfficialAccountsAppSecret(), payset.getWeixinOfficialAccountsToken());
 			CacheUtil.setWeekCache(cacheKey, util);
 		}
 		
