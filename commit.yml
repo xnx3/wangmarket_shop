@@ -2,67 +2,25 @@
 branches: {
   }
 fileChange:
-  /pom.xml:
-    newFile: !uuid 'f338f196e2e49378c61c4b4a458f3fca41473cf6'
-    oldFile: !uuid 'af994fdc1cc8e0f87ff6871847ed407e1fb9fa60'
   /src:
-    newFile: !uuid '0a6e5f478be0f4b3595e65a4d3e5f9b3244220bc'
-    oldFile: !uuid 'efe8d0c70f97cdcd3caac6c71c0f3121f73d8ee2'
+    newFile: !uuid '6021513fcae87d3ea90c923aa49ed4b12f2ef017'
+    oldFile: !uuid '0a6e5f478be0f4b3595e65a4d3e5f9b3244220bc'
   /src/main:
-    newFile: !uuid 'be027220e2f61c7c353cd38c717d648b21121ab2'
-    oldFile: !uuid 'c772ef8f84ec49fdf9fa58ffe5f83bf5fb2b49c5'
-  /src/main/java:
-    newFile: !uuid 'a5e1eca7aa8fe00849d5a7583003e6483ceeed33'
-    oldFile: !uuid '69555a4a41e8b5e1e2162756a4c1df358a85e949'
-  /src/main/java/com:
-    newFile: !uuid '062161b8c7e77010736a6629c9fe89a2890a1942'
-    oldFile: !uuid '2841fb770153314a69be0aa62d0c091ab414ea6b'
-  /src/main/java/com/xnx3:
-    newFile: !uuid 'ddac8c30944962305534be0b433cc7e78a8516f9'
-    oldFile: !uuid 'a3cfd5fb08239ded6c2fb9f94bd67922127adf53'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '411dfe98623191e9b0d6e86144ef38d5a8eb5884'
-    oldFile: !uuid '9b7a51c1b0a4e678544c987777a51a35b3001d43'
-  /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid '32e1627b5af1f57b5416e89eb21136df46b24fb3'
-    oldFile: !uuid '15ca5f1de5dfd6497f61c0aebc5f6d1e5757f944'
-  /src/main/java/com/xnx3/wangmarket/plugin/huaweicloudSMS:
-    newFile: null
-    oldFile: !uuid 'f24c92be86d39332d329bb06f151923d7c7c9bbe'
-  /src/main/java/com/xnx3/wangmarket/plugin/huaweicloudSMS/Global.java:
-    newFile: null
-    oldFile: !uuid 'c5cd00d328d27b5cee4d3a49a77fa08d10e6502b'
-  /src/main/java/com/xnx3/wangmarket/plugin/huaweicloudSMS/Plugin.java:
-    newFile: null
-    oldFile: !uuid '97f03b1e65f7646e13d91c7c01a0dc49018deb7f'
-  /src/main/java/com/xnx3/wangmarket/plugin/huaweicloudSMS/README.md:
-    newFile: null
-    oldFile: !uuid 'fbe3f2414e1d0491081b58e9e5e224f24782a50d'
-  /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid '747209cda73a016c6571c2870396789da856c5f8'
-    oldFile: !uuid 'b8d8ba62aa13104a87707ddd40c657c3dea9ff42'
-  /src/main/java/com/xnx3/wangmarket/shop/api:
-    newFile: !uuid 'a5444543007c40149066c1d9966177c265a6fbaa'
-    oldFile: !uuid '1ebacd63f32ff75a48be24ccf3b262af619f8f35'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller:
-    newFile: !uuid '5c31203dcea614e6b9b105377675870e4a285b80'
-    oldFile: !uuid 'b1ce9b2f3189db0b493ab1283e5e3976af2c7178'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller/GoodsController.java:
-    newFile: !uuid 'c4329a18e430d091aabd832e532f1d0189b8f8b8'
-    oldFile: !uuid '1e3ab1320b3c2db6dad085a10b3c908a57cf5801'
+    newFile: !uuid '9f4adedea7ee244765e6412a97c9f1d9fb6605fd'
+    oldFile: !uuid 'be027220e2f61c7c353cd38c717d648b21121ab2'
   /src/main/webapp:
-    newFile: !uuid '230b251a912d72a7405705e5134b2db22cdbd9aa'
-    oldFile: !uuid '936bcec02e8979e3bc5c6419fb544abddded321f'
+    newFile: !uuid '60badcd7bd7842d2c45785db914d48e214b31a1c'
+    oldFile: !uuid '230b251a912d72a7405705e5134b2db22cdbd9aa'
   /src/main/webapp/WEB-INF:
-    newFile: !uuid 'c409f5f8bec06939221bf6281c45fbdfb172b79a'
-    oldFile: !uuid '98fe3067b1f5251e9e179676932e03d1e4599c90'
+    newFile: !uuid '7590ea8f02545937232bd7e6f95c4525829bf280'
+    oldFile: !uuid 'c409f5f8bec06939221bf6281c45fbdfb172b79a'
   /src/main/webapp/WEB-INF/lib:
-    newFile: !uuid '06576533d751d41e658716149612e05b86ba8d67'
-    oldFile: !uuid 'd81abe85e8c427ec2d21ab445fb0e33d9898631a'
+    newFile: !uuid '14f01b3e498fd6ddd78931e8a493c5593a22bd8d'
+    oldFile: !uuid '06576533d751d41e658716149612e05b86ba8d67'
   /src/main/webapp/WEB-INF/lib/xnx3-util-1.1.1.jar:
-    newFile: !uuid '07cfd4d6e5b6256df5a492665b2eb17057baf8a9'
-    oldFile: !uuid '3ef56a060092b08c6d828cccc9313e2e02c91e4a'
-gitCommitId: !uuid '9be84f57a26a96425bfc1a27204474906f453aeb'
+    newFile: null
+    oldFile: !uuid '07cfd4d6e5b6256df5a492665b2eb17057baf8a9'
+gitCommitId: !uuid '8598c51bc08abcd590f790fda8e973423ddd1810'
 renames: {
   }
-revisionId: 135
+revisionId: 136
