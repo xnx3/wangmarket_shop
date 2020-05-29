@@ -37,7 +37,7 @@ public class GoodsController extends BasePluginController {
 	 * @param title 要搜索的商品名字,模糊搜索
 	 * @param orderBy 商品排序方式
 	 * 				<ul>
-	 * 					<li>0:默认排序方式，也就是根据销量由高往低来排序</li>
+	 * 					<li>0:默认排序方式，也就是根据商家后台自定义的商品排序，来进行的排序</li>
 	 * 					<li>1:按总销量由高往低来排序</li>
 	 * 					<li>2:最新商品，按发布时间，由高往低来排序，最后发布的商品在最前面</li>
 	 * 				</ul>
@@ -72,7 +72,7 @@ public class GoodsController extends BasePluginController {
 			orderBySql = "id ASC";
 			break;
 		default:
-			orderBySql = "sale DESC";
+			orderBySql = "rank ASC"; 
 			break;
 		}
 		
