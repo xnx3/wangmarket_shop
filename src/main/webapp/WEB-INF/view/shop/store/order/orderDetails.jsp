@@ -6,6 +6,12 @@
 	<jsp:param name="name" value="订单内商品列表"/>
 </jsp:include>
 <script src="/<%=Global.CACHE_FILE %>Order_state.js"></script>
+<style>
+h2{
+	padding-top: 12px;
+    padding-bottom: 5px;
+}
+</style>
 
 <div style="margin-top: 10px; text-align: center;">
 <h2>订单信息</h2>
@@ -20,11 +26,11 @@
   </tr>
   <tr>
   	<th style="text-align:center;width:80px;">订单金额</th>
-  	<th>${order.totalMoney}</th>
+  	<th>${order.totalMoney/100}元</th>
   </tr>
   <tr>
   	<th style="text-align:center;width:80px;">应付金额</th>
-  	<th>${order.payMoney}</th>
+  	<th>${order.payMoney/100}元</th>
   </tr>
   <tr>
   	<th style="text-align:center; width:80px;">订单状态</th>
