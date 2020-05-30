@@ -75,7 +75,7 @@ public class IndexController extends BasePluginController {
 	}
 	
 	/**
-	 * 微信登录 
+	 * 微信登录 。 这里是用户访问 hiddenAuthJump()， 然后跳转到微信授权，授权成功后自动跳转到的这里
 	 * @param code 微信网页授权的code
 	 * @param storeid 要登录的是哪个店铺，必须的
 	 * @param referrerid 推荐人id，这个在创建用户信息时，会计入用户的 user.referrerid。 可不填
@@ -84,6 +84,7 @@ public class IndexController extends BasePluginController {
 	 * 					<li>站内跳转，如：user/info.do	内网页面，前面无须/，默认自动补齐之前路径。此便是跳转到当前项目根目录下/user/info.do页面，
 	 * 					<li>站外跳转，如：http://www.xnx3.com	外网页面，写全即可，也或者 //www.xnx3.com 也是直接跳转到外网
 	 * 				</ul>
+	 * @return 重定向
 	 */
 	@RequestMapping("wxAuthLogin${url.suffix}")
 	public String wxAuthLogin(HttpServletRequest request,Model model,

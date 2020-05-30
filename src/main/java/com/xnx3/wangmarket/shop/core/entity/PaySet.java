@@ -157,6 +157,9 @@ public class PaySet extends BaseEntity implements java.io.Serializable{
 	
 	@Column(name = "weixin_official_accounts_appid", columnDefinition="varchar(50) comment '微信公众号的 AppId' default ''")
 	public String getWeixinOfficialAccountsAppid() {
+		if(weixinOfficialAccountsAppid == null){
+			weixinOfficialAccountsAppid = "";
+		}
 		return weixinOfficialAccountsAppid;
 	}
 
@@ -166,6 +169,9 @@ public class PaySet extends BaseEntity implements java.io.Serializable{
 	
 	@Column(name = "weixin_official_accounts_appsecret", columnDefinition="varchar(70) comment '微信公众号的 AppSecret' default ''")
 	public String getWeixinOfficialAccountsAppSecret() {
+		if(weixinOfficialAccountsAppSecret == null){
+			weixinOfficialAccountsAppSecret = "";
+		}
 		return weixinOfficialAccountsAppSecret;
 	}
 
