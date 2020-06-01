@@ -193,6 +193,7 @@ public class IndexController extends BasePluginController {
 			menuMap.put(e.id, "1");
 		}
 		SessionUtil.setStoreMenuRole(menuMap);
+		SessionUtil.setParentToken(token);
 		
 		ActionLogUtil.insertUpdateDatabase(request, "用户登录成功","userid:"+u.getUserid());
 		return redirect("shop/store/index/index.do");
@@ -233,8 +234,8 @@ public class IndexController extends BasePluginController {
 			JSONObject json = JSONObject.fromObject(hr.getContent().trim());
 			if(json.get("result") != null){
 				String result = json.getString("result");
-				if(result.equals("1")){
-					//授权，加入缓存
+				if(!result.equals("0")){
+					//只要有授权码，无论是否已过期，那么就认为是正常有效的，加入缓存。
 					CacheUtil.setWeekCache(CACHE_KEY, token);
 					return true;
 				}

@@ -55,7 +55,8 @@ public class IndexController extends BaseController {
 		
 		//左侧菜单
 		model.addAttribute("menuHTML", TemplateAdminMenuUtil.getLeftMenuHtml());
-		
+		//是否是第三方平台通过token+code直接登录的，如果是，那么是不显示更改密码、退出登录功能的
+		model.addAttribute("useTokenCodeLogin", SessionUtil.getParentToken() != null); //true：是三方平台token+code登录的
 		return "/shop/store/index/index";
 	}
 	

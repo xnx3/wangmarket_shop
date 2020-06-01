@@ -20,7 +20,6 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 #editPanel span{
 	width:100%;
 }
-
 .menu{
 	width:150px;
 	height:100%;
@@ -30,7 +29,6 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 .menu ul li{
 	cursor: pointer;
 }
-
 /*左侧的一级菜单的图标*/
 .firstMenuIcon{
 	font-size:16px;
@@ -39,7 +37,6 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 }
 /*左侧的一级菜单的文字描述*/
 .firstMenuFont{
-	
 }
 
 /* 二级菜单 */
@@ -106,7 +103,7 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 		</li>
 
 		<li class="layui-nav-item" id="logout">
-			<a href="/user/logout.do" class="itemA">
+			<a href="javascript:logout();" class="itemA">
 				<i class="layui-icon firstMenuIcon">&#xe633;</i>
 				<span class="firstMenuFont">退出登陆</span>
 			</a>
@@ -121,12 +118,19 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 </div>
 
 <script>
-/*** 下面四个是在网市场云建站系统中使用的 ***/
-document.getElementById('updatePassword').style.display='none';
-document.getElementById('logout').style.display='none';
+//菜单颜色
 document.getElementById('leftMenu').style.backgroundColor='#EAEDF1';
 $(".itemA").css("color","#333333");
 
+if('${useTokenCodeLogin}' == 'true'){
+	/*** 下面四个是在网市场云建站系统中使用的，直接通过token+code登录，云商城只是作为其一个模块而已 ***/
+	document.getElementById('updatePassword').style.display='none';
+	document.getElementById('logout').style.display='none';
+	//document.getElementById('leftMenu').style.backgroundColor='#EAEDF1';
+	//$(".itemA").css("color","#333333");
+}else{
+	//$(".itemA").css("color","rgba(255, 255, 255, 0.7)");
+}
 
 layui.use('element', function(){
   var element = layui.element;
@@ -138,6 +142,22 @@ layui.use('element', function(){
  */
 function loadUrl(url){
 	document.getElementById("iframe").src=url + "?time=" + (new Date()).getTime();
+}
+
+//退出登录
+function logout(){
+	msg.loading('退出中');
+	$.post("/logout.do", function (result) {
+		msg.close();
+		var obj = JSON.parse(result);
+		if(obj.result == '1'){
+			msg.success('已退出',function(){
+				window.location.href="/shop/store/login/login.do";
+			});
+		}else{
+			msg.failure(obj.info);
+		}
+	}, "text");
 }
 
 //加载登录后的默认页面

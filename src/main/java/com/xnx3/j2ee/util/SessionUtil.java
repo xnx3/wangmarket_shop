@@ -130,7 +130,7 @@ public class SessionUtil extends ShiroFunc{
 		
 		//判断是从redis中取，还是从本地服务器中取
 		if(RedisUtil.isUse()){
-			Object redisObj = RedisUtil.getObject(REDIS_PLUGIN_MAP_NAME+user.getId());
+			Object redisObj = RedisUtil.getObject(REDIS_PLUGIN_MAP_NAME+":"+user.getId());
 			if(redisObj == null){
 				return null;
 			}
@@ -165,14 +165,14 @@ public class SessionUtil extends ShiroFunc{
 		//判断是存到redis中，还是本地服务器中
 		if(RedisUtil.isUse()){
 			Map map = null;
-			Object obj = RedisUtil.getObject(REDIS_PLUGIN_MAP_NAME+user.getId());
+			Object obj = RedisUtil.getObject(REDIS_PLUGIN_MAP_NAME+":"+user.getId());
 			if(obj == null){
 				map = new HashMap<String, Object>();
 			}else{
 				map = (HashMap<String, Object>) obj;
 			}
 			map.put(key, value);
-			RedisUtil.setObject(REDIS_PLUGIN_MAP_NAME+user.getId(), map, REDIS_PLUGIN_MAP_EXPIRETIME);
+			RedisUtil.setObject(REDIS_PLUGIN_MAP_NAME+":"+user.getId(), map, REDIS_PLUGIN_MAP_EXPIRETIME);
 		}else{
 			activeUser.getPluginMap().put(key, value);
 		}
