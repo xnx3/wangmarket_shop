@@ -3,7 +3,6 @@ package com.xnx3.j2ee.util;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -11,12 +10,9 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-
 import com.xnx3.j2ee.bean.ActiveUser;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.shiro.ShiroFunc;
-
-import net.sf.json.JSONObject;
 
 /**
  * session 操作
@@ -25,11 +21,11 @@ import net.sf.json.JSONObject;
  */
 public class SessionUtil extends ShiroFunc{
 	//是否允许百度UEDITOR上传图片、文件。 true允许，false不允许
-	public static final String PLUGIN_NAME_UEDITOR_ALLOW_UPLOAD = "system_ueditor_allowUploadForUEditor";
+	public static final String PLUGIN_NAME_UEDITOR_ALLOW_UPLOAD = "system:ueditor:allowUploadForUEditor";
 	//UEditor上传文件相关的参数，可用{uploadParam1}来调用。每个人的上传参数都会不同
-	public static final String PLUGIN_NAME_UEDITOR_UPLOAD_PARAM_1 = "system_ueditor_ueUploadParam1";
+	public static final String PLUGIN_NAME_UEDITOR_UPLOAD_PARAM_1 = "system:ueditor:ueUploadParam1";
 	//当前使用哪个语言包
-	public static final String PLUGIN_NAME_LANGUAGE_PACKAGE_NAME = "system_languagePackageName";
+	public static final String PLUGIN_NAME_LANGUAGE_PACKAGE_NAME = "system:languagePackageName";
 	
 	/**
 	 * 从Shrio的Session中获取当前用户的缓存信息
@@ -92,7 +88,7 @@ public class SessionUtil extends ShiroFunc{
 		}
 		//判断是从redis中取，还是从本地服务器中取
 		if(RedisUtil.isUse()){
-			Object redisObj = RedisUtil.getObject(REDIS_PLUGIN_MAP_NAME+user.getId());
+			Object redisObj = RedisUtil.getObject(REDIS_PLUGIN_MAP_NAME+":"+user.getId());
 			if(redisObj == null){
 				return null;
 			}
