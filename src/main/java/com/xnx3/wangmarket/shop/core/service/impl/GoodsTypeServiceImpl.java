@@ -34,7 +34,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
 		List<GoodsTypeBean> beanList = (List<GoodsTypeBean>)CacheUtil.get(key);
 		if(beanList == null){
 			beanList = new ArrayList<GoodsTypeBean>();
-			List<GoodsType> typeList = sqlDAO.findBySqlQuery("SELECT * FROM shop_goods_type WHERE storeid = "+storeid, GoodsType.class);
+			List<GoodsType> typeList = sqlDAO.findBySqlQuery("SELECT * FROM shop_goods_type WHERE storeid = "+storeid+" AND isdelete = 0", GoodsType.class);
 			for (int i = 0; i < typeList.size(); i++) {
 				beanList.add(new GoodsTypeBean(typeList.get(i)));
 			}
