@@ -6,16 +6,26 @@
 	<jsp:param name="name" value="商品列表"/>
 </jsp:include>
 <style type="text/css">
-	
-	.layui-table img {
+.layui-table img {
     max-width: 49px;
     max-height:49px;
-	}
-	.toubu_xnx3_search_form {
+}
+.toubu_xnx3_search_form {
     padding-top: 0px;
     padding-bottom: 10px;
-	}
+}
 </style>
+<script>
+//所属分类，将typeid 转为 文字说明
+function writeType(typeid){
+	if(typeid == ''){
+		document.write('无');
+	}else{
+		document.write(typeid[typeid]);
+	}
+}
+</script>
+
 <script src="/shop/store/goodsType/getGoodsTypeJs.do"></script>
 <div style="height:10px;"></div>
 <jsp:include page="../../../iw/common/list/formSearch_formStart.jsp" ></jsp:include>
@@ -58,7 +68,7 @@
 		<tr>
 			<td style="text-align:center;">${item.id }</td>
 			<td style="text-align:center;">
-			<script type="text/javascript">document.write(typeid['${item["typeid"]}']);</script>
+			<script type="text/javascript">writeType('${item["typeid"]}');</script>
 			</td>
 			<td style="text-align:left;">
 				<x:substring maxLength="12" text="${item.title }"></x:substring>
