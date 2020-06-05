@@ -309,7 +309,7 @@ public class GoodsController extends BaseController {
 			return error("根据ID,没查到该实体");
 		}
 		//查出商品信息，从而判断这个图片是不是这个人的
-		Goods goods = sqlService.findById(Goods.class, id);
+		Goods goods = sqlService.findById(Goods.class, img.getGoodsid());
 		if(goods == null) {
 			return error("该图所属商品不存在");
 		}

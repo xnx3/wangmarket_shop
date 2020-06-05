@@ -47,7 +47,7 @@
 	</div>
 	
 	<div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode">商品分类<i class="layui-icon" style="color: red;size:">*</i></label>
+		<label class="layui-form-label" id="columnEditMode">商品分类</label>
 		<div class="layui-input-block">
 			<script type="text/javascript">writeSelectAllOptionFortypeid_('${item.typeid }','请选择分类', true);</script>
 			
@@ -55,7 +55,7 @@
 	</div>
 	
 	<div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode">价格<i class="layui-icon" style="color: red;size:">*</i></label>
+		<label class="layui-form-label" id="columnEditMode">价格</label>
 		<div class="layui-input-block">
 			<input type="number" name="price_" id="price" class="layui-input" value="${item.price/100}" >
 		</div>
@@ -64,7 +64,7 @@
 	</div>
 	
 	<div class="layui-form-item" id="xnx3_editMode">
-		<label class="layui-form-label" id="columnEditMode">原价<i class="layui-icon" style="color: red;size:">*</i></label>
+		<label class="layui-form-label" id="columnEditMode">原价</label>
 		<div class="layui-input-block">
 			<input type="number" name="original_price" id="originalPrice" class="layui-input" value="${item.originalPrice/100 }" >
 		</div>
