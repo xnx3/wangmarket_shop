@@ -63,11 +63,13 @@ public class PayServiceImpl implements PayService {
 			return vo;
 		}
 		
+		//服务商payset设置
+		PaySet servicePaySet = paySetService.getSerivceProviderPaySet();
+		
 		WeiXinPayUtil util;
 		//判断一下当前是用的300元认证的公众号，还是免认证的我们服务商通道
 		if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
 			//使用我们服务商通道
-			PaySet servicePaySet = paySetService.getSerivceProviderPaySet();
 			util = new WeiXinPayUtil(servicePaySet.getWeixinOfficialAccountsAppid(), servicePaySet.getWeixinMchId(), servicePaySet.getWeixinMchKey());
 			util.openServiceProviderMode(paySet.getWeixinSerivceProviderSubMchId());
 			util.setServiceProviderSubAppletAppid(paySet.getWeixinAppletAppid());
@@ -75,6 +77,10 @@ public class PayServiceImpl implements PayService {
 			//正常微信支付
 			util = new WeiXinPayUtil(paySet.getWeixinOfficialAccountsAppid(), paySet.getWeixinMchId(), paySet.getWeixinMchKey());
 		}
+		
+		util.setApplet_appid(paySet.getWeixinAppletAppid());
+		util.setOfficialAccounts_appid(paySet.getWeixinOfficialAccountsAppid());
+		util.setServiceProvider_officialAccounts_appid(servicePaySet.getWeixinOfficialAccountsAppid());
 		
 		vo.setWeiXinPayUtil(util);
 		return vo;
