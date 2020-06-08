@@ -3,36 +3,51 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '9743afdadff179a89fb47439c6179eb0c8d9c711'
-    oldFile: !uuid '4a5cd75cd99133d936c7ba319804c504e51de378'
+    newFile: !uuid 'b2a3ce7782a1e282b1b502eb2e08a9ad4fba51ce'
+    oldFile: !uuid '9743afdadff179a89fb47439c6179eb0c8d9c711'
   /src/main:
-    newFile: !uuid '80f33d672ddcdf399b7abec98f402a16dfd88c7d'
-    oldFile: !uuid 'dcc2b893760de8d950430639b6d4bf5a278d8c28'
+    newFile: !uuid '2ad5e4329c63cda2a129eefb617715c00c025761'
+    oldFile: !uuid '80f33d672ddcdf399b7abec98f402a16dfd88c7d'
   /src/main/java:
-    newFile: !uuid 'b1048c3b52c00be7f39cca7e039824369b925abc'
-    oldFile: !uuid '5bad8a3b24bec89184f0b82b3f594f00ce1734bc'
+    newFile: !uuid 'c22298584eed544471b485b438d75906249db7be'
+    oldFile: !uuid 'b1048c3b52c00be7f39cca7e039824369b925abc'
   /src/main/java/com:
-    newFile: !uuid 'd7d428495bb76e6285502e5f66f05bb7774234ad'
-    oldFile: !uuid '752649b94171fadb6617ef68d6ab22c073ac5d3c'
+    newFile: !uuid 'f56f00d908187f95f4c460fde34f8464f61f3454'
+    oldFile: !uuid 'd7d428495bb76e6285502e5f66f05bb7774234ad'
   /src/main/java/com/xnx3:
-    newFile: !uuid 'e96c3b4ddf8344ac78008a7a8424c5840e14288a'
-    oldFile: !uuid '37f495c3af6f55976a9418b0d29bd1e5ecb59790'
+    newFile: !uuid '98d8c1b265fd9060e83aa454ce7779da1c6fc598'
+    oldFile: !uuid 'e96c3b4ddf8344ac78008a7a8424c5840e14288a'
   /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '4651cc0a7244900bc46db08a50f4dda49a5bfb78'
-    oldFile: !uuid '24a3556dddd0894aaf4b88f6eb3cf1cfad1a5764'
-  /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid '4752c7295105472b61ded1ba5744a80de96e842d'
-    oldFile: !uuid '13cd8d58bbc89a60a62288fc300b67231c54779d'
-  /src/main/java/com/xnx3/wangmarket/plugin/weixinApplet:
-    newFile: !uuid 'c5cfa48a6499f8490dfa549df5b89ec1ae2f8199'
-    oldFile: !uuid '391e6e24de5470f06db92b69b938b6512ebd9a67'
-  /src/main/java/com/xnx3/wangmarket/plugin/weixinApplet/vo:
-    newFile: !uuid '8d468ac4ce277f6dfc0b0293e2392095cb8e1c59'
-    oldFile: !uuid 'b350be23ddffd3feafb02278788e2442363dac15'
-  /src/main/java/com/xnx3/wangmarket/plugin/weixinApplet/vo/LoginVO.java:
-    newFile: !uuid '6ccc9a64ef1529d99af39b9055277a842c40779e'
-    oldFile: !uuid 'd3bfbeed30f5c80b6759044b675bb80ea8970be3'
-gitCommitId: !uuid '16bf76348caf2ab81fb28b40e787516b02cded5d'
+    newFile: !uuid '16fa16ea093a917eba2e2e2ccaa03e76d76a6790'
+    oldFile: !uuid '4651cc0a7244900bc46db08a50f4dda49a5bfb78'
+  /src/main/java/com/xnx3/wangmarket/shop:
+    newFile: !uuid '6dc16853aaf580c7bb8e291d986b06b3c343eb6c'
+    oldFile: !uuid '66d6b7204f330914d38f5641632bbd0484b0197f'
+  /src/main/java/com/xnx3/wangmarket/shop/core:
+    newFile: !uuid 'd44a03ac2d451acc5b07597034d0b258db1871d9'
+    oldFile: !uuid '5caa1d3ec08fc892d2923f92018c2d22a2e208d0'
+  /src/main/java/com/xnx3/wangmarket/shop/core/service:
+    newFile: !uuid '3ce08d461de11b8ea48d889055c6bac900eb13c4'
+    oldFile: !uuid '15827cc272e619fc009a876053e3e3f60f8ae260'
+  /src/main/java/com/xnx3/wangmarket/shop/core/service/impl:
+    newFile: !uuid '1fa4d163eac98fe0c61425fee372a422b84ba7ab'
+    oldFile: !uuid 'd6564328659a71b2fdd143490a1b61e866b04a98'
+  /src/main/java/com/xnx3/wangmarket/shop/core/service/impl/PayServiceImpl.java:
+    newFile: !uuid '835f6812274b1665e560d2582cd69f77e785ab40'
+    oldFile: !uuid '53f48ee81444b205c3495892f67f67e975e6d358'
+  /src/main/webapp:
+    newFile: !uuid '971838d314757f1742facb40273fab951fd64604'
+    oldFile: !uuid 'cf2ebe5a90e21f29077e281b5d1f3885abc7e84c'
+  /src/main/webapp/WEB-INF:
+    newFile: !uuid '9556f634024edb463d14207597d5f91a991fad66'
+    oldFile: !uuid '3e3a486a1ab1504cf04fe03ff3858515889e8d5b'
+  /src/main/webapp/WEB-INF/lib:
+    newFile: !uuid 'e4bbceb83e776f69d7785679cfbe81a3459d331a'
+    oldFile: !uuid '14f01b3e498fd6ddd78931e8a493c5593a22bd8d'
+  /src/main/webapp/WEB-INF/lib/xnx3-weixin-1.1.jar:
+    newFile: !uuid '2d7153c529c7be012396b3165b281a751ff93184'
+    oldFile: !uuid 'd893e32ae9726c620632ae09464213e343e4d8c7'
+gitCommitId: !uuid 'ae37ca81a6dc8efabf39d2af274c28923b5b9935'
 renames: {
   }
-revisionId: 144
+revisionId: 145
