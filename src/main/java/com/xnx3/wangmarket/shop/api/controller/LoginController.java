@@ -159,10 +159,10 @@ public class LoginController extends BaseController {
 			vo.setBaseVO(BaseVO.FAILURE, "请传入密码");
 			return vo;
 		}
-//		if(code.length() == 0){
-//			vo.setBaseVO(BaseVO.FAILURE, "请传入验证码");
-//			return vo;
-//		}
+		if(code.length() == 0){
+			vo.setBaseVO(BaseVO.FAILURE, "请传入验证码");
+			return vo;
+		}
 		if(storeid < 1){
 			vo.setBaseVO(BaseVO.FAILURE, "请传入店铺id");
 			return vo;
@@ -175,12 +175,12 @@ public class LoginController extends BaseController {
 		}
 		
 		//验证码校验
-//		BaseVO capVO = com.xnx3.j2ee.util.CaptchaUtil.compare(request.getParameter("code"), request);
-//		if(capVO.getResult() == BaseVO.FAILURE){
-//			ActionLogUtil.insert(request, "用户名密码模式注册失败", "验证码出错，提交的验证码："+StringUtil.filterXss(request.getParameter("code")));
-//			vo.setBaseVO(capVO);
-//			return vo;
-//		}else{
+		BaseVO capVO = com.xnx3.j2ee.util.CaptchaUtil.compare(request.getParameter("code"), request);
+		if(capVO.getResult() == BaseVO.FAILURE){
+			ActionLogUtil.insert(request, "用户名密码模式注册失败", "验证码出错，提交的验证码："+StringUtil.filterXss(request.getParameter("code")));
+			vo.setBaseVO(capVO);
+			return vo;
+		}else{
 			//验证码校验通过
 			User user = new User();
 			user.setUsername(StringUtil.filterXss(username));
@@ -219,10 +219,12 @@ public class LoginController extends BaseController {
 				vo.setUser(getUser());
 			}else{
 				ActionLogUtil.insert(request, "用户名密码模式注册失败",baseVO.getInfo());
+				vo.setBaseVO(BaseVO.FAILURE, baseVO.getInfo());
+				return vo;
 			}
 			
 			return vo;
-//		}
+		}
 	}
 	
 	/**
