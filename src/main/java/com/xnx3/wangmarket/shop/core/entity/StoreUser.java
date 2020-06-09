@@ -1,11 +1,8 @@
 package com.xnx3.wangmarket.shop.core.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
@@ -18,18 +15,18 @@ import com.xnx3.j2ee.entity.User;
 @Entity
 @Table(name = "shop_store_user", indexes={@Index(name="suoyin_index",columnList="userid,storeid")})
 public class StoreUser implements Serializable{
-	private Integer id;			//自动编号
+	private String id;			//userid_storeid的组合体， 如  219_1
 	private Integer userid;		//用户id，对应 User.id
 	private Integer storeid;	//此用户属于哪个商家，是哪个商家的用户
+	private String referrerid;	//此用户的推荐人id, 注意，此处并不是 user.id 而是推荐人的 StoreUser.id 
 	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
+	@Column(name = "id", columnDefinition="char(20) comment 'userid_storeid的组合体， 如  219_1'")
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
@@ -49,6 +46,15 @@ public class StoreUser implements Serializable{
 
 	public void setStoreid(Integer storeid) {
 		this.storeid = storeid;
+	}
+	
+	@Column(name = "referrerid", columnDefinition="char(20) comment '此用户的推荐人id, 注意，此处并不是 user.id 而是推荐人的 StoreUser.id ，这里面的值是userid_storeid的组合体， 如  219_1'")
+	public String getReferrerid() {
+		return referrerid;
+	}
+
+	public void setReferrerid(String referrerid) {
+		this.referrerid = referrerid;
 	}
 
 	@Override

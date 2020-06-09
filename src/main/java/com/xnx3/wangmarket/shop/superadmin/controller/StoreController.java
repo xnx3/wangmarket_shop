@@ -120,6 +120,7 @@ public class StoreController extends BasePluginController {
 		
 		//店铺、用户 都创建完毕，那么创建用户跟店铺关联
 		StoreUser storeUser = new StoreUser();
+		storeUser.setId(user.getId()+"_"+store.getId());
 		storeUser.setStoreid(store.getId());
 		storeUser.setUserid(user.getId());
 		sqlService.save(storeUser);

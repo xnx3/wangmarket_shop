@@ -50,7 +50,7 @@ public class IndexController extends BasePluginController {
 	 * 微信h5授权获取用户openid，也仅仅只是获取用户的openid，获取不到其他信息。
 	 * 进入后会直接进行重定向到传入的url页面，在这个url页面即可或得到用户的openid 。注意，传入的url，域名一定是提前在微信公众号接口权限表-网页服务-网页帐号-网页授权获取用户基本信息 中配置的网址
 	 * @param storeid 进入的是哪个店铺
-	 * @param referrerid 推荐人id，这个在创建用户信息时，会计入用户的 user.referrerid。 可不填
+	 * @param referrerid 推荐人id，这里传入的是推荐人的 user.id 这个在创建用户信息时，会跟storeid一块计入用户的 StoreUser.referrerid。 可不填
 	 * @param url 登录成功后要跳转到的url页面，格式如： http://demo.imall.net.cn/index.html?a=1&b=2 
 	 */
 	@RequestMapping("hiddenAuthJump${url.suffix}")
@@ -68,7 +68,7 @@ public class IndexController extends BasePluginController {
 		}
 		
 		url = url.replace("?", "%3F").replaceAll("&", "%26");
-		url = SystemUtil.get("MASTER_SITE_URL")+"plugin/weixinH5Auth/wxAuthLogin.do?storeid=1%26url="+url;
+		url = SystemUtil.get("MASTER_SITE_URL")+"plugin/weixinH5Auth/wxAuthLogin.do?storeid="+storeid+"%26referrerid="+referrerid+"%26url="+url;
 		String jumpUrl = util.getOauth2ExpertUrl(url);
 		ConsoleUtil.log(jumpUrl);
 		return redirect(jumpUrl);
@@ -163,8 +163,17 @@ public class IndexController extends BasePluginController {
 				
 				//保存 store user 的关系
 				StoreUser storeUser = new StoreUser();
+				storeUser.setId(user.getId()+"_"+storeid);
 				storeUser.setStoreid(storeid);
 				storeUser.setUserid(user.getId());
+				//判断其是否有推荐人
+				if(referrerid > 0){
+					//从StoreUser表中，看是否有这个 id ,也就是这个推荐人是否真的存在
+					StoreUser referrerStoreUser = sqlCacheService.findById(StoreUser.class, referrerid+"_"+storeid);
+					if(referrerStoreUser != null){
+						storeUser.setReferrerid(referrerStoreUser.getId());
+					}
+				}
 				sqlService.save(storeUser);
 				
 				ConsoleUtil.info("reg --- > "+user.toString());

@@ -95,6 +95,7 @@ public class LoginController extends BaseController {
 					StoreUser storeUser = sqlCacheService.findBySql(StoreUser.class, "userid="+user.getId()+" AND storeid="+storeid);
 					if(storeUser == null){
 						storeUser = new StoreUser();
+						storeUser.setId(user.getId()+"_"+storeid);
 						storeUser.setStoreid(storeid);
 						storeUser.setUserid(user.getId());
 						sqlService.save(storeUser);
@@ -134,6 +135,7 @@ public class LoginController extends BaseController {
 	 * @param password 要注册当用户的密码（必填）
 	 * @param code 图片验证码（必填）
 	 * @param storeid 此用户是通过哪个店铺注册的（必填）
+	 * @param referrerid 推荐人id，这里传入的是推荐人的 user.id 这个在创建用户信息时，会跟storeid一块计入用户的 StoreUser.referrerid。 可不填
 	 * @return vo result:
 	 * 			<ul>
 	 * 				<li>0:失败</li>
@@ -146,7 +148,8 @@ public class LoginController extends BaseController {
 			@RequestParam(value = "username", required = false, defaultValue="") String username,
 			@RequestParam(value = "password", required = false, defaultValue="") String password,
 			@RequestParam(value = "code", required = false, defaultValue="") String code,
-			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
+			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
+			@RequestParam(value = "referrerid", required = false, defaultValue="0") int referrerid){
 		LoginVO vo = new LoginVO();
 		if(username.length() == 0){
 			vo.setBaseVO(BaseVO.FAILURE, "请传入用户名");
@@ -156,10 +159,10 @@ public class LoginController extends BaseController {
 			vo.setBaseVO(BaseVO.FAILURE, "请传入密码");
 			return vo;
 		}
-		if(code.length() == 0){
-			vo.setBaseVO(BaseVO.FAILURE, "请传入验证码");
-			return vo;
-		}
+//		if(code.length() == 0){
+//			vo.setBaseVO(BaseVO.FAILURE, "请传入验证码");
+//			return vo;
+//		}
 		if(storeid < 1){
 			vo.setBaseVO(BaseVO.FAILURE, "请传入店铺id");
 			return vo;
@@ -172,17 +175,17 @@ public class LoginController extends BaseController {
 		}
 		
 		//验证码校验
-		BaseVO capVO = com.xnx3.j2ee.util.CaptchaUtil.compare(request.getParameter("code"), request);
-		if(capVO.getResult() == BaseVO.FAILURE){
-			ActionLogUtil.insert(request, "用户名密码模式注册失败", "验证码出错，提交的验证码："+StringUtil.filterXss(request.getParameter("code")));
-			vo.setBaseVO(capVO);
-			return vo;
-		}else{
+//		BaseVO capVO = com.xnx3.j2ee.util.CaptchaUtil.compare(request.getParameter("code"), request);
+//		if(capVO.getResult() == BaseVO.FAILURE){
+//			ActionLogUtil.insert(request, "用户名密码模式注册失败", "验证码出错，提交的验证码："+StringUtil.filterXss(request.getParameter("code")));
+//			vo.setBaseVO(capVO);
+//			return vo;
+//		}else{
 			//验证码校验通过
 			User user = new User();
 			user.setUsername(StringUtil.filterXss(username));
 			user.setPassword(password);
-			user.setReferrerid(store != null? store.getUserid():0);
+			user.setReferrerid(referrerid);
 			BaseVO baseVO = userService.createUser(user, request);
 			
 			if(baseVO.getResult() == BaseVO.SUCCESS){
@@ -191,8 +194,17 @@ public class LoginController extends BaseController {
 				
 				//注册成功后，将这个用户加入这个商家名下，是这个商家的客户
 				StoreUser storeUser = new StoreUser();
+				storeUser.setId(user.getId()+"_"+storeid);
 				storeUser.setStoreid(storeid);
 				storeUser.setUserid(userid);
+				//判断其是否有推荐人
+				if(referrerid > 0){
+					//从StoreUser表中，看是否有这个 id ,也就是这个推荐人是否真的存在
+					StoreUser referrerStoreUser = sqlCacheService.findById(StoreUser.class, referrerid+"_"+storeid);
+					if(referrerStoreUser != null){
+						storeUser.setReferrerid(referrerStoreUser.getId());
+					}
+				}
 				sqlService.save(storeUser);
 				
 				//将当前用户变为已登陆状态
@@ -210,7 +222,7 @@ public class LoginController extends BaseController {
 			}
 			
 			return vo;
-		}
+//		}
 	}
 	
 	/**
