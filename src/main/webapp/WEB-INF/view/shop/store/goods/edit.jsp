@@ -251,8 +251,8 @@ layui.use('upload', function(){
 		}
 		var price = $("#price").val();
 		var originalPrice = $("#originalPrice").val();
-		d = d + "&price=" + parseInt(price*100);
-		d = d + "&originalPrice=" + parseInt(originalPrice*100);
+		d = d + "&price=" + Math.round(price*100);
+		d = d + "&originalPrice=" + Math.round(originalPrice*100);
 		//表单序列化
 		parent.msg.loading('保存中');
 		$.post("/shop/store/goods/save.do", d, function (result) {
