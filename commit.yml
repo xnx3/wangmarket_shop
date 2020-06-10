@@ -3,33 +3,33 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'b9dbdcb97e8df23bd0afd205c956d9691ef4e484'
-    oldFile: !uuid '1f402a07c3055bce06091530718117710aa2f1ea'
+    newFile: !uuid '5d2ce7b7e7470626282207a227d50b3a6362d3a9'
+    oldFile: !uuid 'b9dbdcb97e8df23bd0afd205c956d9691ef4e484'
   /src/main:
-    newFile: !uuid '1e4e606965236aa89e0ed65254bbf893622a37a9'
-    oldFile: !uuid '0f9748d7942fb48e19649c887903659fee549e1e'
+    newFile: !uuid '404f0eb2bd2cd94162492563d32aba5f135d177e'
+    oldFile: !uuid '1e4e606965236aa89e0ed65254bbf893622a37a9'
   /src/main/webapp:
-    newFile: !uuid '70dcbb8d0b874e97e2b582736cb50d55c4c3a5c6'
-    oldFile: !uuid 'f5633fef3cdc6d86aadf2bd1fbeda1dd2ec2a3f6'
+    newFile: !uuid 'ccd84f7b7ef9c1c522ac8539d1273059e5ff67ed'
+    oldFile: !uuid '70dcbb8d0b874e97e2b582736cb50d55c4c3a5c6'
   /src/main/webapp/WEB-INF:
-    newFile: !uuid 'c238c9ecab2b00400534359c5e726fb476307292'
-    oldFile: !uuid '1ee998b3cc7a096ffafb2135aad159e5ea6c0eff'
+    newFile: !uuid '839885088d9deaa43b03fcc594149b032aa07326'
+    oldFile: !uuid 'c238c9ecab2b00400534359c5e726fb476307292'
   /src/main/webapp/WEB-INF/view:
-    newFile: !uuid 'b94b5b68487a30c7d8815c464f4b3944118739b6'
-    oldFile: !uuid 'e0b72eca8cf77850e1a14ab0fb43300d5d4c9bed'
+    newFile: !uuid 'e19fde06c8ed3f29c6a79a45c637d2871500165f'
+    oldFile: !uuid 'b94b5b68487a30c7d8815c464f4b3944118739b6'
   /src/main/webapp/WEB-INF/view/shop:
-    newFile: !uuid '2c1c0c6919db9d18177d7d21a82d74f0428c639e'
-    oldFile: !uuid '59d1c0ed6087b421132641b5f37d2b7de49e0125'
+    newFile: !uuid '7a40fe294aa28bae6da73dfaa3058cf33a6d5610'
+    oldFile: !uuid '2c1c0c6919db9d18177d7d21a82d74f0428c639e'
   /src/main/webapp/WEB-INF/view/shop/store:
-    newFile: !uuid '6f4d25e4f5985d05c90856ec9488d8968698b733'
-    oldFile: !uuid 'fbc9a2974deff7df1d58e5787d3fe2b933f9837d'
-  /src/main/webapp/WEB-INF/view/shop/store/goods:
-    newFile: !uuid 'e96d4400f6cdb04897915abb5f5ca4f8e37073d4'
-    oldFile: !uuid '69e417a8a77bc0a19432741059b1a491b6c79576'
-  /src/main/webapp/WEB-INF/view/shop/store/goods/edit.jsp:
-    newFile: !uuid 'eb170dc50f93c30b7cb1a2830b8df3dff0d084c0'
-    oldFile: !uuid 'c3290ed0f19ea81032f1fffb7f9df5f36f81fa57'
-gitCommitId: !uuid '92c3631927e8c0cdba988f1daea7712c347fc3c5'
+    newFile: !uuid '41bb95b71fae96f1171d13bb211b6b2393ecdc47'
+    oldFile: !uuid '6f4d25e4f5985d05c90856ec9488d8968698b733'
+  /src/main/webapp/WEB-INF/view/shop/store/index:
+    newFile: !uuid '1af158f6e0baca84ffdd3db7f356cb0a91397285'
+    oldFile: !uuid '30aaf4400634ee59a50fdfaa15c923458bef7d07'
+  /src/main/webapp/WEB-INF/view/shop/store/index/welcome.jsp:
+    newFile: !uuid '7ec12c659b3822dc84dd58b5ca0b59811a378dc5'
+    oldFile: !uuid '9048f6d778679028cd29e3813257747f82ba5eba'
+gitCommitId: !uuid '7d96ad0896f1b27dc306849441ea27fd2b35a26a'
 renames: {
   }
-revisionId: 150
+revisionId: 151
