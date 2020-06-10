@@ -109,9 +109,10 @@
 			<td>
 				${storeData.notice }
 				&nbsp;&nbsp;&nbsp;
-			    <a class="layui-btn layui-btn-xs" onclick="updateStoreData('notice','${storeData.notice}','编辑公告')" style="margin-left: 0;">
+			    <a class="layui-btn layui-btn-xs" onclick="updateStoreData('notice', document.getElementById('notice').innerHTML,'编辑公告')" style="margin-left: 0;">
 			  	   <i class="layui-icon">&#xe642;</i>
 			    </a>
+			    <div style="display:none;" id="notice">${storeData.notice}</div>
 			</td>
 		</tr>
     </tbody>
