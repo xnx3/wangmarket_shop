@@ -79,7 +79,7 @@
 				   <i class="layui-icon">&#xe642;</i>
 				</a>
 			</td>
-		</tr> 
+		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">所在区域</td>
 			<td>${store.province }${store.city }${store.district }
