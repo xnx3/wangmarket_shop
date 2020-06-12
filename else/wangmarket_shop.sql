@@ -881,7 +881,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_store_user`;
 CREATE TABLE `shop_store_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` char(20) NOT NULL COLLATE utf8_unicode_ci,
   `storeid` int(11) DEFAULT NULL COMMENT '此用户拥有哪个站点的管理权。开通子账号会用到这个。如果这个有值，那么就是子账号了。对应 store.id',
   `userid` int(11) DEFAULT NULL COMMENT '用户id，对应 User.id',
   PRIMARY KEY (`id`),
