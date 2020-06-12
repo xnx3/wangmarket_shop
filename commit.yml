@@ -2,34 +2,13 @@
 branches: {
   }
 fileChange:
-  /src:
-    newFile: !uuid 'eb926aa32a106b5b7cf24ea4fa07e54b1244f7d6'
-    oldFile: !uuid '5d2ce7b7e7470626282207a227d50b3a6362d3a9'
-  /src/main:
-    newFile: !uuid '0d82991fa0f05d0930482353571519a9d11108ce'
-    oldFile: !uuid '404f0eb2bd2cd94162492563d32aba5f135d177e'
-  /src/main/webapp:
-    newFile: !uuid 'fe47f7ef23ea1a451c01d612f5d8417e4267bddd'
-    oldFile: !uuid 'ccd84f7b7ef9c1c522ac8539d1273059e5ff67ed'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid '08e61161e7d2d2f321464056e56d769bb45c8759'
-    oldFile: !uuid '839885088d9deaa43b03fcc594149b032aa07326'
-  /src/main/webapp/WEB-INF/view:
-    newFile: !uuid '1dfc8f8f8b02ce0e237c53d611b62bd9642b246e'
-    oldFile: !uuid 'e19fde06c8ed3f29c6a79a45c637d2871500165f'
-  /src/main/webapp/WEB-INF/view/shop:
-    newFile: !uuid 'caf0860539b3a629b5baabf2e523fc1016bbb658'
-    oldFile: !uuid '7a40fe294aa28bae6da73dfaa3058cf33a6d5610'
-  /src/main/webapp/WEB-INF/view/shop/store:
-    newFile: !uuid '86001fab9bf5eea626f8891e42f5a47dcadc3447'
-    oldFile: !uuid '41bb95b71fae96f1171d13bb211b6b2393ecdc47'
-  /src/main/webapp/WEB-INF/view/shop/store/index:
-    newFile: !uuid '86c91be29db05014b1d7b728ac3684b74a5e8687'
-    oldFile: !uuid '1af158f6e0baca84ffdd3db7f356cb0a91397285'
-  /src/main/webapp/WEB-INF/view/shop/store/index/welcome.jsp:
-    newFile: !uuid '7cec814552b4978b43c1ccc1da0461135d130f2a'
-    oldFile: !uuid '7ec12c659b3822dc84dd58b5ca0b59811a378dc5'
-gitCommitId: !uuid 'a7ce7fa06a00fec9b0efe6c2d25844cb0d7a7678'
+  /else:
+    newFile: !uuid '06d39306c556eb998eda36a22331d2c002467182'
+    oldFile: !uuid 'e761177c5af4abd42c5a90e348e58739cb0577a1'
+  /else/wangmarket_shop.sql:
+    newFile: !uuid 'b4f2dd660dc4aab3710402297590708f106485fe'
+    oldFile: !uuid 'e211e2d2b131bfa347601fbaafec511d0ce97c49'
+gitCommitId: !uuid '78e8e3f108f0cd5e6cef2bf203d55d6463556fa9'
 renames: {
   }
-revisionId: 152
+revisionId: 153
