@@ -1,3 +1,4 @@
+<%@page import="com.xnx3.j2ee.util.SystemUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib uri="http://www.xnx3.com/java_xnx3/xnx3_tld" prefix="x" %>
@@ -41,7 +42,21 @@
 			
 		</div>
 	</div>
+	<div id="zijigongzhonghao" style="display:none; padding-left:20px; padding-top:100px;">
+		<h2>注意，您用的是自己的公众号，需要设置网页授权域名：</h2>
+		1. 登录您的微信公众号，找到左侧菜单的 开发 - 接口权限  ，打开，
+		<br/>2. 接口权限中找到  网页服务 - 网页授权 - 网页授权获取用户基本信息 ，点击右侧的 修改 ，
+		<br/>3. 进入修改页面后，找到其中的 网页授权域名 这一项，点击设置，吧你域名 <%=request.getServerName() %> 设置上
 		
+		<img src="/plugin/weixinH5Auth/images/wangyeshouquanshezhi.jpg" style="width:70%;" />
+		<script>
+			if('${payset.useWeixinServiceProviderPay }' == '0'){
+				//使用自己配置的公众号，那么需要再公众号上设定网页授权获取用户基本信息的域名
+				document.getElementById('zijigongzhonghao').style.display='';
+			}
+		</script>	
+	</div>
+	
 </div>
 
 
@@ -58,7 +73,7 @@ if('${setgongzhonghoa}' == 'true'){
 function gainUrl(){
 	var url = document.getElementById('url').value
 	document.getElementById('generateUrl').innerHTML = '<h3 style="padding-bottom:5px;">生成的url：</h3>'+
-					'http://shop.imall.net.cn/plugin/weixinH5Auth/hiddenAuthJump.do?storeid=${store.id}&url='+url+
+					'<%=SystemUtil.get("MASTER_SITE_URL") %>plugin/weixinH5Auth/hiddenAuthJump.do?storeid=${store.id}&url='+url+
 					'<br/><br/>您可以将此生成的url，放到到微信公众号中、或做成二维码供其他人扫码使用、或发送给群聊或者朋友，别人打开即可自动登录进去，跳转到您所设置的'+url;
 	//设置缓存
 	localStorage.setItem("wangmarket_shop_weixinH5Auth_url", url);
