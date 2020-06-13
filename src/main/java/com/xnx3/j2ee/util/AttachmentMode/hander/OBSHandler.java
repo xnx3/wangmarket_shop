@@ -13,7 +13,6 @@ import com.obs.services.ObsClient;
 import com.obs.services.exception.ObsException;
 import com.obs.services.model.AccessControlList;
 import com.obs.services.model.DeleteObjectResult;
-import com.obs.services.model.HeaderResponse;
 import com.obs.services.model.ListObjectsRequest;
 import com.obs.services.model.ObjectListing;
 import com.obs.services.model.ObjectMetadata;
@@ -22,6 +21,8 @@ import com.obs.services.model.ObsObject;
 import com.obs.services.model.PutObjectResult;
 import com.obs.services.model.S3Bucket;
 import com.obs.services.model.StorageClassEnum;
+import com.xnx3.StringUtil;
+import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.UploadFileVO;
 
 /**
@@ -33,7 +34,7 @@ public class OBSHandler {
 	
 	private String accessKeyId;// 华为云的 Access Key Id
 	private String accessKeySecret;// 华为云的 Access Key Secret
-	private String endpoint; // 华为云连接的地址节点
+	public String endpoint; // 华为云连接的地址节点
 	
 	private String obsBucketName; // 创建的桶的名称
 	private String url; // 访问OBS文件的url
@@ -278,7 +279,13 @@ public class OBSHandler {
 	 * @return 桶原生的访问前缀，即不经过CDN加速的访问路径
 	 */
 	public String getOriginalUrlForOBS() {
-		return "//" + obsBucketName + "." + endpoint.substring(8, endpoint.length()) + "/";
+		String endpoint_ = "";
+		if(this.endpoint.indexOf("https://") > -1){
+			endpoint_ = this.endpoint.substring(8, this.endpoint.length());
+		}else{
+			endpoint_ = this.endpoint;
+		}
+		return "//" + obsBucketName + "." + endpoint_ + "/";
 	}
 	
 	/**
@@ -303,6 +310,13 @@ public class OBSHandler {
 	 * @return 新创建的桶的名字
 	 */
 	public String createOBSBucket(String obsBucketName) {
+		if(this.endpoint == null || this.endpoint.length() == 0){
+			ConsoleUtil.error("error ! obs endpoint is null");
+			return "endpoint is null";
+		}
+		String location = StringUtil.subString(this.endpoint, "obs.", ".myhuaweicloud.com");
+		ConsoleUtil.log("setLocation : "+location);
+				
 		// 将桶的名字进行保存
 		this.obsBucketName = obsBucketName;
 		ObsBucket obsBucket = new ObsBucket();
@@ -311,22 +325,9 @@ public class OBSHandler {
 		obsBucket.setAcl(AccessControlList.REST_CANNED_PUBLIC_READ);
 		// 设置桶的存储类型为标准存储
 		obsBucket.setBucketStorageClass(StorageClassEnum.STANDARD);
+		obsBucket.setLocation(location);
 		// 创建桶
 		getObsClient().createBucket(obsBucket);
-		try{
-		    // 创建桶成功
-//		    HeaderResponse response = getObsClient().createBucket("bucketname");
-		    HeaderResponse response = getObsClient().createBucket(obsBucket);
-		    System.out.println(response.getRequestId());
-		}catch (ObsException e){
-		    // 创建桶失败
-		    System.out.println("HTTP Code: " + e.getResponseCode());
-		    System.out.println("Error Code:" + e.getErrorCode());
-		    System.out.println("Error Message: " + e.getErrorMessage());
-		    
-		    System.out.println("Request ID:" + e.getErrorRequestId());
-		    System.out.println("Host ID:" + e.getErrorHostId());
-		}
 		//设置桶策略
 		String json = "{"
 				+ "\"Statement\":["
