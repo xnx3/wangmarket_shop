@@ -19,6 +19,12 @@
 <table class="layui-table iw_table" lay-even lay-skin="nob" style="margin:3%; width:94%;">
 	<tbody>
 		<tr>
+			<td class="iw_table_td_view_name">storeid</td>
+			<td>
+				${store.id } 
+			</td>
+		</tr>
+		<tr>
 			<td class="iw_table_td_view_name">店铺名称</td>
 			<td>
 				${store.name } 
