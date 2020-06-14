@@ -243,6 +243,7 @@ public class PayController extends BasePluginController {
 			//如果当前支付方式不符合，那么返回错误提示
 			return error(vo.getInfo());
 		}
+		vo.getWeiXinPayUtil().debug = true;
 		//记录日志
 		ActionLogUtil.insert(request, "发起支付请求", order.toString());
 				

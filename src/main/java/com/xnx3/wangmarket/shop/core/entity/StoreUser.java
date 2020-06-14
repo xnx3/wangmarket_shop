@@ -13,7 +13,7 @@ import com.xnx3.j2ee.entity.User;
  * @author 管雷鸣
  */
 @Entity
-@Table(name = "shop_store_user", indexes={@Index(name="suoyin_index",columnList="userid,storeid")})
+@Table(name = "shop_store_user", indexes={@Index(name="suoyin_index",columnList="userid,storeid,referrerid")})
 public class StoreUser implements Serializable{
 	private String id;			//userid_storeid的组合体， 如  219_1
 	private Integer userid;		//用户id，对应 User.id

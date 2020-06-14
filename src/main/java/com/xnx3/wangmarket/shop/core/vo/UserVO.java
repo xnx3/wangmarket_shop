@@ -24,6 +24,7 @@ public class UserVO extends BaseVO{
 			userBean.setNickname(user.getNickname());
 			userBean.setPhone(user.getPhone());
 			userBean.setUsername(user.getUsername());
+			userBean.setRegtime(user.getRegtime());
 		}
 		this.user = userBean;
 	}
