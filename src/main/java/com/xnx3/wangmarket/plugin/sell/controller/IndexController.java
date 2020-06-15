@@ -1,5 +1,7 @@
 package com.xnx3.wangmarket.plugin.sell.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -12,9 +14,16 @@ import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.j2ee.util.Page;
+import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.util.SystemUtil;
+import com.xnx3.wangmarket.plugin.sell.entity.SellCommissionLog;
+import com.xnx3.wangmarket.plugin.sell.vo.CommissionLogListVO;
 import com.xnx3.wangmarket.plugin.sell.vo.ShareUrlVO;
+import com.xnx3.wangmarket.plugin.sell.vo.SubUserListVO;
+import com.xnx3.wangmarket.shop.core.entity.StoreUser;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
+import com.xnx3.wangmarket.shop.core.vo.StoreUserListVO;
 
 /**
  * 二级分销，用户端接口
@@ -67,5 +76,45 @@ public class IndexController extends BasePluginController {
 		return vo;
 	}
 	
+	/**
+	 * 查看自己的直属下级列表，自己推荐的一级下级，二级是不体现的
+	 * @param storeid 当前商铺的id
+	 */
+	@ResponseBody
+	@RequestMapping(value="/subUserList${api.suffix}",method= {RequestMethod.POST})
+	public SubUserListVO list(HttpServletRequest request,Model model,
+			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid) {
+		SubUserListVO vo = new SubUserListVO();
+		User user = getUser();
+		
+		//创建Sql
+		Sql sql = new Sql(request);
+		//配置查询那个表
+		sql.setSearchTable("shop_store_user");
+		//查询条件
+		sql.appendWhere("shop_store_user.referrerid = '"+user.getId()+"_"+storeid+"'");
+		//配置按某个字端搜索内容
+//		sql.setSearchColumn(new String[] {"typeid"});
+		// 查询数据表的记录总条数
+		int count = sqlService.count("shop_store_user", sql.getWhere());
+		
+		// 配置每页显示30条
+		Page page = new Page(count, 30, request);
+		// 查询出总页数
+		sql.setSelectFromAndPage("SELECT user.* FROM shop_store_user,user ", page);
+		sql.appendWhere("user.id = shop_store_user.userid");
+		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
+//		sql.setDefaultOrderBy("id DESC");
+		System.out.println(sql.getSql());
+		// 按照上方条件查询出该实体总数 用集合来装
+		List<User> list = sqlService.findBySql(sql,User.class);
+		
+		vo.setList(list);
+		vo.setPage(page);
+		
+		//日志记录
+		ActionLogUtil.insert(request, getUserId(), "查看自己的下级列表");
+		return vo;
+	}
 	
 }

@@ -20,14 +20,13 @@ public class SpringMVCInterceptorUserApiLogin implements SpringMVCInterceptorInt
 	public List<String> pathPatterns() {
 		List<String> list = new ArrayList<String>();
 		list.add("/plugin/sell/*.json");
+		list.add("/plugin/sell/commission/*.json");
  		return list;
 	}
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		String path = request.getServletPath();
-		
 		//未登录
 		if(!SessionUtil.isLogin()){
 			response.setHeader("Access-Control-Allow-Origin", "*");

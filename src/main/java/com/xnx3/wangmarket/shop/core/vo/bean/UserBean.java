@@ -12,6 +12,7 @@ public class UserBean {
 	private String head;		//头像,图片文件名，如 29.jpg
 	private String nickname;	//昵称
 	private String phone;		//手机号
+	private Integer regtime;	//用户注册的时间
 	
 	public Integer getId() {
 		return id;
@@ -63,4 +64,15 @@ public class UserBean {
 			this.phone = phone;
 		}
 	}
+	public Integer getRegtime() {
+		return regtime;
+	}
+	public void setRegtime(Integer regtime) {
+		if(id == null) {
+			this.regtime = 0;
+		}else {
+			this.regtime = regtime;
+		}
+	}
+	
 }

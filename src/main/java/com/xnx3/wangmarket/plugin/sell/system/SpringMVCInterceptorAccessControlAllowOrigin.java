@@ -19,6 +19,7 @@ public class SpringMVCInterceptorAccessControlAllowOrigin implements SpringMVCIn
 	public List<String> pathPatterns() {
 		List<String> list = new ArrayList<String>();
  		list.add("/plugin/sell/*.json");
+ 		list.add("/plugin/sell/commission/*.json");
  		return list;
 	}
 
