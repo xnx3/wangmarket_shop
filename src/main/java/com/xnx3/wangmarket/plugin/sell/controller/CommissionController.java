@@ -38,10 +38,12 @@ public class CommissionController extends BasePluginController {
 	
 	/**
 	 * 查看自己的佣金记录列表
+	 * @param storeid 当前商铺的id
 	 */
 	@ResponseBody
 	@RequestMapping(value="/list${api.suffix}",method= {RequestMethod.POST})
-	public CommissionLogListVO list(HttpServletRequest request,Model model) {
+	public CommissionLogListVO list(HttpServletRequest request,Model model,
+			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid) {
 		CommissionLogListVO vo = new CommissionLogListVO();
 		User user = getUser();
 		
@@ -50,7 +52,7 @@ public class CommissionController extends BasePluginController {
 		//配置查询那个表
 		sql.setSearchTable("plugin_sell_commission_log");
 		//查询条件
-		sql.appendWhere("userid = " + user.getId());
+		sql.appendWhere("userid = " + user.getId()+" AND storeid = "+storeid);
 		//配置按某个字端搜索内容
 //		sql.setSearchColumn(new String[] {"typeid"});
 		// 查询数据表的记录总条数
