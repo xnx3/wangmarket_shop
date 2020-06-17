@@ -1,5 +1,6 @@
 package com.xnx3.wangmarket.shop.api.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,12 +18,14 @@ import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
+import com.xnx3.j2ee.pluginManage.interfaces.manage.SuperAdminIndexPluginManage;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.json.JSONUtil;
+import com.xnx3.wangmarket.shop.core.bean.BuyGoods;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
@@ -32,6 +35,7 @@ import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderCreatePluginManage;
 import com.xnx3.wangmarket.shop.core.service.CartService;
 import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
 import com.xnx3.wangmarket.shop.core.service.OrderService;
@@ -176,6 +180,14 @@ public class OrderController extends BasePluginController {
 		//当前登录的用户
 		User user = SessionUtil.getUser();
 		
+		//该订单的地址信息
+		OrderAddress orderAddress = new OrderAddress();
+		orderAddress.setLatitude(DoubleUtil.stringToDouble(addressLatitude, 0d));
+		orderAddress.setLongitude(DoubleUtil.stringToDouble(addressLongitude, 0d));
+		orderAddress.setPhone(StringUtil.filterXss(addressPhone));
+		orderAddress.setAddress(StringUtil.filterXss(addressAddress));
+		orderAddress.setUsername(StringUtil.filterXss(addressUsername));
+		
 		/**** 创建订单 ****/
 		Order order = new Order();
 		order.setAddtime(DateUtil.timeForUnix10());
@@ -189,6 +201,20 @@ public class OrderController extends BasePluginController {
 		String no = (StringUtil.intTo36(DateUtil.timeForUnix10())+StringUtil.getRandom09AZ(4)).toUpperCase() ; //小写字母变大写
 		order.setNo(no);	//10位
 		order.setVersion(0);
+		
+		/*** 下单前拦截插件 ***/
+		try {
+			com.xnx3.BaseVO bvo = OrderCreatePluginManage.before(order, buyGoodsList, orderAddress, user, store);
+			if(bvo.getResult() - BaseVO.FAILURE == 0){
+				//只要有其中某一个插件返回失败，那订单就创建不成功
+				vo.setBaseVOForSuper(bvo);
+				return vo;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		/*********/
+		
 		sqlService.save(order);
 		if(order.getId() == null || order.getId() == 0){
 			vo.setBaseVO(OrderVO.FAILURE, "订单创建失败！");
@@ -216,13 +242,7 @@ public class OrderController extends BasePluginController {
 		}
 		
 		//创建订单对应的地址信息
-		OrderAddress orderAddress = new OrderAddress();
 		orderAddress.setId(order.getId());
-		orderAddress.setLatitude(DoubleUtil.stringToDouble(addressLatitude, 0d));
-		orderAddress.setLongitude(DoubleUtil.stringToDouble(addressLongitude, 0d));
-		orderAddress.setPhone(StringUtil.filterXss(addressPhone));
-		orderAddress.setAddress(StringUtil.filterXss(addressAddress));
-		orderAddress.setUsername(StringUtil.filterXss(addressUsername));
 		sqlService.save(orderAddress);
 		
 		//创建订单未支付超时监控
@@ -251,8 +271,16 @@ public class OrderController extends BasePluginController {
 			Goods goods = buyGoodsList.get(i).getGoods();
 			cartService.change(goods.getId(), -99999);
 		}
-		
 		vo.setOrder(order);
+		
+		/*** 下单后拦截插件 ***/
+		try {
+			OrderCreatePluginManage.after(order, buyGoodsList, orderAddress, user, store);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		/*********/
+		
 		return vo;
 	}
 	
@@ -688,36 +716,4 @@ public class OrderController extends BasePluginController {
 		return vo;
 	}
 	
-}
-
-/**
- * 创建订单，购买的商品
- * @author 管雷鸣
- *
- */
-class BuyGoods {
-	
-	private int goodsid;	//购买的是那个商品，对应Goods.id
-	private int num;		//购买商品的数量
-	private Goods goods;	//购买的商品信息，这个是直接从数据表取的
-	
-	public int getGoodsid() {
-		return goodsid;
-	}
-	public void setGoodsid(int goodsid) {
-		this.goodsid = goodsid;
-	}
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
-	
-	public Goods getGoods() {
-		return goods;
-	}
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
 }
