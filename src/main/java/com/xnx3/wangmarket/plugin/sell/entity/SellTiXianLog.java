@@ -1,8 +1,11 @@
 package com.xnx3.wangmarket.plugin.sell.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
@@ -15,7 +18,7 @@ import com.xnx3.j2ee.entity.User;
 @Entity
 @Table(name = "plugin_sell_tixian", indexes={@Index(name="suoyin_index",columnList="userid,storeid,addtime,state")})
 public class SellTiXianLog implements Serializable{
-	private String id;			//userid_storeid的组合体， 如  219_1
+	private Integer id;			//自动编号
 	private Integer userid;		//用户id，对应 User.id
 	private Integer storeid;	//此用户属于哪个商家，是哪个商家的用户
 	private Integer money;		//此次提现金额，单位是分
@@ -26,12 +29,13 @@ public class SellTiXianLog implements Serializable{
 	private String card;		//卡号,收款账号
 	
 	@Id
-	@Column(name = "id", columnDefinition="char(20) comment 'userid_storeid的组合体， 如  219_1'")
-	public String getId() {
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false, columnDefinition="int(11) comment '自增，自动编号'")
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

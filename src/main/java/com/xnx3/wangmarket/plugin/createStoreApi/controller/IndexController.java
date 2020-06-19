@@ -2,7 +2,6 @@ package com.xnx3.wangmarket.plugin.createStoreApi.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,17 +23,14 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.ApplicationPropertiesUtil;
 import com.xnx3.j2ee.util.CacheUtil;
 import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.j2ee.vo.LoginVO;
 import com.xnx3.net.AuthHttpUtil;
 import com.xnx3.net.HttpResponse;
-import com.xnx3.wangmarket.Authorization;
 import com.xnx3.wangmarket.plugin.createStoreApi.entity.AuthStoreBind;
 import com.xnx3.wangmarket.plugin.createStoreApi.entity.UserQuickLogin;
 import com.xnx3.wangmarket.plugin.createStoreApi.vo.RegVO;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
-
 import net.sf.json.JSONObject;
 
 /**

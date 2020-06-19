@@ -22,7 +22,7 @@ import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderReceiveGoodsIn
 public class Plugin implements OrderReceiveGoodsInterface{
 
 	@Override
-	public void finish(Order order) {
+	public void orderReceiveGoodsFinish(Order order) {
 		SqlCacheService sqlCacheService = SpringUtil.getBean(SqlCacheServiceImpl.class);
 		
 		//判断这个店铺是否开启了分销

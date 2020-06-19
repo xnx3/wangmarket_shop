@@ -14,6 +14,7 @@ import com.xnx3.BaseVO;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.pluginManage.PluginManage;
 import com.xnx3.j2ee.pluginManage.PluginRegister;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentUtil;
@@ -36,6 +37,8 @@ public class IndexController extends BaseController {
 	private SqlService sqlService;
 	@Resource
 	private StoreService storeService;
+	@Resource
+	private SqlCacheService sqlCacheService;
 	
 	
 	/**
@@ -105,6 +108,10 @@ public class IndexController extends BaseController {
 		Store store = sqlService.findById(Store.class, storeId);
 		store.setHead(vo.getUrl());
 		sqlService.save(store);
+		
+		//删除store缓存
+		sqlCacheService.deleteCacheById(Store.class, store.getId());
+		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, storeId, "Id为" + storeId + "的商家修改商家图片", "上传图片返回路径:" + vo.getUrl());
 		return success();
@@ -212,9 +219,11 @@ public class IndexController extends BaseController {
 		sqlService.save(store);
 		model.addAttribute("store", store);
 		
-		
 		//修改缓存的商家信息
 		SessionUtil.setStore(store);
+		//删除store缓存
+		sqlCacheService.deleteCacheById(Store.class, store.getId());
+		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, store.getId(), "Id为" + store.getId() + "的商家修改信息", "修改信息:" + store.toString());
 		return success();

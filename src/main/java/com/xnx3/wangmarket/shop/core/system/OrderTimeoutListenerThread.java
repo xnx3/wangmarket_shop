@@ -56,8 +56,8 @@ public class OrderTimeoutListenerThread extends Thread{
 		for (int i = 0; i < orderTimeoutList.size(); i++) {
 			OrderTimeout orderTimeout = orderTimeoutList.get(i);
 			Order order = sqlservice.findById(Order.class, orderTimeout.getId());
-			ConsoleUtil.info(order.toString());
-			if(order.getState().equals(orderTimeout.getState())){
+			if(order != null && order.getState().equals(orderTimeout.getState())){
+				ConsoleUtil.log("OrderTimeout Order : "+order.toString());
 				//状态符合，进行处理
 				if(order.getState().equals(Order.STATE_CREATE_BUT_NO_PAY)){
 					//已下单待付款，超时，那变为订单已取消

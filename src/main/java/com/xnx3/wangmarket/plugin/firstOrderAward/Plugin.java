@@ -29,7 +29,7 @@ public class Plugin implements OrderReceiveGoodsInterface{
 	public static final String CACHE_KEY_FINISH_COUNT = "shop:store:{storeid}:userid_{userid}:firstOrderAward:finishcount";
 	
 	@Override
-	public void finish(Order order) {
+	public void orderReceiveGoodsFinish(Order order) {
 		SqlService sqlService = SpringUtil.getSqlService();
 		SqlCacheService sqlCacheService = SpringUtil.getBean(SqlCacheServiceImpl.class);
 		SMSService smsService = SpringUtil.getBean(SMSServiceImpl.class);
