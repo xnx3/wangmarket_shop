@@ -4,13 +4,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import org.springframework.stereotype.Component;
-
 import com.xnx3.BaseVO;
 import com.xnx3.ScanClassUtil;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.wangmarket.shop.core.bean.BuyGoods;
-import com.xnx3.wangmarket.shop.core.entity.Address;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.Store;
@@ -41,7 +39,7 @@ public class OrderCreatePluginManage {
 	 * @param store 要下单的商品属于哪个店铺
 	 * @return {@link BaseVO}
 	 */
-	public static BaseVO before(Order order, List<BuyGoods> buyGoodsList, OrderAddress orderAddress, User user, Store store) 
+	public static BaseVO orderCreateBefore(Order order, List<BuyGoods> buyGoodsList, OrderAddress orderAddress, User user, Store store) 
 			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		/**** 针对html源代码处理的插件 ****/
 		for (int i = 0; i < classList.size(); i++) {
@@ -49,7 +47,7 @@ public class OrderCreatePluginManage {
 			Object invoke = null;
 			invoke = c.newInstance();
 			//运用newInstance()来生成这个新获取方法的实例  
-			Method m = c.getMethod("before",new Class[]{Order.class, List.class, OrderAddress.class, User.class, Store.class});	//获取要调用的方法  
+			Method m = c.getMethod("orderCreateBefore",new Class[]{Order.class, List.class, OrderAddress.class, User.class, Store.class});	//获取要调用的方法  
 			//动态构造的Method对象invoke委托动态构造的InvokeTest对象，执行对应形参的add方法
 			Object o = m.invoke(invoke, new Object[]{order, buyGoodsList, orderAddress, user, store});
 			if(o != null){
@@ -75,7 +73,7 @@ public class OrderCreatePluginManage {
 	 * @param store 要下单的商品属于哪个店铺
 	 * @return {@link BaseVO}
 	 */
-	public static void after(Order order, List<BuyGoods> buyGoodsList, OrderAddress orderAddress, User user, Store store) 
+	public static void orderCreateAfter(Order order, List<BuyGoods> buyGoodsList, OrderAddress orderAddress, User user, Store store) 
 			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		/**** 针对html源代码处理的插件 ****/
 		for (int i = 0; i < classList.size(); i++) {
@@ -83,7 +81,7 @@ public class OrderCreatePluginManage {
 			Object invoke = null;
 			invoke = c.newInstance();
 			//运用newInstance()来生成这个新获取方法的实例  
-			Method m = c.getMethod("after",new Class[]{Order.class, List.class, OrderAddress.class, User.class, Store.class});	//获取要调用的方法  
+			Method m = c.getMethod("orderCreateAfter",new Class[]{Order.class, List.class, OrderAddress.class, User.class, Store.class});	//获取要调用的方法  
 			//动态构造的Method对象invoke委托动态构造的InvokeTest对象，执行对应形参的add方法
 			m.invoke(invoke, new Object[]{order, buyGoodsList, orderAddress, user, store});
 		}

@@ -22,6 +22,7 @@ import com.xnx3.j2ee.pluginManage.interfaces.manage.SuperAdminIndexPluginManage;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
+import com.xnx3.j2ee.util.SafetyUtil;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.json.JSONUtil;
@@ -204,8 +205,8 @@ public class OrderController extends BasePluginController {
 		
 		/*** 下单前拦截插件 ***/
 		try {
-			com.xnx3.BaseVO bvo = OrderCreatePluginManage.before(order, buyGoodsList, orderAddress, user, store);
-			if(bvo.getResult() - BaseVO.FAILURE == 0){
+			com.xnx3.BaseVO bvo = OrderCreatePluginManage.orderCreateBefore(order, buyGoodsList, orderAddress, user, store);
+			if(bvo.getResult() - BaseVO.SUCCESS != 0){
 				//只要有其中某一个插件返回失败，那订单就创建不成功
 				vo.setBaseVOForSuper(bvo);
 				return vo;
@@ -275,7 +276,7 @@ public class OrderController extends BasePluginController {
 		
 		/*** 下单后拦截插件 ***/
 		try {
-			OrderCreatePluginManage.after(order, buyGoodsList, orderAddress, user, store);
+			OrderCreatePluginManage.orderCreateAfter(order, buyGoodsList, orderAddress, user, store);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -312,7 +313,7 @@ public class OrderController extends BasePluginController {
 					if(stateSB.length() > 1){
 						stateSB.append(" OR");
 					}
-					stateSB.append(" shop_order.state = '"+states[i]+"'");
+					stateSB.append(" shop_order.state = '"+Sql.filter(states[i])+"'");
 				}
 			}
 		}

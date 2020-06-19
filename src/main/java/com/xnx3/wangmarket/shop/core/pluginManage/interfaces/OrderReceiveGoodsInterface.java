@@ -15,7 +15,7 @@ public interface OrderReceiveGoodsInterface {
 	 * 		<li>当用户在自己的订单里面，将订单确认收货，变为已收货时</li>
 	 * 	</ul>
 	 */
-	public void finish(Order order);
+	public void orderReceiveGoodsFinish(Order order);
 	
 
 }

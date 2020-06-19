@@ -1,7 +1,6 @@
 package com.xnx3.wangmarket.shop.api.controller;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,20 +34,17 @@ import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.entity.PayLog;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
+import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderPayFinishPluginManage;
 import com.xnx3.wangmarket.shop.core.service.PayService;
 import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.vo.AlipayUtilVO;
 import com.xnx3.wangmarket.shop.core.vo.PaySetVO;
 import com.xnx3.wangmarket.shop.core.vo.WeiXinPayUtilVO;
 import com.xnx3.wangmarket.shop.core.vo.bean.PaySetBean;
-import com.xnx3.weixin.WeiXinPayUtil;
 import com.xnx3.weixin.XmlUtil;
 import com.xnx3.weixin.weixinPay.PayCallBackParamsVO;
 import com.xnx3.weixin.weixinPay.request.AppletOrder;
 import com.xnx3.weixin.weixinPay.request.JSAPIOrder;
-import com.xnx3.weixin.weixinPay.response.JSAPIParamsVO;
-import com.xnx3.weixin.weixinPay.response.ParamsVO;
-
 import net.sf.json.JSONObject;
 
 /**
@@ -134,6 +130,14 @@ public class PayController extends BasePluginController {
 		stateLog.setState(order.getState());
 		stateLog.setOrderid(order.getId());
 		sqlService.save(stateLog);
+		
+		/*** 支付完成后触发的插件 ***/
+		try {
+			OrderPayFinishPluginManage.orderPayFinish(order);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		/*********/
 		
 		//写日志
 		ActionLogUtil.insertUpdateDatabase(request, orderid, "订单线下支付", "订单id："+order.getId()+"，no:" + order.getNo());
@@ -375,7 +379,16 @@ public class PayController extends BasePluginController {
     		//是支付成功，那么进行处理支付成功应该操作的事情
     		BaseVO baseVO = paySuccess(request, order);
     		if(baseVO.getResult() - BaseVO.SUCCESS == 0){
-    			//成功
+    			//如果成功，记录支付信息
+        		PayLog payLog = new PayLog();
+        		payLog.setAddtime(DateUtil.timeForUnix10());
+        		payLog.setChannel(PayLog.CHANNEL_WX);
+        		payLog.setMoney(order.getPayMoney());
+        		payLog.setOrderid(order.getId());
+        		payLog.setStoreid(order.getStoreid());
+        		payLog.setUserid(order.getUserid());
+        		sqlService.save(payLog);
+        		
     			ActionLogUtil.insertUpdateDatabase(request, "微信支付异步回调-处理成功", JSONObject.fromObject(paramVO).toString());
     			return paramVO.getInfo();
     		}else{
@@ -384,10 +397,8 @@ public class PayController extends BasePluginController {
     			return baseVO.getInfo();
     		}
         }
-            
         
         return "failure";
-		
 	}
 	
 	/**
@@ -408,7 +419,7 @@ public class PayController extends BasePluginController {
         	return "订单不存在";
         }
         
-		BaseVO vo = payFinish(request, order);
+		BaseVO vo = alipayFinish(request, order);
 		if(vo.getResult() - BaseVO.SUCCESS == 0){
 			//成功
 			ActionLogUtil.insertUpdateDatabase(request, "支付宝支付支付异步回调-处理成功", JSONObject.fromObject(paramsMap).toString());
@@ -421,36 +432,22 @@ public class PayController extends BasePluginController {
 	}
 	
 	/**
-	 * 支付成功的返回跳转页面
+	 * 支付成功的返回跳转页面。这里不做任何处理，只是显示成功提示
 	 */
 	@RequestMapping("alipaySuccessJumpPage${url.suffix}")
 	public String alipaySuccessJumpPage(HttpServletRequest request,Model model){
 		Map<String, String> paramsMap = AlipayUtil.requestParamsToMap(request);
-		//获取该订单的订单号
-        String out_trade_no = paramsMap.get("out_trade_no");
-        if(out_trade_no == null || out_trade_no.length() < 1){
-        	return error(model, "订单号未发现");
-        }
-        Order order = sqlService.findAloneByProperty(Order.class, "no", out_trade_no);
-        if(order == null){
-        	return error(model, "订单不存在");
-        }
-        
 		
-		ConsoleUtil.info("payFinishJumpPage");
-		BaseVO vo = payFinish(request, order);
-		if(vo.getResult() - BaseVO.SUCCESS == 0){
-			//成功
-			ActionLogUtil.insertUpdateDatabase(request, "支付宝支付同步回调-处理成功", JSONObject.fromObject(paramsMap).toString());
-			return success(model, "支付成功!", SystemUtil.get("MASTER_SITE_URL")+"login.do");
-		}else{
-			//失败
-			ActionLogUtil.insert(request, "支付宝支付同步回调-处理失败："+vo.getInfo(), JSONObject.fromObject(paramsMap).toString());
-			return vo.getInfo();
-		}
+		ActionLogUtil.insert(request, "支付宝支付同步回调", JSONObject.fromObject(paramsMap).toString());
+		return success(model, "支付成功!", SystemUtil.get("MASTER_SITE_URL")+"login.do");
 	}
 	
-	private BaseVO payFinish(HttpServletRequest request, Order order){
+	/**
+	 * 支付宝支付完成触发
+	 * @param request
+	 * @param order
+	 */
+	private BaseVO alipayFinish(HttpServletRequest request, Order order){
 		Map<String, String> paramsMap = AlipayUtil.requestParamsToMap(request);
 		ConsoleUtil.info("支付宝回调："+JSONObject.fromObject(paramsMap).toString());
         
@@ -473,6 +470,17 @@ public class PayController extends BasePluginController {
                 // 处理支付成功逻辑
                 
             	BaseVO vo = paySuccess(request, order);
+            	if(vo.getResult() - BaseVO.SUCCESS == 0){
+            		//如果成功，记录支付信息
+            		PayLog payLog = new PayLog();
+            		payLog.setAddtime(DateUtil.timeForUnix10());
+            		payLog.setChannel(PayLog.CHANNEL_ALIPAY_PC);
+            		payLog.setMoney(order.getPayMoney());
+            		payLog.setOrderid(order.getId());
+            		payLog.setStoreid(order.getStoreid());
+            		payLog.setUserid(order.getUserid());
+            		sqlService.save(payLog);
+            	}
             	return vo;
             } else {
                 //其他的状态通知
@@ -499,16 +507,6 @@ public class PayController extends BasePluginController {
 		order.setPayTime(DateUtil.timeForUnix10());
 		sqlService.save(order);
 		
-		//记录支付信息
-		PayLog payLog = new PayLog();
-		payLog.setAddtime(DateUtil.timeForUnix10());
-		payLog.setChannel(PayLog.CHANNEL_ALIPAY_PC);
-		payLog.setMoney(order.getPayMoney());
-		payLog.setOrderid(order.getId());
-		payLog.setStoreid(order.getStoreid());
-		payLog.setUserid(order.getUserid());
-		sqlService.save(payLog);
-
 		//订单状态改变记录
 		OrderStateLog stateLog = new OrderStateLog();
 		stateLog.setAddtime(DateUtil.timeForUnix10());
@@ -516,7 +514,15 @@ public class PayController extends BasePluginController {
 		stateLog.setOrderid(order.getId());
 		sqlService.save(stateLog);
 		
-		ActionLogUtil.insertUpdateDatabase(request, "支付成功", "payLog:"+payLog.toString());
+		/*** 支付完成后触发的插件 ***/
+		try {
+			OrderPayFinishPluginManage.orderPayFinish(order);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		/*********/
+		
+		ActionLogUtil.insertUpdateDatabase(request, "支付成功", "order:"+order.toString());
 		return success();
 	}
 }

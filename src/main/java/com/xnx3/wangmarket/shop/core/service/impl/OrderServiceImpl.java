@@ -268,7 +268,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		//功能插件
 		try {
-			OrderReceiveGoodsPluginManage.finish(order);
+			OrderReceiveGoodsPluginManage.orderReceiveGoodsFinish(order);
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException
 				| IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();

@@ -24,6 +24,8 @@ import com.xnx3.j2ee.vo.LoginVO;
 import com.xnx3.media.CaptchaUtil;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreUser;
+import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderCreatePluginManage;
+import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.RegPluginManage;
 import com.xnx3.wangmarket.shop.api.util.SessionUtil;
 
 /**
@@ -89,6 +91,7 @@ public class LoginController extends BaseController {
 				User user = getUser();
 				ActionLogUtil.insert(request, "用户名密码模式登录成功");
 				
+				Store store = null;	//此用户所在的店铺
 				//判断一下是否传入了storeid这个参数
 				if(storeid > 0){
 					//判断一下用户是否已经关联上这个商家了，如果没关联，还要将这个用户关联为这个商家的用户
@@ -102,7 +105,7 @@ public class LoginController extends BaseController {
 					}
 					
 					//查询出此用户所在的店铺，加入缓存
-					Store store = sqlService.findById(Store.class, storeid);
+					store = sqlService.findById(Store.class, storeid);
 					if(store == null){
 						vo.setBaseVO(BaseVO.FAILURE, "store 不存在");
 						SessionUtil.logout();
@@ -209,6 +212,14 @@ public class LoginController extends BaseController {
 				
 				//将当前用户变为已登陆状态
 				userService.loginForUserId(request, userid);
+				
+				/*** 注册成功后触发 ***/
+				try {
+					RegPluginManage.regFinish(user, store);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				/*********/
 				
 				//将sessionid加入vo返回
 				HttpSession session = request.getSession();

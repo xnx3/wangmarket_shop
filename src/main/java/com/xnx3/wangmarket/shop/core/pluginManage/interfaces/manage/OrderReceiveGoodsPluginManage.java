@@ -31,12 +31,12 @@ public class OrderReceiveGoodsPluginManage {
 	 * 当订单确认收货后，触发执行此
 	 * @param order 确认收货的订单
 	 */
-	public static void finish(Order order) throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException{
+	public static void orderReceiveGoodsFinish(Order order) throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException{
 		for (int i = 0; i < classList.size(); i++) {
 			Class<?> c = classList.get(i);
 			Object invokeReply = c.newInstance();
 			//运用newInstance()来生成这个新获取方法的实例  
-			Method m = c.getMethod("finish",new Class[]{Order.class});	//获取要调用的init方法  
+			Method m = c.getMethod("orderReceiveGoodsFinish",new Class[]{Order.class});	//获取要调用的init方法  
 			//动态构造的Method对象invoke委托动态构造的InvokeTest对象，执行对应形参的add方法
 			m.invoke(invokeReply, new Object[]{order});
 		}

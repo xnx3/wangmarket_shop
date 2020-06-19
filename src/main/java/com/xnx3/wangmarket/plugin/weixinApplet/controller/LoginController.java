@@ -17,9 +17,11 @@ import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.UserVO;
 import com.xnx3.wangmarket.plugin.weixinApplet.vo.LoginVO;
+import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreUser;
 import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
+import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.RegPluginManage;
 import com.xnx3.wangmarket.shop.core.service.WeiXinService;
 import com.xnx3.weixin.WeiXinAppletUtil;
 import com.xnx3.weixin.vo.Jscode2sessionResultVO;
@@ -139,6 +141,14 @@ public class LoginController extends BasePluginController {
 					}
 				}
 				sqlService.save(storeUser);
+				
+				Store store = sqlCacheService.findById(Store.class, storeid);
+				/*** 注册成功后触发 ***/
+				try {
+					RegPluginManage.regFinish(user, store);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
 				//缓存
 //				SessionUtil.setWeiXinUser(weixinUser);
