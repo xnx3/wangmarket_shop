@@ -1,6 +1,9 @@
 package com.xnx3.wangmarket.plugin.limitbuy;
 
 import java.util.List;
+
+import org.hibernate.query.criteria.internal.OrderImpl;
+
 import com.xnx3.BaseVO;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.PluginRegister;
@@ -16,9 +19,13 @@ import com.xnx3.wangmarket.shop.core.bean.BuyGoods;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.core.entity.StoreUser;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderCreateInterface;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderPayFinishInterface;
+import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderReceiveGoodsInterface;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.RegInterface;
+import com.xnx3.wangmarket.shop.core.service.OrderService;
+import com.xnx3.wangmarket.shop.core.service.impl.OrderServiceImpl;
 
 /**
  * 限量购买。这里是针对整个商城所有商品的限购
@@ -26,9 +33,11 @@ import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.RegInterface;
  * @author 管雷鸣
  */
 @PluginRegister(menuTitle = "商城限购",menuHref="/plugin/limitbuy/store/index.do", applyToCMS=true, intro="新用户只可以购买一次，无论是哪个商品，只有1次购买机会。", version="1.0", versionMin="1.0")
-public class Plugin implements OrderCreateInterface, RegInterface, OrderPayFinishInterface{
+public class Plugin implements OrderCreateInterface, RegInterface, OrderPayFinishInterface, OrderReceiveGoodsInterface{
 	//用户在店铺的订单数（除了未付款的订单之外的）
-	public final static String CACHE_KEY = "shop:plugin:sell:{storeid}:{userid}:ordernumber";
+	public final static String CACHE_KEY = "shop:plugin:limitbuy:{storeid}:{userid}:ordernumber";
+	//用户在某个店铺下的这个订单是否是首单， "NO"  不是 ，缓存中为空，则可能是，需要再用sql查订单表
+	public static final String CACHE_KEY_FINISH_COUNT = "shop:plugin:limitbuy:{storeid}:{userid}:isfirstorder";
 	
 	@Override
 	public BaseVO orderCreateBefore(Order order, List<BuyGoods> buyGoodsList, OrderAddress orderAddress, User user, Store store) {
@@ -158,6 +167,65 @@ public class Plugin implements OrderCreateInterface, RegInterface, OrderPayFinis
 		CacheUtil.set(key, cacheNumber+1);
 		ConsoleUtil.log("set number : "+(cacheNumber+1));
 	}
-	
+
+	@Override
+	public void orderReceiveGoodsFinish(Order order) {
+		SqlCacheService sqlCacheService = SpringUtil.getBean(SqlCacheServiceImpl.class);
+		
+		//获取到这个用户的上级推荐人信息
+		StoreUser storeUser = sqlCacheService.findById(StoreUser.class, order.getUserid()+"_"+order.getStoreid());
+		if(storeUser == null || storeUser.getReferrerid() == null || storeUser.getReferrerid().length() == 0){
+			//没有上级推荐人，那直接退出就行了
+			return;
+		}
+		//有上级推荐人，取出上级推荐人信息
+		StoreUser parentStoreUser = sqlCacheService.findById(StoreUser.class, storeUser.getReferrerid());
+		if(parentStoreUser == null || parentStoreUser.getUserid() == null){
+			//上级推荐人信息不存在，那么也退出
+			return;
+		}
+		
+		//取出这个店铺的设置，比如是否启用这个插件
+		LimitBuyStore limitBuyStore = sqlCacheService.findById(LimitBuyStore.class, order.getStoreid());
+		if(limitBuyStore == null){
+			//店铺也没设置，那么直接退出
+			return;
+		}
+		if(limitBuyStore.getIsUse() - LimitBuyStore.IS_USE_NO == 0){
+			//店铺设置的是不使用这个规则，那么直接退出
+			return;
+		}
+		
+		SqlService sqlService = SpringUtil.getSqlService();
+		
+		String key = CACHE_KEY_FINISH_COUNT.replace("{storeid}", order.getStoreid()+"").replace("{userid}", order.getUserid()+"");
+		Object cacheObj = CacheUtil.get(key);
+		if(cacheObj == null){
+			//没有缓存，那么从数据库读数据
+			OrderService orderService = SpringUtil.getBean(OrderServiceImpl.class);
+			int count = orderService.getFinishOrderCount(order.getUserid(), order.getStoreid());
+			if(count - 1 == 0){
+				//是第一次，那么为他的上级增加可购买次数
+				ConsoleUtil.log("增加上级的购买次数1次！当前完成的订单:"+order.toString());
+				LimitBuyUser limitBuyUser = sqlService.findById(LimitBuyUser.class, parentStoreUser.getId());
+				if(limitBuyUser == null){
+					//为空，那么还要从这个商铺中，取出默认用户可以使用的次数
+					limitBuyUser = new LimitBuyUser();
+					limitBuyUser.setId(parentStoreUser.getId());
+					limitBuyUser.setLimitNumber(limitBuyStore.getLimitNumber());
+					limitBuyUser.setStoreid(order.getStoreid());
+					limitBuyUser.setUseNumber(0);
+					limitBuyUser.setUserid(parentStoreUser.getUserid());
+				}
+				limitBuyUser.setLimitNumber(limitBuyUser.getLimitNumber()+1);
+				sqlService.save(limitBuyUser);
+				//清除 limitByUser 的缓存
+				sqlCacheService.deleteCacheById(LimitBuyUser.class, limitBuyUser.getId());
+			}
+			
+			//将当前下订单这个用户加入缓存，标注已经有过消费了，后面不用再查他的有效订单数的数据表了
+			CacheUtil.setYearCache(key, count);
+		}
+	}
 	
 }

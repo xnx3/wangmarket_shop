@@ -39,7 +39,7 @@ public class IndexController extends BasePluginController {
 	
 	/**
 	 * 获取分享的url
-	 * @param redirectUrl 分享出去后，别人点击分享链接进入的页面url
+	 * @param redirectUrl 分享出去后，别人点击分享链接进入的页面url，填写如 http://demo.imall.net.cn/index.html
 	 * @param storeid 当前商铺的id
 	 * @author 管雷鸣
 	 */

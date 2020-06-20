@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.xnx3.DateUtil;
 import com.xnx3.j2ee.service.SqlService;
+import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.Address;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
@@ -276,7 +277,12 @@ public class OrderServiceImpl implements OrderService {
 		
 		return vo;
 	}
-	
-	
+
+	@Override
+	public int getFinishOrderCount(int userid, int storeid) {
+		int count = sqlService.count("shop_order", "WHERE userid = "+userid +" AND storeid = "+storeid+" AND (state = '"+Order.STATE_RECEIVE_GOODS+"' OR state = '"+Order.STATE_FINISH+"') AND pay_money > 0");
+		ConsoleUtil.debug("userid:"+userid+", storeid:"+storeid+",  --> "+count);
+		return count;
+	}
 	
 }

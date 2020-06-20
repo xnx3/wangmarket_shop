@@ -70,13 +70,13 @@ public class LoginController extends BasePluginController {
 		}
 		vo.setToken(request.getSession().getId());
 		
+		ConsoleUtil.log("reg--->"+request.getQueryString());
+		
 		//判断当前用户是否已经登录过了
 		if(haveUser()){
 			//已登录过了
-//			vo.setBaseVO(LoginVO.FAILURE, "请传入您的商铺编号storeid");
 			vo.setUser(getUser());
 			vo.setInfo("您已经是登录状态了，所以不再返回 userWeixin 字段了。只有未登录状态下，登录成功，才会返回 userWeixin");
-//			vo.setUserWeiXin(sqlCacheService.findAloneByProperty(UserWeiXin.class, , value));
 			return vo;
 		}
 		if(code.length() == 0){

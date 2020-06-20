@@ -1,7 +1,6 @@
 package com.xnx3.wangmarket.plugin.sell;
 
 import com.xnx3.DateUtil;
-import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.PluginRegister;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
