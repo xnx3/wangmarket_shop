@@ -48,7 +48,7 @@
 			<td style="text-align:center;">${item.orderid }</td>
 			<td style="text-align:center;">${item.userid }</td>
 			<td style="text-align:center;">
-				<x:time linuxTime="${item.userid }"></x:time>
+				<x:time linuxTime="${item.addtime }"></x:time>
 			</td>
 			<td style="text-align:center;">
 				<script>document.write(transfer_state[${item.transferState}]);</script>
