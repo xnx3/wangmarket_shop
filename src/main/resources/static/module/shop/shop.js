@@ -41,7 +41,7 @@ var shop = {
 	 */
 	getReferrerid:function(){
 		var r = localStorage.getItem('referrerid');
-		if(r != null && typeof('r') != 'undefined' && r.length > 1){
+		if(r != null && typeof('r') != 'undefined' && r.length > 0){
 			return r;
 		}else{
 			return 0;
