@@ -31,7 +31,7 @@ public class OrderTimeoutListenerThread extends Thread{
 		ConsoleUtil.log("OrderTimeoutListenerThread start");
 		while (true) {
 			try {
-				Thread.sleep(10*1000);	//10秒一次 
+				Thread.sleep(3*1000);	//3秒一次 
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
