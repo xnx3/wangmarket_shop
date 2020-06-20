@@ -3,33 +3,27 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '453258a371edcee9f274a7ebd2ee6a5187957163'
-    oldFile: !uuid '5e20deafa651ec5c32fc58907c9fe2fa46799f09'
+    newFile: !uuid '89d541c9226023d99e4e163951e513c71e907f66'
+    oldFile: !uuid '453258a371edcee9f274a7ebd2ee6a5187957163'
   /src/main:
-    newFile: !uuid '5f44b1d1eae0615313a6a1ddce55558594de6c59'
-    oldFile: !uuid '6ede6ab4d83e2c800a8dc0da7178aad6513b6939'
-  /src/main/java:
-    newFile: !uuid '563459a1fe0f2f17d2460585c9e0bc71d2b2f197'
-    oldFile: !uuid 'b894803cbff6c3b2e85f48e5ec087dce6a83a07e'
-  /src/main/java/com:
-    newFile: !uuid '89445fe12ec4e9fa92e62ba8e964c2be99d4cb8d'
-    oldFile: !uuid 'c16f08784368da54980368ebc52c028603108c33'
-  /src/main/java/com/xnx3:
-    newFile: !uuid '3347ad8102a57d629c7f2ef173f9cc4fd9057574'
-    oldFile: !uuid '890e557f2c77d85086dcab3a8484d90f324bcd69'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '6eb8f919bfd9861f4a1d9bafbd6e17647da089d0'
-    oldFile: !uuid '7a2d3801a1f0a8cd3ca00b6c6795dc92f2e9c5ca'
-  /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid '38e0fdb9ed4e8bbd32c919f608cc323fe2e21497'
-    oldFile: !uuid '4e0708ee6240ca8164406f0553937876d36faf61'
-  /src/main/java/com/xnx3/wangmarket/plugin/limitbuy:
-    newFile: !uuid 'ca5447dbc54d7d4e7a5bbcc84b154b1c98350282'
-    oldFile: !uuid '6f64b78aefadb45fec5be649debd2019c8fa65c8'
-  /src/main/java/com/xnx3/wangmarket/plugin/limitbuy/Plugin.java:
-    newFile: !uuid 'a64be98e6e94b646d6e64f43b128f5576d865da6'
-    oldFile: !uuid '421de1d06c0efc5d7da12cb3c3ebe9382217ea24'
-gitCommitId: !uuid 'a63ed324810869e9ae4466050542d3be2ab70c7c'
+    newFile: !uuid '67bf844b0a3383b42890c40a94455fe2ebdb412a'
+    oldFile: !uuid '5f44b1d1eae0615313a6a1ddce55558594de6c59'
+  /src/main/resources:
+    newFile: !uuid 'ff765905fad8f4e3de928e6bb17822f00d052f76'
+    oldFile: !uuid '124a97e7dd24c1ea3f57b2ae074d2542e7ea24e4'
+  /src/main/resources/static:
+    newFile: !uuid 'bc99d51b8a94d906e821985329b4c53a63d88cac'
+    oldFile: !uuid '6fd0c175ee8d19de99df08f66e7035b4c3948784'
+  /src/main/resources/static/module:
+    newFile: !uuid '9661bf0801ac7f4927b98039cae0d4a004b7ba3c'
+    oldFile: !uuid '676e256f9e754eaf563d735278ae34de0c05b410'
+  /src/main/resources/static/module/shop:
+    newFile: !uuid '806d4c0485e315eb1c370e5b0ec095ce36a0f5c6'
+    oldFile: !uuid '773d61174ca4b219265cdae5345052df8d832b16'
+  /src/main/resources/static/module/shop/shop.js:
+    newFile: !uuid '897cdd516082a28666d7e8e1e04ac80244bf4b5f'
+    oldFile: !uuid 'd3b9cce48ee9ff169637df4178f1eb0bb847adac'
+gitCommitId: !uuid '01bcbd29d12cc85a7dd104322da44ad99e6fd291'
 renames: {
   }
-revisionId: 171
+revisionId: 172
