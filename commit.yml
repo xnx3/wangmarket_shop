@@ -3,33 +3,36 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'e6ba4275d2a0e3d10cca0ff252eb4aa80ea21248'
-    oldFile: !uuid '12e7fb7bf6268b79c21b9617c87a394596ae4561'
+    newFile: !uuid '5e20deafa651ec5c32fc58907c9fe2fa46799f09'
+    oldFile: !uuid 'e6ba4275d2a0e3d10cca0ff252eb4aa80ea21248'
   /src/main:
-    newFile: !uuid 'a7ecdacd059774fd8e82ad5344e1285c6c3b6bec'
-    oldFile: !uuid 'a42533f568be1fa1d1ccb6847971d1d85461fee4'
-  /src/main/java:
-    newFile: !uuid 'b894803cbff6c3b2e85f48e5ec087dce6a83a07e'
-    oldFile: !uuid '08c5e3ebc32648d5e22097729896e6d9429b501b'
-  /src/main/java/com:
-    newFile: !uuid 'c16f08784368da54980368ebc52c028603108c33'
-    oldFile: !uuid '07b77ab345805bd7eb3bf10a4574d4926f963095'
-  /src/main/java/com/xnx3:
-    newFile: !uuid '890e557f2c77d85086dcab3a8484d90f324bcd69'
-    oldFile: !uuid '310084a3b6ecfbf97be6c6449ba9527963078e84'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '7a2d3801a1f0a8cd3ca00b6c6795dc92f2e9c5ca'
-    oldFile: !uuid '5e217bca05566689f87e81431c6ef1f86a9c250b'
-  /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid '4e0708ee6240ca8164406f0553937876d36faf61'
-    oldFile: !uuid '996ce486a3dda0d858666557fddaf51d86068729'
-  /src/main/java/com/xnx3/wangmarket/plugin/sell:
-    newFile: !uuid '9d57fc69cf4501f11e6d872cc1e48a0866facacc'
-    oldFile: !uuid '58ad02c4635f01ee9d4cd4b5309a6a81bb3ff0bd'
-  /src/main/java/com/xnx3/wangmarket/plugin/sell/Plugin.java:
-    newFile: !uuid 'b4e6667641e99b61f84d0810cc8e78f26cfdfe55'
-    oldFile: !uuid '00a73df759fbe308e4892be69f2fca0e262a8d1f'
-gitCommitId: !uuid '9eff68ec2a7d88bf6be62bb9d09d3e56852a2959'
+    newFile: !uuid '6ede6ab4d83e2c800a8dc0da7178aad6513b6939'
+    oldFile: !uuid 'a7ecdacd059774fd8e82ad5344e1285c6c3b6bec'
+  /src/main/webapp:
+    newFile: !uuid 'a1ef3d6a5fa00ef21d4af15efba53fbd895b74f6'
+    oldFile: !uuid '0cd61702097f50af8caa95842baa983c281b94c2'
+  /src/main/webapp/WEB-INF:
+    newFile: !uuid '8a949a2302892474fd6c9279f8d7b907d0097ef6'
+    oldFile: !uuid 'a6983407996e98329963034a1daa11ab24d3f694'
+  /src/main/webapp/WEB-INF/view:
+    newFile: !uuid '27a482cfbd778eda70bc375d2d663b2c92ad068d'
+    oldFile: !uuid 'cb9e7b070671663f587bb360b1c30bdd90247678'
+  /src/main/webapp/WEB-INF/view/plugin:
+    newFile: !uuid '606b0a48dfa4f9362c9738a7665f5aaf64275986'
+    oldFile: !uuid '2fffecc5cd753366b890a9d094742201d753d1a8'
+  /src/main/webapp/WEB-INF/view/plugin/sell:
+    newFile: !uuid '42d3d02555b2be298ddcda0275a935303aed762d'
+    oldFile: !uuid '3eb9c0d40865e94956731568f474a295a86cdb70'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store:
+    newFile: !uuid 'c016a8bd71dd002ac60e129a6dd856b1c4b21fe9'
+    oldFile: !uuid '7806a1729182feb4553a09a4b572ec53cd1b31d9'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/commission:
+    newFile: !uuid '1785097b12a74f44b5d2c3d2841014f57b3ee55d'
+    oldFile: !uuid 'a2bb7e74caad54c6ca3dd7179fce92eddd60ac88'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/commission/list.jsp:
+    newFile: !uuid 'db5ae0a2640a0d17ffc2b2d431d8a128dab81361'
+    oldFile: !uuid '08e3fa152bbd4d2497cba08de20df13db8d7e48d'
+gitCommitId: !uuid 'e81f8a085a43bde468b63054437b2baa5e8697a0'
 renames: {
   }
-revisionId: 169
+revisionId: 170
