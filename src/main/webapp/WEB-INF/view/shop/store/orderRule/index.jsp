@@ -12,6 +12,22 @@ body{padding-left: 30px;}
 <div style="height: 30px"></div>
 
 <div>
+	订单支付超时时间
+  	<div class="layui-form-item" style=" padding-top: 10px; margin-bottom: 0px; ">
+	    <div class="layui-input-inline" style="width:300px;">
+	      <input type="number" name="notPayTimeout" id="notPayTimeout" placeholder="单位是秒" value="${orderRule.notPayTimeout }"  class="layui-input" style="width:100%">
+	    </div>
+	    <button class="layui-btn layui-btn-primary" onclick="updateState('notPayTimeout',document.getElementById('notPayTimeout').value);">保存</button>
+	    <div style=" font-size: 13px; color: gray; padding-top:15px;">
+	    	订单创建后，超过多长时间未支付，就自动变为支付超时已取消。这里单位是秒
+	    </div>
+	</div>
+</div>
+</br>
+<hr/>
+</br>
+
+<div>
 	 订单是否有配送中这个状态
   	<c:if test="${orderRule.distribution == 0}">
   		 当前已关闭
@@ -27,7 +43,9 @@ body{padding-left: 30px;}
 		<p>如果有配送中这个状态，用户支付完成后，商家去送货时还要找到用户订单，点击订单的配送按钮，将订单变为配送中，再去送货，送货完成后再点击完成。中间会多一步，去送货时要先将用户订单变为配送中的操作。</p>
 	</div>
 </div>
-</br></br>
+</br>
+<hr/>
+</br>
 <div>
 	用户是否可退款
   	<c:if test="${orderRule.refund == 0}">
