@@ -23,6 +23,7 @@ public class OrderRuleVO extends BaseVO{
 			OrderRuleBean bean = new OrderRuleBean();
 			bean.setDistribution(orderRule.getDistribution());
 			bean.setRefund(orderRule.getRefund());
+			bean.setNotPayTimeout(orderRule.getNotPayTimeout());
 			this.orderRule = bean;
 		}
 	}

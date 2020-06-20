@@ -1,6 +1,5 @@
 package com.xnx3.wangmarket.shop.core.vo.bean;
 
-import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 
 /**

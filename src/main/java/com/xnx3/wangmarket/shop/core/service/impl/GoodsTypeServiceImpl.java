@@ -8,7 +8,6 @@ import com.xnx3.j2ee.dao.SqlDAO;
 import com.xnx3.j2ee.util.CacheUtil;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.GoodsType;
-import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.service.GoodsTypeService;
 import com.xnx3.wangmarket.shop.core.vo.bean.GoodsTypeBean;
 

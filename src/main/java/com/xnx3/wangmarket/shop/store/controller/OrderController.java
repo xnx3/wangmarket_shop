@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xnx3.DateUtil;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
@@ -20,9 +19,7 @@ import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
-import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
-import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
 import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
 import com.xnx3.wangmarket.shop.core.vo.OrderVO;
@@ -39,8 +36,6 @@ public class OrderController extends BaseController {
 	private SqlService sqlService;
 	@Resource
 	private OrderService orderService;
-	@Resource
-	private OrderRuleService orderRuleService;
 	@Resource
 	private OrderStateLogService orderStateLogService;
 	

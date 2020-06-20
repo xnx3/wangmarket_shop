@@ -2,10 +2,7 @@ package com.xnx3.wangmarket.shop.core.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.Table;
 import com.xnx3.j2ee.entity.BaseEntity;
 
@@ -28,10 +25,12 @@ public class OrderRule extends BaseEntity implements java.io.Serializable {
 	private Integer id;			//编号，对应 store.id
 	private Short distribution;	//是否使用配送中这个状态，如果没有，订单可以有已支付直接变为已完成。1使用，0不使用。默认是1使用
 	private Short refund;		//是否使用退款这个状态，也就是是否允许用户退款。1使用，0不使用。默认是1使用
+	private Integer notPayTimeout;	//订单如果创建订单了，但未支付，多长时间会自动取消订单，订单状态变为已取消。这里的单位是秒
 	
 	public OrderRule() {
 		this.distribution = NORMAL;
 		this.refund = NORMAL;
+		this.notPayTimeout = 1800;	//默认半小时
 	}
 	
 	@Id
@@ -61,10 +60,20 @@ public class OrderRule extends BaseEntity implements java.io.Serializable {
 	public void setRefund(Short refund) {
 		this.refund = refund;
 	}
+	
+	@Column(name = "not_pay_timeout", columnDefinition="int(11) comment '订单如果创建订单了，但未支付，多长时间会自动取消订单，订单状态变为已取消。这里的单位是秒' default '1800'")
+	public Integer getNotPayTimeout() {
+		return notPayTimeout;
+	}
+
+	public void setNotPayTimeout(Integer notPayTimeout) {
+		this.notPayTimeout = notPayTimeout;
+	}
 
 	@Override
 	public String toString() {
-		return "OrderRule [id=" + id + ", distribution=" + distribution + ", refund=" + refund + "]";
+		return "OrderRule [id=" + id + ", distribution=" + distribution + ", refund=" + refund + ", notPayTimeout="
+				+ notPayTimeout + "]";
 	}
 	
 }

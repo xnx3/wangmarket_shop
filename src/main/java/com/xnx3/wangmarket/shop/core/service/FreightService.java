@@ -1,12 +1,7 @@
 package com.xnx3.wangmarket.shop.core.service;
 
 import java.util.List;
-
-import com.xnx3.wangmarket.plugin.alipay.util.AlipayUtil;
 import com.xnx3.wangmarket.shop.core.entity.Freight;
-import com.xnx3.wangmarket.shop.core.entity.OrderRule;
-import com.xnx3.wangmarket.shop.core.entity.PaySet;
-import com.xnx3.wangmarket.shop.core.vo.AlipayUtilVO;
 
 /**
  * 商铺的运费相关

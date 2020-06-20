@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.ConsoleUtil;
@@ -20,7 +21,6 @@ import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.OrderRule;
-import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
 
 
 /**
@@ -33,7 +33,7 @@ public class OrderRuleController extends BaseController {
 	@Resource
 	private SqlService sqlService;
 	@Resource
-	private OrderRuleService orderRuleService;
+	private SqlCacheService sqlCacheService;
 	
 	/**
 	 * 查看当前规则
@@ -48,7 +48,6 @@ public class OrderRuleController extends BaseController {
 			orderRule.setId(getStoreId());
 			sqlService.save(orderRule);
 		}
-//		OrderRule orderRule = orderRuleService.getRole(getStoreId());
 		
 		model.addAttribute("orderRule", orderRule);
 		//日志记录
@@ -60,14 +59,14 @@ public class OrderRuleController extends BaseController {
 	/**
 	 * 设置某个订单状态是否启用
 	 * @author 管雷鸣
-	 * @param name 订单状态，传入的也就是 {@link OrderRule} 的字段，传入如 distribution 、refund
+	 * @param name 订单状态，传入的也就是 {@link OrderRule} 的字段，传入如 distribution 、refund 、 notPayTimeout
 	 * @param value 值。0或者1  ，1使用，0不使用
 	 */
 	@ResponseBody
 	@RequestMapping(value="save${url.suffix}", method = RequestMethod.POST)
 	public BaseVO save(Model model ,HttpServletRequest request,
 		@RequestParam(value = "name", required = false, defaultValue = "") String name,
-		@RequestParam(value = "value", required = false, defaultValue = "1") Short value) {
+		@RequestParam(value = "value", required = false, defaultValue = "0") int value) {
 		
 		OrderRule orderRule = sqlService.findById(OrderRule.class, getStoreId());
 		if(orderRule == null){
@@ -75,16 +74,18 @@ public class OrderRuleController extends BaseController {
 			orderRule.setId(getStoreId());
 		}
 		if(name.equals("distribution")){
-			orderRule.setDistribution(value);
+			orderRule.setDistribution((short) value);
 		}else if(name.equals("refund")){
-			orderRule.setRefund(value);
+			orderRule.setRefund((short) value);
+		}else if(name.equals("notPayTimeout")){
+			orderRule.setNotPayTimeout(value);
 		}else{
 			ConsoleUtil.debug("异常，name:"+name);
 			return error("name异常");
 		}
 		sqlService.save(orderRule);
 		//更新持久缓存
-		orderRuleService.setRole(orderRule);
+		sqlCacheService.deleteCacheById(OrderRule.class, orderRule.getId());
 		
 		ActionLogUtil.insert(request, "保存订单规则的值", orderRule.toString());
 		

@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.wangmarket.shop.core.entity.OrderRule;
-import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
 import com.xnx3.wangmarket.shop.core.vo.OrderRuleVO;
 
 /**
@@ -24,7 +24,7 @@ public class OrderRuleController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
 	@Resource
-	private OrderRuleService orderRuleService;
+	private SqlCacheService sqlCacheService;
 	
 	/**
 	 * 获取某个店铺的订单规则流程
@@ -35,7 +35,7 @@ public class OrderRuleController extends BasePluginController {
 	@ResponseBody
 	public OrderRuleVO getRule(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid) {
-		OrderRule orderRule = orderRuleService.getRole(storeid);
+		OrderRule orderRule = sqlCacheService.findById(OrderRule.class, storeid);
 		OrderRuleVO vo = new OrderRuleVO();
 		vo.setOrderRule(orderRule);
 	    

@@ -19,6 +19,7 @@ import com.xnx3.StringUtil;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.pluginManage.interfaces.manage.SuperAdminIndexPluginManage;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
@@ -38,7 +39,6 @@ import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderCreatePluginManage;
 import com.xnx3.wangmarket.shop.core.service.CartService;
-import com.xnx3.wangmarket.shop.core.service.OrderRuleService;
 import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
 import com.xnx3.wangmarket.shop.core.service.PayService;
@@ -63,11 +63,11 @@ public class OrderController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
 	@Resource
+	private SqlCacheService sqlCacheService;
+	@Resource
 	private CartService cartService;
 	@Resource
 	private OrderService orderService;
-	@Resource
-	private OrderRuleService orderRuleService;
 	@Resource
 	private PaySetService paySetService;
 	@Resource
@@ -246,13 +246,18 @@ public class OrderController extends BasePluginController {
 		orderAddress.setId(order.getId());
 		sqlService.save(orderAddress);
 		
-		//创建订单未支付超时监控
+		/*** 创建订单未支付超时监控 ****/
+		//获取订单未支付超时时间
+		OrderRule orderRule = sqlCacheService.findById(OrderRule.class, store.getId());
+		if(orderRule == null){
+			orderRule = new OrderRule();
+		}
 		OrderTimeout orderTimeout = new OrderTimeout();
 		orderTimeout.setId(order.getId());
 		orderTimeout.setState(order.getState());
-		//先统一设定半小时后未支付，就自动取消
-		orderTimeout.setExpiretime(DateUtil.timeForUnix10()+(30*60));
+		orderTimeout.setExpiretime(DateUtil.timeForUnix10()+orderRule.getNotPayTimeout());
 		sqlService.save(orderTimeout);
+		/*** 创建订单未支付超时监控结束 ***/
 		
 		//订单状态记录
 		OrderStateLog stateLog = new OrderStateLog();
@@ -400,7 +405,7 @@ public class OrderController extends BasePluginController {
 		//加入商家支付设置
 		vo.setPaySet(paySetService.getPaySet(order.getStoreid()));
 		//加入商家订单设置
-		vo.setOrderRule(orderRuleService.getRole(order.getStoreid()));
+		vo.setOrderRule(sqlCacheService.findById(OrderRule.class, order.getStoreid()));
 		
 		//写日志
 		ActionLogUtil.insert(request, orderid, "查看订单详情", "id:"+orderid+", no:"+order.getNo());
@@ -438,7 +443,10 @@ public class OrderController extends BasePluginController {
 		}
 		
 		//判断当前商家是否开启了订单允许退款功能
-		OrderRule orderRule = orderRuleService.getRole(order.getStoreid());
+		OrderRule orderRule = sqlCacheService.findById(OrderRule.class, order.getStoreid());
+		if(orderRule == null){
+			orderRule = new OrderRule();
+		}
 		if(orderRule.getRefund() - OrderRule.OFF == 0){
 			return error("商家已设置不允许用户提出退款申请");
 		}
@@ -542,7 +550,10 @@ public class OrderController extends BasePluginController {
 		}
 		
 		//判断当前商家是否开启了订单允许退款功能
-		OrderRule orderRule = orderRuleService.getRole(order.getStoreid());
+		OrderRule orderRule = sqlCacheService.findById(OrderRule.class, order.getStoreid());
+		if(orderRule == null){
+			orderRule = new OrderRule();
+		}
 		if(orderRule.getRefund() - OrderRule.OFF == 0){
 			return error("商家已设置不允许用户提出退款申请，所以你取消退款也是取消不了的");
 		}
