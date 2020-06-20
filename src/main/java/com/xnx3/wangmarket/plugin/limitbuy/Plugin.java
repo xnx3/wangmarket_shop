@@ -21,11 +21,11 @@ import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderPayFinishInter
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.RegInterface;
 
 /**
- * 限量购买。
- * 新用户只可以购买一次，无论是哪个商品，只有1次购买机会。
+ * 限量购买。这里是针对整个商城所有商品的限购
+ * 新用户只可以购买几一次，无论是哪个商品，只有设定的几次购买机会。
  * @author 管雷鸣
  */
-@PluginRegister(menuTitle = "限量购买",menuHref="/plugin/sell/store/index.do", applyToCMS=true, intro="新用户只可以购买一次，无论是哪个商品，只有1次购买机会。", version="1.0", versionMin="1.0")
+@PluginRegister(menuTitle = "商城限购",menuHref="/plugin/limitbuy/store/index.do", applyToCMS=true, intro="新用户只可以购买一次，无论是哪个商品，只有1次购买机会。", version="1.0", versionMin="1.0")
 public class Plugin implements OrderCreateInterface, RegInterface, OrderPayFinishInterface{
 	//用户在店铺的订单数（除了未付款的订单之外的）
 	public final static String CACHE_KEY = "shop:plugin:sell:{storeid}:{userid}:ordernumber";
