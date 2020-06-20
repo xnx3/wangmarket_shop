@@ -26,7 +26,7 @@ public class Plugin implements OrderReceiveGoodsInterface{
 		
 		//判断这个店铺是否开启了分销
 		SellStoreSet storeSet = sqlCacheService.findById(SellStoreSet.class, order.getStoreid());
-		if(storeSet == null || storeSet.getIsUse() - SellStoreSet.IS_USE_NO == 0){
+		if(storeSet == null || storeSet.getIsUse() == null || storeSet.getIsUse() - SellStoreSet.IS_USE_NO == 0){
 			//这个商家不使用分销功能
 			return;
 		}
@@ -38,37 +38,59 @@ public class Plugin implements OrderReceiveGoodsInterface{
 			ConsoleUtil.error("订单的下单用户不存在："+order.toString());
 			return;
 		}
-		if(storeUser.getReferrerid() == null || storeUser.getReferrerid().length() < 2){
+		if(storeUser.getReferrerid() == null || storeUser.getReferrerid().length() < 1){
 			//当前消费订单，没有上级推荐人，那么就不需要分佣了
 			return;
 		}
 		
+		//有一级推荐人，也就是直属上级，查出信息
+		StoreUser parentFirstStoreUser = sqlCacheService.findById(StoreUser.class, storeUser.getReferrerid());
+		if(parentFirstStoreUser == null){
+			return;
+		}
 		/* 有推荐人，就要开始分佣了 */
 		SqlService sqlService = SpringUtil.getSqlService();
 		int currentTime = DateUtil.timeForUnix10();
 		
 		//一级上级
-		SellCommissionLog firstLog = new SellCommissionLog();
-		firstLog.setAddtime(currentTime);
-		firstLog.setOrderid(order.getId());
-		firstLog.setStoreid(order.getStoreid());
-		firstLog.setUserid(storeUser.getUserid());
-		firstLog.setMoney(order.getPayMoney() * storeSet.getFirstCommission() / 100);
-		if(firstLog.getMoney() > 0){
-			//金额大于0，才有必要存入数据库
-			sqlService.save(firstLog);
+		if(storeSet.getFirstCommission() != null && storeSet.getFirstCommission() > 0){
+			//只有商家后台设置了一级有分佣，那才进行记录
+			SellCommissionLog firstLog = new SellCommissionLog();
+			firstLog.setAddtime(currentTime);
+			firstLog.setOrderid(order.getId());
+			firstLog.setStoreid(order.getStoreid());
+			firstLog.setUserid(parentFirstStoreUser.getUserid());
+			firstLog.setMoney(order.getPayMoney() * storeSet.getFirstCommission() / 100);
+			if(firstLog.getMoney() > 0){
+				//金额大于0，才有必要存入数据库
+				sqlService.save(firstLog);
+			}
 		}
 		
-		//二级上级
-		SellCommissionLog twoLog = new SellCommissionLog();
-		twoLog.setAddtime(currentTime);
-		twoLog.setOrderid(order.getId());
-		twoLog.setStoreid(order.getStoreid());
-		twoLog.setUserid(storeUser.getUserid());
-		twoLog.setMoney(order.getPayMoney() * storeSet.getTwoCommission() / 100);
-		if(twoLog.getMoney() > 0){
-			//金额大于0，才有必要存入数据库
-			sqlService.save(twoLog);
+		
+		//二级上级，查询是否存在
+		if(parentFirstStoreUser.getReferrerid() == null || parentFirstStoreUser.getReferrerid().length() < 1){
+			//没有二级上级，退出
+			return;
+		}
+		StoreUser parentTwoStoreUser = sqlCacheService.findById(StoreUser.class, parentFirstStoreUser.getReferrerid());
+		if(parentTwoStoreUser == null){
+			//没二级上级，也退出。
+			return;
+		}
+		//有二级上级，计算佣金
+		if(storeSet.getFirstCommission() != null && storeSet.getFirstCommission() > 0){
+			//只有商家后台设置了一级有分佣，那才进行记录
+			SellCommissionLog twoLog = new SellCommissionLog();
+			twoLog.setAddtime(currentTime);
+			twoLog.setOrderid(order.getId());
+			twoLog.setStoreid(order.getStoreid());
+			twoLog.setUserid(parentTwoStoreUser.getUserid());
+			twoLog.setMoney(order.getPayMoney() * storeSet.getTwoCommission() / 100);
+			if(twoLog.getMoney() > 0){
+				//金额大于0，才有必要存入数据库
+				sqlService.save(twoLog);
+			}
 		}
 	}
 	
