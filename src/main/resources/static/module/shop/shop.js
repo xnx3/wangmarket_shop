@@ -37,6 +37,28 @@ var shop = {
 		}
 	},
 	/**
+	 * 获取推广上级的user.id。 如果没有推广的上级，那么返回0
+	 */
+	getReferrerid:function(){
+		var r = localStorage.getItem('referrerid');
+		if(r != null && typeof('r') != 'undefined' && r.length > 1){
+			return r;
+		}else{
+			return 0;
+		}
+	},
+	/**
+	 * 设置缓存上级推广人的user.id
+	 * r 缓存的上级推广人的user.id
+	 */
+	setReferrerid:function(r){
+		if(r != null && typeof('r') != 'undefined' && r.length > 0){
+			localStorage.setItem('referrerid',r);
+		}else{
+			localStorage.setItem('referrerid',0);
+		}
+	},
+	/**
 	 * 获取token，也就是 session id。获取的字符串如 f26e7b71-90e2-4913-8eb4-b32a92e43c00
 	 */
 	getToken:function(){
@@ -166,6 +188,10 @@ var shop = {
 		//商家店铺
 		store:{
 			getStore:"shop/api/store/getStore.json",	//获取店铺信息
+		},
+		//分享推广，二级分销
+		plugin_sell:{
+			gainShareUrl:"plugin/sell/gainShareUrl.json",	//获取推广分享的url
 		}
 	},
 	order:{
