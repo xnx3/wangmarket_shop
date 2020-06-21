@@ -2,22 +2,73 @@
 branches: {
   }
 fileChange:
+  /pom.xml:
+    newFile: !uuid 'a837b0db0a818ac6183963a8b9905d27bb6db4e1'
+    oldFile: !uuid 'f338f196e2e49378c61c4b4a458f3fca41473cf6'
   /src:
-    newFile: !uuid 'dfc24cc4ebd06cae4033a64a102450a5d1c073c1'
-    oldFile: !uuid '89d541c9226023d99e4e163951e513c71e907f66'
+    newFile: !uuid '8ca4aee1d5943c7eb3d8f222f6ce6b2b5cdda363'
+    oldFile: !uuid 'dfc24cc4ebd06cae4033a64a102450a5d1c073c1'
   /src/main:
-    newFile: !uuid 'a0595bc285ba5e9cd34939c85d49ddb607cecf2a'
-    oldFile: !uuid '67bf844b0a3383b42890c40a94455fe2ebdb412a'
-  /src/main/resources:
-    newFile: !uuid '15e527c44dd1b79501248ac44823a148de3a730d'
-    oldFile: !uuid 'ff765905fad8f4e3de928e6bb17822f00d052f76'
-  /src/main/resources/static:
-    newFile: !uuid '6ae30c77aad8d42c0890f045b02caf2a0fab6986'
-    oldFile: !uuid 'bc99d51b8a94d906e821985329b4c53a63d88cac'
-  /src/main/resources/static/index.html:
-    newFile: !uuid 'b5754e20373fdaa5331ef6e4623dbae636225e3b'
+    newFile: !uuid 'cd0ba4c9632f0c268133d3a909eea6e78aca03eb'
+    oldFile: !uuid 'a0595bc285ba5e9cd34939c85d49ddb607cecf2a'
+  /src/main/java:
+    newFile: !uuid 'd277d87820daa6e599e3a0efa8d9c784b3874b1f'
+    oldFile: !uuid '563459a1fe0f2f17d2460585c9e0bc71d2b2f197'
+  /src/main/java/com:
+    newFile: !uuid '9f85ee94c5c8fc8f9f9a30fd139c406410419bb1'
+    oldFile: !uuid '89445fe12ec4e9fa92e62ba8e964c2be99d4cb8d'
+  /src/main/java/com/xnx3:
+    newFile: !uuid '6b30bbede93122017dfa3b9fd7ff7ce76e86586a'
+    oldFile: !uuid '3347ad8102a57d629c7f2ef173f9cc4fd9057574'
+  /src/main/java/com/xnx3/j2ee:
+    newFile: !uuid 'efcc893eaf190786abbd91c755fc1112ea18f6da'
+    oldFile: !uuid '3ffd0d58e70028602ebc3e61d9f059c3d8886586'
+  /src/main/java/com/xnx3/j2ee/util:
+    newFile: !uuid 'bc1a27dfc233b4c623933088800f3b5923202b8d'
+    oldFile: !uuid 'c1b8c4dfbe41f435e9af322969fcd0725f416e2a'
+  /src/main/java/com/xnx3/j2ee/util/CacheUtil.java:
+    newFile: !uuid '7730351b81579f95229b4dccbc4799dc0150c1c4'
+    oldFile: !uuid '93f30b4492b428be4c159e68746f5096b9b2352c'
+  /src/main/java/com/xnx3/j2ee/util/RedisUtil.java:
+    newFile: !uuid '8f31ca4f874e486081c2032ced70eb4fdb63425c'
+    oldFile: !uuid 'c882cb4ab2f92ae460ebee179c784e4ed07880ec'
+  /src/main/java/com/xnx3/wangmarket:
+    newFile: !uuid '6e4fa1a6bd63d1f6ad8cba7d0b84445e69d55e4e'
+    oldFile: !uuid '6eb8f919bfd9861f4a1d9bafbd6e17647da089d0'
+  /src/main/java/com/xnx3/wangmarket/plugin:
+    newFile: !uuid '554037711d1285e70a599012c7a97674c69cb0e4'
+    oldFile: !uuid '38e0fdb9ed4e8bbd32c919f608cc323fe2e21497'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell:
+    newFile: !uuid '2f35c8894cb11f75dc8ca4666babcad5e55b8f21'
+    oldFile: !uuid '9d57fc69cf4501f11e6d872cc1e48a0866facacc'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller:
+    newFile: !uuid 'c4933423664c009cc2c7a07bd3b5b259803614df'
+    oldFile: !uuid '5cb39cc22902da59c675808b52de936e4426b8be'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller/CommissionController.java:
+    newFile: !uuid '1ff9c19183a2640de6fb1453269530e71d8d012b'
+    oldFile: !uuid 'a053b0772f1b021cc6c0e35406f9dc5eb45fd414'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/entity:
+    newFile: !uuid '2cada49fdd7f3fb6c431900116e23bfb2a217212'
+    oldFile: !uuid '5bf21da7b31bad509a28b7a557e2f51a9f28b37a'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/entity/SellStoreSet.java:
+    newFile: !uuid '2c5a1347829c9435eb19db55ab6619201f141d41'
+    oldFile: !uuid '3014f8da8a30cdf7380f93a45a4dfc1c89e95e3f'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/entity/SellTiXianLog.java:
+    newFile: !uuid '07e796ad2cf9cf72333172be8193efd5deb1b42f'
+    oldFile: !uuid '26d84e895b5a72f1edeb75938310b2ddb5881627'
+  /src/main/webapp:
+    newFile: !uuid '5ce4122e6b892b5703098a0c97f312cf60e69250'
+    oldFile: !uuid 'a1ef3d6a5fa00ef21d4af15efba53fbd895b74f6'
+  /src/main/webapp/WEB-INF:
+    newFile: !uuid '35519d8d9c977757fa3edf187254b6d8a9f60bc5'
+    oldFile: !uuid '8a949a2302892474fd6c9279f8d7b907d0097ef6'
+  /src/main/webapp/WEB-INF/lib:
+    newFile: !uuid 'bc9e585a85b6cd3f9ec7ccbf8862bfe12c1702cf'
+    oldFile: !uuid 'e4bbceb83e776f69d7785679cfbe81a3459d331a'
+  /src/main/webapp/WEB-INF/lib/xnx3-cache-1.0.jar:
+    newFile: !uuid 'cd70014b3a18d7138f0d1ac8eccd9ad85ddb47b2'
     oldFile: null
-gitCommitId: !uuid '8273e235827e96f548b2e0f7ec40fa5c3aeeb015'
+gitCommitId: !uuid 'cf3962d52e5854e5ed1da4f3507ff782d7918ea6'
 renames: {
   }
-revisionId: 173
+revisionId: 174
