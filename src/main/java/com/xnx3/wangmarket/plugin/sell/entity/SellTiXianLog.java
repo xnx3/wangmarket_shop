@@ -16,7 +16,7 @@ import com.xnx3.j2ee.entity.User;
  * @author 管雷鸣
  */
 @Entity
-@Table(name = "plugin_sell_tixian", indexes={@Index(name="suoyin_index",columnList="userid,storeid,addtime,state")})
+@Table(name = "plugin_sell_tixian_log", indexes={@Index(name="suoyin_index",columnList="userid,storeid,addtime,state")})
 public class SellTiXianLog implements Serializable{
 	private Integer id;			//自动编号
 	private Integer userid;		//用户id，对应 User.id

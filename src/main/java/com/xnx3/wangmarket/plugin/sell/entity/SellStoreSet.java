@@ -31,6 +31,10 @@ public class SellStoreSet extends BaseEntity implements java.io.Serializable{
 	private Integer money;				//提现时，需要金额满足多少钱，可提现金额大于这个钱，才允许提交提现申请。这里单位是分
 	private Short smsNotify;			//短信通知，是否开启短信通知， 0不开启，1开启。 开启这个的前提，是已经配置了短信接口。
 	
+	public SellStoreSet() {
+		this.money = 10000;	//默认满100元可提现
+	}
+	
 	@Id
 	@Column(name = "id", unique = true, nullable = false, columnDefinition="int(11) comment '对应 store.id， 是哪个商家的奖品规则'")
 	public Integer getId() {
@@ -78,6 +82,9 @@ public class SellStoreSet extends BaseEntity implements java.io.Serializable{
 	
 	@Column(name = "money", columnDefinition="int(11) comment '提现时，需要金额满足多少钱，可提现金额大于这个钱，才允许提交提现申请。这里单位是分'")
 	public Integer getMoney() {
+		if(this.money == null){
+			this.money = 10000;	//默认满100元可提现
+		}
 		return money;
 	}
 
