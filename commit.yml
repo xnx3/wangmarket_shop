@@ -2,13 +2,133 @@
 branches: {
   }
 fileChange:
-  /else:
-    newFile: !uuid 'fe3ffc759ff87eefc165ad456053388d49ea8754'
-    oldFile: !uuid '06d39306c556eb998eda36a22331d2c002467182'
-  /else/wangmarket_shop.sql:
-    newFile: !uuid 'affd4706a450095214923032f576a4a32952ea5b'
-    oldFile: !uuid 'b4f2dd660dc4aab3710402297590708f106485fe'
-gitCommitId: !uuid '8845f949d272757aaeb1f4fe61978d0c8628d3fa'
+  /src:
+    newFile: !uuid '5e878ef6813bce6907537d19477b363771921aee'
+    oldFile: !uuid '206a63f8639a2812ecb292d9e5279a90512461b2'
+  /src/main:
+    newFile: !uuid 'feed6468ff25adba2cbbfcbb264a484efdb3736c'
+    oldFile: !uuid 'd260b8bac6b926bcbbdc7bdb5bdc86d3581372d1'
+  /src/main/java:
+    newFile: !uuid '5422bebe5e0079ae0a5114959ec5550254222a8d'
+    oldFile: !uuid 'fde88dbdb09989c4f7dd1167c0cc46590c2ae5f1'
+  /src/main/java/com:
+    newFile: !uuid 'b61d18dca39564c0ca74893b84c8ab71cfa6c8a7'
+    oldFile: !uuid 'ae2ff72be7571923a8d0e93bd5ef260191c31eb5'
+  /src/main/java/com/xnx3:
+    newFile: !uuid '8e94e3f6f759caf731fb805af825c91d5f759f70'
+    oldFile: !uuid 'c7081af55f1d270f8d91cca1029926606e6831bc'
+  /src/main/java/com/xnx3/wangmarket:
+    newFile: !uuid 'd775f7560ee79e63bed565fea96bd52611f872a9'
+    oldFile: !uuid '727157566b07b9f2dde226957911b7e0b6211f99'
+  /src/main/java/com/xnx3/wangmarket/plugin:
+    newFile: !uuid '488e5807d188a3291f84386d2d68f6f1f65510c5'
+    oldFile: !uuid '554037711d1285e70a599012c7a97674c69cb0e4'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell:
+    newFile: !uuid '53397e9a3f30036e6465948b5c78ffb1bca57f61'
+    oldFile: !uuid '2f35c8894cb11f75dc8ca4666babcad5e55b8f21'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/Global.java:
+    newFile: !uuid 'bfb5640dd9d038fc4fda7da689636d9a068fb6bf'
+    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller:
+    newFile: !uuid 'a9c82bfb7caa6081052ce8092ce140669cb54261'
+    oldFile: !uuid 'c4933423664c009cc2c7a07bd3b5b259803614df'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller/CommissionController.java:
+    newFile: !uuid '86b128699c96155272b857d0bd9785d7e22f5980'
+    oldFile: !uuid '1ff9c19183a2640de6fb1453269530e71d8d012b'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller/TixianController.java:
+    newFile: !uuid 'e4a245a29d4b4ef98b439a70a8d8cace9a9bca5a'
+    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller/store:
+    newFile: !uuid '813e9bae9250216cf22b96c1a61a15536e9c2c1e'
+    oldFile: !uuid '9c16d44c4748291bdde770fbef25b8d7a3c0a3ec'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller/store/CommissionController.java:
+    newFile: !uuid 'b8d6501f473cfbe8e10246a4464390475f6963eb'
+    oldFile: !uuid '6b526c28740ef907ba4c79984ddb7db9f484cb28'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller/store/IndexController.java:
+    newFile: !uuid '2bf8761a010e17db4ab18abbcd3cbf38bcabd734'
+    oldFile: !uuid '329d99d56044c2163a6438d4d80a77eaebc8790e'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller/store/TixianController.java:
+    newFile: !uuid '9983b075c1e5e35f0328ef6d9205db790c792f21'
+    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/entity:
+    newFile: !uuid '926be7347363755561a43b8a754900b6a6e7d1f1'
+    oldFile: !uuid '2cada49fdd7f3fb6c431900116e23bfb2a217212'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/entity/SellStoreSet.java:
+    newFile: !uuid '9068fea9fae06715b1fed234056089c009cad6c6'
+    oldFile: !uuid '2c5a1347829c9435eb19db55ab6619201f141d41'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/generateCache:
+    newFile: !uuid 'a6ee4541f1be98be9e5c96c2eb4e22cb590d74c4'
+    oldFile: !uuid '69c8474bdac84c42c2b261f118d9911fdba15d31'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/generateCache/SellCommissionLog.java:
+    newFile: !uuid '4bc70fb3506dfb61738dc41046f9ba1be36aca9c'
+    oldFile: !uuid 'f5889c60867c5467c6da36538910b301fbdfb00b'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/generateCache/SellTixianLog.java:
+    newFile: !uuid '7b97f9befdef80b7893ba445bfec66e414eb8637'
+    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/system:
+    newFile: !uuid '72582235d49528a5caba524323dc32d072ebcc45'
+    oldFile: !uuid 'e115e4ed11e8d2c29d7573c417b23a46d0984b7c'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/system/SpringMVCInterceptorAccessControlAllowOrigin.java:
+    newFile: !uuid 'fb9d9b3ad69e8764d8ee30ea97ed18ad0501df2f'
+    oldFile: !uuid '0c253140a936cb206db9fa451decaa23d40cf6f6'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/system/SpringMVCInterceptorUserApiLogin.java:
+    newFile: !uuid '736b683450980707d1352a42ac638a5d7026b6cf'
+    oldFile: !uuid '63d69e53079f021fc99e4d943062d04dcc248dfc'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/vo:
+    newFile: !uuid 'd35264875c51315b7ee31e5703ef78a23850862b'
+    oldFile: !uuid 'd17502492216c2681479fa238ed15cd9450abcff'
+  /src/main/java/com/xnx3/wangmarket/plugin/sell/vo/SellTiXianLogVO.java:
+    newFile: !uuid '90a61d55d933c63f8a9f2a9df0c3251c02db6905'
+    oldFile: null
+  /src/main/webapp:
+    newFile: !uuid '3400de7a2efbd31a0393685cbba69562305bdb0e'
+    oldFile: !uuid '5ce4122e6b892b5703098a0c97f312cf60e69250'
+  /src/main/webapp/WEB-INF:
+    newFile: !uuid '24f7600f2a4708c0505d955891d6dd744d8c6ec8'
+    oldFile: !uuid '35519d8d9c977757fa3edf187254b6d8a9f60bc5'
+  /src/main/webapp/WEB-INF/view:
+    newFile: !uuid 'e0ca4a82bfa32de85e91ca66e7ddeff63e8023b0'
+    oldFile: !uuid '27a482cfbd778eda70bc375d2d663b2c92ad068d'
+  /src/main/webapp/WEB-INF/view/iw:
+    newFile: !uuid '3f5df42efec709e14000ac20112cc55372d0c3aa'
+    oldFile: !uuid 'cff08307409363ec802aea2ef7613d0175ec342f'
+  /src/main/webapp/WEB-INF/view/iw/common:
+    newFile: !uuid '629e06b43d5bb09f770049837cfe02ae853c9c9a'
+    oldFile: !uuid '61afd9e59cfec8fdc8545f9b52a90459fb9f0930'
+  /src/main/webapp/WEB-INF/view/iw/common/adminSubMenu:
+    newFile: !uuid '40f987bc621bd9894b0582c4ffb35af8cfac6523'
+    oldFile: !uuid '79b2dfc672c4401eceac9e01282ed23b8de63670'
+  /src/main/webapp/WEB-INF/view/iw/common/adminSubMenu/foot.jsp:
+    newFile: !uuid '01c68fa45b4e9eb154ffefbdc28ef964a0c0c036'
+    oldFile: !uuid 'ffac5c19557d5231688ed09b9d9c983fde3f8d19'
+  /src/main/webapp/WEB-INF/view/iw/common/adminSubMenu/head.jsp:
+    newFile: !uuid 'e56c31c0756e8f738b744b2ebfdf497a95f71aee'
+    oldFile: !uuid 'f0c7cba29a4f3245594a751ba2985f5b265f7501'
+  /src/main/webapp/WEB-INF/view/plugin:
+    newFile: !uuid 'd18bc35cfeb8b1c7f27f6f28df076aa4e6a635c7'
+    oldFile: !uuid '606b0a48dfa4f9362c9738a7665f5aaf64275986'
+  /src/main/webapp/WEB-INF/view/plugin/sell:
+    newFile: !uuid 'd4ae117e61d6fe039e77f489b6cbb86032762304'
+    oldFile: !uuid '42d3d02555b2be298ddcda0275a935303aed762d'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store:
+    newFile: !uuid '47845c0c3df46f1ceb157548d12b9314ac21baf4'
+    oldFile: !uuid 'c016a8bd71dd002ac60e129a6dd856b1c4b21fe9'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/index.jsp:
+    newFile: !uuid '363d156c91032d34430453f4727525c97121aaf0'
+    oldFile: !uuid '26906b4a1931bd3251e1a4206b8bbb18aee2ef6f'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/set.jsp:
+    newFile: !uuid '97f52a1527568185d09868f3168d0a1631b2641a'
+    oldFile: null
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/tixian:
+    newFile: !uuid 'ccd636b1fd1342c725fac0e1843bcaae4ff24fd8'
+    oldFile: null
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/tixian/detail.jsp:
+    newFile: !uuid '57e42e5639b82133566e185811cb2dba6397ff75'
+    oldFile: null
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/tixian/list.jsp:
+    newFile: !uuid '380a3cae5199bd64ae33c768c1041077838b0a42'
+    oldFile: null
+gitCommitId: !uuid '31d60f67a476707e72a17d6ef913d4fc5aebc0fd'
 renames: {
   }
-revisionId: 176
+revisionId: 177
