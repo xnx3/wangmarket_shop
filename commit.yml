@@ -2,40 +2,13 @@
 branches: {
   }
 fileChange:
-  /src:
-    newFile: !uuid '206a63f8639a2812ecb292d9e5279a90512461b2'
-    oldFile: !uuid '8ca4aee1d5943c7eb3d8f222f6ce6b2b5cdda363'
-  /src/main:
-    newFile: !uuid 'd260b8bac6b926bcbbdc7bdb5bdc86d3581372d1'
-    oldFile: !uuid 'cd0ba4c9632f0c268133d3a909eea6e78aca03eb'
-  /src/main/java:
-    newFile: !uuid 'fde88dbdb09989c4f7dd1167c0cc46590c2ae5f1'
-    oldFile: !uuid 'd277d87820daa6e599e3a0efa8d9c784b3874b1f'
-  /src/main/java/com:
-    newFile: !uuid 'ae2ff72be7571923a8d0e93bd5ef260191c31eb5'
-    oldFile: !uuid '9f85ee94c5c8fc8f9f9a30fd139c406410419bb1'
-  /src/main/java/com/xnx3:
-    newFile: !uuid 'c7081af55f1d270f8d91cca1029926606e6831bc'
-    oldFile: !uuid '6b30bbede93122017dfa3b9fd7ff7ce76e86586a'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '727157566b07b9f2dde226957911b7e0b6211f99'
-    oldFile: !uuid '6e4fa1a6bd63d1f6ad8cba7d0b84445e69d55e4e'
-  /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid '9833e2b043fc54bd285ad40667be7937d6181cdb'
-    oldFile: !uuid '6ff6d0dadbc624e8429bac16230e8962cb49f540'
-  /src/main/java/com/xnx3/wangmarket/shop/core:
-    newFile: !uuid '8f08c8e0f0f095aa1bdcb7c9adc5e90ef62b7c89'
-    oldFile: !uuid '3d532b26c9884fbd89162cf29e846be527525b53'
-  /src/main/java/com/xnx3/wangmarket/shop/core/entity:
-    newFile: !uuid '62efecc5f2b5e2837e5ec0a6ee4a67ae8dc92fe4'
-    oldFile: !uuid 'd00b197a3f9f7c17d1a98e0dcf80c5786760a53d'
-  /src/main/java/com/xnx3/wangmarket/shop/core/entity/Address.java:
-    newFile: !uuid 'b50cce9116e7d3d37701e67affa098df5f48f59c'
-    oldFile: !uuid '66d094ec5cb091215f4f6fcc80e9e9b615e9453f'
-  /src/main/java/com/xnx3/wangmarket/shop/core/entity/OrderAddress.java:
-    newFile: !uuid 'f0efeb25b47cc8d5a70df91d3ed70423b43f9d35'
-    oldFile: !uuid '900e2a10b0ef1db7cfe59ed10c1186dcf150354f'
-gitCommitId: !uuid '512156d52a0b10593906fdebcd99917549f6846d'
+  /else:
+    newFile: !uuid 'fe3ffc759ff87eefc165ad456053388d49ea8754'
+    oldFile: !uuid '06d39306c556eb998eda36a22331d2c002467182'
+  /else/wangmarket_shop.sql:
+    newFile: !uuid 'affd4706a450095214923032f576a4a32952ea5b'
+    oldFile: !uuid 'b4f2dd660dc4aab3710402297590708f106485fe'
+gitCommitId: !uuid '8845f949d272757aaeb1f4fe61978d0c8628d3fa'
 renames: {
   }
-revisionId: 175
+revisionId: 176
