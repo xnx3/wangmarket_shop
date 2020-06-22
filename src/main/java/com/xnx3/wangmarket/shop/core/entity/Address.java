@@ -59,7 +59,7 @@ public class Address extends BaseEntity {
 		this.phone = phone;
 	}
 	
-	@Column(name = "longitude", columnDefinition="double(6,6) comment '经纬度'")
+	@Column(name = "longitude", columnDefinition="double(9,6) comment '经纬度'")
 	public Double getLongitude() {
 		return longitude;
 	}
@@ -68,7 +68,7 @@ public class Address extends BaseEntity {
 		this.longitude = longitude;
 	}
 	
-	@Column(name = "latitude", columnDefinition="double(6,6) comment '经纬度'")
+	@Column(name = "latitude", columnDefinition="double(9,6) comment '经纬度'")
 	public Double getLatitude() {
 		return latitude;
 	}
