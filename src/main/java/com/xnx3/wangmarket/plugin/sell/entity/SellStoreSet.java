@@ -29,10 +29,11 @@ public class SellStoreSet extends BaseEntity implements java.io.Serializable{
 	private Integer twoCommission;		//二级分成， A推荐B注册，B推荐C注册，C消费完成后，A能获得百分之多少分成。单位是百分之几。如这里填写2，则A能获得C实际支付的百分之2作为佣金
 	private Integer disposeDay;			//处理时间，也就是提交申请后，会在几个工作日内进行处理。这个字段主要是给用户端，给用户看的。
 	private Integer money;				//提现时，需要金额满足多少钱，可提现金额大于这个钱，才允许提交提现申请。这里单位是分
-	private Short smsNotify;			//短信通知，是否开启短信通知， 0不开启，1开启。 开启这个的前提，是已经配置了短信接口。
+	private Short smsNotify;			//短信通知，是否开启短信通知， 0不开启，1开启。 开启这个的前提，是已经配置了短信接口。默认不开启
 	
 	public SellStoreSet() {
 		this.money = 10000;	//默认满100元可提现
+		this.smsNotify = 1;
 	}
 	
 	@Id

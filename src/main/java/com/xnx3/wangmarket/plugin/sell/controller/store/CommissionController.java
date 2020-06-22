@@ -36,7 +36,7 @@ public class CommissionController extends BasePluginController {
 
 	/**
 	 * 查看佣金记录列表
-	 * @author 关光礼
+	 * @author 管雷鸣
 	 */
 	@RequestMapping("/list${url.suffix}")
 	public String list(HttpServletRequest request,Model model) {
@@ -52,10 +52,9 @@ public class CommissionController extends BasePluginController {
 		//查询条件
 		sql.appendWhere("storeid = " + store.getId());
 		//配置按某个字端搜索内容
-		sql.setSearchColumn(new String[] {"userid","typeid"});
+		sql.setSearchColumn(new String[] {"userid","transfer_state", "<=addtime"});
 		// 查询数据表的记录总条数
 		int count = sqlService.count("plugin_sell_commission_log", sql.getWhere());
-		
 		// 配置每页显示30条
 		Page page = new Page(count, 30, request);
 		// 查询出总页数

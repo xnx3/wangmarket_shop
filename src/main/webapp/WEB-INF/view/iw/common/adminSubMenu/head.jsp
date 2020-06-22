@@ -28,7 +28,7 @@ body{
 
 <div style="width:100%;height:100%; background-color: #fff; overflow-x: hidden;">
 	
-	<div class="layui-nav layui-nav-tree layui-nav-side menu">
+	<div class="layui-nav layui-nav-tree layui-nav-side menu" style="background-color: #eef0f3;">
 		<div class="adminSubMenu_title">
 			<%=title %>
 		</div>

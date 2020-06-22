@@ -21,6 +21,7 @@ public class SpringMVCInterceptorUserApiLogin implements SpringMVCInterceptorInt
 		List<String> list = new ArrayList<String>();
 		list.add("/plugin/sell/*.json");
 		list.add("/plugin/sell/commission/*.json");
+		list.add("/plugin/sell/tixian/*.json");
  		return list;
 	}
 

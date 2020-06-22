@@ -7,7 +7,7 @@ import com.xnx3.j2ee.generateCache.BaseGenerate;
  * SellCommissionLog 状态相关
  * @author 管雷鸣
  */
-@Component(value="PluginSellGenerate")
+@Component(value="PluginSellCommissionLogGenerate")
 public class SellCommissionLog extends BaseGenerate {
 	
 	public SellCommissionLog(){

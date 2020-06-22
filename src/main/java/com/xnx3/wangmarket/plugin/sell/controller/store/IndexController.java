@@ -31,12 +31,23 @@ public class IndexController extends BasePluginController {
 	@Resource
 	private SqlCacheService sqlCacheService;
 	
-
 	/**
 	 * 设置分销奖励
 	 */
 	@RequestMapping("index${url.suffix}")
-	public String setAward(HttpServletRequest request,Model model){
+	public String index(HttpServletRequest request,Model model){
+		if(!haveStoreAuth()){
+			return error(model, "请先登录");
+		}
+		ActionLogUtil.insertUpdateDatabase(request, "进入后台分销首页");
+		return "plugin/sell/store/index";
+	}
+	
+	/**
+	 * 设置分销奖励，设置页面
+	 */
+	@RequestMapping("set${url.suffix}")
+	public String set(HttpServletRequest request,Model model){
 		if(!haveStoreAuth()){
 			return error(model, "请先登录");
 		}
@@ -54,7 +65,7 @@ public class IndexController extends BasePluginController {
 		
 		ActionLogUtil.insertUpdateDatabase(request, "进入分销设置页面");
 		model.addAttribute("set", set);
-		return "plugin/sell/store/index";
+		return "plugin/sell/store/set";
 	}
 	
 	/**
@@ -127,6 +138,12 @@ public class IndexController extends BasePluginController {
 			set.setFirstCommission(value);
 		}else if (level.equals("two")) {
 			set.setTwoCommission(value);
+		}else if (level.equals("money")) {
+			set.setMoney(value);
+		}else if (level.equals("disposeDay")) {
+			set.setDisposeDay(value);
+		}else if (level.equals("smsNotify")) {
+			set.setSmsNotify((short) (value - 1 == 0? 1:0));
 		}else{
 			return error("level 传值错误");
 		}
