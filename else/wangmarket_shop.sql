@@ -483,8 +483,8 @@ DROP TABLE IF EXISTS `shop_address`;
 CREATE TABLE `shop_address` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `address` char(100) DEFAULT NULL COMMENT '具体地址',
-  `latitude` double(50,6) DEFAULT NULL COMMENT '经纬度',
-  `longitude` double(50,6) DEFAULT NULL COMMENT '经纬度',
+  `latitude` double(9,6) DEFAULT NULL COMMENT '经纬度',
+  `longitude` double(9,6) DEFAULT NULL COMMENT '经纬度',
   `phone` char(13) DEFAULT NULL COMMENT '收货人手机号',
   `userid` int(11) DEFAULT NULL COMMENT '改地址所属用户，属于那个用户的，对应User.id',
   `username` char(10) DEFAULT NULL COMMENT '收货人用户姓名',
@@ -680,8 +680,8 @@ DROP TABLE IF EXISTS `shop_order_address`;
 CREATE TABLE `shop_order_address` (
   `id` int(11) NOT NULL,
   `address` varchar(1000) DEFAULT NULL COMMENT '具体地址',
-  `latitude` double(6,6) DEFAULT NULL COMMENT '经纬度',
-  `longitude` double(6,6) DEFAULT NULL COMMENT '经纬度',
+  `latitude` double(9,6) DEFAULT NULL COMMENT '经纬度',
+  `longitude` double(9,6) DEFAULT NULL COMMENT '经纬度',
   `phone` varchar(100) DEFAULT NULL COMMENT '收货人手机号',
   `username` varchar(50) DEFAULT NULL COMMENT '收货人用户姓名',
   PRIMARY KEY (`id`)
@@ -828,8 +828,8 @@ CREATE TABLE `shop_store` (
   `contacts` char(10) DEFAULT NULL COMMENT '店铺联系人',
   `district` char(20) DEFAULT NULL COMMENT '店铺所在位置-区',
   `head` char(100) DEFAULT NULL COMMENT '店铺图片，图标，图片的绝对路径',
-  `latitude` double(100,6) DEFAULT NULL COMMENT '店铺经纬度',
-  `longitude` double(100,6) DEFAULT NULL COMMENT '店铺经纬度',
+  `latitude` double(9,6) DEFAULT NULL COMMENT '店铺经纬度',
+  `longitude` double(9,6) DEFAULT NULL COMMENT '店铺经纬度',
   `name` char(20) DEFAULT NULL COMMENT '店铺名字',
   `notice` char(150) DEFAULT NULL COMMENT '店铺公告',
   `phone` char(13) DEFAULT NULL COMMENT '店铺店家联系电话',
