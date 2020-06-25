@@ -56,6 +56,8 @@ public class IndexController extends BaseController {
 		}
 		model.addAttribute("pluginMenu", pluginMenu);
 		
+		ActionLogUtil.insert(request, "进入商家管理后台首页", getStore().toString());
+		
 		//左侧菜单
 		model.addAttribute("menuHTML", TemplateAdminMenuUtil.getLeftMenuHtml());
 		//是否是第三方平台通过token+code直接登录的，如果是，那么是不显示更改密码、退出登录功能的
@@ -75,6 +77,7 @@ public class IndexController extends BaseController {
 			storeData = new StoreData();
 		}
 		
+		ActionLogUtil.insert(request, "进入商家管理后台欢迎页面", store.toString());
 		model.addAttribute("store", store);
 		model.addAttribute("storeData", storeData);
 		return "/shop/store/index/welcome";
