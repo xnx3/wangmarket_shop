@@ -2,7 +2,6 @@ package com.xnx3.wangmarket.plugin.sell.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xnx3.CacheUtil;
 import com.xnx3.DateUtil;
 import com.xnx3.Lang;
@@ -20,20 +18,12 @@ import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
-import com.xnx3.j2ee.util.Page;
-import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.wangmarket.plugin.firstOrderAward.entity.Award;
 import com.xnx3.wangmarket.plugin.sell.Global;
-import com.xnx3.wangmarket.plugin.sell.entity.SellCommissionLog;
 import com.xnx3.wangmarket.plugin.sell.entity.SellStoreSet;
 import com.xnx3.wangmarket.plugin.sell.entity.SellTiXianLog;
-import com.xnx3.wangmarket.plugin.sell.vo.CommissionLogListVO;
 import com.xnx3.wangmarket.plugin.sell.vo.SellTiXianLogVO;
-import com.xnx3.wangmarket.shop.core.entity.Goods;
-import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
-import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
 /**
  * 用户自己的佣金管理

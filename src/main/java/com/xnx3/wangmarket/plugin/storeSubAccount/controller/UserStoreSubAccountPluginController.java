@@ -15,6 +15,7 @@ import com.xnx3.Lang;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
+import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.util.SystemUtil;
@@ -63,6 +64,7 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 		
 		model.addAttribute("page", page);
 		model.addAttribute("list", list);
+		ActionLogUtil.insert(request, "查看店铺子账户列表");
 		return "/plugin/storeSubAccount/user/list";
 	}
 	
@@ -125,6 +127,7 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 			
 		}
 		
+		ActionLogUtil.insert(request, "打开添加/编辑子账户页面");
 		model.addAttribute("map", menuMap);
 		return "/plugin/storeSubAccount/user/edit";
 	}
@@ -238,6 +241,7 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 			sqlService.delete(entry.getValue());
 		}
 		
+		ActionLogUtil.insertUpdateDatabase(request, "保存子账户信息");
 		return success();
 	}
 	
@@ -272,13 +276,12 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 			sqlService.delete(storeUser);
 		}
 		
+		ActionLogUtil.insertUpdateDatabase(request, userid, "删除子账户:"+user.toString());
 		return success();
 	}
 	
 	/**
 	 * 修改子用户的登陆密码
-	 * @param request
-	 * @param model
 	 * @param userid 要修改的子用户的id
 	 * @param newPassword 要修改成的密码
 	 * @return
@@ -299,9 +302,10 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 		}
 		//判断该用户是不是当前网站管理者的下级用户，是否有权限
 		if(user.getReferrerid() - getUserId() != 0){
-			return error("要删除的用户不是您的子用户，无法操作！");
+			return error("要修改的用户不是您的子用户，无法操作！");
 		}
-
+		
+		ActionLogUtil.insertUpdateDatabase(request, userid, "修改子账户密码，newPassword:"+newPassword);
 		return userService.updatePassword(userid, newPassword);
 	}
 	

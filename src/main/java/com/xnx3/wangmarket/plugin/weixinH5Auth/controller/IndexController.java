@@ -14,6 +14,7 @@ import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
+import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.util.SystemUtil;
 import com.xnx3.j2ee.vo.BaseVO;
@@ -73,6 +74,7 @@ public class IndexController extends BasePluginController {
 		url = SystemUtil.get("MASTER_SITE_URL")+"plugin/weixinH5Auth/wxAuthLogin.do?storeid="+storeid+"%26referrerid="+referrerid+"%26url="+url;
 		String jumpUrl = util.getOauth2ExpertUrl(url);
 		ConsoleUtil.log(jumpUrl);
+		ActionLogUtil.insert(request, storeid, "jumpUrl:"+jumpUrl);
 		return redirect(jumpUrl);
 	}
 	
@@ -109,7 +111,6 @@ public class IndexController extends BasePluginController {
 		if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
 			//使用服务商模式
 			PaySet serivcePaySet = paySetService.getSerivceProviderPaySet();
-			System.out.println("serivcePaySet:"+serivcePaySet.toString());
 			
 			com.xnx3.net.HttpUtil httpUtil = new com.xnx3.net.HttpUtil();
 			HttpResponse httpResponse = httpUtil.get(WeiXinUtil.OAUTH2_ACCESS_TOKEN_URL.replace("APPID", serivcePaySet.getWeixinOfficialAccountsAppid()).replace("SECRET", serivcePaySet.getWeixinOfficialAccountsAppSecret()).replace("CODE", code));
@@ -188,6 +189,7 @@ public class IndexController extends BasePluginController {
 				/*********/
 				
 				ConsoleUtil.info("reg --- > "+user.toString());
+				ActionLogUtil.insertUpdateDatabase(request, storeid, "注册新用户:"+user.toString()+", url:"+url);
 			}else{
 				//自动注册失败
 				return error(model,regVO.getInfo());
@@ -199,6 +201,7 @@ public class IndexController extends BasePluginController {
 			if(loginVO.getResult() - BaseVO.FAILURE == 0){
 				return error(model,loginVO.getInfo());
 			}
+			ActionLogUtil.insertUpdateDatabase(request, storeid, "登录:"+getUser().toString()+", url:"+url);
 		}
 		
 		String sessionid = request.getSession().getId();

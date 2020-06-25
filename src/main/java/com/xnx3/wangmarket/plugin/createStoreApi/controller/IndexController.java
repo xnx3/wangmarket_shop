@@ -139,6 +139,8 @@ public class IndexController extends BasePluginController {
 			
 			//加入user信息
 			vo.setUser(getUser());
+			
+			ActionLogUtil.insertUpdateDatabase(request, userid, "api开通店铺，"+vo.getUser().toString()+","+store.toString());
 		}else{
 			vo.setBaseVO(BaseVO.FAILURE, baseVO.getInfo());
 			ActionLogUtil.insert(request, "用户名密码模式注册失败",baseVO.getInfo());

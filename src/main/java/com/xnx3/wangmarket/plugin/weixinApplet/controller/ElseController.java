@@ -1,9 +1,5 @@
 package com.xnx3.wangmarket.plugin.weixinApplet.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -12,15 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
-import com.xnx3.j2ee.service.UserService;
-import com.xnx3.j2ee.util.ConsoleUtil;
+import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.SessionUtil;
 import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.wangmarket.plugin.weixinApplet.vo.LoginVO;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.core.service.WeiXinService;
 import com.xnx3.weixin.WeiXinAppletUtil;
@@ -91,6 +84,7 @@ public class ElseController extends BasePluginController {
         		//更新缓存
         		SessionUtil.setUser(updateUser);
         	}
+        	ActionLogUtil.insertUpdateDatabase(request, storeid, "保存用户手机号:"+user.toString()+",phoneVO:"+phoneVO.toString());
         	return success(phoneVO.getPhone());
         }else{
         	//失败

@@ -13,6 +13,7 @@ import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
+import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.UserVO;
@@ -152,6 +153,7 @@ public class LoginController extends BasePluginController {
 				
 				//缓存
 //				SessionUtil.setWeiXinUser(weixinUser);
+				ActionLogUtil.insertUpdateDatabase(request, storeid, "自动注册用户:"+user.toString());
 				
 				ConsoleUtil.info("reg --- > "+user.toString());
 				vo.setUser(getUser());
@@ -172,6 +174,8 @@ public class LoginController extends BasePluginController {
 //				SessionUtil.setWeiXinUser(weiXinUser);
 				vo.setUser(user);
 				vo.setUserWeiXin(userWeixin);
+				
+				ActionLogUtil.insertUpdateDatabase(request, storeid, "登录:"+user.toString());
 			}
 			
 			//判断一下用户是否已经关联上这个商家了，如果没关联，还要将这个用户关联为这个商家的用户

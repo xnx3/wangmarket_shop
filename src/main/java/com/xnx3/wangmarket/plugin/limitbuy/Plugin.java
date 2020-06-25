@@ -2,12 +2,12 @@ package com.xnx3.wangmarket.plugin.limitbuy;
 
 import java.util.List;
 import com.xnx3.BaseVO;
+import com.xnx3.CacheUtil;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.PluginRegister;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.impl.SqlCacheServiceImpl;
-import com.xnx3.j2ee.util.CacheUtil;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.util.SpringUtil;
 import com.xnx3.wangmarket.plugin.limitbuy.entity.LimitBuyStore;
@@ -95,50 +95,6 @@ public class Plugin implements OrderCreateInterface, OrderPayFinishInterface, Or
 	public void orderCreateAfter(Order order, List<BuyGoods> buyGoodsList, OrderAddress orderAddress, User user, Store store) {
 		
 	}
-
-//	@Override
-//	public void regFinish(User user, Store store) {
-//		ConsoleUtil.log("user:"+user.toString());
-//		ConsoleUtil.log("store:"+store.toString());
-//		
-//		int storeid = 0;
-//		if(store != null && store.getId() != null){
-//			storeid = store.getId();
-//		}
-//		
-//		//新用户注册成功后，要清除其上级的订单数缓存
-//		if(user.getReferrerid() != null && user.getReferrerid() > 0){
-//			//有上级推荐人，那么吧上级的可下单次数增加
-//			
-//			SqlCacheService sqlCacheService = SpringUtil.getBean(SqlCacheServiceImpl.class);
-//			SqlService sqlService = SpringUtil.getSqlService();
-//			LimitBuyStore limitBuyStore = sqlCacheService.findById(LimitBuyStore.class, storeid);
-//			if(limitBuyStore == null){
-//				//店铺也没设置，那么直接退出
-//				return;
-//			}
-//			if(limitBuyStore.getIsUse() - LimitBuyStore.IS_USE_NO == 0){
-//				//店铺设置的是不使用这个规则，那么直接退出
-//				return;
-//			}
-//			
-//			//查出这个用户限额是多少，进行增加
-//			LimitBuyUser limitBuyUser = sqlService.findById(LimitBuyUser.class, user.getId()+"_"+store.getId());
-//			if(limitBuyUser != null){
-//				limitBuyUser.setUseNumber(limitBuyUser.getUseNumber()+1);
-//			}else{
-//				limitBuyUser = new LimitBuyUser();
-//				limitBuyUser.setId();
-//				limitBuyUser.setLimitNumber(limitBuyStore.getLimitNumber());
-//				limitBuyUser.setStoreid(storeid);
-//				limitBuyUser.setUseNumber(0);
-//				limitBuyUser.setUserid(user.getId());
-//			}
-//			sqlService.save(limitBuyUser);
-//			//清理limitBuyUser 的 cache缓存
-//			sqlCacheService.deleteCacheById(LimitBuyUser.class, user.getId()+"_"+store.getId());
-//		}
-//	}
 
 	@Override
 	public void orderPayFinish(Order order) {
