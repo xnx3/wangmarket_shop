@@ -1,6 +1,5 @@
 package com.xnx3.wangmarket.shop.api.controller;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,12 +17,10 @@ import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
-import com.xnx3.j2ee.pluginManage.interfaces.manage.SuperAdminIndexPluginManage;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
-import com.xnx3.j2ee.util.SafetyUtil;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.json.JSONUtil;
@@ -41,7 +38,6 @@ import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderCreateP
 import com.xnx3.wangmarket.shop.core.service.CartService;
 import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
-import com.xnx3.wangmarket.shop.core.service.PayService;
 import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.util.DoubleUtil;
 import com.xnx3.wangmarket.shop.core.vo.OrderListVO;
@@ -408,7 +404,7 @@ public class OrderController extends BasePluginController {
 		vo.setOrderRule(sqlCacheService.findById(OrderRule.class, order.getStoreid()));
 		
 		//写日志
-		ActionLogUtil.insert(request, orderid, "查看订单详情", "id:"+orderid+", no:"+order.getNo());
+		ActionLogUtil.insert(request, orderid, "查看订单详情", order.toString());
 		return vo;
 	}
 	

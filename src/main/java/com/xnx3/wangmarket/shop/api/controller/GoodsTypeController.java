@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
+import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.wangmarket.shop.core.service.GoodsService;
 import com.xnx3.wangmarket.shop.core.vo.GoodsTypeListVO;
 
@@ -33,6 +34,7 @@ public class GoodsTypeController extends BasePluginController {
 	@ResponseBody
 	public GoodsTypeListVO list(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
+		ActionLogUtil.insert(request, storeid,"获取店铺内商品的分类列表");	//日志记录
 		return goodsService.getStoreGoodsType(storeid);
 	}
 

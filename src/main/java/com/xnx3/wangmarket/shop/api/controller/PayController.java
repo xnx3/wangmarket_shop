@@ -63,8 +63,6 @@ public class PayController extends BasePluginController {
 	@Resource
 	private PaySetService paySetService;
 	
-	
-	
 	/**
 	 * 获取当前商铺的支付列表，列出哪个支付使用，哪个支付不使用
 	 */
@@ -90,6 +88,7 @@ public class PayController extends BasePluginController {
 		paySetBean.setUseWeixinPay((short) (map.get("use_weixin_pay") != null ? Lang.stringToInt(map.get("use_weixin_pay").toString() , 0):0));
 		vo.setPaySet(paySetBean);
 		
+		ActionLogUtil.insert(request,storeid, "获取店铺支付设置", paySetBean.toString());
 		return vo;
 	}
 	
@@ -349,7 +348,6 @@ public class PayController extends BasePluginController {
 				e.printStackTrace();
 				return "failure";
 			}
-        	System.out.println(JSONObject.fromObject(map).toString());
         	String no = map.get("out_trade_no");	//取到订单号
         	if(no == null){
         		return "out_trade_no not find";

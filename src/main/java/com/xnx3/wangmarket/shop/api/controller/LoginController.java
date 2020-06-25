@@ -24,7 +24,6 @@ import com.xnx3.j2ee.vo.LoginVO;
 import com.xnx3.media.CaptchaUtil;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreUser;
-import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderCreatePluginManage;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.RegPluginManage;
 import com.xnx3.wangmarket.shop.api.util.SessionUtil;
 
@@ -89,7 +88,7 @@ public class LoginController extends BaseController {
 			vo.setBaseVO(baseVO);
 			if(baseVO.getResult() == BaseVO.SUCCESS){
 				User user = getUser();
-				ActionLogUtil.insert(request, "用户名密码模式登录成功");
+				ActionLogUtil.insert(request, "用户名密码模式登录成功", user.toString());
 				
 				Store store = null;	//此用户所在的店铺
 				//判断一下是否传入了storeid这个参数
@@ -193,7 +192,6 @@ public class LoginController extends BaseController {
 			
 			if(baseVO.getResult() == BaseVO.SUCCESS){
 				int userid = Lang.stringToInt(baseVO.getInfo(), 0);
-				ActionLogUtil.insert(request,userid, "注册成功","通过用户名密码");
 				
 				//注册成功后，将这个用户加入这个商家名下，是这个商家的客户
 				StoreUser storeUser = new StoreUser();
@@ -228,6 +226,7 @@ public class LoginController extends BaseController {
 				
 				//加入user信息
 				vo.setUser(getUser());
+				ActionLogUtil.insertUpdateDatabase(request,userid, "通过用户名密码注册成功", getUser().toString());
 			}else{
 				ActionLogUtil.insert(request, "用户名密码模式注册失败",baseVO.getInfo());
 				vo.setBaseVO(BaseVO.FAILURE, baseVO.getInfo());

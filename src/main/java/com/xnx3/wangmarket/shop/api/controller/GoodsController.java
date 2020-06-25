@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
+import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
@@ -99,6 +100,7 @@ public class GoodsController extends BasePluginController {
 	    vo.setList(list);
 	    vo.setPage(page);
 	    
+	    ActionLogUtil.insert(request, storeid,"获取商品列表");	//日志记录
 		return vo;
 	}
 	
@@ -112,9 +114,8 @@ public class GoodsController extends BasePluginController {
 	@ResponseBody
 	public GoodsDetailsVO detail(HttpServletRequest request,
 			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid){
+		ActionLogUtil.insert(request, goodsid,"获取商品详情");	//日志记录
 		return goodsService.getGoodsDetail(goodsid);
 	}
-	
-
 	
 }
