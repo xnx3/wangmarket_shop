@@ -2,12 +2,14 @@ package com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import com.xnx3.BaseVO;
 import com.xnx3.ScanClassUtil;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.util.ConsoleUtil;
+import com.xnx3.j2ee.util.SpringUtil;
 import com.xnx3.wangmarket.shop.core.bean.BuyGoods;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
@@ -23,11 +25,27 @@ public class OrderCreatePluginManage {
 	//开启项目时，便将有关此的插件加入此处
 	public static List<Class<?>> classList;
 	static{
-		List<Class<?>> allClassList = ScanClassUtil.getClasses("com.xnx3.wangmarket");
-		classList = ScanClassUtil.searchByInterfaceName(allClassList, "com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderCreateInterface");
-		for (int i = 0; i < classList.size(); i++) {
-			ConsoleUtil.info("装载 OrderCreateInterface 插件："+classList.get(i).getName());
-		}
+		classList = new ArrayList<Class<?>>();
+		
+		new Thread(new Runnable() {
+			public void run() {
+				while(SpringUtil.getApplicationContext() == null){
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				//当 SpringUtil 被Spring 加载后才会执行
+				List<Class<?>> allClassList = ScanClassUtil.getClasses("com.xnx3.wangmarket");
+				classList = ScanClassUtil.searchByInterfaceName(allClassList, "com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderCreateInterface");
+				for (int i = 0; i < classList.size(); i++) {
+					ConsoleUtil.info("装载 OrderCreateInterface 插件："+classList.get(i).getName());
+				}
+			}
+		}).start();
+		
 	}
 	
 	/**

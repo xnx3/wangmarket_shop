@@ -3,9 +3,11 @@ package com.xnx3.wangmarket.shop.core.system;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import com.xnx3.DateUtil;
+import com.xnx3.j2ee.Global;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.util.SpringUtil;
+import com.xnx3.j2ee.util.SystemUtil;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
@@ -28,6 +30,15 @@ public class OrderTimeoutListenerThread extends Thread{
 	
 	@Override
 	public void run() {
+		while(Global.system.size() < 1){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		//当数据库加载完毕之后，在启动此线程
+		
 		ConsoleUtil.log("OrderTimeoutListenerThread start");
 		while (true) {
 			try {

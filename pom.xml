@@ -166,11 +166,11 @@
 		</dependency>
 	    
 		<!-- 热部署，如果本地运行redis，这个要去掉，不然会报错 -->
-		<dependency>
+		<!-- <dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-devtools</artifactId>
 		    <optional>true</optional>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
             <groupId>commons-configuration</groupId>
@@ -387,7 +387,13 @@
 	    </dependency>
 	    
 	    <!-- 一下三个是防xss -->
-	    
+	    <dependency> 
+	        <groupId>com.xnx3.rabbitmq</groupId>  
+	        <artifactId>rabbitmq</artifactId>  
+	        <version>1.0</version>  
+	        <scope>system</scope>  
+    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/rabbitmq-1.0.jar</systemPath>
+	    </dependency>
 	    <dependency> 
 	        <groupId>com.xnx3.antlrruntime</groupId>  
 	        <artifactId>xnx3_antlrruntime</artifactId>  
@@ -408,6 +414,13 @@
 	        <version>1.0</version>  
 	        <scope>system</scope>  
     		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/xnx3-cache-1.0.jar</systemPath>  
+	    </dependency>
+	    <dependency> 
+	        <groupId>com.xnx3.wm</groupId>  
+	        <artifactId>wm</artifactId>  
+	        <version>1.0</version>  
+	        <scope>system</scope>  
+    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wm.jar</systemPath>  
 	    </dependency>
 		<!-- iw end --> 
        

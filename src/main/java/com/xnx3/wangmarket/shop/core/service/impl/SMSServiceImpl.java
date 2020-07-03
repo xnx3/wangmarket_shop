@@ -12,7 +12,6 @@ import com.xnx3.DateUtil;
 import com.xnx3.SMSUtil;
 import com.xnx3.j2ee.dao.SqlDAO;
 import com.xnx3.j2ee.entity.SmsLog;
-import com.xnx3.j2ee.service.SmsService;
 import com.xnx3.j2ee.util.CacheUtil;
 import com.xnx3.j2ee.util.IpUtil;
 import com.xnx3.j2ee.util.LanguageUtil;
@@ -30,8 +29,6 @@ public class SMSServiceImpl implements SMSService {
 	private SqlDAO sqlDAO;
 	@Resource
 	private SMSSetService smsSetService;
-	@Resource
-	private SmsService smsService;
 	
 	public SqlDAO getSqlDAO() {
 		return sqlDAO;
