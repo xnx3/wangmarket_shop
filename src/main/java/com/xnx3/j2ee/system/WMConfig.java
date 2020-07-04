@@ -35,6 +35,7 @@ public class WMConfig {
 	public RoleService roleService(){
 		return new RoleServiceImpl();
 	}
+//	这里重写了SMSService，每个商家都有一个自己的短信通道
 //	@Bean
 //	public SmsService smsService(){
 //		return new SmsServiceImpl();
