@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import com.xnx3.CacheUtil;
 import com.xnx3.Lang;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlService;
@@ -565,16 +567,19 @@ public class CartServiceImpl implements CartService {
 		//存入 session
 		SessionUtil.setCart(cartVO);
 		
-		//存入数据表，将其转化为json存储
-		String jsonString = cartVO.toJsonString();
-		User user = SessionUtil.getUser();
-		Cart cart = sqlService.findById(Cart.class, user.getId());
-		if(cart == null){
-			cart = new Cart();
-			cart.setId(user.getId());
+		if(!CacheUtil.isUseRedis()){
+			//如果不使用redis，那就是java本身缓存，tomcat重启也就关闭了，所以不使用redis，需要将数据变动保存到mysql数据表中
+			//存入数据表，将其转化为json存储
+			String jsonString = cartVO.toJsonString();
+			User user = SessionUtil.getUser();
+			Cart cart = sqlService.findById(Cart.class, user.getId());
+			if(cart == null){
+				cart = new Cart();
+				cart.setId(user.getId());
+			}
+			cart.setText(jsonString);
+			sqlService.save(cart);
 		}
-		cart.setText(jsonString);
-		sqlService.save(cart);
 	}
 	
 	
