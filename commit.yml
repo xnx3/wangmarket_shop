@@ -3,51 +3,39 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '02c483aed0b1ebec03943f3dea2a9497af42eb93'
-    oldFile: !uuid '2eda8c147ca87ac634ee7d9563f9baaa6860f362'
+    newFile: !uuid '60ee2008300850b6831772149c3eed052e9c902d'
+    oldFile: !uuid '02c483aed0b1ebec03943f3dea2a9497af42eb93'
   /src/main:
-    newFile: !uuid '467a4ea6983be643489d78ed3c871c97480492fb'
-    oldFile: !uuid 'cac8aff733e1e37cef2c4e7122959c28838731f1'
+    newFile: !uuid '79960a8f10501c3536b7049cf90d30305e8e72b1'
+    oldFile: !uuid '467a4ea6983be643489d78ed3c871c97480492fb'
   /src/main/java:
-    newFile: !uuid '027ab5d46451b6771b4c25650883a527f9216a03'
-    oldFile: !uuid '6b5f66643e91fdfb1614bef77456c1fab7e0f13e'
+    newFile: !uuid '2754fbacb5db48572b721e6a38cc00de0ce331ae'
+    oldFile: !uuid '027ab5d46451b6771b4c25650883a527f9216a03'
   /src/main/java/com:
-    newFile: !uuid 'cd230a37169e1f1c2b6f450523ab78947485efc4'
-    oldFile: !uuid 'f2318487435bff85b95b5fa259ae12c6643d7e20'
+    newFile: !uuid 'c145b3f468a1e5e6ad956eeda7ea49ea64b446e0'
+    oldFile: !uuid 'cd230a37169e1f1c2b6f450523ab78947485efc4'
   /src/main/java/com/xnx3:
-    newFile: !uuid '036cfc1306244ee59cfcedd22a3e507b29e386c4'
-    oldFile: !uuid '61708187dc9a484051bb4493bac23d98340cf709'
-  /src/main/java/com/xnx3/j2ee:
-    newFile: !uuid '0bc4ff9e51bb6ba92894cf5022d2073f9b8ad342'
-    oldFile: !uuid '62cb29ceeaca9b97852b57bb8d5c601a5acc928d'
-  /src/main/java/com/xnx3/j2ee/system:
-    newFile: !uuid 'ef8de7edf9dc35a72a4397afa7c4e325e40f3572'
-    oldFile: !uuid 'ce0a3b44e85075de154b5309baab776b66019c96'
-  /src/main/java/com/xnx3/j2ee/system/WMConfig.java:
-    newFile: !uuid '8794c202d32773a21355315fd191cc18575ffd13'
-    oldFile: !uuid 'ea33b8d65b566460d5b469083ca5e87519e9245e'
+    newFile: !uuid '352e54510ee1a8eeaa817c000e7fe13605f8ac5f'
+    oldFile: !uuid '036cfc1306244ee59cfcedd22a3e507b29e386c4'
   /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '16edca34fcc88e1b68d6b2c965009a258b21a469'
-    oldFile: !uuid '23b148fbb04b6881833d2a2c7b20e4960198117b'
+    newFile: !uuid 'a8d951db003bbf57381d935fd8702dab1d7c3b26'
+    oldFile: !uuid '16edca34fcc88e1b68d6b2c965009a258b21a469'
   /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid 'e7d83a7dca32c3379d5c2e87d67969bca7836318'
-    oldFile: !uuid '7faec1ed2a02fe0bed13d81b51007a21621f0883'
+    newFile: !uuid 'faec4f223eed2af95c63f24bb2983e5431fde9d8'
+    oldFile: !uuid 'e7d83a7dca32c3379d5c2e87d67969bca7836318'
   /src/main/java/com/xnx3/wangmarket/shop/core:
-    newFile: !uuid '1c923efdf55835adabf2f8211c8d1a7562fe0a6e'
-    oldFile: !uuid '9753b08f0d5e60c96a5f0ce9aebca6b8736b4372'
+    newFile: !uuid '5d28c69066abe9f7575a9784b64609a742e3139f'
+    oldFile: !uuid '1c923efdf55835adabf2f8211c8d1a7562fe0a6e'
   /src/main/java/com/xnx3/wangmarket/shop/core/service:
-    newFile: !uuid '01f6411e409588100d711c4444d37a758806eee6'
-    oldFile: !uuid '6617ab0672fa06739efa6e1b95d4d2226b5fbe8d'
-  /src/main/java/com/xnx3/wangmarket/shop/core/service/OrderService.java:
-    newFile: !uuid 'ba5a29627d26f492040e17465ba701a3b2718eeb'
-    oldFile: !uuid 'a404eed4554d4a0eb39a768b2daa5b2a7c5f00ee'
+    newFile: !uuid '2ae606ff2960e4fa5bdd4249e672a05632a55e73'
+    oldFile: !uuid '01f6411e409588100d711c4444d37a758806eee6'
   /src/main/java/com/xnx3/wangmarket/shop/core/service/impl:
-    newFile: !uuid '8c6add45cf9820d1e950c0074284fc6b8eb8c775'
-    oldFile: !uuid '158f25705e1532a744617c12014877d311618dda'
-  /src/main/java/com/xnx3/wangmarket/shop/core/service/impl/OrderServiceImpl.java:
-    newFile: !uuid '08351ff10c36836c374bfa461d05962dbf0ca52b'
-    oldFile: !uuid '431c968d81c187dd6ee2a56d3944edb9160bd4ca'
-gitCommitId: !uuid '22f3830fb23141ebe8ca6bdd0bcdfc598849ec63'
+    newFile: !uuid 'ccbfeecca165f6edaab7b9dc0acf449077ca81c4'
+    oldFile: !uuid '8c6add45cf9820d1e950c0074284fc6b8eb8c775'
+  /src/main/java/com/xnx3/wangmarket/shop/core/service/impl/CartServiceImpl.java:
+    newFile: !uuid '100168ddc07b91cfc0b48242e53fa976274a1e38'
+    oldFile: !uuid 'b1a9e285cff0e31be2fcdaa9138f1c5b6637ef83'
+gitCommitId: !uuid 'da3df943a65a865a015d2c6b9e54d685fb876a9f'
 renames: {
   }
-revisionId: 182
+revisionId: 183
