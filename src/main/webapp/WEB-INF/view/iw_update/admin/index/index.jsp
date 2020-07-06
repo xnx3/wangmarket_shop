@@ -174,7 +174,7 @@ function loadUrl(url){
 }
 
 //加载登录后的默认页面
-loadUrl('welcome.do');
+loadUrl('/shop/superadmin/index/welcome.do');
 
 
 //右侧弹出提示
