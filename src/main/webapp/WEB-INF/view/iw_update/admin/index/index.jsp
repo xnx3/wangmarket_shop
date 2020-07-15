@@ -114,7 +114,7 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 		</shiro:hasPermission>
 		
 		<li class="layui-nav-item">
-			<a href="javascript:updatePassword();" id="xiugaimima">
+			<a href="javascript:updatePassword2();" id="xiugaimima">
 				<i class="layui-icon firstMenuIcon">&#xe642;</i>
 				<span class="firstMenuFont">更改密码</span>
 			</a>
@@ -165,6 +165,8 @@ layui.use('element', function(){
   var element = layui.element;
 });
 
+
+
 /**
  * 在主体内容区域iframe中加载制定的页面
  * url 要加载的页面的url
@@ -176,6 +178,35 @@ function loadUrl(url){
 //加载登录后的默认页面
 loadUrl('/shop/superadmin/index/welcome.do');
 
+
+function updatePassword2(){
+	layer.prompt({
+		  formType: 0,
+		  value: '',
+		  title: '请输入旧密码'
+	}, function(value1, index, elem){
+		layer.close(index);
+		layer.prompt({
+			  formType: 0,
+			  value: '',
+			  title: '请输入新密码'
+		}, function(value, index, elem){
+			layer.close(index);
+			iw.loading('更改中...');
+			$.post("/shop/superadmin/index/updatePassword.do", { "newPassword": value,"oldPassword":value1},
+				function(data){
+					iw.loadClose();
+					if(data.result != '1'){
+						iw.msgFailure(data.info);
+					}else{
+						iw.msgSuccess('修改成功！新密码：'+value);
+					}
+				}
+			, "json");
+		});
+	});
+	
+}
 
 //右侧弹出提示
 function rightTip(){

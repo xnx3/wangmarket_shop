@@ -96,7 +96,7 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 		</div>
 		
 		<li class="layui-nav-item" id="updatePassword">
-			<a href="javascript:updatePassword();" id="xiugaimima" class="itemA">
+			<a href="javascript:updatePassword2();" id="xiugaimima" class="itemA">
 				<i class="layui-icon firstMenuIcon">&#xe642;</i>
 				<span class="firstMenuFont">更改密码</span>
 			</a>
@@ -142,6 +142,35 @@ layui.use('element', function(){
  */
 function loadUrl(url){
 	document.getElementById("iframe").src=url + "?time=" + (new Date()).getTime();
+}
+
+function updatePassword2(){
+	layer.prompt({
+		  formType: 0,
+		  value: '',
+		  title: '请输入旧密码'
+	}, function(value1, index, elem){
+		layer.close(index);
+		layer.prompt({
+			  formType: 0,
+			  value: '',
+			  title: '请输入新密码'
+		}, function(value, index, elem){
+			layer.close(index);
+			iw.loading('更改中...');
+			$.post("/shop/store/index/updatePassword.do", { "newPassword": value,"oldPassword":value1},
+				function(data){
+					iw.loadClose();
+					if(data.result != '1'){
+						iw.msgFailure(data.info);
+					}else{
+						iw.msgSuccess('修改成功！新密码：'+value);
+					}
+				}
+			, "json");
+		});
+	});
+	
 }
 
 //退出登录
