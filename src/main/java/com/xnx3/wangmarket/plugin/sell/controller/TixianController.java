@@ -18,10 +18,15 @@ import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.j2ee.util.Page;
+import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.plugin.sell.Global;
+import com.xnx3.wangmarket.plugin.sell.entity.SellCommissionLog;
 import com.xnx3.wangmarket.plugin.sell.entity.SellStoreSet;
 import com.xnx3.wangmarket.plugin.sell.entity.SellTiXianLog;
+import com.xnx3.wangmarket.plugin.sell.vo.CommissionLogListVO;
+import com.xnx3.wangmarket.plugin.sell.vo.SellTiXianLogListVO;
 import com.xnx3.wangmarket.plugin.sell.vo.SellTiXianLogVO;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 
@@ -36,7 +41,49 @@ public class TixianController extends BasePluginController {
 	private SqlService sqlService;
 	@Resource
 	private SqlCacheService sqlCacheService;
-	
+
+	/**
+	 * 查看自己的提现申请记录
+	 * @param storeid 当前商铺的id
+	 */
+	@ResponseBody
+	@RequestMapping(value="/list${api.suffix}",method= {RequestMethod.POST})
+	public SellTiXianLogListVO list(HttpServletRequest request,Model model,
+			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid) {
+		SellTiXianLogListVO vo = new SellTiXianLogListVO();
+		if(storeid < 1){
+			vo.setBaseVO(BaseVO.FAILURE, "请传入storeid");
+			return vo;
+		}
+		User user = getUser();
+		
+		//创建Sql
+		Sql sql = new Sql(request);
+		//配置查询那个表
+		sql.setSearchTable("plugin_sell_tixian_log");
+		//查询条件
+		sql.appendWhere("userid = " + user.getId()+" AND storeid = "+storeid);
+		//配置按某个字端搜索内容
+		sql.setSearchColumn(new String[] {"state="});
+		// 查询数据表的记录总条数
+		int count = sqlService.count("plugin_sell_tixian_log", sql.getWhere());
+		
+		// 配置每页显示30条
+		Page page = new Page(count, 30, request);
+		// 查询出总页数
+		sql.setSelectFromAndPage("SELECT * FROM plugin_sell_tixian_log ", page);
+		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
+		sql.setDefaultOrderBy("id DESC");
+		// 按照上方条件查询出该实体总数 用集合来装
+		List<SellTiXianLog> list = sqlService.findBySql(sql,SellTiXianLog.class);
+		
+		vo.setList(list);
+		vo.setPage(page);
+		
+		//日志记录
+		ActionLogUtil.insert(request, getUserId(), "查看自己的提现申请记录列表");
+		return vo;
+	}
 	
 	/**
 	 * 获取当前待提现的佣金，也就是可结算的佣金，还未提现的佣金
