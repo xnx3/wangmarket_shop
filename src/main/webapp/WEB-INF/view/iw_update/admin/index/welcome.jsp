@@ -22,7 +22,7 @@ var masterSiteUrl = '<%=Global.get("MASTER_SITE_URL") %>';
 </style>
 
 <div style="text-align:center; font-size:29px; padding-top:7%; padding-bottom: 10px;">
-	欢迎使用网市场云建站系统  
+	欢迎使用网市场云商城系统
 </div>
 
 

@@ -7,6 +7,11 @@ package com.xnx3.wangmarket.shop.core;
  */
 public class Global {
 	/**
+	 * 当前的版本号。
+	 */
+	public static final String VERSION = "1.0";
+
+	/**
 	 * 商家的自定义订单规则的持久化缓存Key {storeid} 便是替换为 store.id
 	 */
 	public final static String CACHE_KEY_ORDER_RULE = "shop:store:orderRule:{storeid}";
