@@ -7,7 +7,6 @@ import com.xnx3.j2ee.Global;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.util.SpringUtil;
-import com.xnx3.j2ee.util.SystemUtil;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
@@ -62,20 +61,17 @@ public class OrderTimeoutListenerThread extends Thread{
 		int currentTime = DateUtil.timeForUnix10();
 		//查询出超时的要处理的订单，一次最多查出1000条
 		List<OrderTimeout> orderTimeoutList = sqlservice.findBySqlQuery("SELECT * FROM shop_order_timeout WHERE expiretime < "+currentTime+" ORDER BY expiretime ASC LIMIT 1000", OrderTimeout.class);
-//		ConsoleUtil.info("符合条件订单："+orderTimeoutList);
 		//将超时该处理的订单遍历，进行处理
 		for (int i = 0; i < orderTimeoutList.size(); i++) {
 			OrderTimeout orderTimeout = orderTimeoutList.get(i);
 			Order order = sqlservice.findById(Order.class, orderTimeout.getId());
 			if(order != null && order.getState().equals(orderTimeout.getState())){
-				ConsoleUtil.log("OrderTimeout Order : "+order.toString());
 				//状态符合，进行处理
 				if(order.getState().equals(Order.STATE_CREATE_BUT_NO_PAY)){
 					//已下单待付款，超时，那变为订单已取消
 					order.setState(Order.STATE_PAYTIMEOUT_CANCEL);
 					//取消订单了，同时释放库存
 					int row = sqlservice.executeSql("UPDATE shop_order SET state = '"+Order.STATE_PAYTIMEOUT_CANCEL+"', version = version+1 WHERE id = "+order.getId()+" AND version = "+order.getVersion());
-					System.out.println("row : "+row+"  -- "+"UPDATE shop_order SET state = '"+Order.STATE_PAYTIMEOUT_CANCEL+"', version = version+1 WHERE id = "+order.getId()+" AND version = "+order.getVersion());
 					if(row == 0){
 						continue;
 					}
@@ -99,7 +95,6 @@ public class OrderTimeoutListenerThread extends Thread{
 					}
 					//商铺的销量-
 					sqlservice.executeSql("UPDATE shop_store SET sale = sale - " + allNumber + " WHERE id = "+order.getStoreid());
-					ConsoleUtil.debug("OrderTimeoutListenerThread : "+order.toString());
 				}else{
 					//其他状态
 				}

@@ -4,8 +4,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.xnx3.BaseVO;
 import com.xnx3.j2ee.dao.SqlDAO;
-import com.xnx3.j2ee.util.CacheUtil;
-import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.wangmarket.plugin.alipay.util.AlipayUtil;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;

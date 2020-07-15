@@ -15,7 +15,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  */
 @Entity()
 @Table(name = "shop_goods_type", indexes={@Index(name="suoyin_index",columnList="rank,storeid,isdelete")})
-public class GoodsType extends BaseEntity {
+public class GoodsType extends BaseEntity implements java.io.Serializable{
 	
 	private Integer id;			//分类id，自动编号
 	private String title;		//分类的名称，限20个字符

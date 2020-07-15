@@ -17,11 +17,12 @@
 </style>
 <script>
 //所属分类，将typeid 转为 文字说明
-function writeType(typeid){
+function writeType(tid){
 	if(typeid == ''){
 		document.write('无');
 	}else{
-		document.write(typeid[typeid]);
+		var tname = typeid[tid];
+		document.write(typeof(tname) == 'undefined' ? '无':tname);
 	}
 }
 </script>
@@ -68,7 +69,7 @@ function writeType(typeid){
 		<tr>
 			<td style="text-align:center;">${item.id }</td>
 			<td style="text-align:center;">
-			<script type="text/javascript">writeType('${item["typeid"]}');</script>
+				<script type="text/javascript">writeType('${item["typeid"]}');</script>
 			</td>
 			<td style="text-align:left;">
 				<x:substring maxLength="12" text="${item.title }"></x:substring>

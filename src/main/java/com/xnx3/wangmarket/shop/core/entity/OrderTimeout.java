@@ -13,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity()
 @Table(name = "shop_order_timeout", indexes={@Index(name="suoyin_index",columnList="expiretime")})
-public class OrderTimeout {
+public class OrderTimeout implements java.io.Serializable{
 	
 	private Integer id;				//对应订单id
 	private String state;			//值跟订单状态一样，此记录添加时，所对应的订单状态,比如订单下单后，记录的此条信息，那么这条信息的这个状态便是刚下单但未支付的状态（跟订单状态一样）。限制20字符

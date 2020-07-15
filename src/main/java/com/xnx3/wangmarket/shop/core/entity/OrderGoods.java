@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity()
 @Table(name = "shop_order_goods", indexes={@Index(name="suoyin_index",columnList="orderid,goodsid,userid")})
-public class OrderGoods {
+public class OrderGoods implements java.io.Serializable{
 	private Integer id;				//自动编号
 	private Integer orderid;		//订单的ID，对应 Order.id
 	private Integer goodsid;		//商品的id，对应 Goods.id

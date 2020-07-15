@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity()
 @Table(name = "shop_order_state_log")
-public class OrderStateLog {
+public class OrderStateLog implements java.io.Serializable{
 	
 	private Integer id;				//自动编号
 	private Integer orderid;		//对应订单id

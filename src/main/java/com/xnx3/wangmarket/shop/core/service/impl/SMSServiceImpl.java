@@ -39,7 +39,6 @@ public class SMSServiceImpl implements SMSService {
 	
 	@Override
 	public BaseVO send(int storeid, String phone, String content, String type, HttpServletRequest request) {
-//		SMSUtil util = new SMSUtil(uid, password)
 		if(storeid < 0){
 			return BaseVO.failure("storeid不能小于0");
 		}

@@ -1,12 +1,8 @@
 package com.xnx3.wangmarket.shop.core.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
@@ -15,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity()
 @Table(name = "shop_order_address")
-public class OrderAddress {
+public class OrderAddress implements java.io.Serializable{
 	private Integer id;				//自动对应 order.id
 	private String username;	//收货人用户姓名，限制10个字符
 	private String phone;		//收货人手机号，限制13个字符

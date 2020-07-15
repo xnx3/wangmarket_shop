@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity()
 @Table(name = "shop_order_refund", indexes={@Index(name="suoyin_index",columnList="userid,orderid,storeid,state")})
-public class OrderRefund {
+public class OrderRefund implements java.io.Serializable{
 
 	/**
 	 * 退单申请中

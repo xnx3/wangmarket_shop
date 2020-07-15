@@ -21,7 +21,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  */
 @Entity()
 @Table(name = "shop_order", indexes={@Index(name="suoyin_index",columnList="no,storeid,userid,state")})
-public class Order extends BaseEntity {
+public class Order extends BaseEntity implements java.io.Serializable{
 	
 	/**
 	 * 待付款，刚创建订单，尚未付款（未支付、或未选择支付方式）
