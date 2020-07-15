@@ -96,7 +96,7 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 		</div>
 		
 		<li class="layui-nav-item" id="updatePassword">
-			<a href="javascript:updatePassword2();" id="xiugaimima" class="itemA">
+			<a href="javascript:storeUpdatePassword();" id="xiugaimima" class="itemA">
 				<i class="layui-icon firstMenuIcon">&#xe642;</i>
 				<span class="firstMenuFont">更改密码</span>
 			</a>
@@ -144,7 +144,7 @@ function loadUrl(url){
 	document.getElementById("iframe").src=url + "?time=" + (new Date()).getTime();
 }
 
-function updatePassword2(){
+function storeUpdatePassword(){
 	layer.prompt({
 		  formType: 0,
 		  value: '',

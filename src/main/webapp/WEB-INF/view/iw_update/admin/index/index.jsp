@@ -114,7 +114,7 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 		</shiro:hasPermission>
 		
 		<li class="layui-nav-item">
-			<a href="javascript:updatePassword2();" id="xiugaimima">
+			<a href="javascript:adminUpdatePassword();" id="xiugaimima">
 				<i class="layui-icon firstMenuIcon">&#xe642;</i>
 				<span class="firstMenuFont">更改密码</span>
 			</a>
@@ -179,7 +179,7 @@ function loadUrl(url){
 loadUrl('/shop/superadmin/index/welcome.do');
 
 
-function updatePassword2(){
+function adminUpdatePassword(){
 	layer.prompt({
 		  formType: 0,
 		  value: '',
