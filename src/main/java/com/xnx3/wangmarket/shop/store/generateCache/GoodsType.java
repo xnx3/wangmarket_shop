@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.xnx3.ScanClassUtil;
+import com.xnx3.j2ee.Global;
 import com.xnx3.j2ee.generateCache.BaseGenerate;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.util.SpringUtil;
@@ -24,7 +25,7 @@ public class GoodsType extends BaseGenerate {
 	public void typeid(){
 		new Thread(new Runnable() {
 			public void run() {
-				while(SpringUtil.getApplicationContext() == null){
+				while(Global.system.size() < 1){
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
@@ -32,7 +33,7 @@ public class GoodsType extends BaseGenerate {
 					}
 				}
 				
-				//当 SpringUtil 被Spring 加载后才会执行
+				//当 system 表 加载后才会执行
 				List<com.xnx3.wangmarket.shop.core.entity.GoodsType> list = SpringUtil.getSqlService().findBySqlQuery("SELECT * FROM shop_goods_type WHERE isdelete = " + com.xnx3.wangmarket.shop.core.entity.GoodsType.ISDELETE_NORMAL, com.xnx3.wangmarket.shop.core.entity.GoodsType.class);
 				
 				createCacheObject("typeid");

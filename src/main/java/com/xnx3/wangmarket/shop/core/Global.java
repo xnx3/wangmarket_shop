@@ -1,5 +1,8 @@
 package com.xnx3.wangmarket.shop.core;
 
+import com.xnx3.j2ee.util.VersionUtil;
+import com.xnx3.wangmarket.Authorization;
+
 /**
  * 项目中的一些缓存、参数等
  * @author 管雷鸣
@@ -46,4 +49,20 @@ public class Global {
 	//权限相关,商城的角色id
 	public static final int STORE_ROLE_ID = 8;
 	
+	static{
+		Authorization.setVersion(VersionUtil.strToInt(VERSION));
+		Authorization.setSoftType(2);
+		new Thread(new Runnable() {
+			public void run() {
+				while(true){
+					System.out.println("auth:"+Authorization.copyright);
+					try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
 }

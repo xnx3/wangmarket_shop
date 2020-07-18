@@ -69,6 +69,42 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 				<span class="firstMenuFont">店铺管理</span>
 			</a>
 		</li>
+		<shiro:hasPermission name="adminLog"> 
+			<li class="layui-nav-item" id="rizhitongji" style="display:none;">
+				<a href="javascript:;">
+					<i class="layui-icon firstMenuIcon">&#xe62c;</i>
+					<span class="firstMenuFont">日志统计</span>
+				</a>
+				<dl class="layui-nav-child">
+					<shiro:hasPermission name="adminLogList">
+						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/log/list.do');">用户动作</a></dd>
+					</shiro:hasPermission>
+					<shiro:hasPermission name="adminLog">
+						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/requestLog/fangwenList.do');">访问记录</a></dd>
+					</shiro:hasPermission>
+					<shiro:hasPermission name="adminSmsLog"> 
+						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/smslog/list.do');">手机验证</a></dd>
+					</shiro:hasPermission>
+					<shiro:hasPermission name="adminPayLog"> 
+						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/payLog/list.do');">在线支付</a></dd>
+					</shiro:hasPermission>
+					<shiro:hasPermission name="adminLogCartogram">
+						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/log/cartogram.do');">动作统计</a></dd>
+					</shiro:hasPermission>
+					<shiro:hasPermission name="adminLog">
+						<dd><a class="subMenuItem" href="javascript:loadUrl('/admin/requestLog/fangwentongji.do');">访问统计</a></dd>
+					</shiro:hasPermission>
+				</dl>
+			</li>
+		</shiro:hasPermission>
+		<script>
+		if('${useSLS}' == 'true'){
+			try{
+				//代理后台是没有这个按钮id的
+				document.getElementById('rizhitongji').style.display='';
+			}catch(e){}
+		}
+		</script>
 		<shiro:hasPermission name="adminRole"> 
 			<li class="layui-nav-item" id="adminRole">
 				<a href="javascript:;">

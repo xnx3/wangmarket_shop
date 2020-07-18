@@ -32,19 +32,19 @@ public class Order extends BaseEntity implements java.io.Serializable{
 	 */
 	public static final String STATE_PAYTIMEOUT_CANCEL = "pay_timeout_cancel";	
 	/**
-	 * 取消订单，订单未支付时，主动取消
+	 * 已取消。订单未支付时，用户主动取消
 	 */
 	public static final String STATE_MY_CANCEL = "my_cancel";	
 	/**
-	 * 已付款，通过支付宝、微信支付等支付完成，订单进入配送中
+	 * 已付款。通过支付宝、微信支付等线上支付完成
 	 */
 	public static final String STATE_PAY = "pay";
 	/**
-	 * 线下支付，下单后，点击线下支付，将订单转为线下支付状态。此状态跟 STATE_PAY 已付款 状态是并列的
+	 * 已线下支付。下单后，点击线下支付，将订单转为线下支付状态。此状态跟 pay 已付款 状态是并列的，只不过一个是在线支付，一个是线下私下付
 	 */
 	public static final String STATE_PRIVATE_PAY = "private_pay";
 	/**
-	 * 退单中，用户点击申请退款，就会变成退款中的状态
+	 * 退单中。用户点击申请退款，就会变成退款中的状态
 	 */
 	public static final String STATE_CANCELMONEY_ING = "refund_ing";	
 	/**

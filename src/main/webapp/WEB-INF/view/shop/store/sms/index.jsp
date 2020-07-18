@@ -59,7 +59,7 @@ h3{
 				}else{
 					info = number + '条';
 				}
-				info = info + '<span style="padding-left:20px;"><a href="javascript:alert(\'请联系你的服务商帮你充值\');" style="text-decoration: underline; color: blue;">立即充值</a></span>';
+				info = info + '<span style="padding-left:20px;"><a href="http://sms.leimingyun.com" style="text-decoration: underline; color: blue;">立即充值</a></span>';
 			}
 			document.getElementById('balance').innerHTML = info;
 		});
