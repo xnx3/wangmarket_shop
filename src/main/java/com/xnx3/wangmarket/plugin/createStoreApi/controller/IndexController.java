@@ -47,9 +47,6 @@ public class IndexController extends BasePluginController {
 	@Resource
 	private UserService userService;
 	
-	//登录、注册都要用，验证来源是否合法
-	private static final String TOKNE_MY = "a3o837geo3y7t03y70yfniutho734y738oehfsyn83go";
-	
 	/**
 	 * 开通的请求验证
 	 * @param username 要注册用户的用户名（必填）
@@ -71,12 +68,10 @@ public class IndexController extends BasePluginController {
 			@RequestParam(value = "regstoreid", required = false, defaultValue="0") int regstoreid,
 			@RequestParam(value = "token", required = false, defaultValue="") String token){
 		RegVO vo = new RegVO();
-		if(!TOKNE_MY.equals(token)){
-			if(!checkAuthorize(token)){
-				//既不是网市场本身的，又不是授权用户的，那么失败
-				vo.setBaseVO(BaseVO.FAILURE, "token failure");
-				return vo;
-			}
+		if(!checkAuthorize(token)){
+			//失败
+			vo.setBaseVO(BaseVO.FAILURE, "token failure");
+			return vo;
 		}
 		
 		if(username.length() == 0){
@@ -159,11 +154,9 @@ public class IndexController extends BasePluginController {
 	public String login(HttpServletRequest request,Model model,
 			@RequestParam(value = "code", required = false, defaultValue="") String code,
 			@RequestParam(value = "token", required = false, defaultValue="") String token){
-		if(!TOKNE_MY.equals(token)){
-			if(!checkAuthorize(token)){
-				//既不是网市场本身的，又不是授权用户的，那么失败
-				return error(model, "token failure");
-			}
+		if(!checkAuthorize(token)){
+			//既不是网市场本身的，又不是授权用户的，那么失败
+			return error(model, "token failure");
 		}
 		
 		if(code.length() != 64){
