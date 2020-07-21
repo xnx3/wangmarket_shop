@@ -293,13 +293,15 @@ public class OrderController extends BasePluginController {
 	 * @param state 搜索的订单的状态，多个用,分割 传入如 generate_but_no_pay,pay_timeout_cancel
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
+	 * @param storeid 当前查询的订单属于哪个店铺下， store.id
 	 * @author 管雷鸣
 	 */
 	@RequestMapping(value="list${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderListVO list(HttpServletRequest request,
 			@RequestParam(value = "state", required = false, defaultValue = "") String state,
-			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
+			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
+			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid) {
 		OrderListVO vo = new OrderListVO();
 		if(everyNumber > 100){
 			everyNumber = 100;
@@ -330,6 +332,9 @@ public class OrderController extends BasePluginController {
 	     */
 //	    sql.setSearchColumn(new String[]{"state="});
 	    sql.appendWhere("shop_order.userid = "+user.getId() + (stateSql.length() > 1 ? " AND ("+stateSql+")":""));
+//	    if(storeid > 0){
+//	    	sql.appendWhere("storeid = "+storeid);
+//	    }
 	    //查询user数据表的记录总条数。 传入的user：数据表的名字为user
 	    int count = sqlService.count("shop_order", sql.getWhere());
 	    //创建分页，并设定每页显示15条

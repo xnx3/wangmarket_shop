@@ -49,11 +49,15 @@ public class TixianController extends BasePluginController {
 	@ResponseBody
 	@RequestMapping(value="/list${api.suffix}",method= {RequestMethod.POST})
 	public SellTiXianLogListVO list(HttpServletRequest request,Model model,
-			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid) {
+			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid,
+			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		SellTiXianLogListVO vo = new SellTiXianLogListVO();
 		if(storeid < 1){
 			vo.setBaseVO(BaseVO.FAILURE, "请传入storeid");
 			return vo;
+		}
+		if(everyNumber > 100){
+			everyNumber = 100;
 		}
 		User user = getUser();
 		
@@ -69,7 +73,7 @@ public class TixianController extends BasePluginController {
 		int count = sqlService.count("plugin_sell_tixian_log", sql.getWhere());
 		
 		// 配置每页显示30条
-		Page page = new Page(count, 30, request);
+		Page page = new Page(count, everyNumber, request);
 		// 查询出总页数
 		sql.setSelectFromAndPage("SELECT * FROM plugin_sell_tixian_log ", page);
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序

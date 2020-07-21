@@ -19,11 +19,11 @@ public class ShortUrlController extends BasePluginController {
 	public String gainShareUrl(HttpServletRequest request, Model model) {
 		String key = request.getQueryString();
 		if(key == null || key.length() == 0){
-			return error(model, "短网址不存在!");
+			return redirect("404.do");
 		}
 		Object obj = CacheUtil.get("shorturl:"+key);
 		if(obj == null){
-			return error(model, "短网址不存在");
+			return redirect("404.do");
 		}
 		ConsoleUtil.log(key+" : "+obj.toString());
 		return redirect(obj.toString());

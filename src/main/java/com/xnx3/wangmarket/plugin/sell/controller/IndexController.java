@@ -1,7 +1,6 @@
 package com.xnx3.wangmarket.plugin.sell.controller;
 
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -17,13 +16,11 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.util.SystemUtil;
-import com.xnx3.wangmarket.plugin.sell.entity.SellCommissionLog;
-import com.xnx3.wangmarket.plugin.sell.vo.CommissionLogListVO;
+import com.xnx3.wangmarket.plugin.sell.entity.SellStoreSet;
+import com.xnx3.wangmarket.plugin.sell.vo.SellStoreSetVO;
 import com.xnx3.wangmarket.plugin.sell.vo.ShareUrlVO;
 import com.xnx3.wangmarket.plugin.sell.vo.SubUserListVO;
-import com.xnx3.wangmarket.shop.core.entity.StoreUser;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
-import com.xnx3.wangmarket.shop.core.vo.StoreUserListVO;
 
 /**
  * 二级分销，用户端接口
@@ -114,6 +111,28 @@ public class IndexController extends BasePluginController {
 		
 		//日志记录
 		ActionLogUtil.insert(request, getUserId(), "查看自己的下级列表");
+		return vo;
+	}
+
+	/**
+	 * 获取当前店铺的推广规则，比如是否开启二级分销，一级分销比例多少，二级比例多少
+	 * @param storeid 当前商铺的id
+	 * @author 管雷鸣
+	 */
+	@ResponseBody
+	@RequestMapping(value="getSellSet${api.suffix}" ,method= {RequestMethod.POST})
+	public SellStoreSetVO getSellSet(HttpServletRequest request, Model model,
+			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid) {
+		SellStoreSetVO vo = new SellStoreSetVO();
+		
+		SellStoreSet storeSet = sqlCacheService.findById(SellStoreSet.class, storeid);
+		if(storeSet == null){
+			storeSet = new SellStoreSet();
+			storeSet.setIsUse(SellStoreSet.IS_USE_NO);
+		}
+		vo.setSellSet(storeSet);
+		//日志
+		ActionLogUtil.insert(request, "获取店铺分销规则", storeSet.toString());
 		return vo;
 	}
 	
