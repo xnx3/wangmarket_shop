@@ -3,6 +3,7 @@ package com.xnx3.wangmarket.shop.superadmin.controller;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import com.xnx3.wangmarket.shop.core.entity.StoreData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -129,5 +130,32 @@ public class StoreController extends BasePluginController {
 		ActionLogUtil.insert(request, "开通店铺", store.toString());
 		return success(store.getId()+"");
 	}
-	
+
+	/**
+	 * 使用店铺ID查询店铺详情信息
+	 */
+	@RequestMapping("storeDetailsView${url.suffix}")
+	public String storeDetailsView(HttpServletRequest request,
+						@RequestParam(value = "id", required = true) int id,Model model){
+		//查询店铺
+		Store store = sqlService.findById(Store.class, id);
+		if(store == null){
+			return error(model, "要查看的店铺不存在");
+		}
+		//查询店铺描述
+		StoreData storeData = sqlService.findById(StoreData.class, id);
+		//如果无店铺描述设置为无
+		if(storeData == null){
+			storeData = new StoreData();
+			storeData.setId(id);
+			storeData.setNotice("无");
+		}
+		ActionLogUtil.insert(request,store.getId(), "总管理后台-店铺详情", store.toString());
+		model.addAttribute("s", store);
+		model.addAttribute("st",storeData);
+		return "/shop/superadmin/store/storeDetailsView";
+	}
+
+
+
 }

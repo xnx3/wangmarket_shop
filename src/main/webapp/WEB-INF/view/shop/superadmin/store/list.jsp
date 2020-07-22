@@ -42,9 +42,9 @@
 	<tbody>
 		<c:forEach items="${list}" var="item">
 			<tr>
-				<td style="width:55px;"><a href="view.do?id=${item['id'] }">${item['id'] }</a></td>
+				<td  onclick="storeDetailsView(${item['id'] });" style="cursor: pointer; width:55px;">${item['id'] }</td>
 				<td onclick="userView(${item['userid'] });" style="cursor: pointer; width:55px;">${item['userid'] }</td>
-				<td><a href="javascript:siteView('${item['id'] }');" title="${item['name'] }"><x:substring maxLength="20" text="${item['name'] }"></x:substring> </a></td>
+				<td onclick="storeDetailsView(${item['id'] });" style="cursor: pointer;"><x:substring maxLength="20" text="${item['name'] }"></x:substring> </a></td>
 				<td>${item['sale'] }</td>
 				<td>${item['contacts'] }</td>
 				<td>${item['phone'] }</td>
@@ -76,6 +76,17 @@ function userView(id){
 		area: ['460px', '630px'],
 		shadeClose: true, //开启遮罩关闭
 		content: '/admin/user/view.do?id='+id
+	});
+}
+
+//查看店铺信息
+function storeDetailsView(id){
+	layer.open({
+		type: 2,
+		title:'查看商店信息',
+		area: ['460px', '532px'],
+		shadeClose: true, //开启遮罩关闭
+		content: '/shop/superadmin/store/storeDetailsView.do?id='+id
 	});
 }
 </script>
