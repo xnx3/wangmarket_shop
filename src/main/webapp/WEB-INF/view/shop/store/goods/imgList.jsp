@@ -62,17 +62,17 @@ layui.use('upload', function(){
 	  elem: '.uploadImg' //绑定元素
 	 ,field : 'file'
 	 ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-			iw.loading('上传中...');
+		 msg.loading('上传中...');
 		}
 	,done: function(res){
 		iw.loadClose();
 		if(res.result == '1'){
-			parent.iw.msgSuccess("上传成功");
+			parent.msg.success("上传成功");
 			window.location.reload();	//刷新当前页
 		}else if(res.result == '0'){
-			parent.iw.msgFailure(res.info);
+			parent.msg.failure(res.info);
 		}else{
-			parent.iw.msgFailure("上传失败");
+			parent.msg.failure("上传失败");
 		}
 	}
 	,error: function(){
@@ -88,16 +88,16 @@ function deleteMes(id){
 		  btn: ['确认','取消'] //按钮
 	}, function(){
 		layer.close(dtp_confirm);
-		parent.iw.loading("删除中");    //显示“操作中”的等待提示
+		parent.msg.loading("删除中");    //显示“操作中”的等待提示
 		$.post('/shop/store/goods/deleteImg.do?id=' + id, function(data){
 		    parent.iw.loadClose();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
-		        parent.iw.msgSuccess('操作成功');
+		        parent.msg.success('操作成功');
 		        window.location.reload();	//刷新当前页
 		     }else if(data.result == '0'){
-		         parent.iw.msgFailure(data.info);
+		         parent.msg.failure(data.info);
 		     }else{
-		         parent.iw.msgFailure();
+		         parent.msg.failure();
 		     }
 		});
 	}, function(){

@@ -157,14 +157,14 @@ function storeUpdatePassword(){
 			  title: '请输入新密码'
 		}, function(value, index, elem){
 			layer.close(index);
-			iw.loading('更改中...');
+			msg.loading('更改中...');
 			$.post("/shop/store/index/updatePassword.do", { "newPassword": value,"oldPassword":value1},
 				function(data){
 					iw.loadClose();
 					if(data.result != '1'){
-						iw.msgFailure(data.info);
+						msg.failure(data.info);
 					}else{
-						iw.msgSuccess('修改成功！新密码：'+value);
+						msg.failure('修改成功！新密码：'+value);
 					}
 				}
 			, "json");

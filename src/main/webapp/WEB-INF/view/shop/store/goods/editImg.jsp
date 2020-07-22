@@ -66,18 +66,18 @@
 						document.getElementById("titlePicImg").src = res.url;
 						document.getElementById("titlePicImg").style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
 					}catch(err){}
-					parent.iw.msgSuccess("上传成功");
+					parent.msg.success("上传成功");
 				}else{
-					parent.iw.msgFailure(res.info);
+					parent.msg.failure(res.info);
 				}
 			}
 			,error: function(index, upload){
 				//请求异常回调
 				parent.iw.loadClose();
-				parent.iw.msgFailure();
+				parent.msg.failure();
 			}
 			,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-				parent.iw.loading('上传中..');
+				parent.msg.loading('上传中..');
 			}
 		});
 		
@@ -90,18 +90,18 @@
 	function commit() {
 		var d = $("form").serialize();
 		//表单序列化
-		parent.iw.loading("保存中");
+		parent.msg.loading("保存中");
 		$.post("/shop/store/goods/imgSave.do", d, function (result) {
 			parent.iw.loadClose();
 			var obj = JSON.parse(result);
 			if(obj.result == '1'){
-				parent.parent.iw.msgSuccess("操作成功");
+				parent.parent.msg.success("操作成功");
 				parent.layer.close(index);	//关闭当前窗口
 				parent.location.reload();	//刷新父窗口列表
 			}else if(obj.result == '0'){
-				parent.iw.msgFailure(obj.info);
+				parent.msg.failure(obj.info);
 			}else{
-				parent.iw.msgFailure("修改失败");
+				parent.msg.failure("修改失败");
 			}
 		}, "text");
 		

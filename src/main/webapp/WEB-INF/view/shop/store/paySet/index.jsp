@@ -158,16 +158,16 @@ body{padding-left: 30px;}
 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 
 function updateState(name1,value1) {
-	parent.iw.loading("更改中");    //显示“操作中”的等待提示
+	parent.msg.loading("更改中");    //显示“操作中”的等待提示
 	$.post('/shop/store/paySet/update.do?name=' + name1 + '&value=' + value1 , function(data){
 	    parent.iw.loadClose();    //关闭“操作中”的等待提示
 	    if(data.result == '1'){
-	        parent.iw.msgSuccess('操作成功');
+	        parent.msg.success('操作成功');
 	        window.location.reload();	//刷新当前页
 	     }else if(data.result == '0'){
-	         parent.iw.msgFailure(data.info);
+	         parent.msg.failure(data.info);
 	     }else{
-	         parent.iw.msgFailure();
+	         parent.msg.failure();
 	     }
 	});
 }
@@ -204,18 +204,18 @@ layui.use('upload', function(){
 	 ,field : 'file'
 	 ,exts:'crt'
 	 ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-			iw.loading('上传中...');
+		 msg.loading('上传中...');
 		}
 	,done: function(res){
 		iw.loadClose();
 		if(res.result == '1'){
-			parent.iw.msgSuccess("上传成功");
+			parent.msg.success("上传成功");
 			parent.layer.close(index);	//关闭当前窗口
 			location.reload();	//刷新父窗口列表
 		}else if(res.result == '0'){
-			parent.iw.msgFailure(res.info);
+			parent.msg.failure(res.info);
 		}else{
-			parent.iw.msgFailure("上传失败");
+			parent.msg.failure("上传失败");
 		}
 	}
 	,error: function(){

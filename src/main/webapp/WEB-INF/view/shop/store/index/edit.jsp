@@ -75,42 +75,42 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 		var d = $("form").serialize();
 		if($("#type").val() == 2){
 			if($("#city").val() == ''){
-				iw.msgFailure("请输入城市");
+				msg.failure("请输入城市");
 				return ;
 			}
 			if($("#province").val() == ''){
-				iw.msgFailure("请输入省会");
+				msg.failure("请输入省会");
 				return ;
 			}
 			if($("#district").val() == ''){
-				iw.msgFailure("请输入区");
+				msg.failure("请输入区");
 				return ;
 			}
 		}
 		
 		if($("#type").val() == 1){
 			if($("#longitude").val() == ''){
-				iw.msgFailure("请输入经度");
+				msg.failure("请输入经度");
 				return ;
 			}
 			if($("#latitude").val() == ''){
-				iw.msgFailure("请输入纬度");
+				msg.failure("请输入纬度");
 				return ;
 			}
 		}
 		//表单序列化
-		parent.iw.loading("保存中");
+		parent.msg.loading("保存中");
 		$.post("/shop/store/index/save.do", d, function (result) {
 			parent.iw.loadClose();
 			var obj = JSON.parse(result);
 			if(obj.result == '1'){
-				parent.parent.iw.msgSuccess("操作成功");
+				parent.parent.msg.success("操作成功");
 				parent.layer.close(index);	//关闭当前窗口
 				parent.location.reload();	//刷新父窗口列表
 			}else if(obj.result == '0'){
-				parent.iw.msgFailure(obj.info);
+				parent.msg.failure(obj.info);
 			}else{
-				parent.iw.msgFailure("修改失败");
+				parent.msg.failure("修改失败");
 			}
 		}, "text");
 		

@@ -47,7 +47,7 @@ layui.use('layer', function(){
 <script src="${STATIC_RESOURCE_PATH}js/jquery-2.1.4.js"></script>
 
 <!-- order by 列表的排序 -->
-<script src="${STATIC_RESOURCE_PATH}js/iw.js"></script>
+<script src="${STATIC_RESOURCE_PATH}js/iw.js11111"></script>
 
 <style>
 

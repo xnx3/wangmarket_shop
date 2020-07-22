@@ -226,23 +226,23 @@ layui.use('upload', function(){
 		console.log(d);
 		
 		 if($("#title").val() == ''){
-			iw.msgFailure("请输入标题");
+			 msg.failure("请输入标题");
 			return ;
 		} 
 		if($("#inventory").val() == ''){
-			iw.msgFailure("请输入库存数量");
+			msg.failure("请输入库存数量");
 			return ;
 		}
 		if($("#inventory").val() == ''){
-			iw.msgFailure("请输入库存数量");
+			msg.failure("请输入库存数量");
 			return ;
 		}
 		if($("#price").val() == ''){
-			iw.msgFailure("请输入价格");
+			msg.failure("请输入价格");
 			return ;
 		}
 		if($("#originalPrice").val() == ''){
-			iw.msgFailure("请输入原价");
+			msg.failure("请输入原价");
 			return ;
 		}
 		if($("#intro").val().length > 40){

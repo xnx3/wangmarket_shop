@@ -54,7 +54,7 @@
 	function commit() {
 		var d = $("form").serialize();
 		if($("#detail").val() == ''){
-			iw.msgFailure("请输入描述");
+			msg.failure("请输入描述");
 			return ;
 		}
 		
@@ -68,9 +68,9 @@
 				parent.layer.close(index);	//关闭当前窗口
 				window.location.href = '/admin/goods/list.do';
 			}else if(obj.result == '0'){
-				parent.iw.msgFailure(obj.info);
+				parent.msg.failure(obj.info);
 			}else{
-				parent.iw.msgFailure("修改失败");
+				parent.msg.failure("修改失败");
 			}
 		}, "text");
 		

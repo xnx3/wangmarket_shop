@@ -124,7 +124,7 @@ layui.use('form', function(){
   
   //监听提交
   form.on('submit(formDemo)', function(data){
-	iw.loading("登陆中...");
+	  msg.loading("登陆中...");
   	//$.showLoading('登录中...');
     var d=$("form").serialize();
 	$.post("loginSubmit.do", d, function (result) {
@@ -135,7 +135,7 @@ layui.use('form', function(){
        		console.log(obj);
        	}catch(e){}
        	if(obj.result == '1'){
-       		iw.msgSuccess("登陆成功！");
+       		msg.success("登陆成功！");
        		window.location.href='/admin/index/index.do';
        	}else if(obj.result == '0'){
        		//登陆失败
