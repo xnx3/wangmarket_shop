@@ -21,6 +21,7 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.vo.BaseVO;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 用户User的相关操作
@@ -59,7 +60,7 @@ public class UserController_ extends BaseController {
 		}else{
 			User uu=sqlService.findById(User.class, getUser().getId());
 			//将输入的原密码进行加密操作，判断原密码是否正确
-			
+
 			if(new Md5Hash(oldPassword, uu.getSalt(),Global.USER_PASSWORD_SALT_NUMBER).toString().equals(uu.getPassword())){
 				BaseVO vo = userService.updatePassword(getUserId(), newPassword);
 				if(vo.getResult() - BaseVO.SUCCESS == 0){
@@ -129,4 +130,36 @@ public class UserController_ extends BaseController {
 		model.addAttribute("size", list.size());
 		return "iw/user/inviteList";
 	}
+
+    /**
+     *
+     * @param newPassword 新密码
+     * @param userId 店铺用户id
+     * @return
+     */
+	@ResponseBody
+    @RequestMapping(value="updateShopPassword${url.suffix}", method = RequestMethod.POST)
+    public BaseVO updatePassword(HttpServletRequest request,String newPassword,Integer userId, Model model){
+        if(newPassword==null){
+            ActionLogUtil.insert(request, "修改密码", "失败：未输入密码");
+            return error("请输入新密码");
+        }else{
+			User uu=sqlService.findById(User.class, userId);
+			if(uu != null){
+				BaseVO vo = userService.updatePassword(userId, newPassword);
+				if(vo.getResult() - BaseVO.SUCCESS == 0){
+					ActionLogUtil.insertUpdateDatabase(request, "修改密码", "成功");
+					return success();
+				}else{
+					ActionLogUtil.insert(request, "修改密码", "失败："+vo.getInfo());
+					return error(vo.getInfo());
+				}
+			}else{
+				ActionLogUtil.insert(request, "修改密码", "失败：没有这个用户");
+				return error("没有这个用户！");
+			}
+
+        }
+    }
+
 }

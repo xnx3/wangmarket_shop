@@ -37,6 +37,7 @@
 			<th>联系人</th>
 			<th>电话</th>
 			<th>创建时间</th>
+			<th>操作</th>
 		</tr> 
 	</thead>
 	<tbody>
@@ -49,6 +50,7 @@
 				<td>${item['contacts'] }</td>
 				<td>${item['phone'] }</td>
 				<td style="width:100px;"><x:time linuxTime="${item['addtime'] }" format="yy-MM-dd hh:mm"></x:time></td>
+				<td style="width:100px"><a href="javascript:adminUpdateStorePassword(${item['userid'] });" class="layui-btn" style="">重置密码</a></td>
 			</tr>
 		</c:forEach>
   </tbody>
@@ -89,5 +91,28 @@ function storeDetailsView(id){
 		content: '/shop/superadmin/store/storeDetailsView.do?id='+id
 	});
 }
+ //修改店铺密码
+function adminUpdateStorePassword(uid){
+	layer.prompt({
+		formType: 0,
+		value: '',
+		title: '请输入新密码'
+	}, function(value,index){
+		layer.close(index);
+		msg.loading('更改中...');
+		$.post("/user/updateShopPassword.do",
+				{ "newPassword": value,"userId": uid},
+				function(data){
+					msg.close()
+					if(data.result != '1'){
+						msg.failure(data.info);
+					}else{
+						msg.success('修改成功!');
+					}
+				}
+				, "json");
+	});
+}
+
 </script>
 <jsp:include page="../../../iw/common/foot.jsp"></jsp:include>                  
