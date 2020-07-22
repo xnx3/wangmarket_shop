@@ -96,7 +96,7 @@ layui.use('upload', function(){
 		 msg.loading('上传中...');
 		}
 	,done: function(res){
-		iw.loadClose();
+		msg.close();
 		if(res.result == '1'){
 			parent.msg.success("上传成功");
 			parent.layer.close(index);	//关闭当前窗口
@@ -121,7 +121,7 @@ function deleteMes(id){
 		layer.close(dtp_confirm);
 		parent.msg.loading("删除中");    //显示“操作中”的等待提示
 		$.post('/shop/store/carouselImage/delete.do?id=' + id, function(data){
-		    parent.iw.loadClose();    //关闭“操作中”的等待提示
+		    parent.msg.close();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
 		        parent.msg.success('操作成功');
 		        window.location.reload();	//刷新当前页

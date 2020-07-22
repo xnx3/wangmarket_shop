@@ -111,12 +111,6 @@
 <!--[if IE]>
 	<div style="position: absolute;bottom: 0px;padding: 10px;text-align: center;width: 100%;background-color: yellow;">建议使用<a href="https://www.baidu.com/s?wd=Chrome" target="_black" style="text-decoration:underline">Chrome(谷歌)</a>、<a href="https://www.baidu.com/s?wd=Firefox" target="_black" style="text-decoration:underline">Firefox(火狐)</a>浏览器，IE浏览器会无法操作！！！</div>
 <![endif]-->
-
-<!-- weui -->
-<script src="${STATIC_RESOURCE_PATH}js/jquery-2.1.4.js"></script>
-<script src="${STATIC_RESOURCE_PATH}js/jquery-weui.js"></script>
-<link rel="stylesheet" href="${STATIC_RESOURCE_PATH}css/weui.min.css">
-<link rel="stylesheet" href="${STATIC_RESOURCE_PATH}css/jquery-weui.css">
 <script>
 //Demo
 layui.use('form', function(){
@@ -129,7 +123,7 @@ layui.use('form', function(){
     var d=$("form").serialize();
 	$.post("/shop/store/login/loginSubmit.do", d, function (result) {
 		//$.hideLoading();
-		iw.loadClose();
+		msg.close();
        	var obj = JSON.parse(result);
        	try{
        		console.log(obj);

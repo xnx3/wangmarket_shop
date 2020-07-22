@@ -160,7 +160,7 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 function updateState(name1,value1) {
 	parent.msg.loading("更改中");    //显示“操作中”的等待提示
 	$.post('/shop/store/paySet/update.do?name=' + name1 + '&value=' + value1 , function(data){
-	    parent.iw.loadClose();    //关闭“操作中”的等待提示
+	    parent.msg.close();    //关闭“操作中”的等待提示
 	    if(data.result == '1'){
 	        parent.msg.success('操作成功');
 	        window.location.reload();	//刷新当前页

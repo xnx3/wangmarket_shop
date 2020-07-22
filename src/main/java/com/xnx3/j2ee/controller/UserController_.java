@@ -41,9 +41,9 @@ public class UserController_ extends BaseController {
 	public String logout(Model model, HttpServletRequest request){
 		ActionLogUtil.insert(request, "注销登录");
 		userService.logout();
-		return success(model, "注销登录成功", "login.do");
+		return success(model, "注销登录成功", "shop/superadmin/login/login.do");
 	}
-	
+
 
 	/**
 	 * 修改密码

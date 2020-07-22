@@ -33,6 +33,9 @@
 			<th>编号ID</th>
 			<th>用户ID</th>
 			<th>店铺名</th>
+			<th>销量</th>
+			<th>联系人</th>
+			<th>电话</th>
 			<th>创建时间</th>
 		</tr> 
 	</thead>
@@ -42,6 +45,9 @@
 				<td style="width:55px;"><a href="view.do?id=${item['id'] }">${item['id'] }</a></td>
 				<td onclick="userView(${item['userid'] });" style="cursor: pointer; width:55px;">${item['userid'] }</td>
 				<td><a href="javascript:siteView('${item['id'] }');" title="${item['name'] }"><x:substring maxLength="20" text="${item['name'] }"></x:substring> </a></td>
+				<td>${item['sale'] }</td>
+				<td>${item['contacts'] }</td>
+				<td>${item['phone'] }</td>
 				<td style="width:100px;"><x:time linuxTime="${item['addtime'] }" format="yy-MM-dd hh:mm"></x:time></td>
 			</tr>
 		</c:forEach>

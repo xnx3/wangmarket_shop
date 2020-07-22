@@ -146,7 +146,7 @@ function addOrUpdate(id,value,name,text){
 		}, function(value, index, elem){
 		  parent.msg.loading("操作中"); 
 		  $.post('/shop/store/index/save.do?storeId='+id +'&'+name+'=' + value, function(data){
-			    parent.iw.loadClose();    //关闭“操作中”的等待提示
+			    parent.msg.close();    //关闭“操作中”的等待提示
 			    if(data.result == '1'){
 			        parent.msg.success('操作成功');
 			        window.location.reload();	//刷新当前页
@@ -178,7 +178,7 @@ function updateStoreData(name, value,text){
 	  	data = {'notice':value};
 	  }
 	  $.post('/shop/store/index/saveStoreData.do',data,  function(data){
-		    parent.iw.loadClose();    //关闭“操作中”的等待提示
+		    parent.msg.close();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
 		        parent.msg.success('操作成功');
 		        window.location.reload();	//刷新当前页
@@ -198,7 +198,7 @@ function stateUpdate(id) {
 		  btn: ['营业中','已打烊'] //按钮
 		}, function(){
 			$.post('/shop/store/index/save.do?storeId='+id +'&state=1', function(data){
-			    parent.iw.loadClose();    //关闭“操作中”的等待提示
+			    parent.msg.close();    //关闭“操作中”的等待提示
 			    if(data.result == '1'){
 			        parent.msg.success('操作成功');
 			        window.location.reload();	//刷新当前页
@@ -210,7 +210,7 @@ function stateUpdate(id) {
 			});
 		}, function(){
 			$.post('/shop/store/index/save.do?storeId='+id +'&state=2', function(data){
-			    parent.iw.loadClose();    //关闭“操作中”的等待提示
+			    parent.msg.close();    //关闭“操作中”的等待提示
 			    if(data.result == '1'){
 			        parent.msg.success('操作成功');
 			        window.location.reload();	//刷新当前页
@@ -235,7 +235,7 @@ layui.use('upload', function(){
 			 msg.loading('上传中...');
 			}
 		,done: function(res){
-			iw.loadClose();
+			msg.close();
 			if(res.result == '1'){
 				parent.msg.success("上传成功");
 				 window.location.href = '/shop/store/index/welcome.do';

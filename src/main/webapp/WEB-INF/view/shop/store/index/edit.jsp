@@ -101,7 +101,7 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 		//表单序列化
 		parent.msg.loading("保存中");
 		$.post("/shop/store/index/save.do", d, function (result) {
-			parent.iw.loadClose();
+			parent.msg.close();
 			var obj = JSON.parse(result);
 			if(obj.result == '1'){
 				parent.parent.msg.success("操作成功");

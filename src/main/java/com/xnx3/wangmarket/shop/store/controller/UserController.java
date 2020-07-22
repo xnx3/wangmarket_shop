@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
+import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
@@ -27,6 +28,8 @@ import com.xnx3.wangmarket.shop.core.entity.Store;
 public class UserController extends BaseController {
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private UserService userService;
 	
 	/**
 	 * 查看用户列表

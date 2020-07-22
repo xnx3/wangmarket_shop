@@ -160,7 +160,7 @@ function storeUpdatePassword(){
 			msg.loading('更改中...');
 			$.post("/shop/store/index/updatePassword.do", { "newPassword": value,"oldPassword":value1},
 				function(data){
-					iw.loadClose();
+					msg.close();
 					if(data.result != '1'){
 						msg.failure(data.info);
 					}else{

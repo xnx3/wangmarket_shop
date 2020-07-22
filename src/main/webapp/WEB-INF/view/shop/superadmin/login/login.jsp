@@ -129,7 +129,7 @@ layui.use('form', function(){
     var d=$("form").serialize();
 	$.post("loginSubmit.do", d, function (result) {
 		//$.hideLoading();
-		iw.loadClose();
+		msg.close();
        	var obj = JSON.parse(result);
        	try{
        		console.log(obj);
