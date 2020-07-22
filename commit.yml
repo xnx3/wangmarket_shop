@@ -2,52 +2,38 @@
 branches: {
   }
 fileChange:
+  /pom.xml:
+    newFile: !uuid 'ea756c81123b02df30558b3c00a54bc170e3db96'
+    oldFile: !uuid 'd725dc1dddcec3f5a9f4f038c9def60d4670b388'
   /src:
-    newFile: !uuid '345172a98acf60b7ed1b157a47a1f4a23805d95e'
-    oldFile: !uuid 'c85989bd4798003ba7345c9927e232575b4a4a61'
+    newFile: !uuid '938d08c37e501669b57fc2fe04a303c365617b11'
+    oldFile: !uuid '345172a98acf60b7ed1b157a47a1f4a23805d95e'
   /src/main:
-    newFile: !uuid '4dc33724176869c9fa93c766e0678d4cb87fea20'
-    oldFile: !uuid 'ef26ea5cc21b3f3f2635f1f44de568f050c2e88d'
-  /src/main/java:
-    newFile: !uuid '65c397ef06c1cb932872b1f1510a80987924c502'
-    oldFile: !uuid 'ee589834c73fb859be0aa2c91d83b205d2cb5ac9'
-  /src/main/java/com:
-    newFile: !uuid '8a9c3419af6dba1e718f77113d95a132c89221fd'
-    oldFile: !uuid 'f16bcafb3ee1f1b8e389cbca2b521b648461db1d'
-  /src/main/java/com/xnx3:
-    newFile: !uuid '4d393d0f048f326eb662562f4d9f81d10c8f0721'
-    oldFile: !uuid '3209fcb49d856e15a7ddb455ba44b2589457f755'
-  /src/main/java/com/xnx3/j2ee:
-    newFile: !uuid 'ce1aca816bb2cf4639579d31086dc8cc2aba2cf6'
-    oldFile: !uuid 'a9c073a87a592e5940c95741413228babdc0a119'
-  /src/main/java/com/xnx3/j2ee/controller:
-    newFile: !uuid '21aa3983a96c9852ba3a400f8cfc5a442f3b4aac'
-    oldFile: !uuid '60e2e0d059b6c408b003db8b3bc00e05bff17e87'
-  /src/main/java/com/xnx3/j2ee/controller/UserController_.java:
-    newFile: !uuid '1aaa515f055c79788f27bbab9db7def2c2331dd8'
-    oldFile: !uuid '6df6d9c4a9fca51098dc872902d71c048bd28a19'
+    newFile: !uuid 'f04aede5795b679c33205863897896c94cf4349c'
+    oldFile: !uuid '4dc33724176869c9fa93c766e0678d4cb87fea20'
   /src/main/webapp:
-    newFile: !uuid '5692840ef1ea784781f0b1d8f95f49269dd8cf8f'
-    oldFile: !uuid '73fbdc2d1daa864e6fd659ab71e2267cfb6f86ea'
+    newFile: !uuid 'd128e69dbaae88eef9b585aed6319ee6918f59bc'
+    oldFile: !uuid '5692840ef1ea784781f0b1d8f95f49269dd8cf8f'
   /src/main/webapp/WEB-INF:
-    newFile: !uuid '64309d56423083483b3995c59e00f883272a355b'
-    oldFile: !uuid '0865be5b8a9cc5711555fd3f228ad0bf51ea5780'
-  /src/main/webapp/WEB-INF/view:
-    newFile: !uuid 'f44e227a07e8cba13494c59b1afa6561070f3b54'
-    oldFile: !uuid 'b95769b4c2dc2acd225e31c156e779a62ea69231'
-  /src/main/webapp/WEB-INF/view/shop:
-    newFile: !uuid '0c7684fc2d5e7a41394a4797668a7c5b92d59954'
-    oldFile: !uuid '865b8d8374435b9c70dad8ad45441e552af9e3fa'
-  /src/main/webapp/WEB-INF/view/shop/superadmin:
-    newFile: !uuid 'e23d339699fa79ce4383f2b3fc4d0d86c4f6ed3d'
-    oldFile: !uuid '557e827452971d0b4ed803d414fdc6993811f1de'
-  /src/main/webapp/WEB-INF/view/shop/superadmin/store:
-    newFile: !uuid '0d8015106e772709dcdefce8b312267a1064c73e'
-    oldFile: !uuid '506b368c669019fb4c790004efdef59877e9834e'
-  /src/main/webapp/WEB-INF/view/shop/superadmin/store/list.jsp:
-    newFile: !uuid '7740977ea4723f4c6911b862b0b97bb73d4dbcfb'
-    oldFile: !uuid '7b2a67dd19c2e108feda248a60d4b0df44d2c36f'
-gitCommitId: !uuid '5c934c25272df4719fed1c62a1a4fbdc840f6384'
-renames: {
-  }
-revisionId: 206
+    newFile: !uuid 'cd26a083683cc190a565edabcc19550d45069019'
+    oldFile: !uuid '64309d56423083483b3995c59e00f883272a355b'
+  /src/main/webapp/WEB-INF/lib:
+    newFile: !uuid 'b533d56c5f133c486c2dac7c331686ee43fbc9cb'
+    oldFile: !uuid 'f6e290c584b2f609083391b5e2b835974f3c9a8f'
+  /src/main/webapp/WEB-INF/lib/wm-1.0.1-sources.jar:
+    newFile: !uuid '9bf77b1377f6731a2772f912ff08ed40b47513b9'
+    oldFile: null
+  /src/main/webapp/WEB-INF/lib/wm-1.0.1.jar:
+    newFile: !uuid 'c4fc48ea4b0be768ab61d32301a7c10e4b26e0ca'
+    oldFile: null
+  /src/main/webapp/WEB-INF/lib/wm-sources.jar:
+    newFile: null
+    oldFile: !uuid 'd4708e71ca02156b549ed235e52287a0afbe61b4'
+  /src/main/webapp/WEB-INF/lib/wm.jar:
+    newFile: null
+    oldFile: !uuid '8e99ceed6bfcb5b0338aa2abe63cb0de20274ea4'
+gitCommitId: !uuid '28196d67366252a55b5ebf7b567718ee967f7006'
+renames:
+  /src/main/webapp/WEB-INF/lib/wm-1.0.1-sources.jar: /src/main/webapp/WEB-INF/lib/wm-sources.jar
+  /src/main/webapp/WEB-INF/lib/wm-1.0.1.jar: /src/main/webapp/WEB-INF/lib/wm.jar
+revisionId: 207
