@@ -99,7 +99,7 @@ body{padding-left: 30px;}
 	当前使用 
 	<c:if test="${paySet.useWeixinServiceProviderPay == 0}">
 		已花钱认证
-		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinServiceProviderPay',1);" style="margin-left: 3px;margin-top:-1px;">使用免认证费的</botton>
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinServiceProviderPay',1);" style="margin-left: 3px;margin-top:-1px;">点击切换使用免认证费的</botton>
 		<div style="color: gray;font-size: 12px">
 			<p>
 				说明：要使用微信支付，要有一个已认证的微信公众号-服务号。这个公众号的认证需要每年花费300元。
@@ -108,7 +108,7 @@ body{padding-left: 30px;}
 	</c:if>
 	<c:if test="${paySet.useWeixinServiceProviderPay == 1}">
 		未花钱认证
-		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinServiceProviderPay',0);" style="margin-left: 3px;margin-top:-1px;">使用300元认证的</botton>
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState('weixinServiceProviderPay',0);" style="margin-left: 3px;margin-top:-1px;">点击切换使用300元认证的</botton>
 		<div style="color: gray;font-size: 12px">
 			<p>
 				我方与微信合作，可以让你节省这每年300元的费用。不过建议还是使用每年300认证那种
@@ -131,7 +131,7 @@ body{padding-left: 30px;}
 		
 		</br>商户key:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.weixinMchKey }" more="******"></x:substring>
 		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="addOrUpdate('weixinMchKey','','商户key编辑');" style="margin-left: 3px;margin-top:-1px;">编辑</botton>
-		
+		<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="tishiweixinMchKey();" style="margin-left: 3px;margin-top:-1px;">如何获取商户key方法</botton>
 	</c:if>
 	<c:if test="${paySet.useWeixinServiceProviderPay == 1}">
 		</br>商户号:&nbsp;&nbsp;<x:substring maxLength="10" text="${paySet.weixinSerivceProviderSubMchId }"></x:substring>
@@ -193,6 +193,14 @@ function addOrUpdate(name1,value1,text){
 			     }
 			});
 		});
+}
+
+function tishiweixinMchKey() {
+	layer.open({
+		  title: '获取商户key'
+		  ,content: '在微信商户平台-帐户中心-左侧API安全-API密钥-点击设置API密钥这个里面设置的KEY，自己设置，不是自动生成'
+		});     
+		  
 }
 
 layui.use('upload', function(){
