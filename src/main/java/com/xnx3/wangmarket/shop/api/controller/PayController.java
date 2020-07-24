@@ -254,7 +254,17 @@ public class PayController extends BasePluginController {
 		String notifyUrl = SystemUtil.get("MASTER_SITE_URL")+"shop/api/pay/weixinpayCallback.do";
 		if(openid.length() == 0){
 			//获取用户openid
-			UserWeiXin userWeixin = sqlCacheService.findBySql(UserWeiXin.class, "userid="+order.getUserid()+" AND storeid="+order.getStoreid());
+			
+			int whereStoreid = 0;	//从user_weixin 查询
+			//判断一下该用户使用的是否是服务商模式
+			PaySet paySet = paySetService.getPaySet(order.getStoreid());
+			if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
+				//使用服务商模式，那么取openid时，storeid=0
+				whereStoreid = 0;
+			}else{
+				whereStoreid = order.getStoreid();
+			}
+			UserWeiXin userWeixin = sqlCacheService.findBySql(UserWeiXin.class, "userid="+order.getUserid()+" AND storeid="+whereStoreid);
 			if(userWeixin == null){
 				return error("未发现用户的openid");
 			}
