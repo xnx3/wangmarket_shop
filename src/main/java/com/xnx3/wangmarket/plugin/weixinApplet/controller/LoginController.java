@@ -18,11 +18,13 @@ import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.UserVO;
 import com.xnx3.wangmarket.plugin.weixinApplet.vo.LoginVO;
+import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreUser;
 import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.RegPluginManage;
+import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.service.WeiXinService;
 import com.xnx3.weixin.WeiXinAppletUtil;
 import com.xnx3.weixin.vo.Jscode2sessionResultVO;
@@ -42,6 +44,8 @@ public class LoginController extends BasePluginController {
 	private UserService userService;
 	@Resource
 	private WeiXinService weiXinService;
+	@Resource
+	private PaySetService paySetService;
 	
 
 	/**
@@ -70,8 +74,6 @@ public class LoginController extends BasePluginController {
 			return vo;
 		}
 		vo.setToken(request.getSession().getId());
-		
-		ConsoleUtil.log("reg--->"+request.getQueryString());
 		
 		//判断当前用户是否已经登录过了
 		if(haveUser()){
@@ -119,29 +121,23 @@ public class LoginController extends BasePluginController {
 					vo.setBaseVO(regVO);
 					return vo;
 				}
+				
+				PaySet paySet = paySetService.getPaySet(storeid);
+				
 				//自动注册成功，保存 WeixinUser
 				userWeixin = new UserWeiXin();
 				userWeixin.setUserid(user.getId());
 				userWeixin.setOpenid(jvo.getOpenid());
 				userWeixin.setUnionid(jvo.getUnionid());
-				userWeixin.setStoreid(storeid);
+				if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
+					//使用服务商模式，那么storeid = 0
+					userWeixin.setStoreid(0);
+				}else{
+					//不使用服务商模式，那么就是使用的商家自己的微信号了
+					userWeixin.setStoreid(storeid);
+				}
 				ConsoleUtil.log(userWeixin.toString());
 				sqlService.save(userWeixin);
-				
-				//保存 store user 的关系
-				StoreUser storeUser = new StoreUser();
-				storeUser.setId(user.getId()+"_"+storeid);
-				storeUser.setStoreid(storeid);
-				storeUser.setUserid(user.getId());
-				//判断其是否有推荐人
-				if(referrerid > 0){
-					//从StoreUser表中，看是否有这个 id ,也就是这个推荐人是否真的存在
-					StoreUser referrerStoreUser = sqlCacheService.findById(StoreUser.class, referrerid+"_"+storeid);
-					if(referrerStoreUser != null){
-						storeUser.setReferrerid(referrerStoreUser.getId());
-					}
-				}
-				sqlService.save(storeUser);
 				
 				Store store = sqlCacheService.findById(Store.class, storeid);
 				/*** 注册成功后触发 ***/
@@ -153,15 +149,11 @@ public class LoginController extends BasePluginController {
 				
 				//缓存
 //				SessionUtil.setWeiXinUser(weixinUser);
-				ActionLogUtil.insertUpdateDatabase(request, storeid, "自动注册用户:"+user.toString());
-				
-				ConsoleUtil.info("reg --- > "+user.toString());
 				vo.setUser(getUser());
 				vo.setInfo("reg");
 				vo.setUserWeiXin(userWeixin);
 			}else{
 				//用户已经注册过了
-				
 				//设置当前用户为登陆的状态
 				BaseVO loginVO = userService.loginForUserId(request, userWeixin.getUserid());
 				if(loginVO.getResult() - BaseVO.FAILURE == 0){
@@ -185,8 +177,21 @@ public class LoginController extends BasePluginController {
 				storeUser.setId(user.getId()+"_"+storeid);
 				storeUser.setStoreid(storeid);
 				storeUser.setUserid(user.getId());
+				//判断其是否有推荐人
+				if(referrerid > 0){
+					//从StoreUser表中，看是否有这个 id ,也就是这个推荐人是否真的存在
+					StoreUser referrerStoreUser = sqlCacheService.findById(StoreUser.class, referrerid+"_"+storeid);
+					if(referrerStoreUser != null){
+						storeUser.setReferrerid(referrerStoreUser.getId());
+					}
+				}
 				sqlService.save(storeUser);
+				
+				ActionLogUtil.insertUpdateDatabase(request, storeid, "自动注册用户: user:"+user.toString()+" , storeUser:"+storeUser.toString());
+				ConsoleUtil.info("自动注册用户: user:"+user.toString()+" , storeUser:"+storeUser.toString());
 			}
+			
+			
 		}else{
 			// jscode2session 获取失败
 			vo.setBaseVO(BaseVO.FAILURE, jvo.getInfo());

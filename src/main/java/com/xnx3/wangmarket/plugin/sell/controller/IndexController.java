@@ -57,7 +57,7 @@ public class IndexController extends BasePluginController {
 		}
 		
 		ShareUrlVO vo = new ShareUrlVO();
-		vo.setWeixinH5Url(SystemUtil.get("MASTER_SITE_URL") + "plugin/weixinH5Auth/hiddenAuthJump.do?storeid="+storeid+"&referrerid="+user.getId()+"&url="+redirectUrl);
+		vo.setWeixinH5Url(SystemUtil.get("MASTER_SITE_URL") + "plugin/weixinH5Auth/hiddenAuthJump.do?storeid="+storeid+"&referrerid="+user.getId()+"&url="+redirectUrl, storeid);
 		
 		//H5 Url
 		if(redirectUrl.indexOf("?") > -1){
@@ -66,7 +66,7 @@ public class IndexController extends BasePluginController {
 			redirectUrl = redirectUrl + "?";
 		}
 		redirectUrl = redirectUrl + "storeid="+storeid+"&referrerid="+user.getId();
-		vo.setH5Url(redirectUrl);
+		vo.setH5Url(redirectUrl, storeid);
 		
 		//日志
 		ActionLogUtil.insert(request, "获取二级分销推广链接");

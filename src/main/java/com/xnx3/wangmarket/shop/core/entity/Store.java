@@ -45,9 +45,14 @@ public class Store implements java.io.Serializable {
 	private String district;	//店铺所在位置-市，区，如 寒亭区
 	private Integer addtime;	//店铺添加时间，开通时间。10位时间戳
 	private Integer sale;		//店铺已出售的商品总数量，总销量。这个一定是真实的，如果要造假数，可以在增加一个字段
+	private Integer referrerUserid;	//来源id，推荐人的user.id，上级的用户id。是哪个用户推荐这个商家入驻的
 	
 	private Integer version;	//乐观锁
 	
+	public Store() {
+		this.referrerUserid = 0;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
@@ -188,12 +193,22 @@ public class Store implements java.io.Serializable {
 		this.version = version;
 	}
 	
+	@Column(name = "referrer_userid", columnDefinition="int(11) comment '来源id，推荐人的user.id，上级的用户id。是哪个用户推荐这个商家入驻的' default '0'")
+	public Integer getReferrerUserid() {
+		return referrerUserid;
+	}
+	public void setReferrerUserid(Integer referrerUserid) {
+		this.referrerUserid = referrerUserid;
+	}
+	
 	@Override
 	public String toString() {
-		return "Store [id=" + id + ", name=" + name + ", userid=" + userid + ", head=" + head 
-				+ ", state=" + state + ", contacts=" + contacts + ", phone=" + phone + ", address=" + address
-				+ ", longitude=" + longitude + ", latitude=" + latitude + ", province=" + province + ", city=" + city
-				+ ", district=" + district + ", addtime=" + addtime + ", sale=" + sale + "]";
+		return "Store [id=" + id + ", name=" + name + ", userid=" + userid + ", head=" + head + ", state=" + state
+				+ ", contacts=" + contacts + ", phone=" + phone + ", address=" + address + ", longitude=" + longitude
+				+ ", latitude=" + latitude + ", province=" + province + ", city=" + city + ", district=" + district
+				+ ", addtime=" + addtime + ", sale=" + sale + ", referrerUserid=" + referrerUserid + ", version="
+				+ version + "]";
 	}
+	
 	
 }

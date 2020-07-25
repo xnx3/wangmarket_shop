@@ -18,9 +18,9 @@ public class ShareUrlVO extends BaseVO{
 	public String getWeixinH5Url() {
 		return weixinH5Url;
 	}
-	public void setWeixinH5Url(String weixinH5Url) {
+	public void setWeixinH5Url(String weixinH5Url, int storeid) {
 		if(ShortUrlUtil.isUseShortUrl()){
-			String key = get62UserId()+"_w";
+			String key = get62UserId()+"_"+StringUtil.intTo62(storeid)+"_w";
 			ShortUrlUtil.setShortUrl(key, weixinH5Url);
 			this.weixinH5Url = ShortUrlUtil.getDomain()+"u?"+key;
 		}else{
@@ -30,9 +30,9 @@ public class ShareUrlVO extends BaseVO{
 	public String getH5Url() {
 		return h5Url;
 	}
-	public void setH5Url(String h5Url) {
+	public void setH5Url(String h5Url, int storeid) {
 		if(ShortUrlUtil.isUseShortUrl()){
-			String key = get62UserId()+"_h";
+			String key = get62UserId()+"_"+StringUtil.intTo62(storeid)+"_h";
 			ShortUrlUtil.setShortUrl(key, h5Url);
 			this.h5Url = ShortUrlUtil.getDomain()+"u?"+key;
 		}else{

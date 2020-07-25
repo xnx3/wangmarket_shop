@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class UserWeiXin implements java.io.Serializable{
 	private String openid;		//用户在微信的openid
 	private Integer userid;		//对应user.id	
-	private Integer storeid;	//对应store.id，用户是通过哪个店铺注册获取的openid
+	private Integer storeid;	//对应store.id，用户是通过哪个店铺注册获取的openid。如果店铺用的服务商的公众号，那么这里是0
 	private String unionid;		//用户的unionid
 	
 	@Id
@@ -48,7 +48,7 @@ public class UserWeiXin implements java.io.Serializable{
 		this.unionid = unionid;
 	}
 	
-	@Column(name = "storeid", columnDefinition="int(11) comment '对应store.id，用户是通过哪个店铺注册获取的openid'")
+	@Column(name = "storeid", columnDefinition="int(11) comment '对应store.id，用户是通过哪个店铺注册获取的openid。如果店铺用的服务商的公众号，那么这里是0'")
 	public Integer getStoreid() {
 		return storeid;
 	}

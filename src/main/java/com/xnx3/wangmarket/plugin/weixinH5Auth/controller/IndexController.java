@@ -137,7 +137,7 @@ public class IndexController extends BasePluginController {
 		UserWeiXin userWeixin = sqlCacheService.findById(UserWeiXin.class, openid);
 		User user = null;
 		if(userWeixin == null){
-			//此用户还未注册，进行注册用户
+			//此openid还未注册，或者此openid已注册但是是跟之前的商铺关联，并没有跟此店铺关联，那么进行注册用户
 			String username = StringUtil.intTo36(DateUtil.timeForUnix10())+StringUtil.getRandom09AZ(6);
 			user = new User();
 			user.setUsername(username);
@@ -155,29 +155,22 @@ public class IndexController extends BasePluginController {
 			
 			BaseVO regVO = userService.reg(user, request);
 			if(regVO.getResult() - BaseVO.SUCCESS == 0){
-				//自动注册成功，保存 WeixinUser
-				userWeixin = new UserWeiXin();
-				userWeixin.setUserid(user.getId());
-				userWeixin.setOpenid(openid);
-				userWeixin.setUnionid("");
-				userWeixin.setStoreid(storeid);
-				ConsoleUtil.log(userWeixin.toString());
-				sqlService.save(userWeixin);
-				
-				//保存 store user 的关系
-				StoreUser storeUser = new StoreUser();
-				storeUser.setId(user.getId()+"_"+storeid);
-				storeUser.setStoreid(storeid);
-				storeUser.setUserid(user.getId());
-				//判断其是否有推荐人
-				if(referrerid > 0){
-					//从StoreUser表中，看是否有这个 id ,也就是这个推荐人是否真的存在
-					StoreUser referrerStoreUser = sqlCacheService.findById(StoreUser.class, referrerid+"_"+storeid);
-					if(referrerStoreUser != null){
-						storeUser.setReferrerid(referrerStoreUser.getId());
+				//自动注册成功，判断一下 userWeixin 是否存在，如果不存在，那么 保存 WeixinUser
+				if(userWeixin == null){
+					userWeixin = new UserWeiXin();
+					userWeixin.setUserid(user.getId());
+					userWeixin.setOpenid(openid);
+					userWeixin.setUnionid("");
+					if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
+						//使用服务商模式，那么storeid = 0
+						userWeixin.setStoreid(0);
+					}else{
+						//不使用服务商模式，那么就是使用的商家自己的微信号了
+						userWeixin.setStoreid(storeid);
 					}
+					ConsoleUtil.log("新建userWeixin:"+userWeixin.toString());
+					sqlService.save(userWeixin);
 				}
-				sqlService.save(storeUser);
 				
 				Store store = sqlCacheService.findById(Store.class, storeid);
 				/*** 注册成功后触发 ***/
@@ -187,21 +180,40 @@ public class IndexController extends BasePluginController {
 					e.printStackTrace();
 				}
 				/*********/
-				
-				ConsoleUtil.info("reg --- > "+user.toString());
-				ActionLogUtil.insertUpdateDatabase(request, storeid, "注册新用户:"+user.toString()+", url:"+url);
 			}else{
 				//自动注册失败
 				return error(model,regVO.getInfo());
 			}
 		}else{
 			//用户已经注册过了
+			user = getUser();
+			
 			//设置当前用户为登陆的状态
 			BaseVO loginVO = userService.loginForUserId(request, userWeixin.getUserid());
 			if(loginVO.getResult() - BaseVO.FAILURE == 0){
 				return error(model,loginVO.getInfo());
 			}
 			ActionLogUtil.insertUpdateDatabase(request, storeid, "登录:"+getUser().toString()+", url:"+url);
+		}
+		
+		//判断一下用户是否已经关联上这个商家了，如果没关联，还要将这个用户关联为这个商家的用户
+		StoreUser storeUser = sqlCacheService.findBySql(StoreUser.class, "userid="+user.getId()+" AND storeid="+storeid);
+		if(storeUser == null){
+			storeUser = new StoreUser();
+			storeUser.setId(user.getId()+"_"+storeid);
+			storeUser.setStoreid(storeid);
+			storeUser.setUserid(user.getId());
+			//判断其是否有推荐人
+			if(referrerid > 0){
+				//从StoreUser表中，看是否有这个 id ,也就是这个推荐人是否真的存在
+				StoreUser referrerStoreUser = sqlCacheService.findById(StoreUser.class, referrerid+"_"+storeid);
+				if(referrerStoreUser != null){
+					storeUser.setReferrerid(referrerStoreUser.getId());
+				}
+			}
+			sqlService.save(storeUser);
+			ConsoleUtil.info("reg --- > "+storeUser.toString());
+			ActionLogUtil.insertUpdateDatabase(request, storeid, "注册新用户:"+user.toString()+", storeUser:"+storeUser.toString()+", url:"+url);
 		}
 		
 		String sessionid = request.getSession().getId();
