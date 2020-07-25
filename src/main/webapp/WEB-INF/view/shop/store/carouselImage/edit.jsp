@@ -81,7 +81,8 @@
 			,accept: 'file'
 			,done: function(res){
 				//上传完毕回调
-				loadClose();
+				//loadClose();
+				msg.close();
 				if(res.result == 1){
 					try{
 						document.getElementById("titlePicInput").value = res.url;
@@ -96,7 +97,7 @@
 			}
 			,error: function(index, upload){
 				//请求异常回调
-				parent.iw.loadClose();
+				parent.msg.close();
 				parent.msg.failure();
 			}
 			,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
@@ -126,7 +127,7 @@
 		//表单序列化
 		parent.msg.loading("保存中");
 		$.post("/shop/store/carouselImage/save.do", d, function (result) {
-			parent.iw.loadClose();
+			parent.msg.close();
 			var obj = JSON.parse(result);
 			if(obj.result == '1'){
 				parent.parent.msg.success("操作成功");

@@ -322,7 +322,8 @@ layui.use('upload', function(){
 		,accept: 'file'
 		,done: function(res){
 			//上传完毕回调
-			loadClose();
+			//loadClose();
+			msg.close();
 			if(res.result == 1){
 				try{
 					document.getElementById("titlePicInput").value = res.url;
