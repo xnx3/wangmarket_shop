@@ -14,12 +14,14 @@ public interface StoreService {
 	 * 获取顺序，首先从缓存中获取，缓存中没有再从数据库中拉数据进行缓存
 	 * @param storeid 要获取的是哪个商城的
 	 * @return 当前店铺的 {@link StoreData} 如果返回null，则是这个店铺没有 {@link StoreData}信息
+	 * @deprecated 直接用 sqlCacheService
 	 */
 	public StoreData getStoreDataByCache(int storeid);
 	
 	/**
 	 * 清理掉某个店铺的变产表的缓存
 	 * @param storeid 要清理的是哪个店铺
+	 * @deprecated 直接用 sqlCacheService
 	 */
 	public void clearStoreDataCache(int storeid);
 }

@@ -1,9 +1,7 @@
 package com.xnx3.wangmarket.shop.store.controller;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -119,7 +117,7 @@ public class IndexController extends BaseController {
 		sqlService.save(store);
 		
 		//删除store缓存
-		sqlCacheService.deleteCacheById(Store.class, store.getId());
+		deleteStoreCache(store.getId());
 		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, storeId, "Id为" + storeId + "的商家修改商家图片", "上传图片返回路径:" + vo.getUrl());
@@ -231,7 +229,7 @@ public class IndexController extends BaseController {
 		//修改缓存的商家信息
 		SessionUtil.setStore(store);
 		//删除store缓存
-		sqlCacheService.deleteCacheById(Store.class, store.getId());
+		deleteStoreCache(store.getId());
 		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, store.getId(), "Id为" + store.getId() + "的商家修改信息", "修改信息:" + store.toString());
@@ -260,7 +258,7 @@ public class IndexController extends BaseController {
 		sqlService.save(storeData);
 		
 		//清理缓存
-		storeService.clearStoreDataCache(storeData.getId());
+		sqlCacheService.deleteCacheById(StoreData.class, storeData.getId());
 		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, storeData.getId(), "Id为" + storeData.getId() + "的商家修改storeData信息");
@@ -300,4 +298,10 @@ public class IndexController extends BaseController {
 		}
 	}
 	
+	/**
+	 * 保存完成后，删除缓存，已达到更新缓存目的
+	 */
+	private void deleteStoreCache(int storeid){
+		sqlCacheService.deleteCacheById(Store.class, storeid);
+	}
 }

@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.wangmarket.shop.core.entity.Store;
+import com.xnx3.wangmarket.shop.core.entity.StoreData;
 import com.xnx3.wangmarket.shop.core.service.StoreService;
 import com.xnx3.wangmarket.shop.core.vo.StoreVO;
 
@@ -27,7 +29,9 @@ public class StoreController extends BaseController {
 	private SqlService sqlService;
 	@Resource
 	private StoreService storeService;
-
+	@Resource
+	private SqlCacheService sqlCacheService;
+	
 	/**
 	 * 获取店铺信息， Store 的信息
 	 * @param storeid 要获取的信息是那个店铺的，店铺的id
@@ -42,14 +46,14 @@ public class StoreController extends BaseController {
 			return vo;
 		}
 		
-		Store store = sqlService.findById(Store.class, storeid);
+		Store store = sqlCacheService.findById(Store.class, storeid);
 		if(store == null){
 			vo.setBaseVO(StoreVO.FAILURE, "要查看的店铺不存在");
 			return vo;
 		}
 		
 		vo.setStore(store);
-		vo.setStoreData(storeService.getStoreDataByCache(store.getId()));
+		vo.setStoreData(sqlCacheService.findById(StoreData.class, store.getId()));
 		
 		ActionLogUtil.insert(request, "获取店铺信息", store.toString());
 		return vo;
