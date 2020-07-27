@@ -105,7 +105,7 @@ $.post("/sites/getOSSSize.do", function(data){
 		document.getElementById('ossSize').innerHTML = (data.info/1000)+'&nbsp;MB';
 		document.getElementById('residueSize').innerHTML = (${user.ossSizeHave}-(data.info/1000))+'&nbsp;MB';
 	}else{
-		parent.iw.msgFailure(data.info);
+		parent.msg.failure(data.info);
 	}
 });
 

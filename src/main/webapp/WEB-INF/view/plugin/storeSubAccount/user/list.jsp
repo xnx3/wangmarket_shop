@@ -43,16 +43,16 @@ function deleteUser(id,name){
 	}, function(){
 		layer.close(dtp_confirm);
 		
-		parent.iw.loading("删除中");    //显示“操作中”的等待提示
+		parent.msg.loading("删除中");    //显示“操作中”的等待提示
 		$.post('deleteUser.do?userid='+id, function(data){
-		    parent.iw.loadClose();    //关闭“操作中”的等待提示
+		    parent.msg.close();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
-		        parent.iw.msgSuccess('操作成功');
+		        parent.msg.success('操作成功');
 		        window.location.reload();	//刷新当前页
 		     }else if(data.result == '0'){
-		         parent.iw.msgFailure(data.info);
+		         parent.msg.failure(data.info);
 		     }else{
-		         parent.iw.msgFailure();
+		         parent.msg.failure();
 		     }
 		});
 
@@ -83,16 +83,16 @@ function updatePassword(userid, name){
 		value: '',
 		title: '给'+name+'改密码，请输入新密码',
 	}, function(value, index, elem){
-		parent.iw.loading("更改中");    //显示“更改中”的等待提示
+		parent.msg.loading("更改中");    //显示“更改中”的等待提示
 		$.post(
 		    "updatePassword.do", 
 		    { "newPassword": value, userid:userid }, 
 		    function(data){
-		        parent.iw.loadClose();    //关闭“更改中”的等待提示
+		        parent.msg.close();    //关闭“更改中”的等待提示
 		        if(data.result != '1'){
-		            parent.iw.msgFailure(data.info);
+		            parent.msg.failure(data.info);
 		        }else{
-		            parent.iw.msgSuccess();
+		            parent.msg.success();
 					location.reload();
 		        }
 		    }, 

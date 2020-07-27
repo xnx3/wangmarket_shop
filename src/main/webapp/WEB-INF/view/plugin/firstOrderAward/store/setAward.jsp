@@ -80,15 +80,15 @@ useChange('${award.isUse}' == 1);
 
 //修改当前是否使用
 function updateUse(value){
-	parent.iw.loading('修改中');
+	parent.msg.loading('修改中');
 	$.post("updateIsUse.do?isUse="+value, function(data){
-	    parent.iw.loadClose();    //关闭“操作中”的等待提示
+	    parent.msg.close();    //关闭“操作中”的等待提示
 	    if(data.result == '1'){
-	        parent.iw.msgSuccess('操作成功');
+	        parent.msg.success('操作成功');
 	     }else if(data.result == '0'){
-	         parent.iw.msgFailure(data.info);
+	         parent.msg.failure(data.info);
 	     }else{
-	         parent.iw.msgFailure();
+	         parent.msg.failure();
 	     }
 	});
 }
@@ -97,20 +97,20 @@ function updateUse(value){
 function update_goodsid(){
 	var value = document.getElementById('goodsid').value;
 	if(!value){
-		parent.iw.msgFailure("请设置值");
+		parent.msg.failure("请设置值");
 		return;
 	}
 
-	parent.iw.loading("保存中...");
+	parent.msg.loading("保存中...");
 	$.post("updateGoodsid.do?goodsid="+value, function (result) { 
-       	parent.iw.loadClose();
+       	parent.msg.close();
        	var obj = JSON.parse(result);
        	if(obj.result == '1'){
-       		parent.iw.msgSuccess("设置成功");
+       		parent.msg.success("设置成功");
        	}else if(obj.result == '0'){
-       		parent.iw.msgFailure(obj.info);
+       		parent.msg.failure(obj.info);
        	}else{
-       		parent.iw.msgFailure("出错");
+       		parent.msg.failure("出错");
        	}
 	}, "text");
 }

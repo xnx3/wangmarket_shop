@@ -85,13 +85,13 @@ layui.use(['form'], function(){
 	var form = layui.form;
 	//监听提交
 	form.on('submit(formDemo)', function(data){
-		parent.iw.loading('创建中...');
+		parent.msg.loading('创建中...');
 		var d=$("form").serialize();
         $.post("save.do", d, function (result) { 
-        	parent.iw.loadClose();
+        	parent.msg.close();
         	var obj = JSON.parse(result);
         	if(obj.result == '1'){
-        		parent.parent.iw.msgSuccess('操作成功')
+        		parent.parent.msg.success('操作成功')
 				parent.location.reload();
         	}else if(obj.result == '0'){
         		layer.msg(obj.info, {shade: 0.3})

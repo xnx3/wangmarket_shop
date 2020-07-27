@@ -233,9 +233,9 @@ function adminUpdatePassword(){
 				function(data){
 					iw.loadClose();
 					if(data.result != '1'){
-						iw.msgFailure(data.info);
+						msg.failure(data.info);
 					}else{
-						iw.msgSuccess('修改成功！新密码：'+value);
+						msg.success('修改成功！新密码：'+value);
 					}
 				}
 			, "json");

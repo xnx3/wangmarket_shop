@@ -65,7 +65,7 @@ layui.use('upload', function(){
 		 msg.loading('上传中...');
 		}
 	,done: function(res){
-		iw.loadClose();
+	  	msg.close();
 		if(res.result == '1'){
 			parent.msg.success("上传成功");
 			window.location.reload();	//刷新当前页

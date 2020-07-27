@@ -97,7 +97,8 @@ var uploadExtendPhotos = {
 		,exts:'${ossFileUploadImageSuffixList }'	//可上传的文件后缀
 		,done: function(res){
 			//上传完毕回调
-			loadClose();
+			//loadClose();
+		msg.close();
 			
 			var key = this.item[0].name;	//拿到传递参数的key，也就是 extend.photos 中，数组某项的下表
 			
@@ -137,7 +138,8 @@ layui.use('upload', function(){
 		,exts:'${ossFileUploadImageSuffixList }'	//可上传的文件后缀
 		,done: function(res){
 			//上传完毕回调
-			loadClose();
+			//loadClose();
+			msg.close();
 			if(res.result == 1){
 				try{
 					document.getElementById("titlePicInput").value = res.url;
