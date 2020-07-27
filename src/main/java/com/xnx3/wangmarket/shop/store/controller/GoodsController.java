@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.xnx3.BaseVO;
 import com.xnx3.DateUtil;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentUtil;
@@ -34,6 +35,8 @@ import com.xnx3.wangmarket.shop.core.entity.GoodsImage;
 public class GoodsController extends BaseController {
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private SqlCacheService sqlCacheService;
 	
 	/**
 	 * 查看商品列表
@@ -184,6 +187,9 @@ public class GoodsController extends BaseController {
 		data.setDetail(detail);
 		sqlService.save(data);
 		
+		//保存完成后，删除缓存，已达到更新缓存目的
+		deleteGoodsCache(goods.getId());
+		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, goods.getId(),"Id为" + goods.getId() + "的商品添加或修改，内容:" + goods.toString());
 		
@@ -191,9 +197,18 @@ public class GoodsController extends BaseController {
 	}
 	
 	/**
-	 * 删除商品分类
+	 * 保存完成后，删除缓存，已达到更新缓存目的
+	 * @param goodsid 要删除的缓存的商品id
+	 */
+	private void deleteGoodsCache(int goodsid){
+		sqlCacheService.deleteCacheById(Goods.class, goodsid);
+		sqlCacheService.deleteCacheById(GoodsData.class, goodsid);
+	}
+	
+	/**
+	 * 删除商品
 	 * @author 关光礼
-	 * @param id 删除商品分类id
+	 * @param id 删除商品id
 	 */
 	@ResponseBody
 	@RequestMapping(value="/delete${url.suffix}",method = {RequestMethod.POST})
@@ -212,6 +227,10 @@ public class GoodsController extends BaseController {
 		}
 		goods.setIsdelete(Goods.ISDELETE_DELETE);
 		sqlService.save(goods);
+		
+		//操作完成后，删除缓存，已达到更新缓存目的
+		deleteGoodsCache(goods.getId());
+				
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, "删除ID是" + id + "的商品", "删除内容:" + goods.toString());
 		return success();
@@ -244,6 +263,10 @@ public class GoodsController extends BaseController {
 			goods.setPutaway(Goods.PUTAWAY_NOT_SELL);
 		}
 		sqlService.save(goods);
+		
+		//操作完成后，删除缓存，已达到更新缓存目的
+		deleteGoodsCache(goods.getId());
+		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, "ID是" + id + "的商品的状态修改", "修改后状态:" + goods.getPutaway());
 		return success();
@@ -396,7 +419,7 @@ public class GoodsController extends BaseController {
 		return success();
 	}
 	/**
-	 * 更改栏目排序。CMS模式使用。（PC、手机模式使用js排序）
+	 * 更改商品排序
 	 * @param id 栏目id
 	 * @param rank 排序编号。数字越小越靠前
 	 * @return
@@ -417,6 +440,9 @@ public class GoodsController extends BaseController {
 		
 		goods.setRank(rank);
 		sqlService.save(goods);
+		
+		//操作完成后，删除缓存，已达到更新缓存目的
+		deleteGoodsCache(goods.getId());
 		
 		//记录日志
 		ActionLogUtil.insertUpdateDatabase(request, goods.getId(), "更改栏目排序", rank+"");
