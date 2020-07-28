@@ -24,7 +24,8 @@ import com.xnx3.weixin.vo.WebShareVO;
 
 
 /**
- * 分享相关
+ * 分享相关。
+ * 其中有url作为参数的，url中 ? & 都会替换为 _3F 、_26 等
  * @author 管雷鸣
  */
 @Controller(value="WeixinH5SharePluginController")
@@ -73,10 +74,12 @@ public class ShareController extends BasePluginController {
 		vo.setAppId(util.appId);
 		
 		/*** 生成分享出去的url ***/
-		String shareUrl = SystemUtil.get("MASTER_SITE_URL") + "plugin/weixinH5Auth/hiddenAuthJump.do?storeid="+goods.getStoreid()+"&referrerid="+getUserId()+"&url="+url;
+		String domain = "http://demo.imall.net.cn/";	//这里默认先写死吧
+		String shareUrl = SystemUtil.get("MASTER_SITE_URL") + "plugin/weixinH5Auth/hiddenAuthJump.do?storeid="+goods.getStoreid()+"&referrerid="+getUserId()+"&url="+domain+"token.html?url=goods.html?goodsid="+goodsid+"_26storeid="+goods.getStoreid();
 		vo.setShareUrl(shareUrl);
 		
 		ConsoleUtil.info(vo.toString());
+		ConsoleUtil.info("js_token:"+util.getJsapiTicket());
 		ActionLogUtil.insert(request, goods.getId(), "微信获取商品的分享配置", vo.toString());
 		return vo;
 	}

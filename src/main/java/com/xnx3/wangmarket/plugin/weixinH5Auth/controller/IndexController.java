@@ -33,6 +33,7 @@ import net.sf.json.JSONObject;
 
 /**
  * 跳转页面，获取用户openid
+ * 其中有url作为参数的，url中 ? & 都会替换为 _3F 、_26 等
  * @author 管雷鸣
  */
 @Controller(value="WeixinH5AuthIndexPluginController")
@@ -54,7 +55,7 @@ public class IndexController extends BasePluginController {
 	 * 进入后会直接进行重定向到传入的url页面，在这个url页面即可或得到用户的openid 。注意，传入的url，域名一定是提前在微信公众号接口权限表-网页服务-网页帐号-网页授权获取用户基本信息 中配置的网址
 	 * @param storeid 进入的是哪个店铺
 	 * @param referrerid 推荐人id，这里传入的是推荐人的 user.id 这个在创建用户信息时，会跟storeid一块计入用户的 StoreUser.referrerid。 可不填
-	 * @param url 登录成功后要跳转到的url页面，格式如： http://demo.imall.net.cn/index.html?a=1&b=2 
+	 * @param url 登录成功后要跳转到的url页面，格式如： http://demo.imall.net.cn/index.html_3Fa=1_26b=2    其中_3F是? ， _26是&， 
 	 */
 	@RequestMapping("hiddenAuthJump${url.suffix}")
 	public String hiddenAuthJump(HttpServletRequest request,Model model,
@@ -70,10 +71,10 @@ public class IndexController extends BasePluginController {
 			return error(model, "当前店铺未设置微信公众号");
 		}
 		
-		url = url.replace("?", "%3F").replaceAll("&", "%26");
+		url = url.replaceAll("\\?", "_3F").replaceAll("&", "_26");
 		url = SystemUtil.get("MASTER_SITE_URL")+"plugin/weixinH5Auth/wxAuthLogin.do?storeid="+storeid+"%26referrerid="+referrerid+"%26url="+url;
 		String jumpUrl = util.getOauth2ExpertUrl(url);
-		ConsoleUtil.log(jumpUrl);
+		ConsoleUtil.log("jumpUrl:"+jumpUrl);
 		ActionLogUtil.insert(request, storeid, "jumpUrl:"+jumpUrl);
 		return redirect(jumpUrl);
 	}
@@ -83,7 +84,7 @@ public class IndexController extends BasePluginController {
 	 * @param code 微信网页授权的code
 	 * @param storeid 要登录的是哪个店铺，必须的
 	 * @param referrerid 推荐人id，这个在创建用户信息时，会计入用户的 user.referrerid。 可不填
-	 * @param url 授权拿到openid登录成功后，要跳转到的url页面。格式如： http://demo.imall.net.cn/index.html%3Fa=1%26b=2  注意，像是 ? & 要传入URL转码字符
+	 * @param url 授权拿到openid登录成功后，要跳转到的url页面。格式如： http://demo.imall.net.cn/index.html_3Fa=1_26b=2  注意，像是 ? & 要传入特定转码字符
 	 * 				<ul>
 	 * 					<li>站内跳转，如：user/info.do	内网页面，前面无须/，默认自动补齐之前路径。此便是跳转到当前项目根目录下/user/info.do页面，
 	 * 					<li>站外跳转，如：http://www.xnx3.com	外网页面，写全即可，也或者 //www.xnx3.com 也是直接跳转到外网
@@ -103,11 +104,14 @@ public class IndexController extends BasePluginController {
 		if(storeid < 1){
 			return error(model,"请传入店铺编号");
 		}
+		url = url.replaceAll("_3F","?").replaceAll("_26","&");	//URL转码
+		ConsoleUtil.debug("code:"+code+", storeid:"+storeid+", referrerid:"+referrerid+", url:"+url);
 		
 		/**** 获取用户的openid ***/
 		String openid = null;
 		//判断一下该用户使用的是否是服务商模式
 		PaySet paySet = paySetService.getPaySet(storeid);
+		ConsoleUtil.debug("paySet:"+paySet.toString());
 		if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
 			//使用服务商模式
 			PaySet serivcePaySet = paySetService.getSerivceProviderPaySet();
