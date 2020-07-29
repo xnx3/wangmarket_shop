@@ -190,7 +190,8 @@ public class IndexController extends BasePluginController {
 			}
 		}else{
 			//用户已经注册过了
-			user = getUser();
+			ConsoleUtil.debug("userWeixin:"+userWeixin.toString());
+			user = sqlCacheService.findById(User.class, userWeixin.getUserid());
 			
 			//设置当前用户为登陆的状态
 			BaseVO loginVO = userService.loginForUserId(request, userWeixin.getUserid());

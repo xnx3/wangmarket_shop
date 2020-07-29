@@ -48,10 +48,9 @@ public class ShareController extends BasePluginController {
 	 */
 	@RequestMapping("goodsShare${api.suffix}")
 	@ResponseBody
-	public H5ShareVO hiddenAuthJump(HttpServletRequest request,Model model,
+	public H5ShareVO goodsShare(HttpServletRequest request,Model model,
 			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid,
 			@RequestParam(value = "url", required = false, defaultValue="") String url){
-		
 		H5ShareVO vo = new H5ShareVO();
 		if(goodsid < 1){
 			vo.setBaseVO(H5ShareVO.FAILURE, "请传入商品编号");
@@ -75,7 +74,7 @@ public class ShareController extends BasePluginController {
 		
 		/*** 生成分享出去的url ***/
 		String domain = "http://demo.imall.net.cn/";	//这里默认先写死吧
-		String shareUrl = SystemUtil.get("MASTER_SITE_URL") + "plugin/weixinH5Auth/hiddenAuthJump.do?storeid="+goods.getStoreid()+"&referrerid="+getUserId()+"&url="+domain+"token.html?url=goods.html?goodsid="+goodsid+"_26storeid="+goods.getStoreid();
+		String shareUrl = SystemUtil.get("MASTER_SITE_URL") + "plugin/weixinH5Auth/hiddenAuthJump.do?storeid="+goods.getStoreid()+"&referrerid="+getUserId()+"&url="+domain+"token.html?storeid="+goods.getStoreid()+"_26url=goods.html?goodsid="+goodsid;
 		vo.setShareUrl(shareUrl);
 		
 		ConsoleUtil.info(vo.toString());
