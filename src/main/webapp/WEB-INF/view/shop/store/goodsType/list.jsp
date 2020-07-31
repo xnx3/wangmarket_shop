@@ -18,7 +18,6 @@
 	}
 
 </style>
-<script src="/<%=Global.CACHE_FILE %>SlidesShowType_type.js"></script>
 <div style="height:10px;"></div>
 <jsp:include page="../../../iw/common/list/formSearch_formStart.jsp" ></jsp:include>
 
