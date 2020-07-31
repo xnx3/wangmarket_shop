@@ -2,40 +2,10 @@
 branches: {
   }
 fileChange:
-  /src:
-    newFile: !uuid 'dd77561722df9d508e5e00106781c80f3dea57be'
-    oldFile: !uuid '1ab1e04b3e31200a3e43035dc3bf2b9b35f260d3'
-  /src/main:
-    newFile: !uuid '12fd6bb335f79e10807c7b98791b0ee041aa43a3'
-    oldFile: !uuid '06ab7eedfd62c76c2a435793705049ed22beea22'
-  /src/main/java:
-    newFile: !uuid 'acdb8143e33a732a661aaebcb56d326276977958'
-    oldFile: !uuid '2e591604aaad5690ea49e3b1fee92f1eba8fe4a3'
-  /src/main/java/com:
-    newFile: !uuid '475ac4608e48b0174d0cc76547b1677d767b521e'
-    oldFile: !uuid '6de7a06493c9858556adff696e52cc04eedd3834'
-  /src/main/java/com/xnx3:
-    newFile: !uuid '38188c2354f8ed9f3ad32e6266e18f47a445e101'
-    oldFile: !uuid 'e5435eef02445a20daa4756bde81b02f72bb934c'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '7565b27c9a915d2c39231829a32c78cfdcaec9b8'
-    oldFile: !uuid '1aefd5cdfe8eee60b7acaefa091899075da223d7'
-  /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid 'c3f8446144eba9317e4fb127a4d3fd84807aaf6c'
-    oldFile: !uuid 'c84bcfe3c0341a2f8ec52692397f0bf3b0a921d1'
-  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth:
-    newFile: !uuid 'eb6f5fe75184e4bc7ef4511ba0ad4c9ba21e277a'
-    oldFile: !uuid '95ef1615f94ec91894fba1a815503c5fbfb909fc'
-  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth/controller:
-    newFile: !uuid 'f65836b6206a81229daee8f321365803b587fab9'
-    oldFile: !uuid '53716c3494a6cc4b44d55d9dd271a195b9e0392f'
-  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth/controller/IndexController.java:
-    newFile: !uuid '8a86bb9956c3a0c81526e92337293a3a3b54ad35'
-    oldFile: !uuid '59e65c2fa89b909fc6fb9ceb01a37484ed4bfe7c'
-  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth/controller/ShareController.java:
-    newFile: !uuid 'cbb53e800c9f4188dc01911e07de34f080a9d700'
-    oldFile: !uuid '5ef7f6bfd884a1eef008999344f1fffea6ec8004'
-gitCommitId: !uuid 'cad35f29316a54f0567fa259de914cb4ed61bd36'
+  /README.md:
+    newFile: !uuid '9e854a90344518f609569209c2da6d86238f9558'
+    oldFile: !uuid 'aa943a8a5ac33866fd29ce4791b1f1034e13ae23'
+gitCommitId: !uuid 'cf4df4282ce573ae7ddb8fa4fd5b920450a19248'
 renames: {
   }
-revisionId: 215
+revisionId: 216
