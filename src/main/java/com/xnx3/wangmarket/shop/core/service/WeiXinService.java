@@ -1,7 +1,10 @@
 package com.xnx3.wangmarket.shop.core.service;
 
+import com.xnx3.wangmarket.shop.core.vo.weixin.AccessTokenVO;
+import com.xnx3.wangmarket.shop.core.vo.weixin.JsapiTicketVO;
 import com.xnx3.weixin.WeiXinAppletUtil;
 import com.xnx3.weixin.WeiXinUtil;
+import com.xnx3.weixin.bean.JsapiTicket;
 
 /**
  * 微信相关
@@ -31,4 +34,18 @@ public interface WeiXinService {
 	 * @return 服务商的 {@link WeiXinUtil}
 	 */
 	public WeiXinUtil getServiceProviderWeiXinUtil();
+	
+	/**
+	 * 获取某个商铺的微信 jsapi_ticket
+	 * @param storeid 要获取的是哪个店铺的。如果店铺使用的是服务商的，那这里返回的便是服务商的jsapi_ticket
+	 * @return {@link JsapiTicketVO}
+	 */
+	public JsapiTicketVO getJsapiTicket(int storeid);
+	
+	/**
+	 * 获取某个商铺的微信 access_token （每两小时自动刷新的那个）
+	 * @param storeid 要获取的是哪个店铺的。如果店铺使用的是服务商的，那这里返回的便是服务商的 access_token
+	 * @return {@link AccessTokenVO}
+	 */
+	public AccessTokenVO getAccessToken(int storeid);
 }
