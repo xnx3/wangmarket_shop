@@ -69,6 +69,18 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 				<span class="firstMenuFont">店铺管理</span>
 			</a>
 		</li>
+		<li class="layui-nav-item">
+			<a href="javascript:loadUrl('/shop/superadmin/goods/list.do');">
+				<i class="layui-icon firstMenuIcon">&#xe612;</i>
+				<span class="firstMenuFont">商品管理</span>
+			</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="javascript:loadUrl('/shop/superadmin/order/list.do');">
+				<i class="layui-icon firstMenuIcon">&#xe612;</i>
+				<span class="firstMenuFont">订单管理</span>
+			</a>
+		</li>
 		<shiro:hasPermission name="adminLog"> 
 			<li class="layui-nav-item" id="rizhitongji" style="display:none;">
 				<a href="javascript:;">
