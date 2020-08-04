@@ -37,7 +37,7 @@ public class GoodsController extends BaseController {
 	 * @author 关光礼
 	 */
 	@ResponseBody
-	@RequestMapping("/list${url.suffix}")
+	@RequestMapping("/list${api.suffix}")
 	public GoodsListVO list(HttpServletRequest request,Model model) {
 		GoodsListVO vo = new GoodsListVO();
 		
@@ -80,7 +80,7 @@ public class GoodsController extends BaseController {
 	 * @param rank 排序，数字越小越靠前。非必填
 	 */
 	@ResponseBody
-	@RequestMapping(value="/save${url.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/save${api.suffix}",method = {RequestMethod.POST})
 	public BaseVO save(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue="0") int id,
 			@RequestParam(value = "price", required = false, defaultValue="-1") int price,
@@ -137,7 +137,7 @@ public class GoodsController extends BaseController {
 	 * @param id 删除商品id
 	 */
 	@ResponseBody
-	@RequestMapping(value="/delete${url.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/delete${api.suffix}",method = {RequestMethod.POST})
 	public BaseVO delete(HttpServletRequest request,
 			@RequestParam(value = "id",defaultValue = "0", required = false) int id) {
 		if(id < 1) {

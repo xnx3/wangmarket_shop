@@ -45,7 +45,7 @@ public class OrderController extends BaseController {
 	 * @author 关光礼
 	 */
 	@ResponseBody
-	@RequestMapping(value="/list${url.suffix}", method = {RequestMethod.POST})
+	@RequestMapping(value="/list${api.suffix}", method = {RequestMethod.POST})
 	public OrderListVO list(HttpServletRequest request,Model model) {
 		OrderListVO vo = new OrderListVO();
 		
@@ -82,17 +82,17 @@ public class OrderController extends BaseController {
 	 * @param id 订单id，order.id
 	 */
 	@ResponseBody
-	@RequestMapping(value="detail${url.suffix}", method = {RequestMethod.POST})
+	@RequestMapping(value="detail${api.suffix}", method = {RequestMethod.POST})
 	public OrderVO detail(Model model ,HttpServletRequest request,
-		@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+		@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid) {
 		OrderVO vo = new OrderVO();
 		
-		if(id < 1){
+		if(orderid < 1){
 			vo.setBaseVO(BaseVO.FAILURE, "请传入订单号");
 			return vo;
 		}
 		//查到订单信息
-		Order order = sqlService.findById(Order.class, id);
+		Order order = sqlService.findById(Order.class, orderid);
 		if(order == null){
 			vo.setBaseVO(BaseVO.FAILURE, "订单不存在");
 			return vo;
@@ -104,11 +104,11 @@ public class OrderController extends BaseController {
 		vo.setOrder(order);
 		
 		//查到配送信息
-		OrderAddress address = sqlService.findById(OrderAddress.class, id);
+		OrderAddress address = sqlService.findById(OrderAddress.class, orderid);
 		vo.setOrderAddress(address);
 		
 		//订单内商品信息
-		List<OrderGoods> goodsList = sqlService.findByProperty(OrderGoods.class, "orderid", id);
+		List<OrderGoods> goodsList = sqlService.findByProperty(OrderGoods.class, "orderid", orderid);
 		vo.setGoodsList(goodsList);
 		ActionLogUtil.insert(request, order.getId(), "查看订单详情:"+vo.toString());
 		

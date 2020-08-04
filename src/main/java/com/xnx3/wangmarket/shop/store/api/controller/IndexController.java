@@ -48,7 +48,7 @@ public class IndexController extends BaseController {
 	/**
 	 * 登录成功后的首页
 	 */
-	@RequestMapping("index${url.suffix}")
+	@RequestMapping("index${api.suffix}")
 	public String index(HttpServletRequest request,Model model){
 		//获取网站后台管理系统有哪些功能插件，也一块列出来,以直接在网站后台中显示出来
 		String pluginMenu = "";
@@ -76,7 +76,7 @@ public class IndexController extends BaseController {
 	 * @param file 上传的图片文件
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/uploadImg${url.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value = "/uploadImg${api.suffix}",method = {RequestMethod.POST})
 	public BaseVO carouselImageUploadImg(HttpServletRequest request ,
 			@RequestParam(value = "storeId", required = false, defaultValue = "0") int storeId,
 			MultipartFile file) {
@@ -111,7 +111,7 @@ public class IndexController extends BaseController {
 	 * @param storeId 商家id
 	 * @param type 1是修改经纬度，2是修改纬度
 	 */
-	@RequestMapping(value = "/toEditPage${url.suffix}")
+	@RequestMapping(value = "/toEditPage${api.suffix}")
 	public String toEditPage(HttpServletRequest request ,Model model,
 			@RequestParam(value = "type", required = false, defaultValue = "0") int type) {
 		// 查找商家
@@ -143,7 +143,7 @@ public class IndexController extends BaseController {
 	 */
 	//@RequiresPermissions("slideshowUploadImg")
 	@ResponseBody
-	@RequestMapping(value = "/save${url.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value = "/save${api.suffix}",method = {RequestMethod.POST})
 	public BaseVO save(HttpServletRequest request ,Model model,
 			@RequestParam(value = "name", required = false, defaultValue = "") String name,
 			@RequestParam(value = "state", required = false, defaultValue = "0") short state,
@@ -221,7 +221,7 @@ public class IndexController extends BaseController {
 	 * @param notice 公告
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/saveStoreData${url.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value = "/saveStoreData${api.suffix}",method = {RequestMethod.POST})
 	public BaseVO saveStoreData(HttpServletRequest request ,
 			@RequestParam(value = "notice", required = false, defaultValue = "") String notice) {
 		//查找商家
@@ -251,7 +251,7 @@ public class IndexController extends BaseController {
 	 * @param newPassword 新密码
 	 */
 	@ResponseBody
-	@RequestMapping(value="updatePassword${url.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="updatePassword${api.suffix}", method = RequestMethod.POST)
 	public BaseVO updatePassword(HttpServletRequest request, 
 			@RequestParam(value = "oldPassword", required = false, defaultValue = "") String oldPassword,
 			@RequestParam(value = "newPassword", required = false, defaultValue = "") String newPassword){

@@ -18,6 +18,7 @@ import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.j2ee.vo.LoginVO;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreChildUser;
@@ -46,9 +47,9 @@ public class LoginController extends BaseController {
 	 * 				<li>1:成功</li>
 	 * 			</ul>
 	 */
-	@RequestMapping(value="login${url.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="login${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
-	public BaseVO loginSubmit(HttpServletRequest request,Model model){
+	public BaseVO login(HttpServletRequest request,Model model){
 		BaseVO vo = new BaseVO();
 		
 		//验证码校验
