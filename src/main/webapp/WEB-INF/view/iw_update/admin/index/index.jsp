@@ -177,9 +177,9 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 			<dl class="layui-nav-child" id="plugin_submenu">${pluginMenu }</dl>
 		</li>
 		<script>
-			if(document.getElementById('plugin_submenu').innerHTML.length > 5){
+			/* if(document.getElementById('plugin_submenu').innerHTML.length > 5){
 				document.getElementById('plugin').style.display = '';
-			}
+			 } */
 		</script>
 		
 
