@@ -171,8 +171,8 @@ public class ShiroConfiguration {
 	    sessionManager.setSessionIdCookie(cookie);
 	    sessionManager.setSessionIdCookieEnabled(true);
     	
-	    //Session失效时长，单位是毫秒，这里是12小时
-        sessionManager.setGlobalSessionTimeout(12*60*60*1000);
+	    //Session失效时长，单位是毫秒，这里是30天
+        sessionManager.setGlobalSessionTimeout(30*24*60*60*1000);
         
         return sessionManager;
     }
