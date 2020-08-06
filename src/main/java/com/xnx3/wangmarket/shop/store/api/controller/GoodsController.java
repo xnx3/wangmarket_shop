@@ -73,7 +73,7 @@ public class GoodsController extends BaseController {
 	
 	/**
 	 * 修改商品信息
-	 * @param id 要修改的商品id， goods.id ， 必填
+	 * @param goodsid 要修改的商品id， goods.id ， 必填
 	 * @param price 要修改的商品的价格，单位是分。 非必填
 	 * @param putaway 是否上架在售，1出售中，0已下架。 非必填
 	 * @param units 计量，单位。如个、斤、条，限制5字符。非必填
@@ -82,16 +82,16 @@ public class GoodsController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value="/save${api.suffix}",method = {RequestMethod.POST})
 	public BaseVO save(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue="0") int id,
+			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid,
 			@RequestParam(value = "price", required = false, defaultValue="-1") int price,
 			@RequestParam(value = "putaway", required = false, defaultValue="-1") short putaway,
 			@RequestParam(value = "units", required = false, defaultValue="") String units,
 			@RequestParam(value = "rank", required = false , defaultValue="-1") int rank) {
-		if(id < 1) {
+		if(goodsid < 1) {
 			return error("请传入要修改的商品id");
 		}
 		
-		Goods goods = sqlService.findById(Goods.class, id);
+		Goods goods = sqlService.findById(Goods.class, goodsid);
 		if(goods == null) {
 			return error("商品不存在");
 		}
@@ -134,17 +134,17 @@ public class GoodsController extends BaseController {
 	/**
 	 * 删除商品
 	 * @author 关光礼
-	 * @param id 删除商品id
+	 * @param goodsid 删除商品id,对应goods.id
 	 */
 	@ResponseBody
 	@RequestMapping(value="/delete${api.suffix}",method = {RequestMethod.POST})
 	public BaseVO delete(HttpServletRequest request,
-			@RequestParam(value = "id",defaultValue = "0", required = false) int id) {
-		if(id < 1) {
+			@RequestParam(value = "goodsid",defaultValue = "0", required = false) int goodsid) {
+		if(goodsid < 1) {
 			return error("请传入id参数");
 		}
 		
-		Goods goods = sqlService.findById(Goods.class, id);
+		Goods goods = sqlService.findById(Goods.class, goodsid);
 		if(goods == null) {
 			return error("根据ID,没查到该实体");
 		}
@@ -158,7 +158,7 @@ public class GoodsController extends BaseController {
 		deleteGoodsCache(goods.getId());
 				
 		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, "删除ID是" + id + "的商品", "删除内容:" + goods.toString());
+		ActionLogUtil.insertUpdateDatabase(request, "删除ID是" + goodsid + "的商品", "删除内容:" + goods.toString());
 		return success();
 	}
 	
