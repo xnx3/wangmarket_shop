@@ -54,7 +54,7 @@
 				</td>
 				<td style="text-align:center;">
 					<c:if test="${item.addtime != null }">
-						<x:time linuxTime="${item.addtime}" format="yy-MM-dd HH:mm:ss"></x:time>
+						<x:time linuxTime="${item.addtime}" format="yyyy-MM-dd HH:mm:ss"></x:time>
 					</c:if>
 				</td>
 				<td style="text-align:center;">
@@ -85,22 +85,22 @@ function change(flag){
 //跳转添加或者修改页面 id 订单id
 function seeGoods(id){
 	 layer.open({
-		type: 2, 
-		title:'查看订单详情', 
+		type: 2,
+		title:'查看订单详情',
 		area: ['500px', '700px'],
 		shadeClose: true, //开启遮罩关闭
-		content: '/shop/store/order/orderDetails.do?id=' + id 
-	});	 
+		content: '/shop/store/order/orderDetails.do?id=' + id
+	});
 }
 //跳转添加或者修改页面 id 订单id
 function refund(id){
 	 layer.open({
-		type: 2, 
-		title:'查看商品退款记录', 
+		type: 2,
+		title:'查看商品退款记录',
 		area: ['700px', '500px'],
 		shadeClose: true, //开启遮罩关闭
-		content: '/admin/order/refundLog.do?id=' + id 
-	});	 
+		content: '/admin/order/refundLog.do?id=' + id
+	});
 }
 
 </script>
