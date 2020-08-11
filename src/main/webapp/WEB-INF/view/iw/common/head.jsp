@@ -37,6 +37,9 @@ if(description == null ){
 <script src="${STATIC_RESOURCE_PATH}module/layui/layui.js"></script>
 <script src="${STATIC_RESOURCE_PATH}module/msg/msg-1.0.1.js"></script>
 <script src="https://res.weiunity.com/request/request.js"></script>
+<!-- 商城及接口相关 -->
+<script src="https://res.weiunity.com/shop/shop.js"></script>
+<script src='/module/shop/page.js' type='text/javascript'></script>
 <script>
 //加载 layer 模块
 layui.use('layer', function(){
@@ -47,7 +50,7 @@ layui.use('layer', function(){
 <script src="${STATIC_RESOURCE_PATH}js/jquery-2.1.4.js"></script>
 
 <!-- order by 列表的排序 -->
-<script src="${STATIC_RESOURCE_PATH}js/iw.js"></script>
+<!--  <script src="${STATIC_RESOURCE_PATH}js/iw.js"></script>  -->
 
 <style>
 
@@ -69,5 +72,60 @@ layui.use('layer', function(){
 	width:150px;
 }
 </style>
+<script type="text/javascript">
+//商城的数据请求接口，填写如 http://shop.imall.net.cn/
+shop.host = "http://localhost:9090/";
+/**
+ * 网络请求，都是用此
+ * api 请求的api接口，可以传入如 api.login_token
+ * data 请求的数据，如 {"goodsid":"1"} 
+ * func 请求完成的回调，传入如 function(data){}
+ */
+function post(api, data, func){
+	data['storeid'] = shop.storeid;
+	if(shop.getToken() != null){
+		data['token'] = shop.getToken();
+	}
+	var headers = {'content-type':'application/x-www-form-urlencoded'};
+	request.send(shop.host+api, data, func, 'post', true, headers, function(xhr){
+		msg.failure('http code:'+xhr.status);
+	});
+}
+/**
+ * 获取网址的get参数。
+ * @param name get参数名
+ * @returns value
+ */
+function getUrlParams(name){
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+/** 
+ * 时间戳转化为年 月 日 时 分 秒 
+ * number: 传入时间戳 如 1587653254
+ * format：返回格式，如 'Y-M-D h:m:s'
+*/
+function formatTime(number,format) {
+  var formateArr  = ['Y','M','D','h','m','s'];
+  var returnArr   = [];
+  var date = new Date(number * 1000);
+  returnArr.push(date.getFullYear());
+  returnArr.push(formatNumber(date.getMonth() + 1));
+  returnArr.push(formatNumber(date.getDate()));
+  returnArr.push(formatNumber(date.getHours()));
+  returnArr.push(formatNumber(date.getMinutes()));
+  returnArr.push(formatNumber(date.getSeconds()));
+  for (var i in returnArr){
+    format = format.replace(formateArr[i], returnArr[i]);
+  }
+  return format;
+}
+//时间戳转时间的数据转化
+function formatNumber(n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+</script>
 </head>
 <body>

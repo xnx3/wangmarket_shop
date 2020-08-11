@@ -41,26 +41,37 @@ public class GoodsTypeController extends BaseController {
 	
 	/**
 	 * 查看商品分类
+	 * @param orderBy 商品排序方式
+	 * 				<ul>
+	 * 					<li>0:默认排序方式，也就是根据商家后台自定义的商品排序，来进行的排序</li>
+	 * 					<li>1:按总销量由高往低来排序</li>
+	 * 					<li>2:最新商品，按发布时间，由高往低来排序，最后发布的商品在最前面</li>
+	 * 				</ul>
+	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
+	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 */
 	@ResponseBody
 	@RequestMapping("/list${api.suffix}")
-	public GoodsTypeListVO list(HttpServletRequest request,Model model) {
+	public GoodsTypeListVO list(HttpServletRequest request,
+			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
+			@RequestParam(value = "orderBy", required = false, defaultValue="0") int orderBy) {
 		GoodsTypeListVO vo = new GoodsTypeListVO();
 		
 		//创建Sql
 		Sql sql = new Sql(request);
+		//配置按某个字端搜索内容
+		sql.setSearchColumn(new String[] {"title"});
 		//配置查询那个表
 		sql.setSearchTable("shop_goods_type");
 		//查询条件
 		sql.appendWhere("isdelete = " + GoodsType.ISDELETE_NORMAL);
 		sql.appendWhere("storeid = " + getStoreId());
-		//配置按某个字端搜索内容
-		sql.setSearchColumn(new String[] {"title"});
+		
 		// 查询数据表的记录总条数
 		int count = sqlService.count("shop_goods_type", sql.getWhere());
 		
 		// 配置每页显示200条，也就是一次全部显示出来
-		Page page = new Page(count, 200, request);
+		Page page = new Page(count, everyNumber, request);
 		// 查询出总页数
 		sql.setSelectFromAndPage("SELECT * FROM shop_goods_type ", page);
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序

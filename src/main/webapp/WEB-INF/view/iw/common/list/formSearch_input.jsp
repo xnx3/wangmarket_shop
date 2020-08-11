@@ -39,7 +39,7 @@ if(iw_input_width == null || iw_input_width.length() == 0){
 <%
 if(iw_type.equals("text")){
 %>
-	<input style="<%=iw_input_width %>" type="text" name="<%=iw_name %>" placeholder="" value='<%=iw_name_value==null? "":iw_name_value  %>' autocomplete="off" class="layui-input">
+	<input style="<%=iw_input_width %>" type="text" name="<%=iw_name %>" id="<%=iw_name %>" placeholder="" value='<%=iw_name_value==null? "":iw_name_value  %>' autocomplete="off" class="layui-input">
 <%
 }else if(iw_type.equals("select")){
 %>
