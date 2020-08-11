@@ -36,8 +36,9 @@ public class IndexController extends BasePluginController {
 		Sql sql = new Sql(request);
 		//配置查询那个表
 		sql.setSearchTable("shop_store");
+		sql.appendWhere("referrer_userid = "+getUserId());
 		// 查询数据表的记录总条数
-		int count = sqlService.count("shop_store", "");
+		int count = sqlService.count("shop_store", sql.getWhere());
 		// 配置每页显示15条
 		Page page = new Page(count, 15, request);
 		// 查询出总页数

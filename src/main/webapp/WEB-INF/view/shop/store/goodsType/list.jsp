@@ -22,7 +22,7 @@
 		<jsp:param name="iw_label" value="分类名字" />
 		<jsp:param name="iw_name" value="title" />
 	</jsp:include>
-	
+
 	<a class="layui-btn" href="javascript:list(1);">搜索</a>
 	<a class="layui-btn layui-btn-normal" onclick="addOrUpdate(0)" style=""><i class="layui-icon" style="font-size: 14px;">添加商品分类</i></a>
 
@@ -164,7 +164,7 @@ function templateReplace(item){
 function list(currentPage){
 	var data = {
 		'currentPage':currentPage, 
-		'everyNumber':'2',	//这里每页显示2条数据
+		'everyNumber':'15',	//这里每页显示2条数据
 		'title':document.getElementById('title').value,
 	};
 	msg.loading('加载中');
