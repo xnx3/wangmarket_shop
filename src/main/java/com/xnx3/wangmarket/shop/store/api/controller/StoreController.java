@@ -41,7 +41,7 @@ public class StoreController extends BaseController {
 	private UserService userService;
 
 	/**
-	 * 登录成功后的欢迎页面
+	 * 获取当前登录的店铺信息
 	 */
 	@ResponseBody
 	@RequestMapping("getStore${api.suffix}")

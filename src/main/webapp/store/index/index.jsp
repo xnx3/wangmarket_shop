@@ -181,7 +181,7 @@ function logout(){
 }
 
 //加载登录后的默认页面
-loadUrl('welcome.do');
+loadUrl('/store/index/welcome.jsp');
 
 //向扩展菜单的div中，加入html。也就是往里再增加别的菜单。 appendHtml要追加的html，这里一般都是追加li
 function menuAppend(appendHtml){

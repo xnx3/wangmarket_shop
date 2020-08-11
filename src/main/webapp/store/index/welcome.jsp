@@ -17,8 +17,8 @@
 	<tbody>
 		<tr>
 			<td class="iw_table_td_view_name">storeid</td>
-			<td>
-				${store.id } 
+			<td id="storeid">
+				加载中...
 			</td>
 		</tr>
 		<tr>
@@ -247,6 +247,20 @@ layui.use('upload', function(){
 		}
 	});
 });
+
+
+msg.loading('加载中');
+post('/shop/store/api/store/getStore.json',{},function(data){
+	msg.close();    //关闭“更改中”的等待提示
+	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+
+	if(data.result != '1'){
+		msg.failure(data.info);
+	}else{
+		//登录成功
+		document.getElementById('storeid').innerHTML = data.store.id;
+	}
+});
 </script>
 
-<jsp:include page="../../../iw/common/foot.jsp"></jsp:include>  
+<jsp:include page="../common/foot.jsp"></jsp:include>

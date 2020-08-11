@@ -131,7 +131,7 @@ function checkLogin(data){
 	if(data.result == '2'){
 		//未登录
 		msg.info('请先登录', function(){
-			window.location.href="//login.do";
+			window.location.href="/store/login/login.jsp";
 		});
 	}
 }
