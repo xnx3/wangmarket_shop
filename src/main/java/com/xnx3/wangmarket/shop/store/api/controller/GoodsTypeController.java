@@ -59,7 +59,7 @@ public class GoodsTypeController extends BaseController {
 		// 查询数据表的记录总条数
 		int count = sqlService.count("shop_goods_type", sql.getWhere());
 		
-		// 配置每页显示15条
+		// 配置每页显示200条，也就是一次全部显示出来
 		Page page = new Page(count, 200, request);
 		// 查询出总页数
 		sql.setSelectFromAndPage("SELECT * FROM shop_goods_type ", page);

@@ -30,7 +30,9 @@ h3{
   		 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="update('useSms','0');" style="margin-left: 3px;margin-top:-1px;">关闭</botton>	
 	</c:if>
 	<div style="color: gray;font-size: 12px">
-		<p>说明：短信验证码的发送、短信通知等。开启短信接口，才可以对用户发送短信。</p>
+		<p>说明：短信验证码的发送、短信通知等。开启短信接口，才可以对用户发送短信。
+			<span style="padding-left:20px;"><a href="http://sms.leimingyun.com" style="text-decoration: underline; color: blue;" target="_black">短信开通及短信条数充值点此查看</a></span>
+		</p>
 	</div>
 </div>
 
