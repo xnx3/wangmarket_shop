@@ -12,6 +12,7 @@ public class ShiroFilter implements ShiroFilterInterface{
 	@Override
 	public Map<String, String> shiroFilter(Map<String, String> filterChainDefinitionMap) {
 		filterChainDefinitionMap.put("/shop/store/**", "anon");
+		filterChainDefinitionMap.put("/store/**", "anon");	//临时放开/store/...模板测试用
 		return filterChainDefinitionMap;
 	}
 }
