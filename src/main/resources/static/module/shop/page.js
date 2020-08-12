@@ -8,7 +8,10 @@
  */
 var page = {
 	page:{},	//记录显示最后一次分页传入的page数据
-	template:null,
+	template:null,	//id是page的div的innerHtml。当然如果用户的html里面没有这个id的话，那这里就是null
+	upListTemplate:null, //id是upListLi的div的innerHtml，存的是上几页的跳转模板。当然如果用户的html里面没有这个id的话，那这里就是null
+	nextListTemplate:null, //id是nextListLi的div的innerHtml，存的是下几页的跳转模板。当然如果用户的html里面没有这个id的话，那这里就是null
+	upNextPageNumber:2,	//上几页、下几页，显示的数。如这里是3，则向上会显示3页
 	/**
 	 * 获取当前正在看的是第几页，也就是最近一次加载是加载的第几页。如果还没加载过，那也是返回1
 	 */
@@ -52,8 +55,17 @@ var page = {
 			if(document.getElementById('page') != null){
 				this.template = document.getElementById('page').innerHTML;
 			}
+			//获取 上几页 的upList模板
+			if(document.getElementById('upList') != null){
+				this.upListTemplate = document.getElementById('upList').innerHTML;
+			}
+			//获取 下几页 的nextList模板
+			if(document.getElementById('nextList') != null){
+				this.nextListTemplate = document.getElementById('nextList').innerHTML;
+			}
 		}
 		this.page = item;
+		
 		var html = this.template.replace(/\{allRecordNumber\}/g, item.allRecordNumber)
 			.replace(/\{currentPageNumber\}/g, item.currentPageNumber)
 			.replace(/\{lastPageNumber\}/g, item.lastPageNumber)
@@ -72,23 +84,61 @@ var page = {
 		//是否是第一页
 		if(item.currentPageNumber == 1){
 			//当前是第一页，那么隐藏首页、上一页
-			document.getElementById('firstPageLi').style.display = 'none';
+			document.getElementById('firstPage').style.display = 'none';
 		}else{
 			//当前不是第一页，那么现实首页、上一页
-			document.getElementById('firstPageLi').style.display = '';
+			document.getElementById('firstPage').style.display = '';
 		}
 		//是否是最后一页
 		if(item.lastPageNumber - item.currentPageNumber > 0){
 			//当前不是最后一页
-			document.getElementById('lastPageLi').style.display = '';
+			document.getElementById('lastPage').style.display = '';
 		}else{
 			//当前是最后一页，那么不在显示下一页、尾页
-			document.getElementById('lastPageLi').style.display = 'none';
+			document.getElementById('lastPage').style.display = 'none';
 		}
+		
 		
 		
 		if(document.getElementById("page") != null){
 			document.getElementById("page").innerHTML = html;
+		}
+		//判断是否有上几页的翻页
+		if(this.upListTemplate != null){
+			//显示几页跳转链接
+			var upListNumber = this.upNextPageNumber; 
+			if(item.currentPageNumber < this.upNextPageNumber){
+				upListNumber = item.currentPageNumber - 1; //页数不够，那么就只显示当前页面往前的几页
+			}
+			
+			var upListHtml = '';
+			for(var i=1; i<upListNumber+1; i++){
+				var cnum = item.currentPageNumber-i;
+				if(cnum > 0){
+					upListHtml =  this.upListTemplate.replace(/\{href\}/g, 'javascript:list('+cnum+');')
+					 								 .replace(/\{title\}/g, cnum+'')
+					 				+ upListHtml;
+				}
+			}
+			document.getElementById("upList").innerHTML = upListHtml;
+		}
+		//判断是否有下几页的翻页
+		if(this.nextListTemplate != null){
+			//显示几页跳转链接
+			var nextListNumber = this.upNextPageNumber; 
+			if(item.currentPageNumber + this.upNextPageNumber > item.lastPageNumber){
+				nextListNumber = item.currentPageNumber + 1; //页数不够，那么就只显示当前页面往后的几页
+			}
+			
+			var nextListHtml = '';
+			for(var i=1; i<nextListNumber+1; i++){
+				var cnum = item.currentPageNumber+i;
+				if(cnum < item.lastPageNumber+1){
+					nextListHtml =  nextListHtml + this.nextListTemplate.replace(/\{href\}/g, 'javascript:list('+cnum+');')
+					 								 	 .replace(/\{title\}/g, cnum+'');
+				}
+			}
+			document.getElementById("nextList").innerHTML = nextListHtml;
 		}
 	}
 }

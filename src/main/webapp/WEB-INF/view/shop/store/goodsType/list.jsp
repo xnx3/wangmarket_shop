@@ -8,7 +8,7 @@
 <style type="text/css">
 .layui-table img {
     max-width: 49px;
-    max-height:49px;
+    max-height:29px;
 }
 .toubu_xnx3_search_form {
     padding-top: 0px;
@@ -72,11 +72,6 @@
 </div>
 
 <script type="text/javascript">
-
-//自适应弹出层大小
-var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-parent.layer.iframeAuto(index);
-
 layui.use('upload', function(){
 	var upload = layui.upload;
 	
@@ -164,7 +159,7 @@ function templateReplace(item){
 function list(currentPage){
 	var data = {
 		'currentPage':currentPage, 
-		'everyNumber':'15',	//这里每页显示2条数据
+		'everyNumber':'4',	//这里每页显示2条数据
 		'title':document.getElementById('title').value,
 	};
 	msg.loading('加载中');

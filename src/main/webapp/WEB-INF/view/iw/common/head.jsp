@@ -39,7 +39,6 @@ if(description == null ){
 <script src="https://res.weiunity.com/request/request.js"></script>
 <!-- 商城及接口相关 -->
 <script src="https://res.weiunity.com/shop/shop.js"></script>
-<script src='/module/shop/page.js' type='text/javascript'></script>
 <script>
 //加载 layer 模块
 layui.use('layer', function(){
