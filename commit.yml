@@ -3,66 +3,24 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '854c3cfb0cf8da53e04065c1c5f4a8c8d0e2bbf4'
-    oldFile: !uuid 'd7e2ba4e08fa311ad64ecc3aa97801c671fb62ce'
+    newFile: !uuid '4ce5d9b375f6569c6b89303ebd346c706d37d6e9'
+    oldFile: !uuid '854c3cfb0cf8da53e04065c1c5f4a8c8d0e2bbf4'
   /src/main:
-    newFile: !uuid '052f3ad188e21f211debbd468fd8c2f684d34d84'
-    oldFile: !uuid 'eba8583d9f520d3bd8bb80d7e5f1186602bad715'
-  /src/main/java:
-    newFile: !uuid '2d9d9361a45a17a0f14ee430066a53ce342bd376'
-    oldFile: !uuid '7f10480344277bbc918542f2213e1d104bec194a'
-  /src/main/java/com:
-    newFile: !uuid '4f0fbcb25446c7acbe5d56eb4fad7dbdff68fa7a'
-    oldFile: !uuid 'eaf92001fc2d73f366f0e0be5a4fbccd7f1ef212'
-  /src/main/java/com/xnx3:
-    newFile: !uuid 'c8aa4b70dd781c45252dd22b6ce7e9af8de77b62'
-    oldFile: !uuid '8760e9e0675149fb26d70da1472848a9ad6ad6f5'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '34a7c592d84fb065ed34de6f4e72174436462f4f'
-    oldFile: !uuid '3eda2c5b9ce298ab5698457e69cc81ce85a9f14a'
-  /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid '27aeb9fb5fec2e2b0d357dbd16c5ef5d9447a450'
-    oldFile: !uuid 'd66e2d626ca4555098c40873f1227c84b4d8077f'
-  /src/main/java/com/xnx3/wangmarket/shop/store:
-    newFile: !uuid '7efdc936bf57165ab7c0ed443fd8a0de2095f8ec'
-    oldFile: !uuid 'cd7b21390057b58c8e94463ee6c8278b0c4c5302'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api:
-    newFile: !uuid '761d90cd71d239df79abc2d5e46cc1a452d6b0ca'
-    oldFile: !uuid '566ed6065ec6a7add7fb400cce7d329f95c7dc34'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller:
-    newFile: !uuid '4cc84333db6b919fbd4ba39de4f77d4e4dcc3a21'
-    oldFile: !uuid '1ba6a8dbbc934d1c06514dd2c2ed8fdd5dc657ff'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/OrderController.java:
-    newFile: !uuid 'b84080903eb06756b074bfa6896319d1000620f0'
-    oldFile: !uuid '9b07a63e89e303e79637f330bbbbb98950b01373'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/StoreController.java:
-    newFile: !uuid '7381eb9ec183b35be354843e0dfb7093cd49a0a1'
-    oldFile: !uuid '5d552323f4d90d5ce32f7aa1ae413397c49a2044'
+    newFile: !uuid '201928849e3049cfd0b50980178ade4929b65a97'
+    oldFile: !uuid '052f3ad188e21f211debbd468fd8c2f684d34d84'
   /src/main/webapp:
-    newFile: !uuid '8e87ebf8b5874b637ee8ca49e7b0cd6a948c0408'
-    oldFile: !uuid '0fcb13fe07547a5623f1f0bbda66877b6fd49d3b'
+    newFile: !uuid '82981e536bb8ab249256d36a680c165add16aee1'
+    oldFile: !uuid '8e87ebf8b5874b637ee8ca49e7b0cd6a948c0408'
   /src/main/webapp/store:
-    newFile: !uuid 'cce398c30d9d5029c15e1a1cb02ee02002216f6d'
-    oldFile: !uuid '16b6939fa597d9fb1a58dddca37be088428753a5'
-  /src/main/webapp/store/common:
-    newFile: !uuid '9de67dbb24715764f8b30e7555ef3b271bcecfb1'
-    oldFile: !uuid '4d6129ad5202ff5ce95059de439392e20ce5bbfa'
-  /src/main/webapp/store/common/head.jsp:
-    newFile: !uuid '69b03b5f64eb7e59a8cb85801d70df637a25b480'
-    oldFile: !uuid '0b6c5604c53efd610ff0d69cde2928c2f1f431f3'
-  /src/main/webapp/store/index:
-    newFile: !uuid 'a1a1c5d58c3d2d3fa3bf70e09ced3283a1b70fdd'
-    oldFile: !uuid 'f3a279983d61c053f3c6f2da77e9b1bf784e39fb'
-  /src/main/webapp/store/index/edit.jsp:
-    newFile: !uuid '0d8a80910454d120e4187e761f7bcee3bbf921b1'
-    oldFile: !uuid 'f81569439ef16ae17e9616d9fc8e227ff6940429'
-  /src/main/webapp/store/index/index.jsp:
-    newFile: !uuid 'c96813d63fc317723261e019df12dc1752201924'
-    oldFile: !uuid 'f542dcb89be444634ddbe3afbe3de97be1bfe513'
-  /src/main/webapp/store/index/welcome.jsp:
-    newFile: !uuid 'b1f18d8b472043577a1e5083fb7bb4f9aa0285f8'
-    oldFile: !uuid 'c26fcf188c03be4b9a33a3804e3e9431a89054d1'
-gitCommitId: !uuid '52527af7b0bc5cdd312034202a718ee5d60340c3'
+    newFile: !uuid '6bb24a6c81e462243925d9e805edb1fbb8b74256'
+    oldFile: !uuid 'cce398c30d9d5029c15e1a1cb02ee02002216f6d'
+  /src/main/webapp/store/login:
+    newFile: !uuid '048bdf5aa854d4a3d01a7e7a3f8574bc629493b9'
+    oldFile: !uuid '4a4d935a7578ee9fa23a4b77a7cbd88fc4584bab'
+  /src/main/webapp/store/login/login.jsp:
+    newFile: !uuid '8497383f4c9e33b01e019ea7494eefdc45022feb'
+    oldFile: !uuid 'a15633497929193b017ec0c42e1dc63070a83d4c'
+gitCommitId: !uuid '255758a93e8d724dfde3d5497aa39b0ea444b22c'
 renames: {
   }
-revisionId: 233
+revisionId: 234
