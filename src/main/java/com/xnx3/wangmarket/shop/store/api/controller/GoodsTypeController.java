@@ -137,7 +137,6 @@ public class GoodsTypeController extends BaseController {
     public GoodsTypeVO getGoodsType(HttpServletRequest request,
                                   @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		GoodsTypeVO vo = new GoodsTypeVO();
-
         if(id != 0) {
             GoodsType goodsType = sqlService.findById(GoodsType.class, id);
             if(goodsType == null){
@@ -149,7 +148,7 @@ public class GoodsTypeController extends BaseController {
             vo.setGoodsType(goodsType);
             ActionLogUtil.insert(request, getUserId(), "查看商品分类ID为" + id+ "的详情，跳转到编辑页面");
         }else {
-            ActionLogUtil.insert(request, getUserId(), "跳转到商品分类编辑页面");
+			vo.setBaseVO(BaseVO.FAILURE,"id无效");
         }
         return vo;
     }
@@ -163,7 +162,7 @@ public class GoodsTypeController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value="/save${api.suffix}",method = {RequestMethod.POST})
 	public com.xnx3.j2ee.vo.BaseVO save(HttpServletRequest request,GoodsType goodsType) {
-		
+
 		//System.out.println(getStoreId());
 		Integer id = goodsType.getId();
 		//创建一个实体
@@ -196,7 +195,7 @@ public class GoodsTypeController extends BaseController {
 		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, fGoodsType.getId(),"Id为" + fGoodsType.getId() + "的商品分类添加或修改，内容:" + fGoodsType.toString());
-		
+
 		goodsTypeService.clearCache(getStoreId());//清除缓存
 		return success();
 	}

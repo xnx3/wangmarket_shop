@@ -93,21 +93,21 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 				return ;
 			}
 		}
-		//表单序列化
-		parent.msg.loading("保存中");
-		$.post("/shop/store/api/store/save.json", d, function (result) {
-			parent.msg.close();
-			var obj = JSON.parse(result);
-			if(obj.result == '1'){
-				parent.parent.msg.success("操作成功");
-				parent.layer.close(index);	//关闭当前窗口
-				parent.location.reload();	//刷新父窗口列表
-			}else if(obj.result == '0'){
-				parent.msg.failure(obj.info);
-			}else{
-				parent.msg.failure("修改失败");
-			}
-		}, "text");
+//表单序列化
+parent.msg.loading("保存中");
+$.post("/shop/store/api/store/save.json", d, function (result) {
+	parent.msg.close();
+	var obj = JSON.parse(result);
+	if(obj.result == '1'){
+		parent.parent.msg.success("操作成功");
+		parent.layer.close(index);	//关闭当前窗口
+		parent.location.reload();	//刷新父窗口列表
+	}else if(obj.result == '0'){
+		parent.msg.failure(obj.info);
+	}else{
+		parent.msg.failure("修改失败");
+		}
+	}, "text");
 
 		return false;
 	}

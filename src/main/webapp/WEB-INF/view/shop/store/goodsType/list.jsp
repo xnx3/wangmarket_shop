@@ -134,7 +134,7 @@ function addOrUpdate(id){
 		title:'编辑页面', 
 		area: ['500px', '400px'],
 		shadeClose: true, //开启遮罩关闭
-		content: '/shop/store/goodsType/toEditPage.do?id=' + id
+		content: '/store/goodsType/edit.jsp?id=' + id
 	});	 
 }
 
