@@ -3,96 +3,27 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '16d1f7ee23c88916f4f6a530713cb7f32bbc3a80'
-    oldFile: !uuid 'a77edf61189b9e163ae443f532fd58a0ea831f2a'
+    newFile: !uuid 'bd162c9e7f8b89c2680361f9c38886c609d8c261'
+    oldFile: !uuid '16d1f7ee23c88916f4f6a530713cb7f32bbc3a80'
   /src/main:
-    newFile: !uuid '475cbec14718a33ead81d14e5f0866517efdee53'
-    oldFile: !uuid '7ab9813f85173a7a0748172ea0ea445476b314ec'
-  /src/main/java:
-    newFile: !uuid '88bd13fc975a8699facc9bfd08388295cb4a9e05'
-    oldFile: !uuid '2d9d9361a45a17a0f14ee430066a53ce342bd376'
-  /src/main/java/com:
-    newFile: !uuid '5f578e7477f7766b6d0313fdab51f2a1e53c127b'
-    oldFile: !uuid '4f0fbcb25446c7acbe5d56eb4fad7dbdff68fa7a'
-  /src/main/java/com/xnx3:
-    newFile: !uuid 'a364a2e2bfa5d717b33e02638ae57fca14d606f4'
-    oldFile: !uuid 'c8aa4b70dd781c45252dd22b6ce7e9af8de77b62'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '0aab361549b9346b50db188bd803fb91f07e06aa'
-    oldFile: !uuid '34a7c592d84fb065ed34de6f4e72174436462f4f'
-  /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid 'd1f0a1b26899111f35382d103e7553410c5f7a33'
-    oldFile: !uuid '27aeb9fb5fec2e2b0d357dbd16c5ef5d9447a450'
-  /src/main/java/com/xnx3/wangmarket/shop/store:
-    newFile: !uuid '3b350b2e0f0106091157a05a374df5b19d6057a7'
-    oldFile: !uuid '7efdc936bf57165ab7c0ed443fd8a0de2095f8ec'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api:
-    newFile: !uuid '2a3e9c3b8d878115c7ab6cfb4ccfbc0dadcf90c6'
-    oldFile: !uuid '761d90cd71d239df79abc2d5e46cc1a452d6b0ca'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller:
-    newFile: !uuid 'ff5e09e2ce01b1af224e007dec48a7cbc9669494'
-    oldFile: !uuid '4cc84333db6b919fbd4ba39de4f77d4e4dcc3a21'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/CarouselImageController.java:
-    newFile: !uuid '36a9bf33598afa2158b70392210e7b5824b48e55'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/CommonController.java:
-    newFile: !uuid '3a19c904e46535c952ee9d6f29e648d51e07e6eb'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/GoodsController.java:
-    newFile: !uuid '426ef17dd7d29cfd8a8c6d01ded94c409f85c3cb'
-    oldFile: !uuid '8d74418ac61d8f4dc63e43972440d20a9ccf371a'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/GoodsTypeController.java:
-    newFile: !uuid '56c3a66b6d743bb76e2ce3d1689764a31390dbd7'
-    oldFile: !uuid 'df121225f554be2be76a6f1690888e2854ca5987'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/IndexController.java:
-    newFile: !uuid 'a0c154d19703457acfef111ecbcf36dae3702c28'
-    oldFile: !uuid '9165a463c67d2f632590ce883250b28a7079833d'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/OrderController.java:
-    newFile: !uuid '1e3932ef87b3ad87753d86992ff14824032dfb66'
-    oldFile: !uuid 'b84080903eb06756b074bfa6896319d1000620f0'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/OrderRuleController.java:
-    newFile: !uuid 'f487afdeedaec55ea1dc0318c7021a38abd79414'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/PaySetController.java:
-    newFile: !uuid 'a1edffc83503cbd56766f44ee920936dc7f04181'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/SmsController.java:
-    newFile: !uuid 'c59f6f4785056016c34ae1b3d06e7b8495e3cf1c'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/StoreController.java:
-    newFile: !uuid 'db93f5da05c6d43ee567338a5b0ebc2821186fa0'
-    oldFile: !uuid '7381eb9ec183b35be354843e0dfb7093cd49a0a1'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/UserController.java:
-    newFile: !uuid 'ad66557767681b431f2dfa9864303465069b6fdd'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo:
-    newFile: !uuid 'd00127c21ccf811759044714edc5a8f25e0d3e20'
-    oldFile: !uuid '85bb64aaa3609e4d2f544694de18bda754a9c7fc'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo/CarouselImageListVO.java:
-    newFile: !uuid '977a02c8988f1852a987d4dd99dfb2261b80b598'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo/CarouselImageVO.java:
-    newFile: !uuid 'ae7ad6d00405d665b3a8dd2005f7bab9ad3c7daa'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo/GoodsImageListVO.java:
-    newFile: !uuid '20dff378417b7f1e9e64409a9648eb1936590564'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo/GoodsImageVO.java:
-    newFile: !uuid '0dfbcdc2b04dbb89c3a7b4dc0c6208924d59ca40'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo/GoodsTypeListVO.java:
-    newFile: !uuid '3701ded57ca2da3a2107115961a7b8745f926a60'
-    oldFile: !uuid '88147d3376b3349f02a99a55ed26870318904b0d'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo/GoodsTypeVO.java:
-    newFile: !uuid '722ad3052648f8bfacd425d550c5c69149b9968f'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo/SmsSetVO.java:
-    newFile: !uuid '633251ce024e4ca2c24055aa0a684686f1bbb346'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo/UserListVO.java:
-    newFile: !uuid 'a3d25133fba9bf0b013b95d5a3e83e0ae871ae09'
-    oldFile: null
-gitCommitId: !uuid 'b6835ee47bcf8bde0b85f81b040c6b41186cebe2'
+    newFile: !uuid '789b09d8a6b325275a7fa954e5486261fefed049'
+    oldFile: !uuid '475cbec14718a33ead81d14e5f0866517efdee53'
+  /src/main/webapp:
+    newFile: !uuid '1fb4198562ac08bdcb278f660a8984215cbdf3d8'
+    oldFile: !uuid '16314a0f6a31f66a9ca2d12b99861749e0ffcdd0'
+  /src/main/webapp/store:
+    newFile: !uuid '16f5338f64a8ff6fe1e85f9bba518441a92d185a'
+    oldFile: !uuid 'cf998e01edf1f1cf5f1b99128805676e157a3061'
+  /src/main/webapp/store/index:
+    newFile: !uuid '30ac7c605c821016ce9f954abcff57431118eefa'
+    oldFile: !uuid 'a1a1c5d58c3d2d3fa3bf70e09ced3283a1b70fdd'
+  /src/main/webapp/store/index/edit.jsp:
+    newFile: !uuid '9d67eb5bdf04b551819e4ec090cf07bdbba656eb'
+    oldFile: !uuid '0d8a80910454d120e4187e761f7bcee3bbf921b1'
+  /src/main/webapp/store/index/welcome.jsp:
+    newFile: !uuid '4a47f413cfc9547417006e47fd2e6dc387d21ff6'
+    oldFile: !uuid 'b1f18d8b472043577a1e5083fb7bb4f9aa0285f8'
+gitCommitId: !uuid '81433a66945a19c1d38b0fbe091552c7751c6060'
 renames: {
   }
-revisionId: 236
+revisionId: 237
