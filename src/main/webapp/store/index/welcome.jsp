@@ -17,16 +17,18 @@
 	<tbody>
 		<tr>
 			<td class="iw_table_td_view_name">storeid</td>
-			<td id="storeid">
+			<td id="storeId">
 				加载中...
 			</td>
 		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">店铺名称</td>
 			<td>
-				${store.name } 
+				<div id="storeName" style="float: left">
+					加载中...
+				</div>
 				&nbsp;&nbsp;&nbsp;
-				<a class="layui-btn layui-btn-xs" onclick="addOrUpdate('${store.id }','${store.name }','name','编辑店铺名称')" style="margin-left: 0;">
+				<a class="layui-btn layui-btn-xs" onclick="addOrUpdate(store.name,'name','编辑店铺名称')" style="margin-left: 0;">
 				   <i class="layui-icon">&#xe642;</i>
 				</a>
 			</td>
@@ -35,11 +37,11 @@
 			<td class="iw_table_td_view_name">店铺图标</td>
 			<td>
 				&nbsp;&nbsp;&nbsp;
-				<a href="${store.head}" target="_black">
-					<img src = '${store.head }' style="40px;height:40px"/>
+				<a id="storeImgLink" target="_black">
+					<img id="storeImg" style="width:40px;height:40px;float: left"/>
 				    &nbsp;&nbsp;&nbsp;
 				</a>
-				<a class="layui-btn layui-btn-xs uploadImg" lay-data = "{url: '/shop/store/index/uploadImg.do?storeId=${store.id}'}" style="\">
+				<a class="layui-btn layui-btn-xs uploadImg" style="margin-top: 2.5%">
 					<i class="layui-icon layui-icon-upload"></i>
 				</a>
 			</td>
@@ -47,20 +49,23 @@
 		<tr>
 			<td class="iw_table_td_view_name">当前状态</td>
 			<td>
-				<c:if test="${store.state == 1 }">营业中</c:if>
-				<c:if test="${store.state == 2 }">已打烊</c:if>
-				<c:if test="${store.state == 3 }">审核中</c:if>
+				<div id="storeState" style="float: left">
+				加载中...
+				</div>
 				&nbsp;&nbsp;&nbsp;
-				<a class="layui-btn layui-btn-xs" onclick="stateUpdate('${store.id }')" >
+				<a class="layui-btn layui-btn-xs" onclick="stateUpdate()" >
 				   <i class="layui-icon">&#xe642;</i>
 				</a>
 			</td>
 		</tr>
 		<tr>
 			 <td class="iw_table_td_view_name">店家联系人姓名</td>
-			 <td>${store.contacts }
+			 <td>
+				 <div id="storeContacts" style="float: left">
+					 加载中...
+				 </div>
 			     &nbsp;&nbsp;&nbsp;
-			     <a class="layui-btn layui-btn-xs" onclick="addOrUpdate('${store.id }','${store.contacts }','contacts','编辑姓名')" style="margin-left: 0;">
+			     <a class="layui-btn layui-btn-xs" onclick="addOrUpdate(store.contacts,'contacts','编辑姓名')" style="margin-left: 0;">
 			        <i class="layui-icon">&#xe642;</i>
 			     </a>
 			 </td>
@@ -68,81 +73,97 @@
 		<tr>
 			<td class="iw_table_td_view_name">店家联系电话</td>
 			<td>${store.phone }
+				<div id="storePhone" style="float: left">
+					加载中...
+				</div>
 			    &nbsp;&nbsp;&nbsp;
-			    <a class="layui-btn layui-btn-xs" onclick="addOrUpdate('${store.id }','${store.phone }','phone','编辑电话')" style="margin-left: 0;">
+			    <a class="layui-btn layui-btn-xs" onclick="addOrUpdate(store.phone,'phone','编辑电话')" style="margin-left: 0;">
 			        <i class="layui-icon">&#xe642;</i>
 			    </a>
 		    </td>	
 		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">所在经纬度</td>
-			<td>${store.longitude },${store.latitude }
+			<td>
+				<div id="storeLongitudeLatitude" style="float: left">
+					加载中...
+				</div>
 			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<a class="layui-btn layui-btn-xs" onclick="toEditPage('${store.id }',1)" style="margin-left: 0;">
+				<a class="layui-btn layui-btn-xs" onclick="toEditPage(1)" style="margin-left: 0;">
 				   <i class="layui-icon">&#xe642;</i>
 				</a>
 			</td>
 		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">所在区域</td>
-			<td>${store.province }${store.city }${store.district }
+			<td>
+				<div id="storeRegion" style="float: left">
+					加载中...
+				</div>
 			   &nbsp;&nbsp;&nbsp; 
-			   <a class="layui-btn layui-btn-xs" onclick="toEditPage('${store.id }',2)" style="margin-left: 0;">
+			   <a class="layui-btn layui-btn-xs" onclick="toEditPage(2)" style="margin-left: 0;">
 			      <i class="layui-icon">&#xe642;</i>
 			   </a>
 			</td>
 		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">店家地址</td>
-			<td>${store.address }
+			<td>
+				<div id="storeAddress" style="float: left">
+					加载中...
+				</div>
 			   &nbsp;&nbsp;&nbsp;
-			    <a class="layui-btn layui-btn-xs" onclick="addOrUpdate('${store.id }','${store.address }','address','编辑地址')" style="margin-left: 0;">
+			    <a class="layui-btn layui-btn-xs" onclick="addOrUpdate(store.address,'address','编辑地址')" style="margin-left: 0;">
 			       <i class="layui-icon">&#xe642;</i>
 			    </a>
 		  </td>	
 		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">开通时间</td>
-			<td>
-				<c:if test="${store.addtime != null }"> <x:time linuxTime="${store.addtime }"></x:time></c:if>
+			<td id="storeAddtime">
+
 			</td>
 		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">店铺公告</td>
 			<td>
-				${storeData.notice }
+					<div id="storeNotice" style="float: left">
+						加载中...
+					</div>
 				&nbsp;&nbsp;&nbsp;
 			    <a class="layui-btn layui-btn-xs" onclick="updateStoreData('notice', document.getElementById('notice').innerHTML,'编辑公告')" style="margin-left: 0;">
 			  	   <i class="layui-icon">&#xe642;</i>
 			    </a>
-			    <div style="display:none;" id="notice">${storeData.notice}</div>
+			    <div style="display:none;" id="notice"></div>
 			</td>
 		</tr>
     </tbody>
 </table>
 <script type="text/javascript">
-var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 //id:商家id,type：1修改经纬度，2是修改区域
-function toEditPage(id,type) {
+function toEditPage(type) {
+	var province = encodeURI(encodeURI(store.province));
+	var city = encodeURI(encodeURI(store.city));
+	var district = encodeURI(encodeURI(store.district));
 	layer.open({
 	type: 2, 
 	title:'编辑页面', 
 	area: ['400px', '400px'],
 	shadeClose: true, //开启遮罩关闭
-	content: '/shop/store/index/toEditPage.do?storeId=' + id + '&type=' + type
+	content: '/store/index/edit.jsp?type=' + type  + '&longitude=' + store.longitude  + '&latitude=' + store.latitude
+		+ '&province=' + province + '&city=' + city + '&district=' + district
 	});	  
 }
-
-//id,商家id，value当前值，name修改那个属性，text编辑标题内容
-function addOrUpdate(id,value,name,text){
+//value当前值，name修改那个属性，text编辑标题内容
+function addOrUpdate(value,name,text){
 	layer.prompt({
 		  formType: 2,
 		  value: value,
 		  title: text,
 		  area: ['300px', '100px'] //自定义文本域宽高
 		}, function(value, index, elem){
-		  parent.msg.loading("操作中"); 
-		  $.post('/shop/store/index/save.do?storeId='+id +'&'+name+'=' + value, function(data){
+		  parent.msg.loading("操作中");
+		  $.post('/shop/store/api/store/save.json?'+name+'=' + value, function(data){
 			    parent.msg.close();    //关闭“操作中”的等待提示
 			    if(data.result == '1'){
 			        parent.msg.success('操作成功');
@@ -174,7 +195,7 @@ function updateStoreData(name, value,text){
 	  if(name == 'notice'){
 	  	data = {'notice':value};
 	  }
-	  $.post('/shop/store/index/saveStoreData.do',data,  function(data){
+	  $.post('/shop/store/api/store/saveStoreData.json',data,  function(data){
 		    parent.msg.close();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
 		        parent.msg.success('操作成功');
@@ -189,12 +210,12 @@ function updateStoreData(name, value,text){
 }
 
 //id,商家id，
-function stateUpdate(id) {
+function stateUpdate() {
 	var value = 2;
 	layer.confirm('修改店铺状态', {
 		  btn: ['营业中','已打烊'] //按钮
 		}, function(){
-			$.post('/shop/store/index/save.do?storeId='+id +'&state=1', function(data){
+			$.post('/shop/store/api/store/save.json?state=1', function(data){
 			    parent.msg.close();    //关闭“操作中”的等待提示
 			    if(data.result == '1'){
 			        parent.msg.success('操作成功');
@@ -206,7 +227,7 @@ function stateUpdate(id) {
 			     }
 			});
 		}, function(){
-			$.post('/shop/store/index/save.do?storeId='+id +'&state=2', function(data){
+			$.post('/shop/store/api/store/save.json?state=2', function(data){
 			    parent.msg.close();    //关闭“操作中”的等待提示
 			    if(data.result == '1'){
 			        parent.msg.success('操作成功');
@@ -228,6 +249,7 @@ layui.use('upload', function(){
 	var uploadInst = upload.render({
 		  elem: '.uploadImg' //绑定元素
 		 ,field : 'file'
+		 ,url: '/shop/store/api/store/uploadImg.json'
 		 ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
 			 msg.loading('上传中...');
 			}
@@ -235,7 +257,7 @@ layui.use('upload', function(){
 			msg.close();
 			if(res.result == '1'){
 				parent.msg.success("上传成功");
-				 window.location.href = '/shop/store/index/welcome.do';
+				 window.location.href = '/store/index/welcome.jsp';
 			}else if(res.result == '0'){
 				parent.msg.failure(res.info);
 			}else{
@@ -247,9 +269,29 @@ layui.use('upload', function(){
 		}
 	});
 });
-
+/**
+ * 时间戳转化为年 月 日 时 分 秒
+ * number: 传入时间戳 如 1587653254
+ * format：返回格式，如 'Y-M-D h:m:s'
+ */
+function formatTime(number,format) {
+	var formateArr  = ['Y','M','D','h','m','s'];
+	var returnArr   = [];
+	var date = new Date(number * 1000);
+	returnArr.push(date.getFullYear());
+	returnArr.push(formatNumber(date.getMonth() + 1));
+	returnArr.push(formatNumber(date.getDate()));
+	returnArr.push(formatNumber(date.getHours()));
+	returnArr.push(formatNumber(date.getMinutes()));
+	returnArr.push(formatNumber(date.getSeconds()));
+	for (var i in returnArr){
+		format = format.replace(formateArr[i], returnArr[i]);
+	}
+	return format;
+}
 
 msg.loading('加载中');
+var store;
 post('/shop/store/api/store/getStore.json',{},function(data){
 	msg.close();    //关闭“更改中”的等待提示
 	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
@@ -258,7 +300,27 @@ post('/shop/store/api/store/getStore.json',{},function(data){
 		msg.failure(data.info);
 	}else{
 		//登录成功
-		document.getElementById('storeid').innerHTML = data.store.id;
+		store = data.store;
+		document.getElementById('storeId').innerHTML = store.id;
+		document.getElementById('storeName').innerHTML = store.name;
+		document.getElementById('storeImg').src = store.head;
+		document.getElementById('storeImgLink').href = store.head;
+		document.getElementById('storeContacts').innerHTML = store.contacts;
+		var state = store.state;
+		if (state == 0) {
+			document.getElementById('storeState').innerHTML =	'审核中';
+		}else if(state == 1){
+			document.getElementById('storeState').innerHTML =	'营业中';
+		}else if(state == 2){
+			document.getElementById('storeState').innerHTML =	'已打烊';
+		}
+		document.getElementById('storePhone').innerHTML = store.phone;
+		document.getElementById('storeLongitudeLatitude').innerHTML =  store.longitude+' , '+store.latitude;
+		document.getElementById('storeRegion').innerHTML = store.province+store.city+store.district;
+		document.getElementById('storeAddress').innerHTML = store.address;
+		document.getElementById('storeAddtime').innerHTML = formatTime(store.addtime,'Y-M-D h:m:s');
+		document.getElementById('storeNotice').innerHTML = store.notice;
+		document.getElementById('notice').innerHTML = store.notice;
 	}
 });
 </script>
