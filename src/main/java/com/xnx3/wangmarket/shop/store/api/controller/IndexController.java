@@ -1,5 +1,4 @@
 package com.xnx3.wangmarket.shop.store.api.controller;
-import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -9,21 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import com.xnx3.BaseVO;
-import com.xnx3.StringUtil;
 import com.xnx3.j2ee.entity.User;
-import com.xnx3.j2ee.pluginManage.PluginManage;
-import com.xnx3.j2ee.pluginManage.PluginRegister;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ActionLogUtil;
-import com.xnx3.j2ee.util.AttachmentUtil;
-import com.xnx3.j2ee.vo.UploadFileVO;
-import com.xnx3.wangmarket.shop.core.Global;
-import com.xnx3.wangmarket.shop.core.entity.Store;
-import com.xnx3.wangmarket.shop.core.entity.StoreData;
+
 import com.xnx3.wangmarket.shop.core.service.StoreService;
 import com.xnx3.wangmarket.shop.store.api.vo.IndexVO;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
@@ -50,8 +41,8 @@ public class IndexController extends BaseController {
 	 * 登录成功后的首页
 	 */
 	@ResponseBody
-	@RequestMapping("index${api.suffix}")
-	public IndexVO index(HttpServletRequest request,Model model){
+	@RequestMapping(value = "index${api.suffix}" ,method = {RequestMethod.POST})
+	public IndexVO index(HttpServletRequest request){
 		//获取网站后台管理系统有哪些功能插件，也一块列出来,以直接在网站后台中显示出来
 //		String pluginMenu = "";
 //		if(PluginManage.cmsSiteClassManage.size() > 0){
@@ -71,31 +62,7 @@ public class IndexController extends BaseController {
 		return vo;
 	}
 	
-	
-	
-	/**
-	 * 
-	 * 这个是要去掉的。。。  
-	 * 
-	 * 跳转到编辑区域信息
-	 * @author 关光礼
-	 * @param storeId 商家id
-	 * @param type 1是修改经纬度，2是修改纬度
-	 */
-	@RequestMapping(value = "/toEditPage${api.suffix}")
-	public String toEditPage(HttpServletRequest request ,Model model,
-			@RequestParam(value = "type", required = false, defaultValue = "0") int type) {
-		// 查找商家
-		Store store = sqlService.findById(Store.class, getStoreId());
-		if(store == null || store.getId() - getStoreId() != 0) {
-			return error(model,"商家信息异常");
-		}
-		model.addAttribute("item", store);
-		model.addAttribute("type", type);
-		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, store.getId(), "Id为" + store.getId() + "的商家的区域信息编辑页面");
-		return "/shop/store/index/edit";
-	}
+
 	
 	/**
 	 * 修改密码，如果使用的是账号、密码方式注册、登录的话。

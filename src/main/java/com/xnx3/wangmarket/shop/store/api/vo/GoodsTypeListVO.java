@@ -11,8 +11,8 @@ import com.xnx3.wangmarket.shop.core.entity.GoodsType;
  *
  */
 public class GoodsTypeListVO extends BaseVO{
-	private List<GoodsType> list;
-	private Page page;
+	private List<GoodsType> list;	//商品分类
+	private Page page;	//分页信息
 	
 	public List<GoodsType> getList() {
 		return list;

@@ -1,6 +1,8 @@
 package com.xnx3.wangmarket.shop.store.api.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,10 +46,9 @@ public class StoreController extends BaseController {
 	 * 获取当前登录的店铺信息
 	 */
 	@ResponseBody
-	@RequestMapping("getStore${api.suffix}")
+	@RequestMapping(value = "getStore${api.suffix}" ,method = {RequestMethod.POST})
 	public StoreVO getStore(HttpServletRequest request){
 		StoreVO vo = new StoreVO();
-		
 		int storeid = getStoreId();
 		Store store = sqlCacheService.findById(Store.class, storeid);
 		StoreData storeData = sqlCacheService.findById(StoreData.class, storeid);
@@ -65,19 +66,12 @@ public class StoreController extends BaseController {
 	/**
 	 * 上传商家图标
 	 * @author 关光礼
-	 * @param storeId 商家id
 	 * @param file 上传的图片文件
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/uploadImg${api.suffix}",method = {RequestMethod.POST})
-	public BaseVO carouselImageUploadImg(HttpServletRequest request ,
-			@RequestParam(value = "storeId", required = false, defaultValue = "0") int storeId,
-			MultipartFile file) {
-		
-		// 校验参数
-		if(storeId < 1) {
-			return error("ID信息错误");
-		}
+	public BaseVO carouselImageUploadImg(HttpServletRequest request, MultipartFile file) {
+		int storeId = getStoreId();
 		// 上传图片
 		String path = Global.ATTACHMENT_FILE_CAROUSEL_IMAGE.replace("{storeid}", getStoreId()+"");
 		UploadFileVO vo = AttachmentUtil.uploadImageByMultipartFile(path, file);
@@ -102,7 +96,6 @@ public class StoreController extends BaseController {
 	/**
 	 * 商家信息修改
 	 * @author 关光礼
-	 * @param storeId 商家id
 	 * @param name 店铺名字
 	 * @param state 状态
 	 * @param contacts 联系人
@@ -117,7 +110,7 @@ public class StoreController extends BaseController {
 	//@RequiresPermissions("slideshowUploadImg")
 	@ResponseBody
 	@RequestMapping(value = "/save${api.suffix}",method = {RequestMethod.POST})
-	public BaseVO save(HttpServletRequest request ,Model model,
+	public BaseVO save(HttpServletRequest request ,
 			@RequestParam(value = "name", required = false, defaultValue = "") String name,
 			@RequestParam(value = "state", required = false, defaultValue = "0") short state,
 			@RequestParam(value = "contacts", required = false, defaultValue = "") String contacts,
@@ -177,8 +170,7 @@ public class StoreController extends BaseController {
 		}
 		
 		sqlService.save(store);
-		model.addAttribute("store", store);
-		
+
 		//修改缓存的商家信息
 		SessionUtil.setStore(store);
 		//删除store缓存

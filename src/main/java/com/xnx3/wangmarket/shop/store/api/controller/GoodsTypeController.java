@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.xnx3.wangmarket.shop.store.api.vo.GoodsTypeVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,16 +52,16 @@ public class GoodsTypeController extends BaseController {
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 */
 	@ResponseBody
-	@RequestMapping("/list${api.suffix}")
-	public GoodsTypeListVO list(HttpServletRequest request,
-			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
-			@RequestParam(value = "orderBy", required = false, defaultValue="0") int orderBy) {
+	@RequestMapping(value = "/list${api.suffix}" ,method = {RequestMethod.POST})
+    public GoodsTypeListVO list(HttpServletRequest request,
+                                @RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
+                                @RequestParam(value = "orderBy", required = false, defaultValue="0") int orderBy) {
 		GoodsTypeListVO vo = new GoodsTypeListVO();
 		
 		//创建Sql
 		Sql sql = new Sql(request);
-		//配置按某个字端搜索内容
-		sql.setSearchColumn(new String[] {"title"});
+        //配置按某个字端搜索内容
+        sql.setSearchColumn(new String[] {"title"});
 		//配置查询那个表
 		sql.setSearchTable("shop_goods_type");
 		//查询条件
@@ -71,7 +72,7 @@ public class GoodsTypeController extends BaseController {
 		int count = sqlService.count("shop_goods_type", sql.getWhere());
 		
 		// 配置每页显示200条，也就是一次全部显示出来
-		Page page = new Page(count, everyNumber, request);
+        Page page = new Page(count, everyNumber, request);
 		// 查询出总页数
 		sql.setSelectFromAndPage("SELECT * FROM shop_goods_type ", page);
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
@@ -95,7 +96,7 @@ public class GoodsTypeController extends BaseController {
 	 * @param file 上传的图片文件
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/uploadImg${url.suffix}")
+	@RequestMapping(value = "/uploadImg${api.suffix}" ,method = {RequestMethod.POST})
 	public BaseVO goodsTypeUploadImg(HttpServletRequest request ,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
 			MultipartFile file) {
@@ -127,40 +128,40 @@ public class GoodsTypeController extends BaseController {
 	}
 	
 	/**
-	 * 跳转添加。修改页面
-	 * @author 关光礼
-	 * @param id 如修改操作，传入修改的数据id，添加测不传参
+	 * 获取商品分类信息
+	 * @author 刘鹏
+	 * @param id 商品分类id
 	 */
-	@RequestMapping("toEditPage${url.suffix}")
-	public String toEditPage(Model model ,HttpServletRequest request,
-		@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
-		
-		if(id != 0) {
-			GoodsType goodsType = sqlService.findById(GoodsType.class, id);
-			if(goodsType == null){
-				return error(model,"要修改的分类不存在");
-			}
-			if(goodsType.getStoreid() - getStoreId() != 0){
-				return error(model,"该分类不属于你，无法操作。");
-			}
-			model.addAttribute("item", goodsType);
-			ActionLogUtil.insert(request, getUserId(), "查看商品分类ID为" + id+ "的详情，跳转到编辑页面");
-		}else {
-			ActionLogUtil.insert(request, getUserId(), "跳转到商品分类编辑页面");
-		}
-		
-		return "/shop/store/goodsType/edit";
-		
-	}
-	
+    @ResponseBody
+    @RequestMapping(value = "getGoodsType${api.suffix}" ,method = {RequestMethod.POST})
+    public GoodsTypeVO getGoodsType(HttpServletRequest request,
+                                  @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+		GoodsTypeVO vo = new GoodsTypeVO();
+
+        if(id != 0) {
+            GoodsType goodsType = sqlService.findById(GoodsType.class, id);
+            if(goodsType == null){
+                vo.setBaseVO(BaseVO.FAILURE,"要修改的分类不存在");
+            }
+            if(goodsType.getStoreid() - getStoreId() != 0){
+                vo.setBaseVO(BaseVO.FAILURE,"该分类不属于你，无法操作。");
+            }
+            vo.setGoodsType(goodsType);
+            ActionLogUtil.insert(request, getUserId(), "查看商品分类ID为" + id+ "的详情，跳转到编辑页面");
+        }else {
+            ActionLogUtil.insert(request, getUserId(), "跳转到商品分类编辑页面");
+        }
+        return vo;
+    }
+
 	/**
 	 * 添加修改商品分类
 	 * @author 关光礼
-	 * @param goodsType 接受参数的实体类
+	 * @param goodsType 接收参数的实体类
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/save${url.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/save${api.suffix}",method = {RequestMethod.POST})
 	public com.xnx3.j2ee.vo.BaseVO save(HttpServletRequest request,GoodsType goodsType) {
 		
 		//System.out.println(getStoreId());
@@ -206,7 +207,7 @@ public class GoodsTypeController extends BaseController {
 	 * @param id 删除商品分类id
 	 */
 	@ResponseBody
-	@RequestMapping(value="/delete${url.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/delete${api.suffix}",method = {RequestMethod.POST})
 	public BaseVO delete(HttpServletRequest request,
 			@RequestParam(value = "id",defaultValue = "0", required = false) int id) {
 		
@@ -231,8 +232,8 @@ public class GoodsTypeController extends BaseController {
 		return success();
 	}
 	
-	
-	@RequestMapping(value="/getGoodsTypeJs${url.suffix}",method = {RequestMethod.GET})
+	@ResponseBody
+	@RequestMapping(value="/getGoodsTypeJs${api.suffix}",method = {RequestMethod.POST})
 	public void getGoodsTypeJs(HttpServletRequest request,HttpServletResponse response) {
 		List<GoodsTypeBean> list = goodsTypeService.getGoodsType(getStoreId());
 		

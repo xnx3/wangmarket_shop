@@ -3,6 +3,12 @@ package com.xnx3.wangmarket.shop.store.api.controller;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import com.xnx3.wangmarket.shop.core.entity.GoodsImage;
+import com.xnx3.wangmarket.shop.core.vo.GoodsDetailsVO;
+import com.xnx3.wangmarket.shop.store.api.vo.GoodsImageListVO;
+import com.xnx3.wangmarket.shop.store.api.vo.GoodsImageVO;
+import com.xnx3.wangmarket.shop.store.api.vo.GoodsListVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +23,6 @@ import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
 import com.xnx3.wangmarket.shop.core.entity.GoodsData;
-import com.xnx3.wangmarket.shop.store.api.vo.GoodsListVO;
 
 
 /**
@@ -31,14 +36,14 @@ public class GoodsController extends BaseController {
 	private SqlService sqlService;
 	@Resource
 	private SqlCacheService sqlCacheService;
-	
+
 	/**
 	 * 查看商品列表
 	 * @author 关光礼
 	 */
 	@ResponseBody
-	@RequestMapping("/list${api.suffix}")
-	public GoodsListVO list(HttpServletRequest request,Model model) {
+	@RequestMapping(value = "/list${api.suffix}" ,method = {RequestMethod.POST})
+	public GoodsListVO list(HttpServletRequest request) {
 		GoodsListVO vo = new GoodsListVO();
 		
 		//创建Sql
@@ -70,7 +75,40 @@ public class GoodsController extends BaseController {
 		ActionLogUtil.insert(request, getUserId(), "查看商品列表");
 		return vo;
 	}
-	
+
+	/**
+	 * 获取商品与商品详情
+	 * @author 刘鹏
+	 * @param id 商品id
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getGoods${api.suffix}" ,method = {RequestMethod.POST})
+	public GoodsDetailsVO getGoods(HttpServletRequest request,
+							 @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+		GoodsDetailsVO vo = new GoodsDetailsVO();
+
+		if(id > 0) {
+			//查找商品
+			Goods goods = sqlService.findById(Goods.class, id);
+			if(goods == null){
+				vo.setBaseVO(BaseVO.FAILURE, "商品不存在");
+			}
+			if(goods.getStoreid() - getStoreId() != 0){
+				vo.setBaseVO(BaseVO.FAILURE, "商品不属于你");
+			}
+			vo.setGoods(goods);
+			//查找商品描述
+			GoodsData goodsData = sqlService.findAloneByProperty(GoodsData.class, "id", id);
+			vo.setGoodsData(goodsData);
+			//查找商品顶部轮播图
+			GoodsImage imgs = sqlService.findAloneByProperty(GoodsImage.class, "goodsid", id);
+		}
+		ActionLogUtil.insert(request, getUserId(), "查看商品ID为" + (id == 0 ? "":id)+ "的详情，跳转到编辑页面");
+		return vo;
+
+	}
+
+
 	/**
 	 * 修改商品信息
 	 * @param goodsid 要修改的商品id， goods.id ， 必填
@@ -161,5 +199,223 @@ public class GoodsController extends BaseController {
 		ActionLogUtil.insertUpdateDatabase(request, "删除ID是" + goodsid + "的商品", "删除内容:" + goods.toString());
 		return success();
 	}
-	
+
+	/**
+	 * 修改商品的上下架
+	 * @author 关光礼
+	 * @param id 商品id
+	 */
+	@ResponseBody
+	@RequestMapping(value="/updatePutaway${api.suffix}",method = {RequestMethod.POST})
+	public com.xnx3.BaseVO updatePutaway(HttpServletRequest request,
+										 @RequestParam(value = "id",defaultValue = "0", required = false) int id) {
+		if(id < 1) {
+			return error("请传入id参数");
+		}
+
+		Goods goods = sqlService.findById(Goods.class, id);
+		if(goods == null) {
+			return error("根据ID,没查到该实体");
+		}
+		if(goods.getStoreid() - getStoreId() != 0){
+			return error("商品不属于你");
+		}
+		//判断并修改状态
+		if(goods.getPutaway() == Goods.PUTAWAY_NOT_SELL) {
+			goods.setPutaway(Goods.PUTAWAY_SELL);
+		}else {
+			goods.setPutaway(Goods.PUTAWAY_NOT_SELL);
+		}
+		sqlService.save(goods);
+
+		//操作完成后，删除缓存，已达到更新缓存目的
+		deleteGoodsCache(goods.getId());
+
+		//日志记录
+		ActionLogUtil.insertUpdateDatabase(request, "ID是" + id + "的商品的状态修改", "修改后状态:" + goods.getPutaway());
+		return success();
+	}
+
+	/**
+	 * 获取商品的图片、轮播图片
+	 * @author 刘鹏
+	 * @param id 商品id
+	 */
+	@ResponseBody
+	@RequestMapping(value = "imgList${api.suffix}" ,method = {RequestMethod.POST})
+	public GoodsImageListVO imgList(HttpServletRequest request,
+						  @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+		GoodsImageListVO vo = new GoodsImageListVO();
+
+		if(id < 1) {
+			vo.setBaseVO(BaseVO.FAILURE,"请传入ID信息" );
+		}
+
+		//创建Sql
+		Sql sql = new Sql(request);
+		//配置查询那个表
+		sql.setSearchTable("shop_goods_image");
+		//查询条件
+		sql.appendWhere("goodsid = " + id);
+		//配置按某个字端搜索内容
+		//sql.setSearchColumn(new String[] {"title","typeid"});
+		// 查询数据表的记录总条数
+		int count = sqlService.count("shop_goods_image", sql.getWhere());
+
+		// 配置每页显示15条
+		Page page = new Page(count, 15, request);
+		// 查询出总页数
+		sql.setSelectFromAndPage("SELECT * FROM shop_goods_image ", page);
+		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
+		sql.setDefaultOrderBy("rank ASC");
+
+		// 按照上方条件查询出该实体总数 用集合来装
+		List<GoodsImage> list = sqlService.findBySql(sql,GoodsImage.class);
+
+		vo.setList(list);
+		vo.setPage(page);
+		//日志记录
+		ActionLogUtil.insert(request, getUserId(), "查看商品id为" + id + "图片列表");
+
+		vo.setId(id);
+		return vo;
+	}
+
+	/**
+	 * 删除商品图片
+	 * @author 关光礼
+	 * @param id 图片id
+	 */
+	@ResponseBody
+	@RequestMapping(value = "deleteImg${api.suffix}" ,method = {RequestMethod.POST})
+	public com.xnx3.BaseVO deleteImg(HttpServletRequest request,
+									 @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+		if(id < 1) {
+			return error("请传入图片ID信息" );
+		}
+		GoodsImage img = sqlService.findById(GoodsImage.class, id);
+		if(img == null) {
+			return error("根据ID,没查到该实体");
+		}
+		//查出商品信息，从而判断这个图片是不是这个人的
+		Goods goods = sqlService.findById(Goods.class, img.getGoodsid());
+		if(goods == null) {
+			return error("该图所属商品不存在");
+		}
+		if(goods.getStoreid() - getStoreId() != 0){
+			return error("该图不属于你，无法操作");
+		}
+
+		sqlService.delete(img);
+		//日志记录
+		ActionLogUtil.insertUpdateDatabase(request, id, "Id为" + id + "的商品列表图片删除", "删除内容" + img.toString());
+		return success();
+	}
+
+	/**
+	 * 获取商品图片信息
+	 * @author 刘鹏
+	 * @param id 图片id
+	 * @param goodId 商品id
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getGoodsImage${api.suffix}" ,method = {RequestMethod.POST})
+	public GoodsImageVO getGoodsImage(HttpServletRequest request,
+									  @RequestParam(value = "id", required = false, defaultValue = "0") int id,
+									  @RequestParam(value = "goodId", required = false, defaultValue = "0") int goodId) {
+		GoodsImageVO vo = new GoodsImageVO();
+		if(goodId < 1) {
+			vo.setBaseVO(BaseVO.FAILURE, "请传入商品Id信息");
+		}
+		if(id > 0) {
+			GoodsImage img = sqlService.findById(GoodsImage.class, id);
+			vo.setGoodsImage(img);
+		}
+		ActionLogUtil.insert(request, getUserId(), "查看商品图片ID为" + (id == 0 ? "":id)+ "的详情，跳转到编辑页面");
+
+		vo.setId(goodId);
+		return vo;
+	}
+
+	/**
+	 * 添加、修改商品轮播图
+	 * @author 关光礼
+	 * @param inputImg 接受参数的实体类
+	 */
+	@ResponseBody
+	@RequestMapping(value="/imgSave${api.suffix}",method = {RequestMethod.POST})
+	public com.xnx3.j2ee.vo.BaseVO imgSave(HttpServletRequest request,GoodsImage inputImg) {
+		if(inputImg.getGoodsid() == null) {
+			return error("请传入商品ID信息");
+		}
+
+		Integer id = inputImg.getId();
+		//创建一个实体
+		GoodsImage img;
+		if(id == null || id - 0 == 0) {
+			//添加
+			img = new GoodsImage();
+			img.setGoodsid(inputImg.getGoodsid());
+		}else {
+			//修改
+			String sql = "SELECT * FROM shop_goods_image WHERE id = " + id + " AND goodsid= " + inputImg.getGoodsid();
+			img = sqlService.findAloneBySqlQuery(sql, GoodsImage.class);
+			if(img == null) {
+				return error("根据ID,没查到该商品分类");
+			}
+			//查出商品信息，从而判断修改的这个图片是不是这个人的
+			Goods goods = sqlService.findById(Goods.class, id);
+			if(goods == null) {
+				return error("该图所属商品不存在");
+			}
+			if(goods.getStoreid() - getStoreId() != 0){
+				return error("该图不属于你，无法操作");
+			}
+		}
+		//给实体赋值
+		if(inputImg.getRank() == null) {
+			img.setRank(0);
+		}else {
+			img.setRank(inputImg.getRank());
+		}
+		img.setImageUrl(inputImg.getImageUrl());
+		//保存实体
+		sqlService.save(img);
+
+		//日志记录
+		ActionLogUtil.insertUpdateDatabase(request, img.getId(),"Id为" + img.getId() + "的商品的图片添加或修改，内容:" + img.toString());
+
+		return success();
+	}
+	/**
+	 * 更改商品排序
+	 * @param id 栏目id
+	 * @param rank 排序编号。数字越小越靠前
+	 * @return
+	 */
+	@RequestMapping(value="updateRank${api.suffix}", method = RequestMethod.POST)
+	@ResponseBody
+	public com.xnx3.BaseVO updateRank(HttpServletRequest request,
+									  @RequestParam(value = "id", required = false , defaultValue="0") int id,
+									  @RequestParam(value = "rank", required = false , defaultValue="0") int rank){
+		Goods goods = new Goods();
+		if(id < 1){
+			return error("请传入要操作的栏目编号");
+		}
+		goods = sqlService.findById(Goods.class, id);
+		if(goods == null){
+			return error("要操作的栏目不存在");
+		}
+
+		goods.setRank(rank);
+		sqlService.save(goods);
+
+		//操作完成后，删除缓存，已达到更新缓存目的
+		deleteGoodsCache(goods.getId());
+
+		//记录日志
+		ActionLogUtil.insertUpdateDatabase(request, goods.getId(), "更改栏目排序", rank+"");
+
+		return success();
+	}
 }

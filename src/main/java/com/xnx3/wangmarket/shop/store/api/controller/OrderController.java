@@ -47,7 +47,7 @@ public class OrderController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/list${api.suffix}", method = {RequestMethod.POST})
-	public OrderListVO list(HttpServletRequest request, Model model) {
+	public OrderListVO list(HttpServletRequest request) {
 		OrderListVO vo = new OrderListVO();
 		
 		//创建Sql
@@ -80,11 +80,11 @@ public class OrderController extends BaseController {
 	/**
 	 * 查看订单详情
 	 * @author 管雷鸣
-	 * @param id 订单id，order.id
+	 * @param orderid 订单id
 	 */
 	@ResponseBody
 	@RequestMapping(value="detail${api.suffix}", method = {RequestMethod.POST})
-	public OrderVO detail(Model model ,HttpServletRequest request,
+	public OrderVO detail(HttpServletRequest request,
 		@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid) {
 		OrderVO vo = new OrderVO();
 		
@@ -120,7 +120,7 @@ public class OrderController extends BaseController {
 	/**
 	 * 收到商品，确认收货
 	 * @author 管雷鸣
-	 * @param id 订单id
+	 * @param orderid 订单id
 	 */
 	@RequestMapping(value="receiveGoods${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
