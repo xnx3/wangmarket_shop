@@ -33,9 +33,9 @@ if(description == null ){
 <meta name="author" content="管雷鸣">
 
 <!-- layer 、 layui -->
-<link rel="stylesheet" href="${STATIC_RESOURCE_PATH}module/layui/css/layui.css">
-<script src="${STATIC_RESOURCE_PATH}module/layui/layui.js"></script>
-<script src="${STATIC_RESOURCE_PATH}module/msg/msg-1.0.1.js"></script>
+<link rel="stylesheet" href="/module/layui/css/layui.css">
+<script src="/module/layui/layui.js"></script>
+<script src="/module/msg/msg-1.0.1.js"></script>
 <script src="https://res.weiunity.com/request/request.js"></script>
 <!-- 商城及接口相关 -->
 <script src="https://res.weiunity.com/shop/shop.js"></script>
@@ -46,10 +46,10 @@ layui.use('layer', function(){
 });
 </script>
 
-<script src="${STATIC_RESOURCE_PATH}js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-2.1.4.js"></script>
 
 <!-- order by 列表的排序 -->
-<!--  <script src="${STATIC_RESOURCE_PATH}js/iw.js"></script>  -->
+<!--  <script src="/js/iw.js"></script>  -->
 
 <style>
 
@@ -124,6 +124,16 @@ function formatTime(number,format) {
 function formatNumber(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
+}
+
+//如果未登录，那么拦截，弹出提示，并跳转到登录页面
+function checkLogin(data){
+	if(data.result == '2'){
+		//未登录
+		msg.info('请先登录', function(){
+			window.location.href="/store/login/login.jsp";
+		});
+	}
 }
 </script>
 </head>
