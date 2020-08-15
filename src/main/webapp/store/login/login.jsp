@@ -139,12 +139,17 @@ function login(){
 	});
 }
 
-
 //调用接口获取一个新的token，也就是相当于获取一个Session id
 post(shop.api.login.token,{},function(data){
 	shop.setToken(data.info);
 	reloadCode();
 });
+
+//get方式传递过来的用户名跟密码
+try{
+	document.getElementById('username').value=getUrlParams('username');
+	document.getElementById('password').value=getUrlParams('password');
+}catch(e){console.log(e);}
 </script>
 
 </body>
