@@ -5,12 +5,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xnx3.wangmarket.shop.core.entity.GoodsImage;
-import com.xnx3.wangmarket.shop.core.vo.GoodsDetailsVO;
+import com.xnx3.wangmarket.shop.store.api.vo.GoodsDetailsVO;
 import com.xnx3.wangmarket.shop.store.api.vo.GoodsImageListVO;
 import com.xnx3.wangmarket.shop.store.api.vo.GoodsImageVO;
 import com.xnx3.wangmarket.shop.store.api.vo.GoodsListVO;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -84,7 +83,7 @@ public class GoodsController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "getGoods${api.suffix}" ,method = {RequestMethod.POST})
 	public GoodsDetailsVO getGoods(HttpServletRequest request,
-							 @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+								   @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		GoodsDetailsVO vo = new GoodsDetailsVO();
 
 		if(id > 0) {
@@ -100,8 +99,6 @@ public class GoodsController extends BaseController {
 			//查找商品描述
 			GoodsData goodsData = sqlService.findAloneByProperty(GoodsData.class, "id", id);
 			vo.setGoodsData(goodsData);
-			//查找商品顶部轮播图
-			GoodsImage imgs = sqlService.findAloneByProperty(GoodsImage.class, "goodsid", id);
 		}
 		ActionLogUtil.insert(request, getUserId(), "查看商品ID为" + (id == 0 ? "":id)+ "的详情，跳转到编辑页面");
 		return vo;
@@ -128,7 +125,7 @@ public class GoodsController extends BaseController {
 		if(goodsid < 1) {
 			return error("请传入要修改的商品id");
 		}
-		
+
 		Goods goods = sqlService.findById(Goods.class, goodsid);
 		if(goods == null) {
 			return error("商品不存在");
@@ -136,7 +133,7 @@ public class GoodsController extends BaseController {
 		if(goods.getStoreid() - getStoreId() != 0){
 			return error("商品不属于你");
 		}
-		
+
 		/*** 进行保存商品 ***/
 		if(price > -1){
 			goods.setPrice(price);
@@ -159,7 +156,7 @@ public class GoodsController extends BaseController {
 		ActionLogUtil.insertUpdateDatabase(request, goods.getId(),"Id为" + goods.getId() + "的商品添加或修改，内容:" + goods.toString());
 		return success();
 	}
-	
+
 	/**
 	 * 保存完成后，删除缓存，已达到更新缓存目的
 	 * @param goodsid 要删除的缓存的商品id
@@ -330,6 +327,8 @@ public class GoodsController extends BaseController {
 		if(id > 0) {
 			GoodsImage img = sqlService.findById(GoodsImage.class, id);
 			vo.setGoodsImage(img);
+		}else {
+			vo.setResult(BaseVO.FAILURE);
 		}
 		ActionLogUtil.insert(request, getUserId(), "查看商品图片ID为" + (id == 0 ? "":id)+ "的详情，跳转到编辑页面");
 
@@ -339,32 +338,42 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 添加、修改商品轮播图
-	 * @author 关光礼
-	 * @param inputImg 接受参数的实体类
+	 * @author 刘鹏
+	 * @param id 图片id
+	 * @param goodsid 商品id 必传入
+	 * @param rank 图片的排序，数字越小越靠前
+	 * @param imageUrl 图片的url绝对路径
+	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/imgSave${api.suffix}",method = {RequestMethod.POST})
-	public com.xnx3.j2ee.vo.BaseVO imgSave(HttpServletRequest request,GoodsImage inputImg) {
-		if(inputImg.getGoodsid() == null) {
+	@RequestMapping(value="/goodsImageSave${api.suffix}",method = {RequestMethod.POST})
+	public com.xnx3.j2ee.vo.BaseVO goodsImageSave(HttpServletRequest request,
+												  @RequestParam(value = "id",required = false,defaultValue = "0") Integer id,
+												  @RequestParam(value = "goodsid") Integer goodsid,
+												  @RequestParam(value = "rank",required = false) Integer rank,
+												  @RequestParam(value = "imageUrl",required = false) String imageUrl) {
+		if(goodsid == null) {
 			return error("请传入商品ID信息");
-		}
-
-		Integer id = inputImg.getId();
+        }else if(rank == null ){
+			return error("图片排序不能为空");
+		}else if(imageUrl == ""){
+            return error("列表图片不能为空");
+        }
 		//创建一个实体
 		GoodsImage img;
 		if(id == null || id - 0 == 0) {
 			//添加
 			img = new GoodsImage();
-			img.setGoodsid(inputImg.getGoodsid());
+			img.setGoodsid(goodsid);
 		}else {
 			//修改
-			String sql = "SELECT * FROM shop_goods_image WHERE id = " + id + " AND goodsid= " + inputImg.getGoodsid();
+			String sql = "SELECT * FROM shop_goods_image WHERE id = " + id + " AND goodsid= " + goodsid;
 			img = sqlService.findAloneBySqlQuery(sql, GoodsImage.class);
 			if(img == null) {
 				return error("根据ID,没查到该商品分类");
 			}
 			//查出商品信息，从而判断修改的这个图片是不是这个人的
-			Goods goods = sqlService.findById(Goods.class, id);
+			Goods goods = sqlService.findById(Goods.class, goodsid);
 			if(goods == null) {
 				return error("该图所属商品不存在");
 			}
@@ -373,12 +382,8 @@ public class GoodsController extends BaseController {
 			}
 		}
 		//给实体赋值
-		if(inputImg.getRank() == null) {
-			img.setRank(0);
-		}else {
-			img.setRank(inputImg.getRank());
-		}
-		img.setImageUrl(inputImg.getImageUrl());
+		img.setRank(rank);
+		img.setImageUrl(imageUrl);
 		//保存实体
 		sqlService.save(img);
 
