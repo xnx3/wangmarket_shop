@@ -137,7 +137,10 @@ public class GoodsTypeController extends BaseController {
     public GoodsTypeVO getGoodsType(HttpServletRequest request,
                                   @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		GoodsTypeVO vo = new GoodsTypeVO();
-        if(id != 0) {
+    	if(id < 1){
+			vo.setResult(BaseVO.FAILURE);
+		}
+        if(id > 0) {
             GoodsType goodsType = sqlService.findById(GoodsType.class, id);
             if(goodsType == null){
                 vo.setBaseVO(BaseVO.FAILURE,"要修改的分类不存在");
@@ -147,8 +150,6 @@ public class GoodsTypeController extends BaseController {
             }
             vo.setGoodsType(goodsType);
             ActionLogUtil.insert(request, getUserId(), "查看商品分类ID为" + id+ "的详情，跳转到编辑页面");
-        }else {
-			vo.setBaseVO(BaseVO.FAILURE,"id无效");
         }
         return vo;
     }

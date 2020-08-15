@@ -126,7 +126,7 @@ post('/shop/store/api/goodsType/getGoodsType.json?id='+ id,{},function(data){
 	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 
 	if(data.result != '1'){
-		document.getElementById('titlePicA').style.display='none';
+		document.getElementById('titlePicImg').style.display='none';
 	}else{
 		//登录成功
 		obj = data.goodsType;
