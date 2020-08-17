@@ -36,7 +36,8 @@ public class CarouselImageController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/list${api.suffix}" ,method = {RequestMethod.POST})
-	public CarouselImageListVO list(HttpServletRequest request) {
+	public CarouselImageListVO list(HttpServletRequest request,
+			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		CarouselImageListVO vo = new CarouselImageListVO();
 
 		//创建Sql
@@ -51,7 +52,7 @@ public class CarouselImageController extends BaseController {
 		int count = sqlService.count("shop_carousel_image", sql.getWhere());
 		
 		// 配置每页显示15条
-		Page page = new Page(count, 15, request);
+		Page page = new Page(count, everyNumber, request);
 		// 查询出总页数
 		sql.setSelectFromAndPage("SELECT * FROM shop_carousel_image ", page);
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
