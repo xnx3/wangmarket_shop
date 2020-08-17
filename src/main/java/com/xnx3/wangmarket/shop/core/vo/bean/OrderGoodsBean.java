@@ -70,7 +70,7 @@ public class OrderGoodsBean {
 		return units;
 	}
 	public void setUnits(String units) {
-		if(this.units == null){
+		if(units == null){
 			this.units = "";
 		}else{
 			this.units = units;
