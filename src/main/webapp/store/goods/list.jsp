@@ -6,8 +6,8 @@
 </jsp:include>
 <style type="text/css">
 .layui-table img {
-    max-width: 49px;
-    max-height:49px;
+    max-width: 30px;
+    max-height:30px;
 }
 .toubu_xnx3_search_form {
     padding-top: 0px;
@@ -21,15 +21,15 @@
 
 <jsp:include page="../common/list/formSearch_input.jsp">
 	<jsp:param name="iw_label" value="标题" />
-	<jsp:param name="iw_name" value="name" />
+	<jsp:param name="iw_name" value="title" />
 </jsp:include>
 <jsp:include page="../common/list/formSearch_input.jsp">
 	<jsp:param name="iw_label" value="商品分类"/>
 	<jsp:param name="iw_name" value="typeid"/>
 	<jsp:param name="iw_type" value="select"/>
-</jsp:include> 
-	
-	<input class="layui-btn iw_list_search_submit" type="submit" value="搜索" />
+</jsp:include>
+
+	<a class="layui-btn" href="javascript:list(1);" style="margin-left: 15px;">搜索</a>
 	<a class="layui-btn layui-btn-normal" onclick="addOrUpdate(0)" style=""><i class="layui-icon" style="font-size: 14px;">添加商品</i></a>
 		   <div style="float: right; " class="layui-form">
 		<%--<script type="text/javascript"> orderBy('id_ASC=编号,inventory_DESC=库存降序,inventory_ASC=库存升序,sale_DESC=已售数量降序,sale_ASC=已售数量升序,price_DESC=价格降序,price_ASC=价格升序'); </script>--%>
@@ -131,7 +131,7 @@ function deleteMes(id){
 	}, function(){
 		layer.close(dtp_confirm);
 		parent.msg.loading("删除中");    //显示“操作中”的等待提示
-		$.post('/shop/store/api/goods/delete.json?id=' + id, function(data){
+		$.post('/shop/store/api/goods/delete.json?goodsid=' + id, function(data){
 		    parent.msg.close();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
 		        parent.msg.success('操作成功');
@@ -239,18 +239,55 @@ function templateReplace(item){
 
 
 
-//获取商品信息
-msg.loading('加载中');
-post('/shop/store/api/goods/list.json' ,"",function(data){
 
-	msg.close();    //关闭“更改中”的等待提示
+// post('/shop/store/api/goods/list.json' ,"",function(data){
+//
+// 	msg.close();    //关闭“更改中”的等待提示
+//
+// 	if(data.result == '2'){
+// 		//未登录
+// 		msg.info('请先登录', function(){
+// 			window.location.href="/store/login/login.jsp";
+// 		});
+// 	}else{
+// 		//已登陆
+// 		if(data.result == '0'){
+// 			msg.failure(data.info);
+// 		}else if(data.result == '1'){
+// 			//成功
+//
+// 			//列表
+// 			var html = '';
+// 			for(var index in data.list){
+// 				var item = data.list[index];
+//
+// 				html = html + templateReplace(item);
+// 			}
+// 			document.getElementById("list").innerHTML = html;
+// 			//分页
+// 			page.render(data.page);
+// 		}
+// 	}
+// });
 
-	if(data.result == '2'){
-		//未登录
-		msg.info('请先登录', function(){
-			window.location.href="/store/login/login.jsp";
-		});
-	}else{
+
+
+/**
+ * 获取分类列表数据
+ * @param currentPage 要查看第几页，如传入 1
+ */
+function list(currentPage){
+	var data = {
+		'currentPage':currentPage,
+		'everyNumber':'15',	//这里每页显示2条数据
+		'title':document.getElementById('title').value,
+		'typeid':document.getElementById('typeid').value,
+	};
+	msg.loading('加载中');
+	post('/shop/store/api/goods/list.json' ,data,function(data){
+		msg.close();    //关闭“更改中”的等待提示
+		checkLogin(data);	//判断是否登录
+
 		//已登陆
 		if(data.result == '0'){
 			msg.failure(data.info);
@@ -261,15 +298,18 @@ post('/shop/store/api/goods/list.json' ,"",function(data){
 			var html = '';
 			for(var index in data.list){
 				var item = data.list[index];
-
+				//只显示已选中的商品
 				html = html + templateReplace(item);
 			}
 			document.getElementById("list").innerHTML = html;
 			//分页
 			page.render(data.page);
 		}
-	}
-});
+
+	});
+}
+//刚进入这个页面，加载第一页的数据
+list(1);
 </script>
 
 <jsp:include page="../common/foot.jsp"></jsp:include>

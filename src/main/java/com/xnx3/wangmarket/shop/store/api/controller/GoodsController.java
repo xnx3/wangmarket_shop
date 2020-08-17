@@ -4,6 +4,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.xnx3.DateUtil;
 import com.xnx3.wangmarket.shop.core.entity.GoodsImage;
 import com.xnx3.wangmarket.shop.store.api.vo.GoodsDetailsVO;
 import com.xnx3.wangmarket.shop.store.api.vo.GoodsImageListVO;
@@ -38,11 +39,14 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 查看商品列表
-	 * @author 关光礼
+	 * @author 刘鹏
+	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
+	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/list${api.suffix}" ,method = {RequestMethod.POST})
-	public GoodsListVO list(HttpServletRequest request) {
+	public GoodsListVO list(HttpServletRequest request,
+							@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		GoodsListVO vo = new GoodsListVO();
 		
 		//创建Sql
@@ -58,7 +62,7 @@ public class GoodsController extends BaseController {
 		int count = sqlService.count("shop_goods", sql.getWhere());
 		
 		// 配置每页显示15条
-		Page page = new Page(count, 15, request);
+		Page page = new Page(count, everyNumber, request);
 		// 查询出总页数
 		sql.setSelectFromAndPage("SELECT * FROM shop_goods ", page);
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
@@ -86,33 +90,37 @@ public class GoodsController extends BaseController {
 								   @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		GoodsDetailsVO vo = new GoodsDetailsVO();
 
-		if(id > 0) {
-			//查找商品
-			Goods goods = sqlService.findById(Goods.class, id);
-			if(goods == null){
-				vo.setBaseVO(BaseVO.FAILURE, "商品不存在");
-			}
-			if(goods.getStoreid() - getStoreId() != 0){
-				vo.setBaseVO(BaseVO.FAILURE, "商品不属于你");
-			}
-			vo.setGoods(goods);
-			//查找商品描述
-			GoodsData goodsData = sqlService.findAloneByProperty(GoodsData.class, "id", id);
-			vo.setGoodsData(goodsData);
+		if(id < 1){
+			vo.setBaseVO(GoodsDetailsVO.FAILURE, "请传入商品id");
+			return vo;
 		}
+
+		//查找商品
+		Goods goods = sqlService.findById(Goods.class, id);
+		if(goods == null){
+			vo.setBaseVO(BaseVO.FAILURE, "商品不存在");
+		}
+		if(goods.getStoreid() - getStoreId() != 0){
+			vo.setBaseVO(BaseVO.FAILURE, "商品不属于你");
+		}
+		vo.setGoods(goods);
+		//查找商品描述
+		GoodsData goodsData = sqlService.findAloneByProperty(GoodsData.class, "id", id);
+		vo.setGoodsData(goodsData);
+
 		ActionLogUtil.insert(request, getUserId(), "查看商品ID为" + (id == 0 ? "":id)+ "的详情，跳转到编辑页面");
 		return vo;
-
 	}
 
 
 	/**
-	 * 修改商品信息
+	 * 保存商品信息，简单的商品信息保存，适用于手机端
 	 * @param goodsid 要修改的商品id， goods.id ， 必填
 	 * @param price 要修改的商品的价格，单位是分。 非必填
 	 * @param putaway 是否上架在售，1出售中，0已下架。 非必填
 	 * @param units 计量，单位。如个、斤、条，限制5字符。非必填
 	 * @param rank 排序，数字越小越靠前。非必填
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
 	@RequestMapping(value="/save${api.suffix}",method = {RequestMethod.POST})
@@ -156,6 +164,97 @@ public class GoodsController extends BaseController {
 		ActionLogUtil.insertUpdateDatabase(request, goods.getId(),"Id为" + goods.getId() + "的商品添加或修改，内容:" + goods.toString());
 		return success();
 	}
+
+
+	/**
+	 * 保存商品，商品全部信息的保存
+	 * @author 刘鹏
+	 * @param inputGoods 接受参数的实体类
+	 */
+	@ResponseBody
+	@RequestMapping(value="/saveAll${url.suffix}",method = {RequestMethod.POST})
+	public com.xnx3.j2ee.vo.BaseVO saveAll(HttpServletRequest request,Goods inputGoods) {
+
+		Integer id = inputGoods.getId();
+		//创建一个实体
+		Goods goods;
+		if(id == null || id - 0 == 0) {
+			// 添加
+			goods = new Goods();
+			goods.setIsdelete(Goods.ISDELETE_NORMAL);
+			goods.setAddtime(DateUtil.timeForUnix10());
+			goods.setSale(0);
+			goods.setStoreid(getStoreId());
+			goods.setUserBuyRestrict(0);
+			goods.setStoreid(getStoreId());
+		}else {
+			//修改
+			goods = sqlService.findById(Goods.class, id);
+			if(goods == null) {
+				return error("根据ID,没查到该商品");
+			}
+			if(goods.getStoreid() - getStoreId() != 0){
+				return error("商品不属于你");
+			}
+		}
+		//接受时间参数
+
+		//给实体赋值
+		if(inputGoods.getAlarmNum() == null) {
+			goods.setAlarmNum(0);
+		}else {
+			goods.setAlarmNum(inputGoods.getAlarmNum());
+		}
+
+		if(inputGoods.getFakeSale() == null) {
+			goods.setFakeSale(0);
+		}else {
+			goods.setFakeSale(inputGoods.getFakeSale());
+		}
+
+		if(inputGoods.getPutaway() == null) {
+			goods.setPutaway(Goods.PUTAWAY_SELL);
+		}else {
+			goods.setPutaway(inputGoods.getPutaway());
+		}
+
+		if(inputGoods.getUnits() == null || inputGoods.getUnits().equals("")) {
+			goods.setUnits("个");
+		}else {
+			goods.setUnits(inputGoods.getUnits());
+		}
+		goods.setInventory(inputGoods.getInventory());
+		goods.setOriginalPrice(inputGoods.getOriginalPrice());
+		goods.setPrice(inputGoods.getPrice());
+		goods.setTitle(inputGoods.getTitle());
+		goods.setTypeid(inputGoods.getTypeid());
+		goods.setUpdatetime(DateUtil.timeForUnix10());
+		goods.setTitlepic(inputGoods.getTitlepic());
+		goods.setIntro(inputGoods.getIntro());
+		//保存实体
+		sqlService.save(goods);
+
+		//保存商品详情
+		String detail = request.getParameter("detail");
+		//根据商品id查找详情
+		GoodsData data = sqlService.findAloneByProperty(GoodsData.class, "id", goods.getId());
+		//如果为空就new一个
+		if(data == null) {
+			data = new GoodsData();
+			data.setId(goods.getId());
+		}
+		data.setDetail(detail);
+		sqlService.save(data);
+
+		//保存完成后，删除缓存，已达到更新缓存目的
+		deleteGoodsCache(goods.getId());
+
+		//日志记录
+		ActionLogUtil.insertUpdateDatabase(request, goods.getId(),"Id为" + goods.getId() + "的商品添加或修改，内容:" + goods.toString());
+
+		return success();
+	}
+
 
 	/**
 	 * 保存完成后，删除缓存，已达到更新缓存目的

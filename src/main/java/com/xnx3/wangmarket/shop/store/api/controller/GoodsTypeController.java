@@ -42,20 +42,13 @@ public class GoodsTypeController extends BaseController {
 	
 	/**
 	 * 查看商品分类
-	 * @param orderBy 商品排序方式
-	 * 				<ul>
-	 * 					<li>0:默认排序方式，也就是根据商家后台自定义的商品排序，来进行的排序</li>
-	 * 					<li>1:按总销量由高往低来排序</li>
-	 * 					<li>2:最新商品，按发布时间，由高往低来排序，最后发布的商品在最前面</li>
-	 * 				</ul>
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/list${api.suffix}" ,method = {RequestMethod.POST})
     public GoodsTypeListVO list(HttpServletRequest request,
-                                @RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
-                                @RequestParam(value = "orderBy", required = false, defaultValue="0") int orderBy) {
+                                @RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		GoodsTypeListVO vo = new GoodsTypeListVO();
 		
 		//创建Sql
