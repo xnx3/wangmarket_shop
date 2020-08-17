@@ -233,7 +233,7 @@ public class GoodsTypeController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/getGoodsTypeJs${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/getGoodsTypeJs${api.suffix}",method = {RequestMethod.GET})
 	public void getGoodsTypeJs(HttpServletRequest request,HttpServletResponse response) {
 		List<GoodsTypeBean> list = goodsTypeService.getGoodsType(getStoreId());
 		
