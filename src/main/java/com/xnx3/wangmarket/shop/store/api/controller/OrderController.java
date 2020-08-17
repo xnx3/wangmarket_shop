@@ -47,7 +47,8 @@ public class OrderController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/list${api.suffix}", method = {RequestMethod.POST})
-	public OrderListVO list(HttpServletRequest request) {
+	public OrderListVO list(HttpServletRequest request,
+							@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		OrderListVO vo = new OrderListVO();
 		
 		//创建Sql
@@ -110,6 +111,7 @@ public class OrderController extends BaseController {
 		
 		//订单内商品信息
 		List<OrderGoods> goodsList = sqlService.findByProperty(OrderGoods.class, "orderid", orderid);
+
 		vo.setGoodsList(goodsList);
 		ActionLogUtil.insert(request, order.getId(), "查看订单详情:"+vo.toString());
 		

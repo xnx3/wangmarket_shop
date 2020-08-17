@@ -6,11 +6,11 @@ package com.xnx3.wangmarket.shop.store.util.TemplateAdminMenu;
  */
 public enum TemplateMenuEnum {
 	SYSTEM_StoreSet("storeset", "商家设置", "javascript:loadUrl('/shop/store/index/welcome.do');", "&#xe60b;", ""),
-	SYSTEM_CarouselImage("carouselImage", "轮播图", "javascript:loadUrl('/shop/store/carouselImage/list.do');", "&#xe634;", ""),
+	SYSTEM_CarouselImage("carouselImage", "轮播图", "javascript:loadUrl('/store/carouselImage/list.jsp');", "&#xe634;", ""),
 	SYSTEM_User("user", "用户管理", "javascript:loadUrl('/shop/store/user/list.do');", "&#xe66f;", ""),
 	SYSTEM_GoodsType("goodsTyle", "商品分类", "javascript:loadUrl('/store/goodsType/list.jsp');", "&#xe62a;", ""),
 	SYSTEM_Goods("goods", "商品管理", "javascript:loadUrl('/store/goods/list.jsp');", "&#xe600;", ""),
-	SYSTEM_Order("order", "订单管理", "javascript:loadUrl('/shop/store/order/list.do');", "&#xe60a;", ""),
+	SYSTEM_Order("order", "订单管理", "javascript:loadUrl('/store/order/list.jsp');", "&#xe60a;", ""),
 	SYSTEM_PaySet("paySet", "支付设置", "javascript:loadUrl('/shop/store/paySet/index.do');", "&#xe620;", ""),
 	SYSTEM_OrderRule("paySet", "订单设置", "javascript:loadUrl('/shop/store/orderRule/index.do');", "&#xe620;", ""),
 	SYSTEM_SmsSet("smsSet", "短信接口", "javascript:loadUrl('/shop/store/sms/index.do');", "&#xe678;", ""),
