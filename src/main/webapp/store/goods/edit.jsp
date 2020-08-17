@@ -49,7 +49,7 @@
 	<div class="layui-form-item" id="xnx3_editMode">
 		<label class="layui-form-label" id="columnEditMode">商品分类</label>
 		<div class="layui-input-block" id="goodsType">
-			//商品分类
+
 		</div>
 	</div>
 	
@@ -196,80 +196,80 @@ layui.use('upload', function(){
 	//upload.render(uploadExtendPhotos);
 });
 	
-	layui.use('laydate', function(){
-		  var laydate = layui.laydate;
-		  
-		  //执行一个laydate实例
-		  laydate.render({
-		    elem: '#soldoutCountdown' //指定元素
-		    ,type: 'datetime'
-	    	,format: 'yyyy-MM-dd HH:mm:ss'
-		  });
-		});	
-	
-	layui.use('laydate', function(){
-		  var laydate = layui.laydate;
-		  
-		  //执行一个laydate实例
-		  laydate.render({
-		    elem: '#onlineCountdown' //指定元素
-		    ,type: 'datetime'
-	    	,format: 'yyyy-MM-dd HH:mm:ss'
-		  });
-		});
-	
-	// 提交修改添加信息
-	function commit() {
-		var d = $("form").serialize();
-		console.log("------");
-		console.log(d);
-		
-		 if($("#title").val() == ''){
-			 msg.failure("请输入标题");
-			return ;
-		} 
-		if($("#inventory").val() == ''){
-			msg.failure("请输入库存数量");
-			return ;
-		}
-		if($("#inventory").val() == ''){
-			msg.failure("请输入库存数量");
-			return ;
-		}
-		if($("#price").val() == ''){
-			msg.failure("请输入价格");
-			return ;
-		}
-		if($("#originalPrice").val() == ''){
-			msg.failure("请输入原价");
-			return ;
-		}
-		if($("#intro").val().length > 40){
-			msg.failure('简介限制40个字符之内');
-			return;
-		}
-		var price = $("#price").val();
-		var originalPrice = $("#originalPrice").val();
-		d = d + "&price=" + Math.round(price*100);
-		d = d + "&originalPrice=" + Math.round(originalPrice*100);
-		//表单序列化
-		parent.msg.loading('保存中');
-		$.post("/shop/store/api/goods/save.json", d, function (result) {
-			parent.msg.close();
-			var obj = JSON.parse(result);
-			if(obj.result == '1'){
-				parent.msg.success("操作成功");
-				window.location.href = '/shop/store/api/goods/list.json';
-			}else if(obj.result == '0'){
-				parent.msg.failure(obj.info);
-			}else{
-				parent.msg.failure('修改失败');
-				
-			}
-		}, "text");
-		
-		return false;
+layui.use('laydate', function(){
+	  var laydate = layui.laydate;
+
+	  //执行一个laydate实例
+	  laydate.render({
+		elem: '#soldoutCountdown' //指定元素
+		,type: 'datetime'
+		,format: 'yyyy-MM-dd HH:mm:ss'
+	  });
+	});
+
+layui.use('laydate', function(){
+	  var laydate = layui.laydate;
+
+	  //执行一个laydate实例
+	  laydate.render({
+		elem: '#onlineCountdown' //指定元素
+		,type: 'datetime'
+		,format: 'yyyy-MM-dd HH:mm:ss'
+	  });
+	});
+
+// 提交修改添加信息
+function commit() {
+	var d = $("form").serialize();
+	console.log("------");
+	console.log(d);
+
+	 if($("#title").val() == ''){
+		 msg.failure("请输入标题");
+		return ;
 	}
+	if($("#inventory").val() == ''){
+		msg.failure("请输入库存数量");
+		return ;
+	}
+	if($("#inventory").val() == ''){
+		msg.failure("请输入库存数量");
+		return ;
+	}
+	if($("#price").val() == ''){
+		msg.failure("请输入价格");
+		return ;
+	}
+	if($("#originalPrice").val() == ''){
+		msg.failure("请输入原价");
+		return ;
+	}
+	if($("#intro").val().length > 40){
+		msg.failure('简介限制40个字符之内');
+		return;
+	}
+	var price = $("#price").val();
+	var originalPrice = $("#originalPrice").val();
+	d = d + "&price=" + Math.round(price*100);
+	d = d + "&originalPrice=" + Math.round(originalPrice*100);
+	//表单序列化
+	parent.msg.loading('保存中');
+	$.post("/shop/store/api/goods/saveAll.json", d, function (result) {
+		parent.msg.close();
+		var obj = JSON.parse(result);
+		if(obj.result == '1'){
+			parent.msg.success("操作成功");
+			window.location.href = '/store/goods/list.jsp';
+		}else if(obj.result == '0'){
+			parent.msg.failure(obj.info);
+		}else{
+			parent.msg.failure('修改失败');
+
+		}
+	}, "text");
+
+	return false;
+}
 	
 var uploadExtendPhotos = {
 		elem: '.uploadImagesButton' //绑定元素
@@ -352,30 +352,30 @@ layui.use('upload', function(){
 	upload.render(uploadExtendPhotos);
 });
 
-	function writeSelectAllOptionFortypeid_(selectValue, firstTitle, required) {
-		var content = "";
-		if (selectValue == '') {
-			content = content + '<option value="" selected="selected">' + firstTitle + '</option>';
-		} else {
-			content = content + '<option value="">' + firstTitle + '</option>';
-		}
-		for (var p in typeid) {
-			if (p == selectValue) {
-				content = content + '<option value="' + p + '" selected="selected">' + typeid[p] + '</option>';
-			} else {
-				content = content + '<option value="' + p + '">' + typeid[p] + '</option>';
-			}
-		}
-		document.getElementById('goodsType').innerHTML='<select name=typeid ' + (required ? 'required': '') + ' lay-verify="typeid" lay-filter="typeid" id="typeid">' + content + '</select>';
-
-		layui.use('form', function() {
-			var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-			form.render();
-		});
+function writeSelectAllOptionFortypeid_(selectValue, firstTitle, required) {
+	var content = "";
+	if (selectValue == '') {
+		content = content + '<option value="" selected="selected">' + firstTitle + '</option>';
+	} else {
+		content = content + '<option value="">' + firstTitle + '</option>';
 	}
-	var putaway = new Array();
-	putaway['0'] = '已下架';
-	putaway['1'] = '上架中';
+	for (var p in typeid) {
+		if (p == selectValue) {
+			content = content + '<option value="' + p + '" selected="selected">' + typeid[p] + '</option>';
+		} else {
+			content = content + '<option value="' + p + '">' + typeid[p] + '</option>';
+		}
+	}
+	document.getElementById('goodsType').innerHTML='<select name=typeid ' + (required ? 'required': '') + ' lay-verify="typeid" lay-filter="typeid" id="typeid">' + content + '</select>';
+
+	layui.use('form', function() {
+		var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+		form.render();
+	});
+}
+var putaway = new Array();
+putaway['0'] = '已下架';
+putaway['1'] = '上架中';
 	/*页面上输出选择框的所有option，显示到页面上*/
 function writeSelectAllOptionForputaway_(selectValue, firstTitle, required) {
 	var content = "";
@@ -415,7 +415,7 @@ post('/shop/store/api/goods/getGoods.json?id=' + id ,"",function(data){
 	}else{
 		//成功
 		goods = data.goods;
-		var goodsData = data.goodsData
+		var goodsData = data.goodsData;
 		document.getElementById("id").value = goods.id;
 		document.getElementById("title").value = goods.title;
 		document.getElementById('titlePicImg').src = goods.titlepic + '?x-oss-process=image/resize,h_38';

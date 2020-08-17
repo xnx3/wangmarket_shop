@@ -172,7 +172,7 @@ public class GoodsController extends BaseController {
 	 * @param inputGoods 接受参数的实体类
 	 */
 	@ResponseBody
-	@RequestMapping(value="/saveAll${url.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/saveAll${api.suffix}",method = {RequestMethod.POST})
 	public com.xnx3.j2ee.vo.BaseVO saveAll(HttpServletRequest request,Goods inputGoods) {
 
 		Integer id = inputGoods.getId();
