@@ -149,7 +149,7 @@ function storeUpdatePassword(){
 		}, function(value, index, elem){
 			layer.close(index);
 			msg.loading('更改中...');
-			$.post("/shop/store/index/updatePassword.do", { "newPassword": value,"oldPassword":value1},
+			$.post("/shop/store/api/index/updatePassword.json", { "newPassword": value,"oldPassword":value1},
 				function(data){
 					msg.close();
 					if(data.result != '1'){
@@ -167,7 +167,7 @@ function storeUpdatePassword(){
 //退出登录
 function logout(){
 	msg.loading('退出中');
-	$.post("/logout.do", function (result) {
+	$.post("/shop/api/login/logout.json", function (result) {
 		msg.close();
 		var obj = JSON.parse(result);
 		if(obj.result == '1'){
