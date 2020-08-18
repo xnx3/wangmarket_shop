@@ -11,9 +11,9 @@ public enum TemplateMenuEnum {
 	SYSTEM_GoodsType("goodsTyle", "商品分类", "javascript:loadUrl('/store/goodsType/list.jsp');", "&#xe62a;", ""),
 	SYSTEM_Goods("goods", "商品管理", "javascript:loadUrl('/store/goods/list.jsp');", "&#xe600;", ""),
 	SYSTEM_Order("order", "订单管理", "javascript:loadUrl('/store/order/list.jsp');", "&#xe60a;", ""),
-	SYSTEM_PaySet("paySet", "支付设置", "javascript:loadUrl('/shop/store/paySet/index.do');", "&#xe620;", ""),
-	SYSTEM_OrderRule("paySet", "订单设置", "javascript:loadUrl('/shop/store/orderRule/index.do');", "&#xe620;", ""),
-	SYSTEM_SmsSet("smsSet", "短信接口", "javascript:loadUrl('/shop/store/sms/index.do');", "&#xe678;", ""),
+	SYSTEM_PaySet("paySet", "支付设置", "javascript:loadUrl('/store/paySet/index.jsp');", "&#xe620;", ""),
+	SYSTEM_OrderRule("paySet", "订单设置", "javascript:loadUrl('/store/orderRule/index.jsp');", "&#xe620;", ""),
+	SYSTEM_SmsSet("smsSet", "短信接口", "javascript:loadUrl('/store/sms/index.jsp');", "&#xe678;", ""),
 	SYSTEM_Api("Api", "API接口", "javascript:loadUrl('http://shop.wang.market/');", "&#xe620;", ""),
 	
 	SYSTEM_XiuGaiMiMa("xiugaimima", "修改密码", "javascript:updatePassword();", "", ""),
