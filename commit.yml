@@ -3,27 +3,66 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'd939e63290471e1102f57667dde22d3a802ffa23'
-    oldFile: !uuid '428fad4266fcc94417f5e7c1b10f20da854ca71c'
+    newFile: !uuid 'e0cbf819d178844b8778c2bc7ea3af6d01b22ddd'
+    oldFile: !uuid 'd939e63290471e1102f57667dde22d3a802ffa23'
   /src/main:
-    newFile: !uuid 'db0fdbada2bdeca710abbe10e5e4402246975f8f'
-    oldFile: !uuid '9a034fb2217eeefbbcf8146de72c0c4e5d9f16d3'
+    newFile: !uuid 'c5a1609fc3f4079074703f6f8e5f3e23e1ca95ec'
+    oldFile: !uuid 'db0fdbada2bdeca710abbe10e5e4402246975f8f'
+  /src/main/java:
+    newFile: !uuid '735892360aa6941c811b637d937cb9e01c3a5bfc'
+    oldFile: !uuid '45e0a6c87e2880ca93a7c9b3a75042853f5a8e7e'
+  /src/main/java/com:
+    newFile: !uuid '645bbf18798253da3c059540eb7da111785d7232'
+    oldFile: !uuid '3f23607c480f07a22b5406bc31779a0bef3029be'
+  /src/main/java/com/xnx3:
+    newFile: !uuid '0beedba5b90dd95ab9a98f64f7c5f35f06a522cb'
+    oldFile: !uuid '5b8721e5a1a8dc0e397c4dca53fadec4fdf29eb4'
+  /src/main/java/com/xnx3/wangmarket:
+    newFile: !uuid '40669de328b2ba89842bcf88acbdd98e9c034fd6'
+    oldFile: !uuid 'd04b1d0e3942487a4f4711049175225e46ec73a5'
+  /src/main/java/com/xnx3/wangmarket/shop:
+    newFile: !uuid '22cb34f8100ffd94ce7bc929189ab7ebf8ce99ae'
+    oldFile: !uuid '36b0025460afae1e79cc0dcd0546d34831ab4e91'
+  /src/main/java/com/xnx3/wangmarket/shop/store:
+    newFile: !uuid 'fe567866afded2d405842b7b47cfd487d349f4cd'
+    oldFile: !uuid 'a0c9d175119042906bb9d9c225b48c396249eaae'
+  /src/main/java/com/xnx3/wangmarket/shop/store/api:
+    newFile: !uuid '09d040d0ccb874ed77f4e39231fb0845e8e87030'
+    oldFile: !uuid '0ce437b29fa8bf4fc03fe9691e18e24cdc3b8ac1'
+  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller:
+    newFile: !uuid '248d7ba11990528d705b57cc2702581f1a746da4'
+    oldFile: !uuid '9f4f8d5f5cfacfd49d3b2551335ed7e1b8fec028'
+  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/PaySetController.java:
+    newFile: !uuid '190a1cda0ff9dde1b794fafcdfd6acc7326d287d'
+    oldFile: !uuid 'a1edffc83503cbd56766f44ee920936dc7f04181'
+  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo:
+    newFile: !uuid '29bd75c3babf1a75797b2aed1b82d7126c5436db'
+    oldFile: !uuid 'f54f8bba4776ccb1753ef1c5b41b494e41cac24c'
+  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo/PaySetVO.java:
+    newFile: !uuid '84506ccf591b4fffcbacd3a10ecd7b71b7527aa2'
+    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/shop/store/util:
+    newFile: !uuid 'af662d2fb04cd2c6afb076936c4babb0cf590ebd'
+    oldFile: !uuid '6532592da2c606ceb98acf22c71ad668a8d70773'
+  /src/main/java/com/xnx3/wangmarket/shop/store/util/TemplateAdminMenu:
+    newFile: !uuid '65171471df3f2de4ce93d46784faa8a6d5477651'
+    oldFile: !uuid '7648f4008292dc56cb76e5ce8a1d01601250e9c5'
+  /src/main/java/com/xnx3/wangmarket/shop/store/util/TemplateAdminMenu/TemplateMenuEnum.java:
+    newFile: !uuid '938b052c8d0f8b0331263ab58d103a7cfbae16d0'
+    oldFile: !uuid '39c8d8b3386c3d4b80f5adb95c2b11509f3074b7'
   /src/main/webapp:
-    newFile: !uuid '5ab15c642c08eb9abeb6683619e2ae438dc87132'
-    oldFile: !uuid '56b4c03e6a25f2e7ba51aa59ae888a2c11c99d0f'
+    newFile: !uuid '6b9aefe5f364488ec9dc1e18d24a868ad5ff570a'
+    oldFile: !uuid '5ab15c642c08eb9abeb6683619e2ae438dc87132'
   /src/main/webapp/store:
-    newFile: !uuid '89c9f9d92452f0050758ef1466cd765179985e11'
-    oldFile: !uuid '76dfe6d3fd9be6962adb13f09b4541cb0a03dce1'
-  /src/main/webapp/store/carouselImage:
-    newFile: !uuid '48d52a1a8689e519af430a5d6c9a0d6ea3d5bea5'
+    newFile: !uuid '2d56e329fa96df272a5582d60d4ff0328e42a45a'
+    oldFile: !uuid '89c9f9d92452f0050758ef1466cd765179985e11'
+  /src/main/webapp/store/paySet:
+    newFile: !uuid 'a4c7233b673eae754b152f2a11873dd967f4dcee'
     oldFile: null
-  /src/main/webapp/store/carouselImage/edit.jsp:
-    newFile: !uuid '8b0f7b3ff22df1525c1686adf113bf0e63562cdf'
+  /src/main/webapp/store/paySet/index.jsp:
+    newFile: !uuid '00e5737bce58ab6cb00cb5be05a46e6de962564d'
     oldFile: null
-  /src/main/webapp/store/carouselImage/list.jsp:
-    newFile: !uuid '2323f52d22ac24e879e142307796aa6a3f7492f6'
-    oldFile: null
-gitCommitId: !uuid '679be7595c9fccdbaed5218f20cf0c74c0174de0'
+gitCommitId: !uuid 'f017202bd9f2dc0bcd0bc40c13f4ea0536126439'
 renames: {
   }
-revisionId: 250
+revisionId: 251
