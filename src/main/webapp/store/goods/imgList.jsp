@@ -79,7 +79,6 @@ layui.use('upload', function(){
 	});
 });
 
-
 //修改信息 id：商品id
 function deleteMes(id){
 	var dtp_confirm = layer.confirm('确定要删除该商品图片？', {
@@ -133,31 +132,20 @@ var goodsId = getUrlParams('id');
 //获取轮播图列表信息
 msg.loading('加载中');
 post('/shop/store/api/goods/imgList.json?id=' + goodsId ,"",function(data){
+msg.close();    //关闭“更改中”的等待提示
+	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 
-	msg.close();    //关闭“更改中”的等待提示
+	if(data.result == '1'){
+		//列表
+		var html = '';
+		for(var index in data.list){
+			var item = data.list[index];
 
-	if(data.result == '2'){
-		//未登录
-		msg.info('请先登录', function(){
-			window.location.href="/store/login/login.jsp";
-		});
-	}else{
-		//已登陆
-		if(data.result == '0'){
-			msg.failure(data.info);
-		}else if(data.result == '1'){
-			//成功
-
-			//列表
-			var html = '';
-			for(var index in data.list){
-				var item = data.list[index];
-
-				html = html + templateReplace(item);
-			}
-			document.getElementById("list").innerHTML = html;
+			html = html + templateReplace(item);
 		}
+		document.getElementById("list").innerHTML = html;
 	}
+
 });
 
 </script>

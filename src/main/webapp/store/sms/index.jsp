@@ -122,6 +122,7 @@ function smsMessageReplace(item){
 
 msg.loading('加载中');
 var smsSet;
+
 post('/shop/store/api/sms/index.json','',function(data){
 	msg.close();    //关闭“更改中”的等待提示
 	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
@@ -132,12 +133,12 @@ post('/shop/store/api/sms/index.json','',function(data){
 		//是否开启短信功能
 		if(smsSet.useSms == 0){
 		document.getElementById('useSms').innerHTML = '&nbsp关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="update(\'useSms\',\'1\');" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
-		document.getElementById('smsMessage').style.display = 'none'
+		document.getElementById('smsMessage').style.display = 'none';
 		}
 		if(smsSet.useSms == 1) {
-			document.getElementById('useSms').innerHTML = '&nbsp开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="update(\'useSms\',\'0\');" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
-			document.getElementById('smsMessage').style.display = 'block'
 			document.getElementById('smsMessage').innerHTML = smsMessageReplace(smsSet);
+			document.getElementById('useSms').innerHTML = '&nbsp开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="update(\'useSms\',\'0\');" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
+			document.getElementById('smsMessage').style.display = 'block';
 		}
 
 	}

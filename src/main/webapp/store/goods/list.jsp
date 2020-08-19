@@ -237,41 +237,6 @@ function templateReplace(item){
 			;
 }
 
-
-
-
-// post('/shop/store/api/goods/list.json' ,"",function(data){
-//
-// 	msg.close();    //关闭“更改中”的等待提示
-//
-// 	if(data.result == '2'){
-// 		//未登录
-// 		msg.info('请先登录', function(){
-// 			window.location.href="/store/login/login.jsp";
-// 		});
-// 	}else{
-// 		//已登陆
-// 		if(data.result == '0'){
-// 			msg.failure(data.info);
-// 		}else if(data.result == '1'){
-// 			//成功
-//
-// 			//列表
-// 			var html = '';
-// 			for(var index in data.list){
-// 				var item = data.list[index];
-//
-// 				html = html + templateReplace(item);
-// 			}
-// 			document.getElementById("list").innerHTML = html;
-// 			//分页
-// 			page.render(data.page);
-// 		}
-// 	}
-// });
-
-
-
 /**
  * 获取分类列表数据
  * @param currentPage 要查看第几页，如传入 1
@@ -285,15 +250,11 @@ function list(currentPage){
 	};
 	msg.loading('加载中');
 	post('/shop/store/api/goods/list.json' ,data,function(data){
-		msg.close();    //关闭“更改中”的等待提示
-		checkLogin(data);	//判断是否登录
+	msg.close();    //关闭“更改中”的等待提示
+	checkLogin(data);	//判断是否登录
 
 		//已登陆
-		if(data.result == '0'){
-			msg.failure(data.info);
-		}else if(data.result == '1'){
-			//成功
-
+		if(data.result == '1'){
 			//列表
 			var html = '';
 			for(var index in data.list){
@@ -305,8 +266,7 @@ function list(currentPage){
 			//分页
 			page.render(data.page);
 		}
-
-	});
+});
 }
 //刚进入这个页面，加载第一页的数据
 list(1);

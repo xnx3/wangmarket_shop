@@ -44,79 +44,81 @@
 </form>
 
 <script>
-	//自适应弹出层大小
-	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-	
-	
-	layui.use('upload', function(){
-		var upload = layui.upload;
-		//上传图片,封面图
-		//upload.render(uploadPic);
-		upload.render({
-			elem: "#uploadImagesButton" //绑定元素
-			,url: '/shop/store/api/common/uploadImage.json' //上传接口
-			,field: 'image'
-			,accept: 'file'
-			,done: function(res){
-				//上传完毕回调
-				//loadClose();
-				msg.close();
-				if(res.result == 1){
-					try{
-						document.getElementById("titlePicInput").value = res.url;
-						document.getElementById("titlePicA").href = res.url;
-						document.getElementById("titlePicImg").src = res.url;
-						document.getElementById("titlePicImg").style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
-					}catch(err){}
-					parent.msg.success("上传成功");
-				}else{
-					parent.msg.failure(res.info);
-				}
+//自适应弹出层大小
+var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+
+
+layui.use('upload', function(){
+	var upload = layui.upload;
+	//上传图片,封面图
+	//upload.render(uploadPic);
+	upload.render({
+		elem: "#uploadImagesButton" //绑定元素
+		,url: '/shop/store/api/common/uploadImage.json' //上传接口
+		,field: 'image'
+		,accept: 'file'
+		,done: function(res){
+			//上传完毕回调
+			//loadClose();
+			msg.close();
+			if(res.result == 1){
+				try{
+					document.getElementById("titlePicInput").value = res.url;
+					document.getElementById("titlePicA").href = res.url;
+					document.getElementById("titlePicImg").src = res.url;
+					document.getElementById("titlePicImg").style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
+				}catch(err){}
+				parent.msg.success("上传成功");
+			}else{
+				parent.msg.failure(res.info);
 			}
-			,error: function(index, upload){
-				//请求异常回调
-				parent.msg.close();
-				parent.msg.failure();
-			}
-			,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-				parent.msg.loading('上传中..');
-			}
-		});
-		
-		//上传图片,图集，v4.6扩展
-		//upload.render(uploadExtendPhotos);
+		}
+		,error: function(index, upload){
+			//请求异常回调
+			parent.msg.close();
+			parent.msg.failure();
+		}
+		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+			parent.msg.loading('上传中..');
+		}
 	});
 
-	
-			
-	function commit() {
-		var d = $("form").serialize();
-		//表单序列化
-		parent.msg.loading("保存中");
-		$.post("/shop/store/api/goods/goodsImageSave.json", d, function (result) {
-			parent.msg.close();
-			var obj = JSON.parse(result);
-			if(obj.result == '1'){
-				parent.parent.msg.success("操作成功");
-				parent.layer.close(index);	//关闭当前窗口
-				parent.location.reload();	//刷新父窗口列表
-			}else if(obj.result == '0'){
-				parent.msg.failure(obj.info);
-			}else{
-				parent.msg.failure("修改失败");
-			}
-		}, "text");
-		
-		return false;
-	}
+	//上传图片,图集，v4.6扩展
+	//upload.render(uploadExtendPhotos);
+});
+
+
+
+function commit() {
+	var d = $("form").serialize();
+	//表单序列化
+	parent.msg.loading("保存中");
+	$.post("/shop/store/api/goods/goodsImageSave.json", d, function (result) {
+		parent.msg.close();
+		var obj = JSON.parse(result);
+		if(obj.result == '1'){
+			parent.parent.msg.success("操作成功");
+			parent.layer.close(index);	//关闭当前窗口
+			parent.location.reload();	//刷新父窗口列表
+		}else if(obj.result == '0'){
+			parent.msg.failure(obj.info);
+		}else{
+			parent.msg.failure("修改失败");
+		}
+	}, "text");
+
+	return false;
+}
 //商品id
 var goodsId = getUrlParams('goodsId');
 var id = getUrlParams('id');
+
 //获取轮播图列表信息
 msg.loading('加载中');
 post('/shop/store/api/goods/getGoodsImage.json?id=' + id +'&goodId=' + goodsId ,"",function(data){
-	msg.close();    //关闭“更改中”的等待提示
-	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+msg.close();    //关闭“更改中”的等待提示
+checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+
 	if(data.result != '1'){
 		document.getElementById('titlePicImg').style.display='none';
 		document.getElementById('goodsid').value = goodsId;

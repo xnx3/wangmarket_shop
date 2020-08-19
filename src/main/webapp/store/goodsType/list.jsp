@@ -155,15 +155,15 @@ function templateReplace(item){
  * @param currentPage 要查看第几页，如传入 1
  */
 function list(currentPage){
-	var data = {
-		'currentPage':currentPage, 
-		'everyNumber':'2',	//这里每页显示2条数据
-		'title':document.getElementById('title').value,
-	};
+var data = {
+	'currentPage':currentPage,
+	'everyNumber':'2',	//这里每页显示2条数据
+	'title':document.getElementById('title').value,
+};
 	msg.loading('加载中');
 	post('/shop/store/api/goodsType/list.json' ,data,function(data){
-		msg.close();    //关闭“更改中”的等待提示
-		checkLogin(data);	//判断是否登录
+	msg.close();    //关闭“更改中”的等待提示
+	checkLogin(data);	//判断是否登录
 
 		//已登陆
 		if(data.result == '0'){
@@ -182,7 +182,6 @@ function list(currentPage){
 			//分页
 			page.render(data.page);
 		}
-
 	});
 }
 //刚进入这个页面，加载第一页的数据

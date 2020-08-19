@@ -269,32 +269,12 @@ layui.use('upload', function(){
 		}
 	});
 });
-/**
- * 时间戳转化为年 月 日 时 分 秒
- * number: 传入时间戳 如 1587653254
- * format：返回格式，如 'Y-M-D h:m:s'
- */
-function formatTime(number,format) {
-	var formateArr  = ['Y','M','D','h','m','s'];
-	var returnArr   = [];
-	var date = new Date(number * 1000);
-	returnArr.push(date.getFullYear());
-	returnArr.push(formatNumber(date.getMonth() + 1));
-	returnArr.push(formatNumber(date.getDate()));
-	returnArr.push(formatNumber(date.getHours()));
-	returnArr.push(formatNumber(date.getMinutes()));
-	returnArr.push(formatNumber(date.getSeconds()));
-	for (var i in returnArr){
-		format = format.replace(formateArr[i], returnArr[i]);
-	}
-	return format;
-}
 
 msg.loading('加载中');
 var store;
 post('/shop/store/api/store/getStore.json',{},function(data){
-	msg.close();    //关闭“更改中”的等待提示
-	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+msg.close();    //关闭“更改中”的等待提示
+checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 
 	if(data.result != '1'){
 		msg.failure(data.info);

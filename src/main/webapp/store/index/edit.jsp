@@ -96,8 +96,9 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 //表单序列化
 parent.msg.loading("保存中");
 $.post("/shop/store/api/store/save.json", d, function (result) {
-	parent.msg.close();
-	var obj = JSON.parse(result);
+parent.msg.close();
+var obj = JSON.parse(result);
+
 	if(obj.result == '1'){
 		parent.parent.msg.success("操作成功");
 		parent.layer.close(index);	//关闭当前窗口
@@ -117,16 +118,16 @@ var latitude = getUrlParams('latitude');
 var province = decodeURI(getUrlParams('province'));
 var city = decodeURI(getUrlParams('city'));
 var district = decodeURI(getUrlParams('district'));
-if(type == 1){
-	document.getElementById("position").style.display="";
-	document.getElementById("longitude").value=longitude;
-	document.getElementById("latitude").value=latitude;
-}else if(type == 2){
-	document.getElementById("region").style.display="";
-	document.getElementById("province").value=province;
-	document.getElementById("city").value=city;
-	document.getElementById("district").value=district;
-}
+	if(type == 1){
+		document.getElementById("position").style.display="";
+		document.getElementById("longitude").value=longitude;
+		document.getElementById("latitude").value=latitude;
+	}else if(type == 2){
+		document.getElementById("region").style.display="";
+		document.getElementById("province").value=province;
+		document.getElementById("city").value=city;
+		document.getElementById("district").value=district;
+	}
 </script>
 
 <jsp:include page="../common/foot.jsp"></jsp:include>

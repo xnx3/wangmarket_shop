@@ -196,8 +196,8 @@ function list(currentPage){
 	};
 	msg.loading('加载中');
 	post('/shop/store/api/carouselImage/list.json' ,data,function(data){
-		msg.close();    //关闭“更改中”的等待提示
-		checkLogin(data);	//判断是否登录
+	msg.close();    //关闭“更改中”的等待提示
+	checkLogin(data);	//判断是否登录
 
 		//已登陆
 		if(data.result == '0'){

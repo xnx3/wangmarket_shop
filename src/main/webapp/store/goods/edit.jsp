@@ -272,40 +272,40 @@ function commit() {
 }
 	
 var uploadExtendPhotos = {
-		elem: '.uploadImagesButton' //绑定元素
-		,url: '/shop/store/api/common/uploadImage.json'  //上传接口
-		,field: 'image'
-		,accept: 'file'
-		,done: function(res){
-			//上传完毕回调
-			parent.msg.close();
-			
-			var key = this.item[0].name;	//拿到传递参数的key，也就是 extend.photos 中，数组某项的下表
-			
-			if(res.result == 1){
-				try{
-					document.getElementById("titlePicInput"+key).value = res.url;
-					document.getElementById("titlePicA"+key).href = res.url;
-					document.getElementById("titlePicImg"+key).src = res.url;
-					document.getElementById("titlePicImg"+key).style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
-					parent.msg.success('上传成功');
-				}catch(err){
-					console.log(err);
-					parent.msg.failure(err);
-				}
-			}else{
-				parent.msg.failure(res.info);
+	elem: '.uploadImagesButton' //绑定元素
+	,url: '/shop/store/api/common/uploadImage.json'  //上传接口
+	,field: 'image'
+	,accept: 'file'
+	,done: function(res){
+		//上传完毕回调
+		parent.msg.close();
+
+		var key = this.item[0].name;	//拿到传递参数的key，也就是 extend.photos 中，数组某项的下表
+
+		if(res.result == 1){
+			try{
+				document.getElementById("titlePicInput"+key).value = res.url;
+				document.getElementById("titlePicA"+key).href = res.url;
+				document.getElementById("titlePicImg"+key).src = res.url;
+				document.getElementById("titlePicImg"+key).style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
+				parent.msg.success('上传成功');
+			}catch(err){
+				console.log(err);
+				parent.msg.failure(err);
 			}
+		}else{
+			parent.msg.failure(res.info);
 		}
-		,error: function(index, upload){
-			//请求异常回调
-			parent.msg.close();
-			parent.msg.failure('异常');
-		}
-		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-			parent.msg.loading('上传中');
-		}
-	};
+	}
+	,error: function(index, upload){
+		//请求异常回调
+		parent.msg.close();
+		parent.msg.failure('异常');
+	}
+	,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+		parent.msg.loading('上传中');
+	}
+};
 	
 	
 			
@@ -398,14 +398,12 @@ function writeSelectAllOptionForputaway_(selectValue, firstTitle, required) {
 	});
 }
 var id = getUrlParams('id');
-var html ='';
 var	goods;
 //获取商品信息
 msg.loading('加载中');
 post('/shop/store/api/goods/getGoods.json?id=' + id ,"",function(data){
-
-	msg.close();    //关闭“更改中”的等待提示
-	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+msg.close();    //关闭“更改中”的等待提示
+checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 
 	if(data.goods == null){
 		document.getElementById('titlePicImg').style.display='none';
@@ -423,7 +421,6 @@ post('/shop/store/api/goods/getGoods.json?id=' + id ,"",function(data){
 		document.getElementById("titlePicInput").value = goods.titlepic;
 		document.getElementById("price").value = goods.price/100;
 		document.getElementById("originalPrice").value = goods.originalPrice/100;
-		//document.getElementById('goodsType').innerHTML =  html +  templateReplace(goods);
 		document.getElementById("inventory").value = goods.inventory;
 		document.getElementById("alarmNum").value = goods.alarmNum;
 		document.getElementById("fakeSale").value = goods.fakeSale;

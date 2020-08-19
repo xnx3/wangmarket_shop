@@ -197,8 +197,8 @@ try{
 
 msg.loading('加载中');
 post('shop/store/api/index/index.json',{},function(data){
-	msg.close();    //关闭“更改中”的等待提示
-	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+msg.close();    //关闭“更改中”的等待提示
+checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 	
 	if(data.result != '1'){
 		msg.failure(data.info);

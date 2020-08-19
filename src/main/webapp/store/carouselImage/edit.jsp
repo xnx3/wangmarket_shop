@@ -188,9 +188,10 @@ function writeSelectAllOptionFortype_(selectValue, firstTitle, required) {
 msg.loading('加载中');
 var id = getUrlParams('id');
 var obj;
+
 post('/shop/store/api/carouselImage//getCarouselImage.json?id='+ id,{},function(data){
-	msg.close();    //关闭“更改中”的等待提示
-	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+msg.close();    //关闭“更改中”的等待提示
+checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 
 	if(data.carouselImage == null){
 		document.getElementById('titlePicImg').style.display='none';
