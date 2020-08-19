@@ -66,10 +66,8 @@ body{padding-left: 30px;}
 	<div style="color: gray;font-size: 12px">
 		<p>说明：开启后，当用户下单进行支付时，可以通过微信进行在线支付</p>
 	</div>
-	
 
 	<div id="WX" style="display: none;">
-
 	
 	<span class="title">是否已进行了微信公众号的300元认证? </span>
 	当前使用 
@@ -244,53 +242,53 @@ function wechatParametersReplace(item){
 }
 msg.loading('加载中');
 var paySet;
+
 post('/shop/store/api/paySet/index.json','',function(data){
-	msg.close();    //关闭“更改中”的等待提示
-	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+msg.close();    //关闭“更改中”的等待提示
+checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 
-	if(data.result == '1'){
+if(data.result == '1'){
 
-		paySet = data.paySet;
-		//是否开启线下支付的方式？
-		if (paySet.usePrivatePay == 0){
-			document.getElementById("usePrivatePay").innerHTML = '&nbsp关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'private\',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
-		}else if(paySet.usePrivatePay == 1){
-			document.getElementById("usePrivatePay").innerHTML = '&nbsp开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'private\',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
-		}
-
-		//是否开启支付宝支付的方式？
-		if(paySet.useAlipay == 0){
-			document.getElementById("useAlipay").innerHTML = '&nbsp关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'alipay\',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
-			document.getElementById("Ali").style.display = 'none'
-		}
-		if(paySet.useAlipay == 1){
-			document.getElementById("useAlipay").innerHTML = '&nbsp开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'alipay\',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
-			document.getElementById("Ali").style.display = 'block'
-		}
-		document.getElementById("Ali").innerHTML = templateReplace(paySet)
-		//是否开启微信支付的方式？
-		if(paySet.useWeixinPay == 0){
-		document.getElementById('useWeixinPay').innerHTML = '&nbsp关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'weixinPay\',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
-		document.getElementById("WX").style.display = 'none'
-		}
-		if(paySet.useWeixinPay == 1){
-		document.getElementById('useWeixinPay').innerHTML = '&nbsp开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'weixinPay\',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
-		document.getElementById("WX").style.display = 'block'
-		}
-		//是否已进行了微信公众号的300元认证?
-		if(paySet.useWeixinServiceProviderPay == 0){
-			weChatOfficialAccountZeroReplace(paySet)
-			document.getElementById("useWeixinServiceProviderPayOne").style.display = 'none'
-			document.getElementById("weChatOfficialAccountOne").style.display = 'none'
-			document.getElementById("weChatOfficialAccountZero").innerHTML = weChatOfficialAccountZeroReplace(paySet);
-			document.getElementById("wechatParameters").innerHTML = wechatParametersReplace(paySet);
-
-		}else if(paySet.useWeixinServiceProviderPay == 1){
-			document.getElementById("useWeixinServiceProviderPayZero").style.display = 'none'
-			document.getElementById("weChatOfficialAccountZero").style.display = 'none'
-			document.getElementById("wechatParameters").innerHTML = wechatParametersReplace(paySet);
-		}
+	paySet = data.paySet;
+	//是否开启线下支付的方式？
+	if (paySet.usePrivatePay == 0){
+		document.getElementById("usePrivatePay").innerHTML = '&nbsp关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'private\',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
+	}else if(paySet.usePrivatePay == 1){
+		document.getElementById("usePrivatePay").innerHTML = '&nbsp开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'private\',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
 	}
+
+	//是否开启支付宝支付的方式？
+	document.getElementById("Ali").innerHTML = templateReplace(paySet);
+	if(paySet.useAlipay == 0){
+		document.getElementById("useAlipay").innerHTML = '&nbsp关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'alipay\',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
+		document.getElementById("Ali").style.display = 'none';
+	}
+	if(paySet.useAlipay == 1){
+		document.getElementById("useAlipay").innerHTML = '&nbsp开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'alipay\',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
+		document.getElementById("Ali").style.display = 'block';
+	}
+	//是否开启微信支付的方式？
+	if(paySet.useWeixinPay == 0){
+	document.getElementById('useWeixinPay').innerHTML = '&nbsp关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'weixinPay\',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
+	document.getElementById("WX").style.display = 'none';
+	}
+	if(paySet.useWeixinPay == 1){
+	document.getElementById('useWeixinPay').innerHTML = '&nbsp开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'weixinPay\',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
+	document.getElementById("WX").style.display = 'block';
+	}
+	//是否已进行了微信公众号的300元认证?
+	if(paySet.useWeixinServiceProviderPay == 0){
+		document.getElementById("weChatOfficialAccountZero").innerHTML = weChatOfficialAccountZeroReplace(paySet);
+		document.getElementById("wechatParameters").innerHTML = wechatParametersReplace(paySet);
+		document.getElementById("useWeixinServiceProviderPayOne").style.display = 'none';
+		document.getElementById("weChatOfficialAccountOne").style.display = 'none';
+
+	}else if(paySet.useWeixinServiceProviderPay == 1){
+		document.getElementById("wechatParameters").innerHTML = wechatParametersReplace(paySet);
+		document.getElementById("useWeixinServiceProviderPayZero").style.display = 'none';
+		document.getElementById("weChatOfficialAccountZero").style.display = 'none';
+	}
+}
 });
 
 </script>
