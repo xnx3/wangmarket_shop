@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -39,7 +40,8 @@ public class UserController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/list${api.suffix}" ,method = {RequestMethod.POST})
-	public UserListVO list(HttpServletRequest request) {
+	public UserListVO list(HttpServletRequest request,
+						   @RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		UserListVO vo = new UserListVO();
 
 		User user = getUser();
@@ -54,10 +56,11 @@ public class UserController extends BaseController {
 		//配置按某个字端搜索内容
 		//sql.setSearchColumn(new String[] {"phone","userid"});
 		int count = sqlService.count("shop_store_user", sql.getWhere());
-		
+
 		// 配置每页显示15条
-		Page page = new Page(count, 15, request);
+		Page page = new Page(count, everyNumber, request);
 		sql.appendWhere("shop_store_user.userid = " + user.getId());
+		//sql.appendWhere("shop_store_user.userid = user.id");
 		sql.setSelectFromAndPage("SELECT user.* FROM user,shop_store_user", page);
 		System.out.println(sql.getSql());
 		// 按照上方条件查询出该实体总数 用集合来装

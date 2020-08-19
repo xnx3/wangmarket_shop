@@ -13,6 +13,7 @@ public class UserBean {
 	private String nickname;	//昵称
 	private String phone;		//手机号
 	private Integer regtime;	//用户注册的时间
+	private String regip;		//用户注册ip
 	
 	public Integer getId() {
 		return id;
@@ -74,5 +75,16 @@ public class UserBean {
 			this.regtime = regtime;
 		}
 	}
-	
+
+	public String getRegip() {
+		return regip;
+	}
+
+	public void setRegip(String regip) {
+		if(regip.isEmpty()) {
+			this.regip = "0.0.0.0";
+		}else {
+			this.regip = regip;
+		}
+	}
 }

@@ -5,9 +5,9 @@ package com.xnx3.wangmarket.shop.store.util.TemplateAdminMenu;
  *
  */
 public enum TemplateMenuEnum {
-	SYSTEM_StoreSet("storeset", "商家设置", "javascript:loadUrl('/shop/store/index/welcome.do');", "&#xe60b;", ""),
+	SYSTEM_StoreSet("storeset", "商家设置", "javascript:loadUrl('/store/index/welcome.jsp');", "&#xe60b;", ""),
 	SYSTEM_CarouselImage("carouselImage", "轮播图", "javascript:loadUrl('/store/carouselImage/list.jsp');", "&#xe634;", ""),
-	SYSTEM_User("user", "用户管理", "javascript:loadUrl('/shop/store/user/list.do');", "&#xe66f;", ""),
+	SYSTEM_User("user", "用户管理", "javascript:loadUrl('/store/user/list.jsp');", "&#xe66f;", ""),
 	SYSTEM_GoodsType("goodsTyle", "商品分类", "javascript:loadUrl('/store/goodsType/list.jsp');", "&#xe62a;", ""),
 	SYSTEM_Goods("goods", "商品管理", "javascript:loadUrl('/store/goods/list.jsp');", "&#xe600;", ""),
 	SYSTEM_Order("order", "订单管理", "javascript:loadUrl('/store/order/list.jsp');", "&#xe60a;", ""),
