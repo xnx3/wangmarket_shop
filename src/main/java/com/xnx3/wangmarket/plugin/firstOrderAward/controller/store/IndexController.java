@@ -1,28 +1,30 @@
 package com.xnx3.wangmarket.plugin.firstOrderAward.controller.store;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.plugin.firstOrderAward.entity.Award;
+import com.xnx3.wangmarket.plugin.vo.AwardVO;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 推广用户，用户下单消费后，推广人获赠某个商品
- * @author 管雷鸣
+ * @author 刘鹏
  */
-@Controller(value="FirstOrderAwardStoreIndexPluginController")
-@RequestMapping("/plugin/firstOrderAward/store/")
+@Controller(value="FirstOrderAwardStoreIndexPluginApiController")
+@RequestMapping("/plugin/api/firstOrderAward/store/")
 public class IndexController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
@@ -32,14 +34,18 @@ public class IndexController extends BasePluginController {
 	 * 设置哪个商品作为赠品，奖品
 	 * @param code 64位登录码
 	 * @param token 约定的token
+	 * @author 刘鹏
 	 * @return 若成功，info返回session id
 	 */
-	@RequestMapping("setAward${url.suffix}")
-	public String setAward(HttpServletRequest request,Model model,
+	@ResponseBody
+	@RequestMapping(value = "setAward${api.suffix}",method = {RequestMethod.POST})
+	public AwardVO setAward(HttpServletRequest request,Model model,
 			@RequestParam(value = "code", required = false, defaultValue="") String code,
 			@RequestParam(value = "token", required = false, defaultValue="") String token){
+		AwardVO vo = new AwardVO();
+
 		if(!haveStoreAuth()){
-			return error(model, "请先登录");
+			 vo.setBaseVO(BaseVO.FAILURE, "请先登录");
 		}
 		
 		Store store = SessionUtil.getStore();
@@ -59,18 +65,18 @@ public class IndexController extends BasePluginController {
 //		}
 //		
 		ActionLogUtil.insertUpdateDatabase(request, "进入设置页面");
-		model.addAttribute("award", award);
-		return "plugin/firstOrderAward/store/setAward";
+		vo.setAward(award);
+		return vo;
 	}
 	
 
 	/**
 	 * 管理后台设置保存是否使用
 	 * @param isUse 是否使用， 1使用， 0不使用
-	 * @author 管雷鸣
+	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping("updateIsUse${url.suffix}")
+	@RequestMapping(value = "updateIsUse${api.suffix}",method = {RequestMethod.POST})
 	public BaseVO updateIsUse(HttpServletRequest request, Model model,
 			@RequestParam(value = "isUse", required = false, defaultValue = "0") int isUse) {
 		if(!haveStoreAuth()){
@@ -83,11 +89,11 @@ public class IndexController extends BasePluginController {
 			award = new Award();
 			award.setId(store.getId());
 		}
-		award.setIsUse(isUse == 1? Award.IS_USE_YES:Award.IS_USE_NO);//默认不使用
+		award.setIsUse(isUse == 1? Award.IS_USE_YES: Award.IS_USE_NO);//默认不使用
 		sqlService.save(award);
 		
 		//日志
-		ActionLogUtil.insertUpdateDatabase(request, "修改 isUse 为"+(award.getIsUse()-Award.IS_USE_YES == 0? "使用":"不使用"));
+		ActionLogUtil.insertUpdateDatabase(request, "修改 isUse 为"+(award.getIsUse()- Award.IS_USE_YES == 0? "使用":"不使用"));
 		//MQ通知改动,向 domain 项目发送mq更新消息
 //		DomainMQ.send("cnzz", new PluginMQ(site).jsonAppend(JSONObject.fromObject(EntityUtil.entityToMap(cnzz))).toString());
 		
@@ -101,7 +107,7 @@ public class IndexController extends BasePluginController {
 	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping("/updateGoodsid${url.suffix}")
+	@RequestMapping(value = "/updateGoodsid${api.suffix}",method = RequestMethod.POST)
 	public BaseVO updateGoodsid(HttpServletRequest request, Model model,
 			@RequestParam(value = "goodsid", required = false, defaultValue = "0") int goodsid) {
 		if(!haveStoreAuth()){
