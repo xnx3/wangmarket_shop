@@ -1,6 +1,5 @@
 package com.xnx3.wangmarket.plugin.limitbuy;
 
-import java.util.List;
 import com.xnx3.BaseVO;
 import com.xnx3.CacheUtil;
 import com.xnx3.j2ee.entity.User;
@@ -23,12 +22,14 @@ import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderReceiveGoodsIn
 import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.impl.OrderServiceImpl;
 
+import java.util.List;
+
 /**
  * 限量购买。这里是针对整个商城所有商品的限购
  * 新用户只可以购买几一次，无论是哪个商品，只有设定的几次购买机会。
  * @author 管雷鸣
  */
-@PluginRegister(menuTitle = "商城限购",menuHref="/plugin/limitbuy/store/index.do", applyToCMS=true, intro="新用户只可以购买一次，无论是哪个商品，只有1次购买机会。", version="1.0", versionMin="1.0")
+@PluginRegister(menuTitle = "商城限购",menuHref="/plugin/limitbuy/store/index.jsp", applyToCMS=true, intro="新用户只可以购买一次，无论是哪个商品，只有1次购买机会。", version="1.0", versionMin="1.0")
 public class Plugin implements OrderCreateInterface, OrderPayFinishInterface, OrderReceiveGoodsInterface{
 	//用户在店铺的订单数（除了未付款的订单之外的）
 	public final static String CACHE_KEY = "shop:plugin:limitbuy:{storeid}:{userid}:ordernumber";
