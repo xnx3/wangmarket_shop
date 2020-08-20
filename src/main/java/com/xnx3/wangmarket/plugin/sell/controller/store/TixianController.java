@@ -3,9 +3,13 @@ package com.xnx3.wangmarket.plugin.sell.controller.store;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import com.xnx3.wangmarket.plugin.sell.vo.SellTiXianLogListVO;
+import com.xnx3.wangmarket.plugin.sell.vo.SellTiXianLogVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,8 +29,8 @@ import com.xnx3.wangmarket.shop.store.util.SessionUtil;
  * 二级分销，商家管理后台
  * @author 管雷鸣
  */
-@Controller(value="SellStoreTixianPluginController")
-@RequestMapping("/plugin/sell/store/tixian/")
+@Controller(value="SellStoreTixianPluginApiController")
+@RequestMapping("/plugin/api/sell/store/tixian/")
 public class TixianController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
@@ -36,10 +40,13 @@ public class TixianController extends BasePluginController {
 	 * 查看提现申请记录列表
 	 * @author 管雷鸣
 	 */
-	@RequestMapping("/list${url.suffix}")
-	public String list(HttpServletRequest request,Model model) {
+	@ResponseBody
+	@RequestMapping(value = "/list${api.suffix}",method = {RequestMethod.POST})
+	public SellTiXianLogListVO list(HttpServletRequest request,Model model) {
+
+		SellTiXianLogListVO vo = new SellTiXianLogListVO();
 		if(!haveStoreAuth()){
-			return error(model,"请先登录");
+		vo.setBaseVO(BaseVO.FAILURE,"请先登录");
 		}
 		Store store = SessionUtil.getStore();
 		
@@ -64,38 +71,41 @@ public class TixianController extends BasePluginController {
 		List<SellTiXianLog> list = sqlService.findBySql(sql,SellTiXianLog.class);
 		
 		// 将信息保存到model中 
-		model.addAttribute("list", list);
-		model.addAttribute("page", page);
+		vo.setList(list);
+		vo.setPage(page);
 		//日志记录
 		ActionLogUtil.insert(request, getUserId(), "查看提现申请记录列表");
-		return "plugin/sell/store/tixian/list";
+		return vo;
 	}
 	
 	/**
 	 * 查看提现详情
 	 * @param id {@link SellTiXianLog}.id 要查看的是哪个提现的信息
 	 */
-	@RequestMapping("/detail${url.suffix}")
-	public String detail(HttpServletRequest request,Model model,
+	@ResponseBody
+	@RequestMapping(value = "/detail${api.suffix}",method = {RequestMethod.POST})
+	public SellTiXianLogVO detail(HttpServletRequest request,Model model,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+		SellTiXianLogVO vo = new SellTiXianLogVO();
+
 		if(!haveStoreAuth()){
-			return error(model,"请先登录");
+			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
 		}
 		Store store = SessionUtil.getStore();
 		
 		SellTiXianLog log = sqlService.findById(SellTiXianLog.class, id);
 		if(log == null){
-			return error(model, "提现记录不存在");
+			vo.setBaseVO(BaseVO.FAILURE,"提现记录不存在");
 		}
 		if(log.getStoreid() - store.getId() != 0){
-			return error(model, "记录不属于你，无权查看");
+			vo.setBaseVO(BaseVO.FAILURE,"记录不属于你，无权查看");
 		}
-		
-		
-		model.addAttribute("log", log);
+
+		vo.setSellTiXianLog(log);
+		System.out.println(log);
 		//日志记录
 		ActionLogUtil.insert(request, getUserId(), "查看提现申请记录", log.toString());
-		return "plugin/sell/store/tixian/detail";
+		return vo;
 	}
 	
 	/**
@@ -104,7 +114,7 @@ public class TixianController extends BasePluginController {
 	 * @param state 审核，要将state字段变为的值，可传入 1审核通过、2拒绝
 	 */
 	@ResponseBody
-	@RequestMapping("/audit${api.suffix}")
+	@RequestMapping(value = "/audit${api.suffix}",method = {RequestMethod.POST})
 	public BaseVO audit(HttpServletRequest request,Model model,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
 			@RequestParam(value = "state", required = false, defaultValue = "0") short state) {

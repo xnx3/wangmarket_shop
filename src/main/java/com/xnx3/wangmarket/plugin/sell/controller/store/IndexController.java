@@ -2,6 +2,8 @@ package com.xnx3.wangmarket.plugin.sell.controller.store;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import com.xnx3.wangmarket.plugin.vo.SellStoreSetVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +25,8 @@ import com.xnx3.wangmarket.shop.store.util.SessionUtil;
  * 二级分销，商家管理后台
  * @author 管雷鸣
  */
-@Controller(value="SellStoreIndexPluginController")
-@RequestMapping("/plugin/sell/store/")
+@Controller(value="SellStoreIndexPluginApiController")
+@RequestMapping("/plugin/api/sell/store/")
 public class IndexController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
@@ -34,22 +36,27 @@ public class IndexController extends BasePluginController {
 	/**
 	 * 设置分销奖励
 	 */
-	@RequestMapping("index${url.suffix}")
-	public String index(HttpServletRequest request,Model model){
+	@ResponseBody
+	@RequestMapping(value = "index${api.suffix}",method = {RequestMethod.POST})
+	public BaseVO index(HttpServletRequest request,Model model){
+		BaseVO vo = new BaseVO();
 		if(!haveStoreAuth()){
-			return error(model, "请先登录");
+		vo.setBaseVO(com.xnx3.BaseVO.FAILURE,"请先登录");
 		}
 		ActionLogUtil.insertUpdateDatabase(request, "进入后台分销首页");
-		return "plugin/sell/store/index";
+		return vo;
 	}
 	
 	/**
 	 * 设置分销奖励，设置页面
 	 */
-	@RequestMapping("set${url.suffix}")
-	public String set(HttpServletRequest request,Model model){
+	@ResponseBody
+	@RequestMapping(value = "set${api.suffix}",method = {RequestMethod.POST})
+	public SellStoreSetVO set(HttpServletRequest request,Model model){
+
+		SellStoreSetVO vo = new SellStoreSetVO();
 		if(!haveStoreAuth()){
-			return error(model, "请先登录");
+			vo.setBaseVO(com.xnx3.BaseVO.FAILURE,"请先登录");
 		}
 		
 		Store store = SessionUtil.getStore();
@@ -64,8 +71,8 @@ public class IndexController extends BasePluginController {
 		}
 		
 		ActionLogUtil.insertUpdateDatabase(request, "进入分销设置页面");
-		model.addAttribute("set", set);
-		return "plugin/sell/store/set";
+		vo.setSet(set);
+		return vo;
 	}
 	
 	/**

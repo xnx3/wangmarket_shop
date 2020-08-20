@@ -17,7 +17,7 @@ import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderReceiveGoodsIn
  * 二级分销，推荐有收入。这里以用户实际支付的订单金额，根据其百分比来计算佣金收入
  * @author 管雷鸣
  */
-@PluginRegister(menuTitle = "二级分销",menuHref="/plugin/sell/store/index.do", applyToCMS=true, intro="A用户推荐新用户B注册，B消费后，A有收入。B推荐C注册，C消费后，B跟A都有收入。", version="1.0", versionMin="1.0")
+@PluginRegister(menuTitle = "二级分销",menuHref="/plugin/sell/store/index.jsp", applyToCMS=true, intro="A用户推荐新用户B注册，B消费后，A有收入。B推荐C注册，C消费后，B跟A都有收入。", version="1.0", versionMin="1.0")
 public class Plugin implements OrderReceiveGoodsInterface{
 
 	@Override
