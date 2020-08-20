@@ -3,66 +3,63 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '96bb0b9c6dafbde5e7e14970a658814f578d237a'
-    oldFile: !uuid 'd538eab97fde75e7c1888aee90369bd73e0cf742'
+    newFile: !uuid 'fc1c39970e2c923984a2c763b76714826ad83abc'
+    oldFile: !uuid '96bb0b9c6dafbde5e7e14970a658814f578d237a'
   /src/main:
-    newFile: !uuid 'e50db373d65e387364610e9ca43fc40ba9208145'
-    oldFile: !uuid 'a584e186dd4ce423ab040e4e3bcb238155171019'
+    newFile: !uuid '450abac4d96450a26a53d4021fc335522e23cb73'
+    oldFile: !uuid 'e50db373d65e387364610e9ca43fc40ba9208145'
   /src/main/java:
-    newFile: !uuid '8b336fe72b576b238ac2fc0d8b0aa18d1ac082fa'
-    oldFile: !uuid '42fc179f2da58538f8a032174ccd972096526d98'
+    newFile: !uuid 'ec2cba002376227eb727e62eaf6685c64becfadb'
+    oldFile: !uuid '8b336fe72b576b238ac2fc0d8b0aa18d1ac082fa'
   /src/main/java/com:
-    newFile: !uuid '8d99f70ce932369d3b0a47043550864ce34d0444'
-    oldFile: !uuid '6ef108cc43859388e96e5eb93c19edbfb5a80874'
+    newFile: !uuid 'b4ffce9d63f16663fb5cad320d7495dd3d7e412a'
+    oldFile: !uuid '8d99f70ce932369d3b0a47043550864ce34d0444'
   /src/main/java/com/xnx3:
-    newFile: !uuid 'ab9fad4ddaf95fcbdc14d41909f5ff69487c995e'
-    oldFile: !uuid '7d26bb2cf35f3177c9a30358d2737468b93db663'
+    newFile: !uuid '471a9863088e3495b3a977e68a773b87fdd58efc'
+    oldFile: !uuid 'ab9fad4ddaf95fcbdc14d41909f5ff69487c995e'
   /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '2afb0ccf2ef9fddb936ef1e00309f3267167ec74'
-    oldFile: !uuid '15825ec81a7a74339420716f11a5f896fca4f542'
+    newFile: !uuid '816f054b891c6f1041a263e5e0f127e96c182ba5'
+    oldFile: !uuid '2afb0ccf2ef9fddb936ef1e00309f3267167ec74'
   /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid 'c31abf30c4dab92f7c2db79bd7cec73a32ea5f05'
-    oldFile: !uuid 'c90e0713f06af63d031ffd6e13db45e6834cae4f'
-  /src/main/java/com/xnx3/wangmarket/plugin/storeSubAccount:
-    newFile: !uuid '9f41642a742aa240a9634f26cca4cb638d2d5a3e'
-    oldFile: !uuid '222823ec5121d712a281a97eff5dd9835a30d8ab'
-  /src/main/java/com/xnx3/wangmarket/plugin/storeSubAccount/Plugin.java:
-    newFile: !uuid 'ad30a316598b1419a0e16777b011feb9a9b53821'
-    oldFile: !uuid '1122d74534999ba91ec41c823e9c0697d0eb7f6d'
-  /src/main/java/com/xnx3/wangmarket/plugin/storeSubAccount/controller:
-    newFile: !uuid '669955f89086df832750348bbfe8c171937a8c0c'
-    oldFile: !uuid '4514d2a0c4ad7510afe6479761fe736f8f1673e6'
-  /src/main/java/com/xnx3/wangmarket/plugin/storeSubAccount/controller/UserStoreSubAccountPluginController.java:
-    newFile: !uuid '12d011324004cdc755f8ac48b76bd93bd3ce56e6'
-    oldFile: !uuid 'd5a5d391064d2a4499cc3e1bb7803e0d91b76f4e'
+    newFile: !uuid 'f2eec5ae2130d1f25123bd29b31a63dae9ff125d'
+    oldFile: !uuid 'c31abf30c4dab92f7c2db79bd7cec73a32ea5f05'
   /src/main/java/com/xnx3/wangmarket/plugin/vo:
-    newFile: !uuid '47ab4948d9507c211a39c3ba2d5923bc584e66bd'
-    oldFile: !uuid '40e1a45becadcb49b184e47c0b55a565b56520f9'
-  /src/main/java/com/xnx3/wangmarket/plugin/vo/UserEditVO.java:
-    newFile: !uuid 'e33b59684b5b690b4602219d80fbeede181f4708'
+    newFile: !uuid '988bc692417a96681a8200426f6a6a4d044cab97'
+    oldFile: !uuid '47ab4948d9507c211a39c3ba2d5923bc584e66bd'
+  /src/main/java/com/xnx3/wangmarket/plugin/vo/WeiXinAuthVO.java:
+    newFile: !uuid 'd1024830a65595bb178e07c2a00064aa1a61152d'
     oldFile: null
-  /src/main/java/com/xnx3/wangmarket/plugin/vo/UserListVO.java:
-    newFile: !uuid 'e49b0bb2b2dafc50a4162ded1a7059966576542d'
-    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth:
+    newFile: !uuid '372cc952f19daf1dd0ae3a5fed98a150fdacef38'
+    oldFile: !uuid 'cbd5689104d76a04585dd9c2b04332641a429a51'
+  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth/Plugin.java:
+    newFile: !uuid 'f89d12411c80dbdfc1d9cc1e4360d48c177f2f17'
+    oldFile: !uuid '5cd860a8019158fa87c47747979a1164f7f39e6b'
+  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth/controller:
+    newFile: !uuid 'ae3fa885061c0dbff2286a73c1325573385bc901'
+    oldFile: !uuid 'd8c17ce9b6e46efc71d81dd98eb0f397e7d2e331'
+  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth/controller/store:
+    newFile: !uuid 'bb355bd0ff3bcb937143eb3f71db914851e33a28'
+    oldFile: !uuid '302b717935dc1dd1fa61af22fb3f3a1436a2ef59'
+  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth/controller/store/IndexController.java:
+    newFile: !uuid 'df6ed3728342147dcca9f8fcbd9bc7447f36550b'
+    oldFile: !uuid 'd48f8f314d0b5553ab078bf835128e10b3f9117c'
   /src/main/webapp:
-    newFile: !uuid '9af3ad2254b01b6e87f04c93f7479dcb0bb6b139'
-    oldFile: !uuid '47a11fe5c20405db80f2d1571389d83e5e33dd3e'
+    newFile: !uuid '8e10e6693f7fabaaa9fa9f733b9c2c81a6ac340e'
+    oldFile: !uuid '9af3ad2254b01b6e87f04c93f7479dcb0bb6b139'
   /src/main/webapp/plugin:
-    newFile: !uuid '7da58861c7b4b06499a1ba45319d3148d72f34cc'
-    oldFile: !uuid 'cc8a29aab9c59cdc130bf0533fae0c5f4131d35c'
-  /src/main/webapp/plugin/storeSubAccount:
-    newFile: !uuid 'e8fb5fa3ca4ea7471f5f142b7634a9dd58b45971'
+    newFile: !uuid '388d0901bd62bd4101deffd322e7c8d8331dfcb5'
+    oldFile: !uuid '7da58861c7b4b06499a1ba45319d3148d72f34cc'
+  /src/main/webapp/plugin/weixinH5Auth:
+    newFile: !uuid 'bac9afcaddb17df9d2be999dd103c4526731b392'
     oldFile: null
-  /src/main/webapp/plugin/storeSubAccount/user:
-    newFile: !uuid 'd8596ee76f9a1b594138cf0f53919183fbfc7cdc'
+  /src/main/webapp/plugin/weixinH5Auth/store:
+    newFile: !uuid 'fe26d5d073252009dc74de542ab1f710f1c3e329'
     oldFile: null
-  /src/main/webapp/plugin/storeSubAccount/user/edit.jsp:
-    newFile: !uuid '1dab3a89a2713e4bdc235fc30924ddc75dbf5720'
+  /src/main/webapp/plugin/weixinH5Auth/store/index.jsp:
+    newFile: !uuid 'f5fbce1d93b2af121420bc6e6a3ed643c1f22034'
     oldFile: null
-  /src/main/webapp/plugin/storeSubAccount/user/list.jsp:
-    newFile: !uuid '63101916938dcefb0dd49391e820b520de03ee71'
-    oldFile: null
-gitCommitId: !uuid '4f7cfbd7d0651f6fad7e68e931095bd0356aa505'
+gitCommitId: !uuid '44bb21a458b4cebc7fe26550b502886c95ed9c68'
 renames: {
   }
-revisionId: 261
+revisionId: 262
