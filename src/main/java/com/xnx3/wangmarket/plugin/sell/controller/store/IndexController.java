@@ -3,7 +3,7 @@ package com.xnx3.wangmarket.plugin.sell.controller.store;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.xnx3.wangmarket.plugin.vo.SellStoreSetVO;
+import com.xnx3.wangmarket.plugin.sell.vo.SellStoreSetVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +52,7 @@ public class IndexController extends BasePluginController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "set${api.suffix}",method = {RequestMethod.POST})
-	public SellStoreSetVO set(HttpServletRequest request,Model model){
+	public SellStoreSetVO set(HttpServletRequest request, Model model){
 
 		SellStoreSetVO vo = new SellStoreSetVO();
 		if(!haveStoreAuth()){
@@ -71,7 +71,7 @@ public class IndexController extends BasePluginController {
 		}
 		
 		ActionLogUtil.insertUpdateDatabase(request, "进入分销设置页面");
-		vo.setSet(set);
+		vo.setSellSet(set);
 		return vo;
 	}
 	

@@ -1,9 +1,8 @@
-package com.xnx3.wangmarket.plugin.vo;
+package com.xnx3.wangmarket.plugin.weixinH5Auth.vo;
 
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
-import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
 /**
  * 微信网页授权

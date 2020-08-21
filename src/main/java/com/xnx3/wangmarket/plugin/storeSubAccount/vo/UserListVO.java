@@ -1,25 +1,26 @@
-package com.xnx3.wangmarket.plugin.vo;
+package com.xnx3.wangmarket.plugin.storeSubAccount.vo;
 
+import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.wangmarket.plugin.sell.entity.SellTiXianLog;
 
 import java.util.List;
 
 /**
- * 提现申请记录列表
+ * 当前商城的子用户列表
  * @author 刘鹏
  */
-public class SellTiXianLogListVO extends BaseVO {
+public class UserListVO extends BaseVO {
 
-    private List<SellTiXianLog> list;
+    private List<User> list;
+
     private Page page;
 
-    public List<SellTiXianLog> getList() {
+    public List<User> getList() {
         return list;
     }
 
-    public void setList(List<SellTiXianLog> list) {
+    public void setList(List<User> list) {
         this.list = list;
     }
 
@@ -33,7 +34,7 @@ public class SellTiXianLogListVO extends BaseVO {
 
     @Override
     public String toString() {
-        return "SellTiXianLogListVO{" +
+        return "UserListVO{" +
                 "list=" + list +
                 ", page=" + page +
                 '}';

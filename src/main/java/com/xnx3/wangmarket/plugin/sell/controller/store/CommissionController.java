@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xnx3.BaseVO;
-import com.xnx3.wangmarket.plugin.vo.SellCommissionLogListVO;
+import com.xnx3.wangmarket.plugin.sell.vo.SellCommissionLogListVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +17,7 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
-import com.xnx3.wangmarket.plugin.firstOrderAward.entity.Award;
 import com.xnx3.wangmarket.plugin.sell.entity.SellCommissionLog;
-import com.xnx3.wangmarket.plugin.sell.entity.SellStoreSet;
-import com.xnx3.wangmarket.shop.core.entity.Goods;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
@@ -42,8 +39,8 @@ public class CommissionController extends BasePluginController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/list${api.suffix}",method = {RequestMethod.POST})
-	public SellCommissionLogListVO list(HttpServletRequest request,Model model,
-					   @RequestParam(value = "everyNumber", required = false, defaultValue = "30") int everyNumber) {
+	public SellCommissionLogListVO list(HttpServletRequest request, Model model,
+										@RequestParam(value = "everyNumber", required = false, defaultValue = "30") int everyNumber) {
 
 		SellCommissionLogListVO vo = new SellCommissionLogListVO();
 

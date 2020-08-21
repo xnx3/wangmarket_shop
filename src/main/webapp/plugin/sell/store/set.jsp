@@ -175,7 +175,7 @@ post('/plugin/api/sell/store/set.json',{},function(data){
 		msg.failure(data.info);
 	}else {
 		//登录成功
-		set	= data.set;
+		set	= data.sellSet;
 		useChange(set.isUse == 1);
 		if (set.isUse == 1) {
 			document.getElementById('button').innerHTML = '<input type="checkbox" id="switchInputId" name="isUse" value="1" lay-filter="isUse" lay-skin="switch" lay-text="开启|关闭" checked>';

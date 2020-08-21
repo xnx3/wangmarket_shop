@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xnx3.BaseVO;
-import com.xnx3.wangmarket.plugin.vo.WeiXinAuthVO;
+import com.xnx3.wangmarket.plugin.weixinH5Auth.vo.WeiXinAuthVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +38,7 @@ public class IndexController extends BasePluginController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "index${api.suffix}",method = {RequestMethod.POST})
-	public WeiXinAuthVO index(HttpServletRequest request,Model model){
+	public WeiXinAuthVO index(HttpServletRequest request, Model model){
 
 		WeiXinAuthVO vo = new WeiXinAuthVO();
 

@@ -4,7 +4,7 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.plugin.firstOrderAward.entity.Award;
-import com.xnx3.wangmarket.plugin.vo.AwardVO;
+import com.xnx3.wangmarket.plugin.firstOrderAward.vo.AwardVO;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
@@ -39,9 +39,9 @@ public class IndexController extends BasePluginController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "setAward${api.suffix}",method = {RequestMethod.POST})
-	public AwardVO setAward(HttpServletRequest request,Model model,
-			@RequestParam(value = "code", required = false, defaultValue="") String code,
-			@RequestParam(value = "token", required = false, defaultValue="") String token){
+	public AwardVO setAward(HttpServletRequest request, Model model,
+							@RequestParam(value = "code", required = false, defaultValue="") String code,
+							@RequestParam(value = "token", required = false, defaultValue="") String token){
 		AwardVO vo = new AwardVO();
 
 		if(!haveStoreAuth()){

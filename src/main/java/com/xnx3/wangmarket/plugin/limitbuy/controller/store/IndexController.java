@@ -5,7 +5,7 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.plugin.limitbuy.entity.LimitBuyStore;
-import com.xnx3.wangmarket.plugin.vo.LimitBuyStoreVO;
+import com.xnx3.wangmarket.plugin.limitbuy.vo.LimitBuyStoreVO;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
@@ -37,7 +37,7 @@ public class IndexController extends BasePluginController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "index${api.suffix}",method = {RequestMethod.POST})
-	public LimitBuyStoreVO setAward(HttpServletRequest request,Model model){
+	public LimitBuyStoreVO setAward(HttpServletRequest request, Model model){
 
 		LimitBuyStoreVO vo = new LimitBuyStoreVO();
 

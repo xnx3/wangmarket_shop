@@ -1,4 +1,4 @@
-package com.xnx3.wangmarket.plugin.vo;
+package com.xnx3.wangmarket.plugin.sell.vo;
 
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.vo.BaseVO;

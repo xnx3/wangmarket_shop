@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
-import com.xnx3.wangmarket.plugin.vo.StoreListVO;
+import com.xnx3.wangmarket.plugin.autoApplyStore.vo.StoreListVO;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +37,7 @@ public class IndexController extends BasePluginController {
 	@ResponseBody
 	@RequestMapping(value = "/list${api.suffix}",method = {RequestMethod.POST})
 	public StoreListVO list(HttpServletRequest request, Model model,
-					   @RequestParam(value = "everyNumber", required = false, defaultValue ="15") int everyNumber){
+							@RequestParam(value = "everyNumber", required = false, defaultValue ="15") int everyNumber){
 
 		StoreListVO vo = new StoreListVO();
 		//创建Sql

@@ -1,4 +1,4 @@
-package com.xnx3.wangmarket.plugin.vo;
+package com.xnx3.wangmarket.plugin.firstOrderAward.vo;
 
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.plugin.firstOrderAward.entity.Award;

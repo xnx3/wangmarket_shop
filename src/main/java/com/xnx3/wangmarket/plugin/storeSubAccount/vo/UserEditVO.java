@@ -1,4 +1,4 @@
-package com.xnx3.wangmarket.plugin.vo;
+package com.xnx3.wangmarket.plugin.storeSubAccount.vo;
 
 
 import com.xnx3.j2ee.entity.User;
