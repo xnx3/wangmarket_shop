@@ -144,10 +144,15 @@ post('/plugin/api/storeSubAccount/user/edit.json?userid=' + userId,{},function(d
 		$.map(menuMap,function(key,value){
 
 			html = html + authorityOneReplace(key)
-
 		});
-		document.getElementById("tbody").innerHTML = html
-		var elem=document.getElementById('td').style.display = 'none'; // 按 id 获取要删除的元素
+		document.getElementById("tbody").innerHTML = html;
+		//重新渲染layui选择框样式
+		layui.use('form', function(){
+		  var form = layui.form;
+		  form.render();
+		});
+		
+		document.getElementById('td').style.display = 'none'; // 按 id 获取要删除的元素
 		// elem.parentNode.removeChild(elem)
 
 		//编辑时，用户是看不到用户名密码的
@@ -156,9 +161,8 @@ post('/plugin/api/storeSubAccount/user/edit.json?userid=' + userId,{},function(d
 			document.getElementById('password_div').style.display='none';
 			document.getElementById("username").value = user.username;
 			document.getElementById("userid").value = user.id;
-
 		}
-
+	
 	}
 
 });
