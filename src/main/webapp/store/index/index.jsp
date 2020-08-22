@@ -215,6 +215,12 @@ checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录
 		}else{
 			//$(".itemA").css("color","rgba(255, 255, 255, 0.7)");
 		}
+		
+		//刷新插件的layui导航
+		layui.use('element', function(){
+		  var element = layui.element;
+		  element.render('nav');
+		});
 	}
 });
 </script>
