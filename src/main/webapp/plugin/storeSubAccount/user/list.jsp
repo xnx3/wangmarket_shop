@@ -42,7 +42,7 @@ function deleteUser(id,name){
 		layer.close(dtp_confirm);
 		
 		parent.msg.loading("删除中");    //显示“操作中”的等待提示
-		$.post('/plugin/storeSubAccount/user/deleteUser.do?userid='+id, function(data){
+		$.post('/plugin/api/storeSubAccount/user/deleteUser.json?userid='+id, function(data){
 		    parent.msg.close();    //关闭“操作中”的等待提示
 		    if(data.result == '1'){
 		        parent.msg.success('操作成功');
@@ -70,7 +70,8 @@ function menu(id,username){
 		title: id<1 ? '添加子用户':'修改用户【 '+username+' 】的管理权限', 
 		area: ['1000px', id>0? '630px':'750px'],
 		shadeClose: true, //开启遮罩关闭
-		content: '/plugin/storeSubAccount/user/edit.do?userid='+id
+		content: '/plugin/storeSubAccount/user/edit.jsp?userid='+id
+		// content: '/plugin/api/storeSubAccount/user/edit.do?userid='+id
 	});
 }
 
@@ -83,7 +84,7 @@ function updatePassword(userid, name){
 	}, function(value, index, elem){
 		parent.msg.loading("更改中");    //显示“更改中”的等待提示
 		$.post(
-		    "/plugin/storeSubAccount/user/updatePassword.json",
+		    "/plugin/api/storeSubAccount/user/updatePassword.json",
 		    { "newPassword": value, userid:userid }, 
 		    function(data){
 		        parent.msg.close();    //关闭“更改中”的等待提示
@@ -111,7 +112,7 @@ function templateReplace(item){
 function list(currentPage){
     msg.loading('加载中');
 
-    post('/plugin/storeSubAccount/user/list.json',{},function(data){
+    post('/plugin/api/storeSubAccount/user/list.json',{},function(data){
         msg.close();    //关闭“更改中”的等待提示
         checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 

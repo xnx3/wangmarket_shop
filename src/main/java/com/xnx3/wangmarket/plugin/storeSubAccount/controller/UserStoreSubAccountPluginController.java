@@ -6,8 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.xnx3.wangmarket.plugin.vo.UserEditVO;
-import com.xnx3.wangmarket.plugin.vo.UserListVO;
+import com.xnx3.wangmarket.plugin.storeSubAccount.vo.UserEditVO;
+import com.xnx3.wangmarket.plugin.storeSubAccount.vo.UserListVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +38,7 @@ import com.xnx3.wangmarket.shop.store.util.TemplateAdminMenu.TemplateMenuEnum;
  * @author 管雷鸣
  */
 @Controller
-@RequestMapping("/plugin/storeSubAccount/user/")
+@RequestMapping("/plugin/api/storeSubAccount/user/")
 public class UserStoreSubAccountPluginController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
@@ -51,7 +51,7 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "list${api.suffix}",method = {RequestMethod.POST})
-	public UserListVO list(HttpServletRequest request,Model model){
+	public UserListVO list(HttpServletRequest request, Model model){
 
 		UserListVO vo = new UserListVO();
 
@@ -77,19 +77,85 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 		return vo;
 	}
 
-	/**
+		/**
 	 * 增加/编辑用户信息
 	 * @param userid 用户的id，如果是修改，则传入要修改的用户的id，如果不传递或者0，则是新增
 	 */
-//	@ResponseBody
-//	@RequestMapping(value = "edit${url.suffix}",method = {RequestMethod.POST})
-//	public UserEditVO edit(HttpServletRequest request,Model model,
-//						   @RequestParam(value = "userid", required = false , defaultValue="0") int userid){
-//
-//		UserEditVO vo = new UserEditVO();
-//
+	@ResponseBody
+	@RequestMapping(value = "edit${api.suffix}",method = {RequestMethod.POST})
+	public UserEditVO edit(HttpServletRequest request,Model model,
+						   @RequestParam(value = "userid", required = false , defaultValue="0") int userid){
+
+		UserEditVO vo = new UserEditVO();
+
+		if(!haveStoreAuth()){
+			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
+		}
+
+		//将 TemplateMenuEnum 枚举中定义的菜单拿出来，等级层次分清，以便随时使用
+		Map<String, MenuBean> menuMap = new HashMap<String, MenuBean>();
+
+		menuMap.putAll(TemplateAdminMenuUtil.menuMap);
+
+		if(userid > 0){
+			//修改
+			//查询出当前修改的子用户的信息
+			User user = sqlService.findById(User.class, userid);
+			//判断该用户是不是当前网站管理者的下级用户，是否有编辑权限
+			if(user.getReferrerid() - getUserId() != 0){
+				vo.setBaseVO(BaseVO.FAILURE,"要编辑的用户不是您的子用户，无法操作！");
+			}
+
+			//将map中的数据进行标注，将已有的权限标注上
+			//首先将用户取得的结果数据，转化为map，以便用MenuBean.id 直接取
+			Map<String, UserRole> dbMap = new HashMap<String, UserRole>();
+			List<UserRole> list = sqlService.findBySqlQuery("SELECT * FROM plugin_storesubaccount_user_role WHERE userid = "+userid, UserRole.class);
+			for (int i = 0; i < list.size(); i++) {
+				UserRole ur = list.get(i);
+				dbMap.put(ur.getMenu(), ur);
+			}
+
+			//遍历所有的菜单权限项，将数据库存的，也就是这个用户现有的权限，加入标注上
+			for (Map.Entry<String, MenuBean> entry : menuMap.entrySet()) {
+				MenuBean mb = entry.getValue();
+				//判断数据库中是否有这个权限，如果有，那么标注其选中
+				if(dbMap.get(mb.getId()) != null){
+					//有这个权限，那么标记选中
+					mb.setIsUse(1);
+				}else {
+					mb.setIsUse(0);
+				}
+
+				//遍历子菜单
+				for (int i = 0; i < mb.getSubList().size(); i++) {
+					MenuBean subMb = mb.getSubList().get(i);
+					//判断数据库中是否有这个权限，如果有，那么标注其选中
+					if(dbMap.get(subMb.getId()) != null){
+						//有这个权限，那么标记选中
+						subMb.setIsUse(1);
+					}else {
+						mb.setIsUse(0);
+					}
+				}
+			}
+			vo.setUser(user);
+		}else{
+			//添加
+		}
+		ActionLogUtil.insert(request, "打开添加/编辑子账户页面");
+		vo.setMenuMap(menuMap);
+		return vo;
+	}
+
+//	/**
+//	 * 增加/编辑用户信息
+//	 * @param userid 用户的id，如果是修改，则传入要修改的用户的id，如果不传递或者0，则是新增
+//	 */
+//	@RequestMapping("edit${url.suffix}")
+//	public String edit(HttpServletRequest request,Model model,
+//					   @RequestParam(value = "userid", required = false , defaultValue="0") int userid){
 //		if(!haveStoreAuth()){
-//			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
+//			return error(model, "请先登录");
 //		}
 //
 //		//将 TemplateMenuEnum 枚举中定义的菜单拿出来，等级层次分清，以便随时使用
@@ -102,7 +168,7 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 //			User user = sqlService.findById(User.class, userid);
 //			//判断该用户是不是当前网站管理者的下级用户，是否有编辑权限
 //			if(user.getReferrerid() - getUserId() != 0){
-//				vo.setBaseVO(BaseVO.FAILURE,"要编辑的用户不是您的子用户，无法操作！");
+//				return error(model, "要编辑的用户不是您的子用户，无法操作！");
 //			}
 //
 //			//将map中的数据进行标注，将已有的权限标注上
@@ -134,87 +200,23 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 //				}
 //			}
 //
-//			vo.setUser(user);
+//			model.addAttribute("user", user);
 //		}else{
 //			//添加
 //
 //		}
 //
 //		ActionLogUtil.insert(request, "打开添加/编辑子账户页面");
-//		vo.setMenuMap(menuMap);
-//		return vo;
+//		model.addAttribute("map", menuMap);
+//		return "/plugin/storeSubAccount/user/edit";
 //	}
-	/**
-	 * 增加/编辑用户信息
-	 * @param userid 用户的id，如果是修改，则传入要修改的用户的id，如果不传递或者0，则是新增
-	 */
-	@RequestMapping("edit${url.suffix}")
-	public String edit(HttpServletRequest request,Model model,
-					   @RequestParam(value = "userid", required = false , defaultValue="0") int userid){
-		if(!haveStoreAuth()){
-			return error(model, "请先登录");
-		}
-
-		//将 TemplateMenuEnum 枚举中定义的菜单拿出来，等级层次分清，以便随时使用
-		Map<String, MenuBean> menuMap = new HashMap<String, MenuBean>();
-		menuMap.putAll(TemplateAdminMenuUtil.menuMap);
-
-		if(userid > 0){
-			//修改
-			//查询出当前修改的子用户的信息
-			User user = sqlService.findById(User.class, userid);
-			//判断该用户是不是当前网站管理者的下级用户，是否有编辑权限
-			if(user.getReferrerid() - getUserId() != 0){
-				return error(model, "要编辑的用户不是您的子用户，无法操作！");
-			}
-
-			//将map中的数据进行标注，将已有的权限标注上
-			//首先将用户取得的结果数据，转化为map，以便用MenuBean.id 直接取
-			Map<String, UserRole> dbMap = new HashMap<String, UserRole>();
-			List<UserRole> list = sqlService.findBySqlQuery("SELECT * FROM plugin_storesubaccount_user_role WHERE userid = "+userid, UserRole.class);
-			for (int i = 0; i < list.size(); i++) {
-				UserRole ur = list.get(i);
-				dbMap.put(ur.getMenu(), ur);
-			}
-
-			//遍历所有的菜单权限项，将数据库存的，也就是这个用户现有的权限，加入标注上
-			for (Map.Entry<String, MenuBean> entry : menuMap.entrySet()) {
-				MenuBean mb = entry.getValue();
-				//判断数据库中是否有这个权限，如果有，那么标注其选中
-				if(dbMap.get(mb.getId()) != null){
-					//有这个权限，那么标记选中
-					mb.setIsUse(1);
-				}
-
-				//遍历子菜单
-				for (int i = 0; i < mb.getSubList().size(); i++) {
-					MenuBean subMb = mb.getSubList().get(i);
-					//判断数据库中是否有这个权限，如果有，那么标注其选中
-					if(dbMap.get(subMb.getId()) != null){
-						//有这个权限，那么标记选中
-						subMb.setIsUse(1);
-					}
-				}
-			}
-
-			model.addAttribute("user", user);
-		}else{
-			//添加
-
-		}
-
-		ActionLogUtil.insert(request, "打开添加/编辑子账户页面");
-		model.addAttribute("map", menuMap);
-		return "/plugin/storeSubAccount/user/edit";
-	}
-
 
 	/**
 	 * 用户列表，增加用户弹出页面的信息提交
 	 * @param username 开通子账户的用户名，开通新子账户有效，编辑时是不会有这一项显示的
 	 * @param password 开通子账户的密码，开通新子账户有效，编辑时是不会有这一项显示的
 	 * @param userid 编辑用户子账户权限所对应的子账户的userid,编辑才有此项
-	 * @param menus 该子账户的menu数组，该用户拥有哪些菜单显示的权限
+	 * @param menu 该子账户的menu数组，该用户拥有哪些菜单显示的权限
 	 */
 	@RequestMapping(value = "save${api.suffix}",method = {RequestMethod.POST})
 	@ResponseBody
