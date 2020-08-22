@@ -59,20 +59,6 @@ CREATE TABLE `agency_data` (
   `notice` text COLLATE utf8_unicode_ci COMMENT '代理的公告信息，显示给下级用户看的'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代理表的变长字段表，存储代理的公告等';
 
--- ----------------------------
---  Table structure for `area`
--- ----------------------------
-DROP TABLE IF EXISTS `area`;
-CREATE TABLE `area` (
-  `id` int(11) NOT NULL,
-  `province` char(20) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '省份',
-  `city` char(30) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '城市',
-  `district` char(40) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '区',
-  `longitude` float(5,2) DEFAULT NULL COMMENT '经度',
-  `latitude` float(5,2) DEFAULT NULL COMMENT '纬度',
-  PRIMARY KEY (`id`),
-  KEY `province` (`province`,`city`,`district`,`longitude`,`latitude`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='地区，省市区，地理城市表（暂未用到，预留）';
 
 -- ----------------------------
 --  Table structure for `carousel`
@@ -876,17 +862,6 @@ BEGIN;
 INSERT INTO `shop_store_data` VALUES ('1', '23');
 COMMIT;
 
--- ----------------------------
---  Table structure for `shop_store_user`
--- ----------------------------
-DROP TABLE IF EXISTS `shop_store_user`;
-CREATE TABLE `shop_store_user` (
-  `id` char(20) NOT NULL COLLATE utf8_unicode_ci,
-  `storeid` int(11) DEFAULT NULL COMMENT '此用户拥有哪个站点的管理权。开通子账号会用到这个。如果这个有值，那么就是子账号了。对应 store.id',
-  `userid` int(11) DEFAULT NULL COMMENT '用户id，对应 User.id',
-  PRIMARY KEY (`id`),
-  KEY `suoyin_index` (`userid`,`storeid`)
-) ENGINE=MyISAM AUTO_INCREMENT=458 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Records of `shop_store_user`
