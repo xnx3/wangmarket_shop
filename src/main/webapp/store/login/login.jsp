@@ -145,6 +145,18 @@ post(shop.api.login.token,{},function(data){
 	reloadCode();
 });
 
+//判断当前用户是否已经登录了
+post('/shop/store/api/store/getStore.json',{},function(data){
+	if(data.result != '1'){
+		//未登录
+	}else{
+		//已登录，那就不需要登录了，直接跳到商家管理后台首页
+		msg.success('您已登录过', function(){
+			window.location.href="/store/index/index.jsp";
+		});
+	}
+});
+
 //get方式传递过来的用户名跟密码
 try{
 	document.getElementById('username').value=getUrlParams('username');
