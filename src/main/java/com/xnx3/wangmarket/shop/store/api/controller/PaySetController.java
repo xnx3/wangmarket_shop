@@ -10,7 +10,6 @@ import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.store.api.vo.PaySetVO;
-import com.xnx3.wangmarket.shop.store.controller.BaseController;
 import com.xnx3.wangmarket.shop.store.util.FileUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

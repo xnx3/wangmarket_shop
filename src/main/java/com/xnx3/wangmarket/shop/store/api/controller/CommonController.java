@@ -5,7 +5,6 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.vo.UploadFileVO;
 import com.xnx3.wangmarket.shop.core.Global;
-import com.xnx3.wangmarket.shop.store.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

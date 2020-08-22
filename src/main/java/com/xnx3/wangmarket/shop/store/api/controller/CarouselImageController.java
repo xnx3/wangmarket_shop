@@ -8,14 +8,12 @@ import com.xnx3.j2ee.util.Sql;
 import com.xnx3.wangmarket.shop.core.entity.CarouselImage;
 import com.xnx3.wangmarket.shop.store.api.vo.CarouselImageListVO;
 import com.xnx3.wangmarket.shop.store.api.vo.CarouselImageVO;
-import com.xnx3.wangmarket.shop.store.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

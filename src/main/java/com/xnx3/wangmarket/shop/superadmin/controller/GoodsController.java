@@ -1,24 +1,16 @@
 package com.xnx3.wangmarket.shop.superadmin.controller;
 
-import com.xnx3.BaseVO;
-import com.xnx3.DateUtil;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
-import com.xnx3.wangmarket.shop.core.entity.GoodsData;
-import com.xnx3.wangmarket.shop.core.entity.GoodsImage;
 import com.xnx3.wangmarket.shop.core.entity.GoodsType;
-import com.xnx3.wangmarket.shop.store.controller.BaseController;
+import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -30,7 +22,7 @@ import java.util.List;
  */
 @Controller(value="ShopStoreAdminGoodsController")
 @RequestMapping("/shop/superadmin/goods/")
-public class GoodsController extends BaseController {
+public class GoodsController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
 	@Resource
@@ -71,9 +63,8 @@ public class GoodsController extends BaseController {
 		model.addAttribute("page", page);
 		model.addAttribute("typeList", typeList);
 		//日志记录
-		ActionLogUtil.insert(request, getUserId(), "查看商品列表");
+		ActionLogUtil.insert(request, "查看商品列表");
 		return "/shop/superadmin/goods/list";
-
 	}
 
 

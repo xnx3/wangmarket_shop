@@ -1,37 +1,21 @@
 package com.xnx3.wangmarket.shop.superadmin.controller;
 
-import com.xnx3.DateUtil;
-import com.xnx3.StringUtil;
-import com.xnx3.j2ee.Func;
-import com.xnx3.j2ee.Global;
-import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlService;
-import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
-import com.xnx3.j2ee.util.SessionUtil;
 import com.xnx3.j2ee.util.Sql;
-import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.j2ee.vo.LoginVO;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
-import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
+import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
-import com.xnx3.wangmarket.shop.core.vo.OrderVO;
-import com.xnx3.wangmarket.shop.store.controller.BaseController;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -40,7 +24,7 @@ import java.util.List;
  */
 @Controller(value="ShopSuperAdminOrderController")
 @RequestMapping("/shop/superadmin/order")
-public class OrderController extends BaseController {
+public class OrderController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
 	@Resource

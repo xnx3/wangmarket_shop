@@ -7,7 +7,6 @@ import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.vo.OrderRuleVO;
-import com.xnx3.wangmarket.shop.store.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

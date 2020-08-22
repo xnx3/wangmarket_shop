@@ -1,16 +1,12 @@
 package com.xnx3.wangmarket.shop.store.api.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.xnx3.BaseVO;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.service.SqlCacheService;

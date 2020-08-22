@@ -13,12 +13,12 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.SessionUtil;
 import com.xnx3.j2ee.Func;
 import com.xnx3.j2ee.Global;
-import com.xnx3.j2ee.controller.BaseController;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.LoginVO;
+import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 
 /**
  * 登录、注册
@@ -26,7 +26,7 @@ import com.xnx3.j2ee.vo.LoginVO;
  */
 @Controller(value="ShopSuperAdminLoginController")
 @RequestMapping("/shop/superadmin/login/")
-public class LoginController extends BaseController {
+public class LoginController extends BasePluginController {
 	@Resource
 	private UserService userService;
 	@Resource

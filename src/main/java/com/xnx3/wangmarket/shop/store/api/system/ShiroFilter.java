@@ -11,7 +11,8 @@ import com.xnx3.j2ee.pluginManage.interfaces.ShiroFilterInterface;
 public class ShiroFilter implements ShiroFilterInterface{
 	@Override
 	public Map<String, String> shiroFilter(Map<String, String> filterChainDefinitionMap) {
-		filterChainDefinitionMap.put("/shop/store/api/**", "anon");
+		filterChainDefinitionMap.put("/shop/store/api/**", "anon"); //api接口
+		filterChainDefinitionMap.put("/store/**", "anon");	//jsp页面
 		return filterChainDefinitionMap;
 	}
 }

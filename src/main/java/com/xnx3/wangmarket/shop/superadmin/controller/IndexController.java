@@ -5,10 +5,8 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.wangmarket.shop.api.controller.BaseController;
 import com.xnx3.wangmarket.shop.core.Global;
-import com.xnx3.wangmarket.shop.core.entity.Store;
-
+import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller(value="ShopSuperAdminIndexController")
 @RequestMapping("/shop/superadmin/index/")
-public class IndexController extends BaseController {
+public class IndexController extends BasePluginController {
 	@Resource
 	private UserService userService;
 	@Resource

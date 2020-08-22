@@ -8,7 +8,6 @@ import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.store.api.vo.UserListVO;
-import com.xnx3.wangmarket.shop.store.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
