@@ -3,27 +3,24 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '4154fac1295afdb9abca445a045599c11a5ec118'
-    oldFile: !uuid 'd75957dbb59088bd78b10cb5b448f0a161cceb29'
+    newFile: !uuid '47fa79860ba30c5730f2954dc3d6e3ab7b78f3ec'
+    oldFile: !uuid '4154fac1295afdb9abca445a045599c11a5ec118'
   /src/main:
-    newFile: !uuid 'f178b777f52c6c04b20faf0c2a7557a52e1578cb'
-    oldFile: !uuid 'e45b2d6fd515af80aa3b8b0738cf6e2f1dcd85df'
+    newFile: !uuid '174870d46448144ff4987354b973d80128442612'
+    oldFile: !uuid 'f178b777f52c6c04b20faf0c2a7557a52e1578cb'
   /src/main/webapp:
-    newFile: !uuid '7e27f578d09ddb8c217c49d8734ad26dfbbfcb08'
-    oldFile: !uuid 'bb8d47d829a909712d642196746254c094f78d96'
-  /src/main/webapp/plugin:
-    newFile: !uuid 'be5d96c7b3dc5043cb9dbd82523e59b27a6bb7dc'
-    oldFile: !uuid 'bb6c7c6ba57e3b9293ce3526f4f761d6f5a1b6de'
-  /src/main/webapp/plugin/storeSubAccount:
-    newFile: !uuid 'c00e5b68ff64ca6f17e31f55edc47fb2a7331a97'
-    oldFile: !uuid 'e41857444966795f118d042b61e91e92f3a43a01'
-  /src/main/webapp/plugin/storeSubAccount/user:
-    newFile: !uuid '8bd3a48a6fa5a95793f0ca8e9a732d2ca64e4077'
-    oldFile: !uuid 'e94553565ddaac44de596482c7e7b3e2238aa48f'
-  /src/main/webapp/plugin/storeSubAccount/user/edit.jsp:
-    newFile: !uuid '8e345d559daee5a4cc5e45ad117a036ba7b7e555'
-    oldFile: !uuid '303deca244597eb81603f7a436eda1a2eea519cd'
-gitCommitId: !uuid '3d04f556396b9490f1412c83826269e310743945'
+    newFile: !uuid '1ae9238745346e65287c18357aa1d03ebb729fb6'
+    oldFile: !uuid '7e27f578d09ddb8c217c49d8734ad26dfbbfcb08'
+  /src/main/webapp/store:
+    newFile: !uuid '9c64223803bc2269964f105555fa8b20b581623e'
+    oldFile: !uuid '03c8dd93aa8e03d83de25bc98290090ef3da3a26'
+  /src/main/webapp/store/index:
+    newFile: !uuid '2d88486fecf3ef375defa0e93eaa85905bc49624'
+    oldFile: !uuid 'c7289a5c69bc48f5b63cec9b3a3581d474e0fa8c'
+  /src/main/webapp/store/index/index.jsp:
+    newFile: !uuid '6ffd8d64520425ae60f63a1f0cff3616f54e7431'
+    oldFile: !uuid '4a63eb300890fe15d2403871c49b0e64be25d8ca'
+gitCommitId: !uuid '8254e774dead87286cbffe726cffef86e8007c76'
 renames: {
   }
-revisionId: 268
+revisionId: 269
