@@ -2,13 +2,46 @@
 branches: {
   }
 fileChange:
-  /else:
-    newFile: !uuid 'f269e8846b1fea4f60d73d587a2dc7513fb39eb5'
-    oldFile: !uuid '59b1e3d1c9ae5922115fcdd6ecd0f97d615c74a6'
-  /else/wangmarket_shop.sql:
-    newFile: !uuid 'baaaeb7d38eb5776aa298f3fddd038745e9d1890'
-    oldFile: !uuid 'affd4706a450095214923032f576a4a32952ea5b'
-gitCommitId: !uuid 'e487d0ee9108ec7f46d53c042cfc5ccb7fcabc52'
+  /src:
+    newFile: !uuid '56f8ff496b0f0ff2c6db86a7c30f4ef2717071cd'
+    oldFile: !uuid '8481fa368bea9b42d6b7d78059b7e54219d7dcf2'
+  /src/main:
+    newFile: !uuid '08acf00252304843ca61f3ec0715ad3f01b6c24f'
+    oldFile: !uuid '7bc4fe03663b708e1c3de22754f0edc9bf1e76cb'
+  /src/main/webapp:
+    newFile: !uuid '1853e2620f3c96028a69743c0c814d38333fa690'
+    oldFile: !uuid 'b18b52d389655e6a24d70c40e9b7c6afb2534d8d'
+  /src/main/webapp/plugin:
+    newFile: !uuid '54588fcf59dc84d3157df4e150f7bb3b44344d6c'
+    oldFile: !uuid 'be5d96c7b3dc5043cb9dbd82523e59b27a6bb7dc'
+  /src/main/webapp/plugin/firstOrderAward:
+    newFile: !uuid '2da48b34b44d20fa5960ddd98599f077223a4cd3'
+    oldFile: !uuid '0289f28245acf307d293fee03f52e2e1d81cd0f3'
+  /src/main/webapp/plugin/firstOrderAward/store:
+    newFile: !uuid 'd24d0e5a061cc9dab212b30a1d57a6b8bdc443f5'
+    oldFile: !uuid '994cae3482d60141467854213db558fe05212d57'
+  /src/main/webapp/plugin/firstOrderAward/store/setAward.jsp:
+    newFile: !uuid '101cfac4b0d3dca273818edabd6f4d5dd422efdd'
+    oldFile: !uuid '78b8a7c537066ed03af1921cc5d48c12cd601ac7'
+  /src/main/webapp/plugin/limitbuy:
+    newFile: !uuid '15ce2afd826a7dff3581faf768c81464aca06a90'
+    oldFile: !uuid 'b351957eda14fdb74b8aecd232461ad6ab00c02b'
+  /src/main/webapp/plugin/limitbuy/store:
+    newFile: !uuid '1470ffbec85d745af7678828ab76331096b19dfa'
+    oldFile: !uuid 'd739e4ad63900068bf9e286f69cd9389a1dac597'
+  /src/main/webapp/plugin/limitbuy/store/index.jsp:
+    newFile: !uuid 'c828d6ba191c114733998ca3a8128edc31815349'
+    oldFile: !uuid '9dfc5ffbbff2c0886ae22deabb6c22f119ef6997'
+  /src/main/webapp/plugin/sell:
+    newFile: !uuid '04e17f80396002126cdc809e72cc80c1e4b6de8f'
+    oldFile: !uuid '08c83386397e3f885c1741b27a03064f16703d3f'
+  /src/main/webapp/plugin/sell/store:
+    newFile: !uuid 'f63011c46af20db5cbf7bbcb2b505fea5ba2c458'
+    oldFile: !uuid '081da45ed10dd32894d29749bca63f99e6fecb7b'
+  /src/main/webapp/plugin/sell/store/set.jsp:
+    newFile: !uuid 'e69bba014473054ded974f05bc878d96b578b323'
+    oldFile: !uuid '7ec848dc959bb425f5aab9c7735a9f2ea698656f'
+gitCommitId: !uuid '2649d8e0302e8fa6e4066ad7434c1ced2a7751f8'
 renames: {
   }
-revisionId: 272
+revisionId: 273
