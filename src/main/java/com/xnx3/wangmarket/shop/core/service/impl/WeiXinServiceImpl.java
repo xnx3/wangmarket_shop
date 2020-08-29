@@ -28,6 +28,10 @@ public class WeiXinServiceImpl implements WeiXinService {
 		if(util == null){
 			//缓存中不存在，取出用户设置的数据，new 一个新的微信工具类
 			PaySet payset = paySetService.getPaySet(storeid);
+			if(payset.getUseWeixinPay() - 0 == 0){
+				//不使用微信支付，也就是不是用微信相关配置
+				return null;
+			}
 			if(payset.getUseWeixinServiceProviderPay() - 1 == 0){
 				//使用服务商模式
 				PaySet serivcePaySet = paySetService.getSerivceProviderPaySet();
