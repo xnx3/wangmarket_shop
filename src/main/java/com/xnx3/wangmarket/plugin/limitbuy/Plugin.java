@@ -78,7 +78,7 @@ public class Plugin implements OrderCreateInterface, OrderPayFinishInterface, Or
 			//缓存中有数值了
 		}else{
 			//缓存中还没有数值,需要从数据库查询
-			cacheNumber = sqlService.count("shop_order", "WHERE userid = "+user.getId()+" AND storeid = "+store.getId()+" AND (state != '"+Order.STATE_MY_CANCEL+"' OR state != '"+Order.STATE_PAYTIMEOUT_CANCEL+"')");
+			cacheNumber = sqlService.count("shop_order", "WHERE userid = "+user.getId()+" AND storeid = "+store.getId()+" AND state != '"+Order.STATE_MY_CANCEL+"' AND state != '"+Order.STATE_PAYTIMEOUT_CANCEL+"'");
 			//将数据缓存
 			CacheUtil.set(key, cacheNumber);
 		}
