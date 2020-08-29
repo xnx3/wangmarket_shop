@@ -3,45 +3,39 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '56f8ff496b0f0ff2c6db86a7c30f4ef2717071cd'
-    oldFile: !uuid '8481fa368bea9b42d6b7d78059b7e54219d7dcf2'
+    newFile: !uuid '97e359d825b49c7e5a1d6ca30bfcb2a2f65f7790'
+    oldFile: !uuid '56f8ff496b0f0ff2c6db86a7c30f4ef2717071cd'
   /src/main:
-    newFile: !uuid '08acf00252304843ca61f3ec0715ad3f01b6c24f'
-    oldFile: !uuid '7bc4fe03663b708e1c3de22754f0edc9bf1e76cb'
-  /src/main/webapp:
-    newFile: !uuid '1853e2620f3c96028a69743c0c814d38333fa690'
-    oldFile: !uuid 'b18b52d389655e6a24d70c40e9b7c6afb2534d8d'
-  /src/main/webapp/plugin:
-    newFile: !uuid '54588fcf59dc84d3157df4e150f7bb3b44344d6c'
-    oldFile: !uuid 'be5d96c7b3dc5043cb9dbd82523e59b27a6bb7dc'
-  /src/main/webapp/plugin/firstOrderAward:
-    newFile: !uuid '2da48b34b44d20fa5960ddd98599f077223a4cd3'
-    oldFile: !uuid '0289f28245acf307d293fee03f52e2e1d81cd0f3'
-  /src/main/webapp/plugin/firstOrderAward/store:
-    newFile: !uuid 'd24d0e5a061cc9dab212b30a1d57a6b8bdc443f5'
-    oldFile: !uuid '994cae3482d60141467854213db558fe05212d57'
-  /src/main/webapp/plugin/firstOrderAward/store/setAward.jsp:
-    newFile: !uuid '101cfac4b0d3dca273818edabd6f4d5dd422efdd'
-    oldFile: !uuid '78b8a7c537066ed03af1921cc5d48c12cd601ac7'
-  /src/main/webapp/plugin/limitbuy:
-    newFile: !uuid '15ce2afd826a7dff3581faf768c81464aca06a90'
-    oldFile: !uuid 'b351957eda14fdb74b8aecd232461ad6ab00c02b'
-  /src/main/webapp/plugin/limitbuy/store:
-    newFile: !uuid '1470ffbec85d745af7678828ab76331096b19dfa'
-    oldFile: !uuid 'd739e4ad63900068bf9e286f69cd9389a1dac597'
-  /src/main/webapp/plugin/limitbuy/store/index.jsp:
-    newFile: !uuid 'c828d6ba191c114733998ca3a8128edc31815349'
-    oldFile: !uuid '9dfc5ffbbff2c0886ae22deabb6c22f119ef6997'
-  /src/main/webapp/plugin/sell:
-    newFile: !uuid '04e17f80396002126cdc809e72cc80c1e4b6de8f'
-    oldFile: !uuid '08c83386397e3f885c1741b27a03064f16703d3f'
-  /src/main/webapp/plugin/sell/store:
-    newFile: !uuid 'f63011c46af20db5cbf7bbcb2b505fea5ba2c458'
-    oldFile: !uuid '081da45ed10dd32894d29749bca63f99e6fecb7b'
-  /src/main/webapp/plugin/sell/store/set.jsp:
-    newFile: !uuid 'e69bba014473054ded974f05bc878d96b578b323'
-    oldFile: !uuid '7ec848dc959bb425f5aab9c7735a9f2ea698656f'
-gitCommitId: !uuid '2649d8e0302e8fa6e4066ad7434c1ced2a7751f8'
+    newFile: !uuid 'e9fd1564ca50bf49a05e609830c2359e9b3081a8'
+    oldFile: !uuid '08acf00252304843ca61f3ec0715ad3f01b6c24f'
+  /src/main/java:
+    newFile: !uuid '12f2b7c02d16e565b4a541c7d6b9cf9c9fe945c9'
+    oldFile: !uuid '7fdacdc1de1205de712c9cd331969954ef2b7bbe'
+  /src/main/java/com:
+    newFile: !uuid 'eb98778e6b7f7a80466c7f09e32f4afd5cff974c'
+    oldFile: !uuid '894bcff79f8b84d5709fc22e19d539701a12e0cb'
+  /src/main/java/com/xnx3:
+    newFile: !uuid 'ee8f34bdd51f935e2466b00fc81ae6ab3121a6e0'
+    oldFile: !uuid 'b55d596b1cb44979cde834fa3351946ca59438af'
+  /src/main/java/com/xnx3/wangmarket:
+    newFile: !uuid '8664eed84803709a987901dd9fec06bab64aea5b'
+    oldFile: !uuid 'bd33959886ae8bda758785a871162d5333a8f8dd'
+  /src/main/java/com/xnx3/wangmarket/shop:
+    newFile: !uuid '7ac4d32627eb0f5c2527902dd7c495192ea82a4d'
+    oldFile: !uuid 'e6e46941081125ca72d19fc0e2fd16633eb4213a'
+  /src/main/java/com/xnx3/wangmarket/shop/core:
+    newFile: !uuid '7ae10bda9546df417149022b45b2eeff1a116ccc'
+    oldFile: !uuid 'dd715b0abc350118b578ec7723ce885f78c6de16'
+  /src/main/java/com/xnx3/wangmarket/shop/core/service:
+    newFile: !uuid '56dcf8e71ee097af96675772c8e6d950113bf669'
+    oldFile: !uuid 'd309e092815dd5bbe7a943112107dcb4fcda4c4d'
+  /src/main/java/com/xnx3/wangmarket/shop/core/service/impl:
+    newFile: !uuid '432bbe9f28295e008cdbfbda7af894d62f6dfa27'
+    oldFile: !uuid 'd4b0362c65159cb7a2a4d26c09bf71a58658562c'
+  /src/main/java/com/xnx3/wangmarket/shop/core/service/impl/PaySetServiceImpl.java:
+    newFile: !uuid '5d008e4c9863e78835040c3e3cebf31b0d4c265a'
+    oldFile: !uuid '63b016f62cfae09e51d4794889e574f5fb6741ee'
+gitCommitId: !uuid 'c1d48221bd14ee72617a6cd12db0a080ddf50c76'
 renames: {
   }
-revisionId: 273
+revisionId: 274
