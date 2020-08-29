@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.xnx3.j2ee.dao.SqlDAO;
 import com.xnx3.j2ee.util.CacheUtil;
 import com.xnx3.net.HttpUtil;
+import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.service.PaySetService;
 
@@ -60,6 +61,10 @@ public class PaySetServiceImpl implements PaySetService {
 		}
 		String key = com.xnx3.wangmarket.shop.core.Global.CACHE_KEY_PAY_SET.replace("{storeid}", paySet.getId()+"");
 		CacheUtil.set(key, paySet);
+		
+		//删除之前缓存店铺的 WeiXinUtil
+		CacheUtil.delete(Global.CACHE_KEY_STORE_WEIXIN_UTIL.replace("{storeid}", paySet.getId()+""));
+		
 	}
 
 	@Override
