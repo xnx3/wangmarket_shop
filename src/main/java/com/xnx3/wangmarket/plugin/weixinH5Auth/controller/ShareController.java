@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
@@ -17,7 +16,6 @@ import com.xnx3.wangmarket.plugin.weixinH5Auth.vo.H5ShareVO;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
-import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.service.WeiXinService;
 import com.xnx3.wangmarket.shop.core.vo.weixin.JsapiTicketVO;
 import com.xnx3.weixin.SignUtil;

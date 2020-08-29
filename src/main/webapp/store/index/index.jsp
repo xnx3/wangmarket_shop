@@ -180,8 +180,6 @@ function logout(){
 	}, "text");
 }
 
-//加载登录后的默认页面
-loadUrl('/store/index/welcome.jsp');
 
 //向扩展菜单的div中，加入html。也就是往里再增加别的菜单。 appendHtml要追加的html，这里一般都是追加li
 function menuAppend(appendHtml){
@@ -204,7 +202,10 @@ checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录
 		msg.failure(data.info);
 	}else{
 		//登录成功
-		console.log(data);
+		
+		//加载登录后的默认页面
+		loadUrl('/store/index/welcome.jsp');
+		
 		document.getElementById('menuHtml').innerHTML = data.menuHtml;
 		if(data.useTokenCodeLogin){
 			/*** 下面四个是在网市场云建站系统中使用的，直接通过token+code登录，云商城只是作为其一个模块而已 ***/
