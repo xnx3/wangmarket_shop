@@ -26,6 +26,9 @@
 	.shiyongbuzhou h2{
 		padding-bottom:9px; padding-top:20px;
 	}
+	.layui-form-switch{
+		margin-top: 0px;
+	}
 	</style>
 	<!-- 默认隐藏 -->
 	<div class="shiyongbuzhou" id="kaiqitext" style="display:none;">
@@ -45,8 +48,9 @@
 
 
 <script type="text/javascript">
+var form;
 layui.use('form', function(){
-	var form = layui.form;
+	form = layui.form;
 	
 	form.on('switch(isUse)', function(data){
 		useChange(data.elem.checked);
@@ -129,6 +133,9 @@ post('/plugin/api/limitbuy/store/index.json',{},function(data){
 		}else {
 			document.getElementById('button').innerHTML = '<input type="checkbox" id="switchInputId" name="isUse" value="1" lay-filter="isUse" lay-skin="switch" lay-text="开启|关闭">'
 		}
+		layui.use('form', function(){
+			layui.form.render();;
+		});
 	}
 
 });

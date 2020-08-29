@@ -25,6 +25,9 @@
 	.shiyongbuzhou h2{
 		padding-bottom:9px; padding-top:20px;
 	}
+	.layui-form-switch{
+		margin-top: 0px;
+	}
 	</style>
 	<!-- 默认隐藏 -->
 	<div class="shiyongbuzhou" id="kaiqitext" style="display:none;">
@@ -187,6 +190,9 @@ post('/plugin/api/sell/store/set.json',{},function(data){
 		}else {
 			document.getElementById('button').innerHTML = '<input type="checkbox" id="switchInputId" name="isUse" value="1" lay-filter="isUse" lay-skin="switch" lay-text="开启|关闭">'
 		}
+		layui.use('form', function(){
+			layui.form.render();;
+		});
 	}
 
 });
