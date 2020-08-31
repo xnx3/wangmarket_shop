@@ -46,7 +46,8 @@ h3{
 		<span></span>	
 	</div>
 	<script>
-		$.post('/shop/store/api/sms/getBalance.json',function(data){
+		post('/shop/store/api/sms/getBalance.json',{},function(data){
+			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 			var info = data.info;
 			if(data.result == 1){
 				//成功获取到了条数
@@ -82,9 +83,10 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 function update(name,value) {
 	parent.msg.loading("更改中");    //显示“操作中”的等待提示
 	var data = {"name":name,"value":value};
-	$.post('/shop/store/api/sms/update.json', data,function(data){
+	post('/shop/store/api/sms/update.json', data,function(data){
 	    parent.msg.close();    //关闭“操作中”的等待提示
-	    if(data.result == '1'){
+		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(data.result == '1'){
 	        parent.msg.success('操作成功');
 	        window.location.reload();	//刷新当前页
 	     }else if(data.result == '0'){

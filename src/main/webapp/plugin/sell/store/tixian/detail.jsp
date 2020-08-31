@@ -65,8 +65,9 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 //操作， 传入 1已通过并汇款，2已拒绝
 function caozuo(state){
 	msg.loading('操作中');
-	request.post('/plugin/api/sell/store/tixian/audit.json',{"state":state, "id":sellTiXianLog.id}, function(data){
+	post('/plugin/api/sell/store/tixian/audit.json',{"state":state, "id":sellTiXianLog.id}, function(data){
 		msg.close();
+		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(data.result == 1){
 			msg.success('操作成功');
 			location.reload();

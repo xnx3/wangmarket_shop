@@ -70,13 +70,13 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 			</a>
 		</li>
 		<li class="layui-nav-item">
-			<a href="javascript:loadUrl('/shop/superadmin/goods/list.do');">
+			<a href="javascript:loadUrl('/superadmin/goods/list.jsp');">
 				<i class="layui-icon firstMenuIcon">&#xe612;</i>
 				<span class="firstMenuFont">商品管理</span>
 			</a>
 		</li>
 		<li class="layui-nav-item">
-			<a href="javascript:loadUrl('/shop/superadmin/order/list.do');">
+			<a href="javascript:loadUrl('/superadmin/order/list.jsp');">
 				<i class="layui-icon firstMenuIcon">&#xe612;</i>
 				<span class="firstMenuFont">订单管理</span>
 			</a>

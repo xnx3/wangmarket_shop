@@ -28,7 +28,7 @@
 	<div class="layui-form-item" id="icon_div">
 		<label class="layui-form-label" id="label_columnName">缩略图</label>
 		<div class="layui-input-block">
-			<input name="titlepic" id="titlePicInput" type="text" autocomplete="off" placeholder="点击右侧添加" class="layui-input"  style="padding-right: 120px;">
+			<input name="titlepic" id="titlepic" type="text" autocomplete="off" placeholder="点击右侧添加" class="layui-input"  style="padding-right: 120px;">
 			<button type="button" class="layui-btn" id="uploadImagesButton1" style="float: right;margin-top: -38px;">
 				<i class="layui-icon layui-icon-upload"></i>
 			</button>
@@ -111,7 +111,7 @@
 	<div class="layui-form-item" id="xnx3_editMode">
 		<label class="layui-form-label" id="columnEditMode">简介</label>
 		<div class="layui-input-block">
-			<textarea rows="2" cols="30" name="intro" id="intro" class="layui-input" style="height: auto; padding-left: 0px; border: 1px soild;"
+			<textarea rows="2" cols="30" name="intro" id="intro" class="layui-input" style="height: auto; padding-left: 0px; border: 1px solid;"
 			maxlength="40"></textarea>
 		</div>
 		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
@@ -168,9 +168,10 @@ layui.use('upload', function(){
 		,done: function(res){
 			//上传完毕回调
 			parent.msg.close();
+			checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
 			if(res.result == 1){
 				try{
-					document.getElementById("titlePicInput").value = res.url;
+					document.getElementById("titlepic").value = res.url;
 					document.getElementById("titlePicA").href = res.url;
 					document.getElementById("titlePicImg").src = res.url;
 					document.getElementById("titlePicImg").style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
@@ -220,48 +221,51 @@ layui.use('laydate', function(){
 
 // 提交修改添加信息
 function commit() {
-	var d = $("form").serialize();
-	console.log("------");
-	console.log(d);
+	var date = {};
+	date.title = $("#title").val();	//标题
+	date.inventory = $("#inventory").val();	//库存
+	date.price = Math.round($("#price").val()*100);	//价格
+	date.originalPrice = Math.round($("#originalPrice").val()*100);	//原价
+	date.intro = $("#intro").val()	//简介
+	date.alarmNum = $("#alarmNum").val() //警告数量
+	date.fakeSale = $("#fakeSale").val() //假售数量
+	date.units = $("#units").val()	//单位
+	date.typeid = $("#typeid").val() //分类
+	date.titlepic = $("#titlepic").val() //图片url
+	date.id = $("#id").val() //商品id
+	date.detail = ue.getContent(); //商品详情
 
-	 if($("#title").val() == ''){
-		 msg.failure("请输入标题");
+	if(date.title == ''){
+		msg.failure("请输入标题");
 		return ;
 	}
-	if($("#inventory").val() == ''){
+	if(date.inventory == ''){
 		msg.failure("请输入库存数量");
 		return ;
 	}
-	if($("#inventory").val() == ''){
-		msg.failure("请输入库存数量");
-		return ;
-	}
-	if($("#price").val() == ''){
+	if(date.price == ''){
 		msg.failure("请输入价格");
 		return ;
 	}
-	if($("#originalPrice").val() == ''){
+	if(date.originalPrice == ''){
 		msg.failure("请输入原价");
 		return ;
 	}
-	if($("#intro").val().length > 40){
+	if(date.intro.length > 40){
 		msg.failure('简介限制40个字符之内');
 		return;
 	}
-	var price = $("#price").val();
-	var originalPrice = $("#originalPrice").val();
-	d = d + "&price=" + Math.round(price*100);
-	d = d + "&originalPrice=" + Math.round(originalPrice*100);
+
 	//表单序列化
 	parent.msg.loading('保存中');
-	$.post("/shop/store/api/goods/saveAll.json", d, function (result) {
+	post("shop/store/api/goods/saveAll.json", date, function (result) {
 		parent.msg.close();
-		var obj = JSON.parse(result);
-		if(obj.result == '1'){
+		checkLogin(result);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(result.result == '1'){
 			parent.msg.success("操作成功");
 			window.location.href = '/store/goods/list.jsp';
-		}else if(obj.result == '0'){
-			parent.msg.failure(obj.info);
+		}else if(result.result == '0'){
+			parent.msg.failure(result.info);
 		}else{
 			parent.msg.failure('修改失败');
 
@@ -270,7 +274,7 @@ function commit() {
 
 	return false;
 }
-	
+
 var uploadExtendPhotos = {
 	elem: '.uploadImagesButton' //绑定元素
 	,url: '/shop/store/api/common/uploadImage.json'  //上传接口
@@ -279,12 +283,13 @@ var uploadExtendPhotos = {
 	,done: function(res){
 		//上传完毕回调
 		parent.msg.close();
+		checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
 
 		var key = this.item[0].name;	//拿到传递参数的key，也就是 extend.photos 中，数组某项的下表
 
 		if(res.result == 1){
 			try{
-				document.getElementById("titlePicInput"+key).value = res.url;
+				document.getElementById("titlepic"+key).value = res.url;
 				document.getElementById("titlePicA"+key).href = res.url;
 				document.getElementById("titlePicImg"+key).src = res.url;
 				document.getElementById("titlePicImg"+key).style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
@@ -323,9 +328,10 @@ layui.use('upload', function(){
 			//上传完毕回调
 			//loadClose();
 			msg.close();
+			checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
 			if(res.result == 1){
 				try{
-					document.getElementById("titlePicInput").value = res.url;
+					document.getElementById("titlepic").value = res.url;
 					document.getElementById("titlePicA").href = res.url;
 					document.getElementById("titlePicImg").src = res.url;
 					document.getElementById("titlePicImg").style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
@@ -418,7 +424,7 @@ checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录
 		document.getElementById("title").value = goods.title;
 		document.getElementById('titlePicImg').src = goods.titlepic + '?x-oss-process=image/resize,h_38';
 		document.getElementById('titlePicA').href = goods.titlepic;
-		document.getElementById("titlePicInput").value = goods.titlepic;
+		document.getElementById("titlepic").value = goods.titlepic;
 		document.getElementById("price").value = goods.price/100;
 		document.getElementById("originalPrice").value = goods.originalPrice/100;
 		document.getElementById("inventory").value = goods.inventory;

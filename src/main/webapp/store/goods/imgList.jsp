@@ -64,6 +64,7 @@ layui.use('upload', function(){
 		}
 	,done: function(res){
 	  	msg.close();
+	  	checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(res.result == '1'){
 			parent.msg.success("上传成功");
 			window.location.reload();	//刷新当前页
@@ -86,9 +87,10 @@ function deleteMes(id){
 	}, function(){
 		layer.close(dtp_confirm);
 		parent.msg.loading("删除中");    //显示“操作中”的等待提示
-		$.post('/shop/store/api/goods/deleteImg.json?id=' + id, function(data){
+		post('/shop/store/api/goods/deleteImg.json?id=' + id, {},function(data){
 		    parent.msg.close();    //关闭“操作中”的等待提示
-		    if(data.result == '1'){
+            checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+            if(data.result == '1'){
 		        parent.msg.success('操作成功');
 		        window.location.reload();	//刷新当前页
 		     }else if(data.result == '0'){
@@ -133,7 +135,7 @@ var goodsId = getUrlParams('id');
 msg.loading('加载中');
 post('/shop/store/api/goods/imgList.json?id=' + goodsId ,"",function(data){
 msg.close();    //关闭“更改中”的等待提示
-	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 
 	if(data.result == '1'){
 		//列表

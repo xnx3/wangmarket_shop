@@ -108,7 +108,8 @@ layui.use('upload', function(){
 		}
 	,done: function(res){
 		msg.close();
-		if(res.result == '1'){
+		checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
+			if(res.result == '1'){
 			parent.msg.success("上传成功");
 			parent.layer.close(index);	//关闭当前窗口
 			location.reload();	//刷新父窗口列表
@@ -124,16 +125,17 @@ layui.use('upload', function(){
 	});
 });
 
-//修改信息 id：商品id
+//删除商品
 function deleteMes(id){
 	var dtp_confirm = layer.confirm('确定要删除该商品？', {
 		  btn: ['确认','取消'] //按钮
 	}, function(){
 		layer.close(dtp_confirm);
 		parent.msg.loading("删除中");    //显示“操作中”的等待提示
-		$.post('/shop/store/api/goods/delete.json?goodsid=' + id, function(data){
+		post('/shop/store/api/goods/delete.json?goodsid=' + id, {},function(data){
 		    parent.msg.close();    //关闭“操作中”的等待提示
-		    if(data.result == '1'){
+			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+			if(data.result == '1'){
 		        parent.msg.success('操作成功');
 		        window.location.reload();	//刷新当前页
 		     }else if(data.result == '0'){
@@ -148,11 +150,11 @@ function deleteMes(id){
 }
 //修改信息 id：商品id
 function updatePutWay(id){
-	
 	parent.msg.loading("更改中");    //显示“操作中”的等待提示
-	$.post('/shop/store/api/goods/updatePutaway.json?id=' + id, function(data){
+	post('/shop/store/api/goods/updatePutaway.json?id=' + id,{}, function(data){
 	    parent.msg.close();    //关闭“操作中”的等待提示
-	    if(data.result == '1'){
+		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(data.result == '1'){
 	        parent.msg.success('操作成功');
 	        window.location.reload();	//刷新当前页
 	     }else if(data.result == '0'){
@@ -204,9 +206,10 @@ function addOrUpdate(id){
 function updateRank(id,rank,title){
 	layer.prompt({title: '请输入排序数字，数字越小越靠前', formType: 3, value: ''+rank}, function(text, index){
 		parent.msg.loading("保存中");    //显示“操作中”的等待提示
-		$.post('/shop/store/api/goods/updateRank.json?id='+id+'&rank='+text, function(data){
+		post('/shop/store/api/goods/updateRank.json?id='+id+'&rank='+text,{}, function(data){
 		    parent.msg.close();    //关闭“操作中”的等待提示
-		    if(data.result == '1'){
+			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+			if(data.result == '1'){
 		        //由最外层发起提示框
 				parent.msg.success('操作成功');
 				//刷新当前页
@@ -242,6 +245,7 @@ function templateReplace(item){
  * @param currentPage 要查看第几页，如传入 1
  */
 function list(currentPage){
+
 	var data = {
 		'currentPage':currentPage,
 		'everyNumber':'15',	//这里每页显示2条数据
@@ -251,7 +255,7 @@ function list(currentPage){
 	msg.loading('加载中');
 	post('/shop/store/api/goods/list.json' ,data,function(data){
 	msg.close();    //关闭“更改中”的等待提示
-	checkLogin(data);	//判断是否登录
+		checkLogin(data);	//判断是否登录
 
 		//已登陆
 		if(data.result == '1'){

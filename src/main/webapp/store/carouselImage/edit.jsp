@@ -74,13 +74,14 @@ layui.use('upload', function(){
 	//upload.render(uploadPic);
 	upload.render({
 		elem: "#uploadImagesButton" //绑定元素
-		,url: '/shop/store/common/uploadImage.do' //上传接口
+		,url: '/shop/store/api/common/uploadImage.json' //上传接口
 		,field: 'image'
 		,accept: 'file'
 		,done: function(res){
 			//上传完毕回调
-			//loadClose();
 			msg.close();
+			//loadClose();
+			checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
 			if(res.result == 1){
 				try{
 					document.getElementById("titlePicInput").value = res.url;
@@ -124,15 +125,15 @@ function commit() {
 	}
 	//表单序列化
 	parent.msg.loading("保存中");
-	$.post("/shop/store/api/carouselImage/save.json", d, function (result) {
+	post("/shop/store/api/carouselImage/save.json?"+d,{}, function (date) {
 		parent.msg.close();
-		var obj = JSON.parse(result);
-		if(obj.result == '1'){
+		checkLogin(date);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(date.result == '1'){
 			parent.parent.msg.success("操作成功");
 			parent.layer.close(index);	//关闭当前窗口
 			parent.location.reload();	//刷新父窗口列表
-		}else if(obj.result == '0'){
-			parent.msg.failure(obj.info);
+		}else if(date.result == '0'){
+			parent.msg.failure(date.info);
 		}else{
 			parent.msg.failure("修改失败");
 		}

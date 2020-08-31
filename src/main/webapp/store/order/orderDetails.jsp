@@ -97,8 +97,9 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 //确认收货
 function receiveGoods(){
 	msg.loading('操作中');
-	request.post('/shop/store/api/order/receiveGoods.json',{"orderid":id}, function(data){
+	post('/shop/store/api/order/receiveGoods.json',{"orderid":id}, function(data){
 		msg.close();
+		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(data.result == 1){
 			msg.success('操作成功');
 			location.reload();
@@ -111,8 +112,9 @@ function receiveGoods(){
 function refund(action){
 	var api = action == '1' ? 'refundAllow.json':'refundReject.json';
 	msg.loading('操作中');
-	request.post(api,{"orderid":id}, function(data){
+	post(api,{"orderid":id}, function(data){
 		msg.close();
+		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(data.result == 1){
 			msg.success('操作成功');
 			location.reload();

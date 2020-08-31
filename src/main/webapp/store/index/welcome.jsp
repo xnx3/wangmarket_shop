@@ -163,9 +163,10 @@ function addOrUpdate(value,name,text){
 		  area: ['300px', '100px'] //自定义文本域宽高
 		}, function(value, index, elem){
 		  parent.msg.loading("操作中");
-		  $.post('/shop/store/api/store/save.json?'+name+'=' + value, function(data){
+		  post('/shop/store/api/store/save.json?'+name+'=' + value, {}, function(data){
 			    parent.msg.close();    //关闭“操作中”的等待提示
-			    if(data.result == '1'){
+			    checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+			  if(data.result == '1'){
 			        parent.msg.success('操作成功');
 			        window.location.reload();	//刷新当前页
 			     }else if(data.result == '0'){
@@ -195,9 +196,10 @@ function updateStoreData(name, value,text){
 	  if(name == 'notice'){
 	  	data = {'notice':value};
 	  }
-	  $.post('/shop/store/api/store/saveStoreData.json',data,  function(data){
+	  post('/shop/store/api/store/saveStoreData.json',data,  function(data){
 		    parent.msg.close();    //关闭“操作中”的等待提示
-		    if(data.result == '1'){
+		    checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+		  if(data.result == '1'){
 		        parent.msg.success('操作成功');
 		        window.location.reload();	//刷新当前页
 		     }else if(data.result == '0'){
@@ -215,9 +217,10 @@ function stateUpdate() {
 	layer.confirm('修改店铺状态', {
 		  btn: ['营业中','已打烊'] //按钮
 		}, function(){
-			$.post('/shop/store/api/store/save.json?state=1', function(data){
+			post('/shop/store/api/store/save.json?state=1', {}, function(data){
 			    parent.msg.close();    //关闭“操作中”的等待提示
-			    if(data.result == '1'){
+				checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+				if(data.result == '1'){
 			        parent.msg.success('操作成功');
 			        window.location.reload();	//刷新当前页
 			     }else if(data.result == '0'){
@@ -227,9 +230,10 @@ function stateUpdate() {
 			     }
 			});
 		}, function(){
-			$.post('/shop/store/api/store/save.json?state=2', function(data){
+			post('/shop/store/api/store/save.json?state=2',{}, function(data){
 			    parent.msg.close();    //关闭“操作中”的等待提示
-			    if(data.result == '1'){
+				checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+				if(data.result == '1'){
 			        parent.msg.success('操作成功');
 			        window.location.reload();	//刷新当前页
 			     }else if(data.result == '0'){
@@ -239,7 +243,7 @@ function stateUpdate() {
 			     }
 			});
 		});
-	console.log(value);
+	//console.log(value);
 }
 
 layui.use('upload', function(){
@@ -255,6 +259,7 @@ layui.use('upload', function(){
 			}
 		,done: function(res){
 			msg.close();
+			checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
 			if(res.result == '1'){
 				parent.msg.success("上传成功");
 				 window.location.href = '/store/index/welcome.jsp';

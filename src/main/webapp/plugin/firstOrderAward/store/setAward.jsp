@@ -86,9 +86,10 @@ function useChange(use){
 //修改当前是否使用
 function updateUse(value){
 	parent.msg.loading('修改中');
-	$.post("/plugin/api/firstOrderAward/store/updateIsUse.json?isUse="+value, function(data){
+	post("/plugin/api/firstOrderAward/store/updateIsUse.json?isUse="+value,{}, function(data){
 	    parent.msg.close();    //关闭“操作中”的等待提示
-	    if(data.result == '1'){
+		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(data.result == '1'){
 	        parent.msg.success('操作成功');
 	     }else if(data.result == '0'){
 	         parent.msg.failure(data.info);
@@ -107,13 +108,13 @@ function update_goodsid(){
 	}
 
 	parent.msg.loading("保存中...");
-	$.post("/plugin/api/firstOrderAward/store/updateGoodsid.json?goodsid="+value, function (result) {
+	post("/plugin/api/firstOrderAward/store/updateGoodsid.json?goodsid="+value,{}, function (result) {
        	parent.msg.close();
-       	var obj = JSON.parse(result);
-       	if(obj.result == '1'){
+		checkLogin(result);	//验证登录状态。如果未登录，那么跳转到登录页面
+       	if(result.result == '1'){
        		parent.msg.success("设置成功");
-       	}else if(obj.result == '0'){
-       		parent.msg.failure(obj.info);
+       	}else if(result.result == '0'){
+       		parent.msg.failure(result.info);
        	}else{
        		parent.msg.failure("出错");
        	}

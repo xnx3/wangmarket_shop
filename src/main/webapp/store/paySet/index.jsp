@@ -134,9 +134,10 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 
 function updateState(name1,value1) {
 	parent.msg.loading("更改中");    //显示“操作中”的等待提示
-	$.post('/shop/store/api/paySet/update.json?name=' + name1 + '&value=' + value1 , function(data){
+	post('/shop/store/api/paySet/update.json?name=' + name1 + '&value=' + value1 ,{}, function(data){
 	    parent.msg.close();    //关闭“操作中”的等待提示
-	    if(data.result == '1'){
+		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(data.result == '1'){
 	        parent.msg.success('操作成功');
 	        window.location.reload();	//刷新当前页
 	     }else if(data.result == '0'){
@@ -156,9 +157,10 @@ function addOrUpdate(name1,value1,text){
 		  area: ['300px', '100px'] //自定义文本域宽高
 		}, function(value, index, elem){
 		  parent.msg.loading("操作中"); 
-		  $.post('/shop/store/api/paySet/update.json?name=' + name1 + '&value=' + value , function(data){
-			    parent.msg.close();    //关闭“操作中”的等待提示
-			    if(data.result == '1'){
+		  post('/shop/store/api/paySet/update.json?name=' + name1 + '&value=' + value ,{}, function(data){
+			  parent.msg.close();    //关闭“操作中”的等待提示
+			  checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+			  if(data.result == '1'){
 			        parent.msg.success('操作成功');
 			        window.location.reload();	//刷新当前页
 			     }else if(data.result == '0'){
@@ -191,7 +193,8 @@ layui.use('upload', function(){
 		}
 	,done: function(res){
 	  	msg.close();
-		if(res.result == '1'){
+		checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
+			if(res.result == '1'){
 			parent.msg.success("上传成功");
 			parent.layer.close(index);	//关闭当前窗口
 			location.reload();	//刷新父窗口列表

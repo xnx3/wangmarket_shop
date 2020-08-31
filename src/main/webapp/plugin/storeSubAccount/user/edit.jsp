@@ -85,14 +85,14 @@ layui.use(['form'], function(){
 	form.on('submit(formDemo)', function(data){
 		parent.msg.loading('创建中...');
 		var d=$("form").serialize();
-		$.post("/plugin/api/storeSubAccount/user/save.json", d, function (result) {
+		post("/plugin/api/storeSubAccount/user/save.json?"+d, {}, function (result) {
 			parent.msg.close();
-			var obj = JSON.parse(result);
-			if(obj.result == '1'){
+			checkLogin(result);	//验证登录状态。如果未登录，那么跳转到登录页面
+			if(result.result == '1'){
 				parent.parent.msg.success('操作成功')
 				parent.location.reload();
-			}else if(obj.result == '0'){
-				layer.msg(obj.info, {shade: 0.3})
+			}else if(result.result == '0'){
+				layer.msg(result.info, {shade: 0.3})
 			}else{
 				layer.msg(result, {shade: 0.3})
 			}
@@ -132,7 +132,6 @@ function  authorityOneReplace(item){
 
 var userId = getUrlParams('userid');
 msg.loading('加载中');
-
 post('/plugin/api/storeSubAccount/user/edit.json?userid=' + userId,{},function(data){
 	msg.close();    //关闭“更改中”的等待提示
 

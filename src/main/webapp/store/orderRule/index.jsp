@@ -57,9 +57,10 @@ body{padding-left: 30px;}
 //更改操作
 function updateState(name,value) {
 	parent.msg.loading("更改中");    //显示“操作中”的等待提示
-	$.post('/shop/store/api/orderRule/save.json?name=' + name + '&value=' + value , function(data){
+	post('/shop/store/api/orderRule/save.json?name=' + name + '&value=' + value ,{}, function(data){
 		parent.msg.close();    //关闭“操作中”的等待提示
-	    if(data.result == '1'){
+		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(data.result == '1'){
 	        parent.msg.success('操作成功');
 	        window.location.reload();	//刷新当前页
 	     }else if(data.result == '0'){
