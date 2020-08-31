@@ -72,8 +72,6 @@ layui.use('layer', function(){
 }
 </style>
 <script type="text/javascript">
-//商城的数据请求接口，填写如 http://shop.imall.net.cn/
-shop.host = "http://localhost:9090/";
 /**
  * 网络请求，都是用此
  * api 请求的api接口，可以传入如 api.login_token
@@ -86,7 +84,7 @@ function post(api, data, func){
 		data['token'] = shop.getToken();
 	}
 	var headers = {'content-type':'application/x-www-form-urlencoded'};
-	request.send(shop.host+api, data, func, 'post', true, headers, function(xhr){
+	request.send(window.location.origin+'/'+api, data, func, 'post', true, headers, function(xhr){
 		msg.failure('http code:'+xhr.status);
 	});
 }

@@ -167,17 +167,16 @@ function storeUpdatePassword(){
 //退出登录
 function logout(){
 	msg.loading('退出中');
-	$.post("/shop/api/login/logout.json", function (result) {
+	post('/shop/api/login/logout.json',{},function(data){
 		msg.close();
-		var obj = JSON.parse(result);
-		if(obj.result == '1'){
+		if(data.result == '1'){
 			msg.success('已退出',function(){
 				window.location.href="/store/login/login.jsp";
 			});
 		}else{
-			msg.failure(obj.info);
+			msg.failure(data.info);
 		}
-	}, "text");
+	});
 }
 
 

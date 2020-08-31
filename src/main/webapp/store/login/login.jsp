@@ -98,7 +98,7 @@
 //重新加载验证码
 function reloadCode(){
 	var code=document.getElementById('code');
-	code.setAttribute('src','/captcha.do?token='+shop.getToken());
+	code.setAttribute('src','/shop/api/login/captcha.jpg?token='+shop.getToken()+'&time='+new Date().getTime());
 	//这里必须加入随机数不然地址相同我发重新加载
 }
 
