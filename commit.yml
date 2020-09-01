@@ -3,66 +3,27 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '05ce4f527cfb58e4df7b23413812359f21551494'
-    oldFile: !uuid 'c0051a8931a623fc9dd5df716a15228ff1cfcc62'
+    newFile: !uuid '8b1c8edcb0193b6990ae82e3c454faf99ef27827'
+    oldFile: !uuid '05ce4f527cfb58e4df7b23413812359f21551494'
   /src/main:
-    newFile: !uuid '8d1762a5eedc49848cea60af1434f1e89d231df4'
-    oldFile: !uuid 'a4db8bf92a80048e5ee2b2916e2dc531207761fd'
-  /src/main/java:
-    newFile: !uuid 'e1b34a1c650c38027122cb2c8d21713d68c3e7df'
-    oldFile: !uuid 'a00067e15a21d031ba1d79922c587a16b3f68768'
-  /src/main/java/com:
-    newFile: !uuid 'a9d9f978f50b4b40978f2518e6397f0101ad8611'
-    oldFile: !uuid '115b1bc7ebb9054ae48afd0afa74303dbce0ae7a'
-  /src/main/java/com/Application.java:
-    newFile: !uuid '72b8c681bf9d1f78be941922985a182c0b761ce4'
-    oldFile: !uuid '11f85afe04cde0f656f5c83c671e0dac7e4058e6'
-  /src/main/java/com/xnx3:
-    newFile: !uuid '4772e381f1f4dc51d50b6e46e49c39d6a37a0528'
-    oldFile: !uuid '33b03e7dddcf4b5e80baae59763f51885f84a61c'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid 'e960eae7a212f40756274bcb8e6e0d011fcec6d3'
-    oldFile: !uuid '0b75fabf20acc71d98590fca3beee16427d672d5'
-  /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid '30a01a4797682e761bea28d9b622e7b81fa45de9'
-    oldFile: !uuid 'a16fef4d1eb843e5bdbd8a471215989aabf84b84'
-  /src/main/java/com/xnx3/wangmarket/plugin/sell:
-    newFile: !uuid '0d9a294e978390f3fdaf634be9f02b30b4f1a630'
-    oldFile: !uuid '538b093424e4e89453eddcf0fdde812ea3ad177c'
-  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller:
-    newFile: !uuid 'd6ffd48ea4f792b54e24fce42771c76473ea81b6'
-    oldFile: !uuid '1a56925579213cca69120bddc67cf84f2d061e18'
-  /src/main/java/com/xnx3/wangmarket/plugin/sell/controller/IndexController.java:
-    newFile: !uuid '627608ba71a8a9cd417d27152c51a5dcb70247d2'
-    oldFile: !uuid 'dbd405c8dea03c5363241c4009ab9898ed141db0'
-  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth:
-    newFile: !uuid '01357ea447eae2bb2dddfee58c7beabfa143d1b8'
-    oldFile: !uuid 'f3861f4369b3bed9c3b116370ba44b18112d6b87'
-  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth/controller:
-    newFile: !uuid 'c21260538bfdf525dae0ed8a0eabf070de62b4c0'
-    oldFile: !uuid '3f1d3c3731a6399787798cac3fc56649794e5c91'
-  /src/main/java/com/xnx3/wangmarket/plugin/weixinH5Auth/controller/IndexController.java:
-    newFile: !uuid '4048879897ed56fb5e46e084e07d9b41ff41d249'
-    oldFile: !uuid '8a86bb9956c3a0c81526e92337293a3a3b54ad35'
+    newFile: !uuid '9d6a831dd8d819ed26007e0b7a8cff9da4a94722'
+    oldFile: !uuid '8d1762a5eedc49848cea60af1434f1e89d231df4'
   /src/main/webapp:
-    newFile: !uuid '347bc6649278a2c5ca3cb398b29b97c5bb50efc6'
-    oldFile: !uuid 'e38871cd06eb7777a2e1bcc63049104cce5f884a'
-  /src/main/webapp/store:
-    newFile: !uuid '6c2c764778fbd1cd8ada8848b8179f3951ffd232'
-    oldFile: !uuid '5bf3c0390531eae1da2a0e37b1b11f609bdd8421'
-  /src/main/webapp/store/goodsType:
-    newFile: !uuid 'd81b6e87a074556a0e4130aadce7f8bc0603de4e'
-    oldFile: !uuid '4bf1771318cf47165a82fb84797f4c13d0b12c3d'
-  /src/main/webapp/store/goodsType/list.jsp:
-    newFile: !uuid '6b1463fcc10d3595ec5c1f6253d08619c196072b'
-    oldFile: !uuid 'd3ca70da262d1953914fbe7d8121311395d061f6'
-  /src/main/webapp/websiteTemplate:
-    newFile: null
-    oldFile: !uuid 'd11992b4ec72cbb653460e92c3d1d2d3be46a4aa'
-  /src/main/webapp/websiteTemplate/readme.md:
-    newFile: null
-    oldFile: !uuid '0266be35ada4c9636216224694a1e78de7fed52a'
-gitCommitId: !uuid '69f684c9bd7e251dcbf01236848fdfa8ece65505'
+    newFile: !uuid '653a4144e33ad2f7b4a8314efd9d9b1565ba4917'
+    oldFile: !uuid '347bc6649278a2c5ca3cb398b29b97c5bb50efc6'
+  /src/main/webapp/plugin:
+    newFile: !uuid '73d2b7b674ed2679347f9596db8dd5c84adbe486'
+    oldFile: !uuid 'f415d85a4195f7a0ce749ac89edae2a680fb6957'
+  /src/main/webapp/plugin/limitbuy:
+    newFile: !uuid 'bb7ecb3f2e4064517e5c4d932ed3e733378c6087'
+    oldFile: !uuid '21981a470ce6a76f2aa49c2c180b5f62b5f4c18e'
+  /src/main/webapp/plugin/limitbuy/store:
+    newFile: !uuid 'c1e8ece55aa658a6ad64e28daae221182fea4621'
+    oldFile: !uuid 'ffd8747d811d4aaaeb71613a66cdf0b5f944958d'
+  /src/main/webapp/plugin/limitbuy/store/index.jsp:
+    newFile: !uuid '8aee35f8b93ad10055204df239e015ecb1835ead'
+    oldFile: !uuid 'a24f82a66df4373d8cde976329b00df3c84bac6d'
+gitCommitId: !uuid 'c1a0ffd533af8275c1a1d6ebd97422a83b19398f'
 renames: {
   }
-revisionId: 283
+revisionId: 284
