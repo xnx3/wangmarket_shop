@@ -112,7 +112,7 @@ function updateLimitNumber(value){
        	}else{
        		parent.msg.failure("出错");
        	}
-	}, "text");
+	});
 }
 
 msg.loading('加载中');
