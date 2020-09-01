@@ -160,7 +160,7 @@ function templateReplace(item){
 function list(currentPage){
 var data = {
 	'currentPage':currentPage,
-	'everyNumber':'2',	//这里每页显示2条数据
+	'everyNumber':'20',	//这里每页显示2条数据
 	'title':document.getElementById('title').value,
 };
 	msg.loading('加载中');

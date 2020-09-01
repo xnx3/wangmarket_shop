@@ -74,7 +74,6 @@ public class IndexController extends BasePluginController {
 		url = url.replaceAll("\\?", "_3F").replaceAll("&", "_26");
 		url = SystemUtil.get("MASTER_SITE_URL")+"plugin/weixinH5Auth/wxAuthLogin.do?storeid="+storeid+"%26referrerid="+referrerid+"%26url="+url;
 		String jumpUrl = util.getOauth2ExpertUrl(url);
-		ConsoleUtil.log("jumpUrl:"+jumpUrl);
 		ActionLogUtil.insert(request, storeid, "jumpUrl:"+jumpUrl);
 		return redirect(jumpUrl);
 	}
@@ -111,7 +110,6 @@ public class IndexController extends BasePluginController {
 		String openid = null;
 		//判断一下该用户使用的是否是服务商模式
 		PaySet paySet = paySetService.getPaySet(storeid);
-		ConsoleUtil.debug("paySet:"+paySet.toString());
 		if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
 			//使用服务商模式
 			PaySet serivcePaySet = paySetService.getSerivceProviderPaySet();
@@ -190,7 +188,6 @@ public class IndexController extends BasePluginController {
 			}
 		}else{
 			//用户已经注册过了
-			ConsoleUtil.debug("userWeixin:"+userWeixin.toString());
 			user = sqlCacheService.findById(User.class, userWeixin.getUserid());
 			
 			//设置当前用户为登陆的状态
@@ -217,7 +214,6 @@ public class IndexController extends BasePluginController {
 				}
 			}
 			sqlService.save(storeUser);
-			ConsoleUtil.info("reg --- > "+storeUser.toString());
 			ActionLogUtil.insertUpdateDatabase(request, storeid, "注册新用户:"+user.toString()+", storeUser:"+storeUser.toString()+", url:"+url);
 		}
 		

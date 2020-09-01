@@ -102,7 +102,6 @@ public class IndexController extends BasePluginController {
 		sql.appendWhere("user.id = shop_store_user.userid");
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
 //		sql.setDefaultOrderBy("id DESC");
-		System.out.println(sql.getSql());
 		// 按照上方条件查询出该实体总数 用集合来装
 		List<User> list = sqlService.findBySql(sql,User.class);
 		
