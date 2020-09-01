@@ -187,7 +187,7 @@ public class IndexController extends BasePluginController {
 		SessionUtil.setParentToken(token);
 		
 		ActionLogUtil.insertUpdateDatabase(request, "用户登录成功","userid:"+u.getUserid());
-		return redirect("shop/store/index/index.do");
+		return redirect("store/index/index.jsp?token="+request.getSession().getId());
 	}
 	
 	/**
