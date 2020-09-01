@@ -31,7 +31,7 @@ http://localhost:9090/shop/superadmin/login/login.do
 可开通商家
 
 #### 商家登录
-http://localhost:9090/shop/store/login/login.do
+http://localhost:9090/store/login/login.jsp
 账号：store
 密码：store
 商家后台可以管理自己的店铺。而我们平台是多商家的，可以有多个商家存在，每个商家都有一个自己的账号，管理自己的店铺。
