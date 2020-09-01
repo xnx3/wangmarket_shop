@@ -23,7 +23,7 @@ import com.xnx3.wangmarket.shop.core.entity.StoreSmsLog;
 import com.xnx3.wangmarket.shop.core.service.SMSService;
 import com.xnx3.wangmarket.shop.core.service.SMSSetService;
 
-@Service
+@Service("smsService")
 public class SMSServiceImpl implements SMSService {
 	@Resource
 	private SqlDAO sqlDAO;

@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import com.xnx3.ScanClassUtil;
-import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.util.SpringUtil;
 import com.xnx3.wangmarket.shop.core.entity.Order;
-import com.xnx3.wangmarket.shop.core.entity.Store;
 
 /**
  * 订单支付完成之后触发
@@ -44,7 +42,6 @@ public class OrderPayFinishPluginManage {
 		
 	}
 	
-	
 
 	/**
 	 * 订单创建完毕之后，接口业务逻辑等都已经执行完了，触发
@@ -54,13 +51,17 @@ public class OrderPayFinishPluginManage {
 			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		/**** 针对html源代码处理的插件 ****/
 		for (int i = 0; i < classList.size(); i++) {
-			Class<?> c = classList.get(i);
-			Object invoke = null;
-			invoke = c.newInstance();
-			//运用newInstance()来生成这个新获取方法的实例  
-			Method m = c.getMethod("orderPayFinish",new Class[]{Order.class});	//获取要调用的方法  
-			//动态构造的Method对象invoke委托动态构造的InvokeTest对象，执行对应形参的add方法
-			m.invoke(invoke, new Object[]{order});
+			try {
+				Class<?> c = classList.get(i);
+				Object invoke = null;
+				invoke = c.newInstance();
+				//运用newInstance()来生成这个新获取方法的实例  
+				Method m = c.getMethod("orderPayFinish",new Class[]{Order.class});	//获取要调用的方法  
+				//动态构造的Method对象invoke委托动态构造的InvokeTest对象，执行对应形参的add方法
+				m.invoke(invoke, new Object[]{order});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

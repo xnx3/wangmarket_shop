@@ -5,11 +5,11 @@ import com.xnx3.SMSUtil;
 import com.xnx3.j2ee.pluginManage.PluginRegister;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.util.ActionLogUtil;
-import com.xnx3.j2ee.util.SpringUtil;
 import com.xnx3.wangmarket.plugin.payNotice.entity.PayNotice;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderPayFinishInterface;
 import com.xnx3.wangmarket.shop.core.service.SMSService;
+import com.xnx3.wangmarket.shop.core.util.SpringUtil;
 
 /**
  * 付款通知。当用户付款成功后（无论是线上支付还是线下支付）会自动向店家的手机号发送一条短信
@@ -28,10 +28,13 @@ public class Plugin implements OrderPayFinishInterface{
 			return;
 		}
 		
-		SMSService smsService = (SMSService) SpringUtil.getBean("smsService");
+		SMSService smsService = SpringUtil.getSMSService();
+		if(smsService == null){
+			return;
+		}
 		SMSUtil smsUtil = smsService.getSMSUtil(order.getStoreid());
 		if(smsUtil != null){
-			BaseVO vo = smsUtil.send(payNotice.getPhone(), Plugin.SMS_TEMPLATE.replace("{orderno}", order.getNo()).replace("{money}", (order.getTotalMoney()/100)+""));
+			BaseVO vo = smsUtil.send(payNotice.getPhone(), Plugin.SMS_TEMPLATE.replace("{orderno}", order.getNo()).replace("{money}", (order.getTotalMoney()/100f)+""));
 			//日志
 			ActionLogUtil.insertUpdateDatabase(null, "支付通知发送短信", "payNotice:"+payNotice.toString()+", order:"+order.toString()+", vo:"+vo.toString());
 		}
