@@ -43,10 +43,10 @@ public class TixianController extends BasePluginController {
 	@ResponseBody
 	@RequestMapping(value = "/list${api.suffix}",method = {RequestMethod.POST})
 	public SellTiXianLogListVO list(HttpServletRequest request,Model model) {
-
 		SellTiXianLogListVO vo = new SellTiXianLogListVO();
 		if(!haveStoreAuth()){
-		vo.setBaseVO(BaseVO.FAILURE,"请先登录");
+			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
+			return vo;
 		}
 		Store store = SessionUtil.getStore();
 		
@@ -90,6 +90,7 @@ public class TixianController extends BasePluginController {
 
 		if(!haveStoreAuth()){
 			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
+			return vo;
 		}
 		Store store = SessionUtil.getStore();
 		
@@ -102,7 +103,6 @@ public class TixianController extends BasePluginController {
 		}
 
 		vo.setSellTiXianLog(log);
-		System.out.println(log);
 		//日志记录
 		ActionLogUtil.insert(request, getUserId(), "查看提现申请记录", log.toString());
 		return vo;

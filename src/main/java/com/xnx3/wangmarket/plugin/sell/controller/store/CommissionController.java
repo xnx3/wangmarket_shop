@@ -32,7 +32,6 @@ public class CommissionController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
 
-
 	/**
 	 * 查看佣金记录列表
 	 * @author 管雷鸣
@@ -41,11 +40,10 @@ public class CommissionController extends BasePluginController {
 	@RequestMapping(value = "/list${api.suffix}",method = {RequestMethod.POST})
 	public SellCommissionLogListVO list(HttpServletRequest request, Model model,
 										@RequestParam(value = "everyNumber", required = false, defaultValue = "30") int everyNumber) {
-
 		SellCommissionLogListVO vo = new SellCommissionLogListVO();
-
 		if(!haveStoreAuth()){
 			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
+			return vo;
 		}
 		Store store = SessionUtil.getStore();
 

@@ -52,11 +52,10 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 	@ResponseBody
 	@RequestMapping(value = "list${api.suffix}",method = {RequestMethod.POST})
 	public UserListVO list(HttpServletRequest request, Model model){
-
 		UserListVO vo = new UserListVO();
-
 		if(!haveStoreAuth()){
 			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
+			return vo;
 		}
 		Store store = SessionUtil.getStore();
 
@@ -85,11 +84,10 @@ public class UserStoreSubAccountPluginController extends BasePluginController {
 	@RequestMapping(value = "edit${api.suffix}",method = {RequestMethod.POST})
 	public UserEditVO edit(HttpServletRequest request,Model model,
 						   @RequestParam(value = "userid", required = false , defaultValue="0") int userid){
-
 		UserEditVO vo = new UserEditVO();
-
 		if(!haveStoreAuth()){
 			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
+			return vo;
 		}
 
 		//将 TemplateMenuEnum 枚举中定义的菜单拿出来，等级层次分清，以便随时使用

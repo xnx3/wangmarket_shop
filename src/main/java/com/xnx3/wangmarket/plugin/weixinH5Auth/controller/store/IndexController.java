@@ -39,11 +39,10 @@ public class IndexController extends BasePluginController {
 	@ResponseBody
 	@RequestMapping(value = "index${api.suffix}",method = {RequestMethod.POST})
 	public WeiXinAuthVO index(HttpServletRequest request, Model model){
-
 		WeiXinAuthVO vo = new WeiXinAuthVO();
-
 		if(!haveStoreAuth()){
 			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
+			return vo;
 		}
 
 		Store store = SessionUtil.getStore();

@@ -41,7 +41,8 @@ public class IndexController extends BasePluginController {
 	public BaseVO index(HttpServletRequest request,Model model){
 		BaseVO vo = new BaseVO();
 		if(!haveStoreAuth()){
-		vo.setBaseVO(com.xnx3.BaseVO.FAILURE,"请先登录");
+			vo.setBaseVO(com.xnx3.BaseVO.FAILURE,"请先登录");
+			return vo;
 		}
 		ActionLogUtil.insertUpdateDatabase(request, "进入后台分销首页");
 		return vo;
@@ -57,6 +58,7 @@ public class IndexController extends BasePluginController {
 		SellStoreSetVO vo = new SellStoreSetVO();
 		if(!haveStoreAuth()){
 			vo.setBaseVO(com.xnx3.BaseVO.FAILURE,"请先登录");
+			return vo;
 		}
 		
 		Store store = SessionUtil.getStore();

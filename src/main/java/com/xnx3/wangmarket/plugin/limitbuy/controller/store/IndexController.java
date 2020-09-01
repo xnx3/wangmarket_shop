@@ -43,6 +43,7 @@ public class IndexController extends BasePluginController {
 
 		if(!haveStoreAuth()){
 			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
+			return vo;
 		}
 		
 		Store store = SessionUtil.getStore();
