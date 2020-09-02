@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import com.xnx3.j2ee.pluginManage.interfaces.SpringMVCInterceptorInterface;
+import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
@@ -55,8 +56,8 @@ public class SpringMVCInterceptorLogin implements SpringMVCInterceptorInterface{
 			//无权使用，自己没有所管理的店铺
 			response.setHeader("Access-Control-Allow-Origin", "*");
 			response.getWriter().write("{"
-    				+ "\"result\":\"" + BaseVO.FAILURE + "\","
-    				+ "\"info\":\"403，不是商家，无权使用\""
+    				+ "\"result\":\"" + BaseVO.NOT_LOGIN + "\","
+    				+ "\"info\":\"403, no authority\""
 				+ "}");
 			return false;
 		}
