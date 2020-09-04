@@ -5,7 +5,52 @@
 <jsp:include page="../common/head.jsp">
 	<jsp:param name="title" value="编辑"/>
 </jsp:include>
-<script src="/shop/store/api/goodsType/getGoodsTypeJs.json"></script>
+<script>
+//同步加载js
+function loadjs(url){  
+  var  xmlHttp = null;  
+  if(window.ActiveXObject){//IE  
+      try {  
+   //IE6以及以后版本中可以使用  
+   xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");  
+      } catch (e) {  
+   //IE5.5以及以后版本可以使用  
+   xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");  
+      }  
+  }else if(window.XMLHttpRequest){  
+      //Firefox，Opera 8.0+，Safari，Chrome  
+      xmlHttp = new XMLHttpRequest();  
+  }  
+  //采用同步加载  
+  xmlHttp.open("GET",url,false);  
+  //发送同步请求，如果浏览器为Chrome或Opera，必须发布后才能运行，不然会报错  
+  xmlHttp.send(null);  
+  //4代表数据发送完毕  
+  if( xmlHttp.readyState == 4 ){  
+      //0为访问的本地，200到300代表访问服务器成功，304代表没做修改访问的是缓存  
+      if((xmlHttp.status >= 200 && xmlHttp.status <300) || xmlHttp.status == 0 || xmlHttp.status == 304){  
+   var myBody = document.getElementsByTagName("BODY")[0];  
+   var myScript = document.createElement( "script" );  
+   myScript.language = "javascript";  
+   myScript.type = "text/javascript";  
+   try{  
+       //IE8以及以下不支持这种方式，需要通过text属性来设置  
+       myScript.appendChild(document.createTextNode(xmlHttp.responseText));  
+   }catch (ex){  
+       myScript.text = xmlHttp.responseText;  
+   }  
+   myBody.appendChild(myScript);  
+   return true;  
+      }else{  
+   return false;  
+      }  
+  }else{  
+      return false;  
+  }  
+}
+
+loadjs(shop.host+'shop/store/api/goodsType/getGoodsTypeJs.json?token='+shop.getToken());
+</script>
 <script src="/<%=Global.CACHE_FILE %>GoodsType_putaway.js"></script>
 
 <style type="text/css" >
@@ -142,19 +187,6 @@
 <!-- 编辑器源码文件 -->
 <script type="text/javascript" src="/module/ueditor/ueditor.all.js"></script>
 <script>
-
-	<!-- 实例化编辑器 -->
-	var ueditorText = document.getElementById('myEditor').innerHTML;
-	var ue = UE.getEditor('myEditor',{
-		autoHeightEnabled: true,
-		autoFloatEnabled: true,
-		initialFrameHeight:460  
-	});
-	//对编辑器的操作最好在编辑器ready之后再做
-	ue.ready(function() {
-		document.getElementById("myEditor").style.height='auto';
-	});
-	
 
 layui.use('upload', function(){
 	var upload = layui.upload;
@@ -432,9 +464,21 @@ checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录
 		document.getElementById("fakeSale").value = goods.fakeSale;
 		document.getElementById("units").value = goods.units;
 		document.getElementById("intro").innerHTML = goods.intro;
-		document.getElementById("myEditor").innerHTML = goodsData.detail;
 		writeSelectAllOptionFortypeid_(goods.typeid,'请选择分类', true);
 		writeSelectAllOptionForputaway_(goods.putaway,'请选择上下架', true);
+		
+		<!-- 实例化编辑器 -->
+		document.getElementById("myEditor").innerHTML = goodsData.detail;
+		var ueditorText = goodsData.detail;
+		var ue = UE.getEditor('myEditor',{
+			autoHeightEnabled: true,
+			autoFloatEnabled: true,
+			initialFrameHeight:460  
+		});
+		//对编辑器的操作最好在编辑器ready之后再做
+		ue.ready(function() {
+			document.getElementById("myEditor").style.height='auto';
+		});	
 	}
 });
 
