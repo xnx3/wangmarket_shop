@@ -3,33 +3,36 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '780597b425d7fa93af4983308154ff973fc4952f'
-    oldFile: !uuid '14c2e890cb68d23d2b517b1ff1736ad6d2bab685'
+    newFile: !uuid 'e45a6e232511927797ea642afb60fe17c2e58892'
+    oldFile: !uuid '780597b425d7fa93af4983308154ff973fc4952f'
   /src/main:
-    newFile: !uuid '10e0f6c833f294605cfc786daea6368335163999'
-    oldFile: !uuid '63ad272fab98a3a50df66b348be406896545716a'
+    newFile: !uuid '65552676d1f56fc5a6181997ebecf4e20938a054'
+    oldFile: !uuid '10e0f6c833f294605cfc786daea6368335163999'
   /src/main/webapp:
-    newFile: !uuid '9bab22b3bee02021fc892538773fe35ab8f9b618'
-    oldFile: !uuid 'f869cb48198cd31db8024cabe15f145f7552cc8a'
+    newFile: !uuid 'd699bf3e9a0ce610236568bd3ddf03201c48bffd'
+    oldFile: !uuid '9bab22b3bee02021fc892538773fe35ab8f9b618'
   /src/main/webapp/store:
-    newFile: !uuid '664e597afa4ff01ef11b9528e997d5df7dab4512'
-    oldFile: !uuid '6c2c764778fbd1cd8ada8848b8179f3951ffd232'
-  /src/main/webapp/store/common:
-    newFile: !uuid 'caf935803351a61ba0b1d4605b571261011d1ee1'
-    oldFile: !uuid '1abb7cd90cbb0978b7b74f890ffc3a1c64e97d57'
-  /src/main/webapp/store/common/head.jsp:
-    newFile: !uuid '57938798cc22e35db35ab88a74bc28d3e4a9ff37'
-    oldFile: !uuid '9d556a492b1f3d621d5bcd18944595cd756cd8ee'
-  /src/main/webapp/store/goods:
-    newFile: !uuid '06ae0397ace3a264e97e49596265897e50f6aa32'
-    oldFile: !uuid 'f9def9d39e80cd09c2f39d79e8851e2089007c2f'
-  /src/main/webapp/store/goods/edit.jsp:
-    newFile: !uuid '48547e7413fe03af0a3095a8e1a3b4af26426353'
-    oldFile: !uuid 'd32287ad13116aaf91cbe81cda6b44af4bb09ccd'
-  /src/main/webapp/store/goods/list.jsp:
-    newFile: !uuid '7cb0809d1c42e9b75a7f3f155f3eb6afa0e52334'
-    oldFile: !uuid '56edafdbbbad699f7635184e4999a7448a38a331'
-gitCommitId: !uuid 'df2ad6d6b59e5862bf76bea768527cf6b38ddff6'
+    newFile: !uuid '841b5bde56364ae8a36e0aec0f02a42efe1c122d'
+    oldFile: !uuid '664e597afa4ff01ef11b9528e997d5df7dab4512'
+  /src/main/webapp/store/orderRule:
+    newFile: !uuid 'c14b2e169599ef8e833ca98d15b89d851e7d2c3a'
+    oldFile: !uuid 'cbd6e2a6baa81f5f8519a03ccd087a9b437c7318'
+  /src/main/webapp/store/orderRule/index.jsp:
+    newFile: !uuid '44668ccfe57bfd5339b3e96111847e9ec836805c'
+    oldFile: !uuid '73539a82b0de0f04b94f1bae54163f5c05e8feee'
+  /src/main/webapp/store/paySet:
+    newFile: !uuid '469dd8a7e2fd4061e58f2c061f3cdde20f869007'
+    oldFile: !uuid '7d54418e2a206156140e09fb4909bfd0d0186d11'
+  /src/main/webapp/store/paySet/index.jsp:
+    newFile: !uuid '9230289c99b47d42acb04ddf5cbbc4b40e6b5783'
+    oldFile: !uuid 'f6c828671877c92cecd56e3ebacef198e403ae6d'
+  /src/main/webapp/store/sms:
+    newFile: !uuid '0c2375c4c0ada0f9cc26eca4d697b4e9b8c9f7a3'
+    oldFile: !uuid 'bcd58d6862e3f328539953deb792a50b70a695e6'
+  /src/main/webapp/store/sms/index.jsp:
+    newFile: !uuid '9aa65b47dc5b0ddc41985fa0b42ad7158c6523e5'
+    oldFile: !uuid 'a6b7b4d432af2de70e1185e5d03950446e015e40'
+gitCommitId: !uuid '5143efc59542702a79f8a91ef9b29dda1bf73f7f'
 renames: {
   }
-revisionId: 288
+revisionId: 289
