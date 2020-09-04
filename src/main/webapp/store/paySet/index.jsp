@@ -246,7 +246,7 @@ function wechatParametersReplace(item){
 msg.loading('加载中');
 var paySet;
 
-post('/shop/store/api/paySet/index.json','',function(data){
+post('/shop/store/api/paySet/index.json',{},function(data){
 msg.close();    //关闭“更改中”的等待提示
 checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 
