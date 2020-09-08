@@ -156,7 +156,7 @@ loadjs(shop.host+'shop/store/api/goodsType/getGoodsTypeJs.json?token='+shop.getT
 	<div class="layui-form-item" id="xnx3_editMode">
 		<label class="layui-form-label" id="columnEditMode">简介</label>
 		<div class="layui-input-block">
-			<textarea rows="2" cols="30" name="intro" id="intro" class="layui-input" style="height: auto; padding-left: 0px; border: 1px solid;"
+			<textarea rows="2" cols="30" name="intro" id="intro" class="layui-textarea" style="height: auto;"
 			maxlength="40"></textarea>
 		</div>
 		<div class="explain" style="font-size: 12px;color: gray;padding-top: 3px;padding-left: 110px;">
@@ -435,54 +435,68 @@ function writeSelectAllOptionForputaway_(selectValue, firstTitle, required) {
 		form.render();
 	});
 }
+
+<!-- 实例化编辑器 -->
+var ue;
+function initUE(){
+	document.getElementById("myEditor").innerHTML = goodsData.detail;
+	var ueditorText = goodsData.detail;
+	ue = UE.getEditor('myEditor',{
+		autoHeightEnabled: true,
+		autoFloatEnabled: true,
+		initialFrameHeight:460  
+	});
+	//对编辑器的操作最好在编辑器ready之后再做
+	ue.ready(function() {
+		document.getElementById("myEditor").style.height='auto';
+	});
+} 
+
+//加载要修改的商品信息
 var id = getUrlParams('id');
 var	goods;
-//获取商品信息
-msg.loading('加载中');
-post('/shop/store/api/goods/getGoods.json?id=' + id ,"",function(data){
-msg.close();    //关闭“更改中”的等待提示
-checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-
-	if(data.goods == null){
-		document.getElementById('titlePicImg').style.display='none';
-		writeSelectAllOptionFortypeid_('','请选择分类', true);
-		writeSelectAllOptionForputaway_('','请选择上下架', true);
-	return;
-	}else{
-		//成功
-		goods = data.goods;
-		var goodsData = data.goodsData;
-		document.getElementById("id").value = goods.id;
-		document.getElementById("title").value = goods.title;
-		document.getElementById('titlePicImg').src = goods.titlepic + '?x-oss-process=image/resize,h_38';
-		document.getElementById('titlePicA').href = goods.titlepic;
-		document.getElementById("titlepic").value = goods.titlepic;
-		document.getElementById("price").value = goods.price/100;
-		document.getElementById("originalPrice").value = goods.originalPrice/100;
-		document.getElementById("inventory").value = goods.inventory;
-		document.getElementById("alarmNum").value = goods.alarmNum;
-		document.getElementById("fakeSale").value = goods.fakeSale;
-		document.getElementById("units").value = goods.units;
-		document.getElementById("intro").innerHTML = goods.intro;
-		writeSelectAllOptionFortypeid_(goods.typeid,'请选择分类', true);
-		writeSelectAllOptionForputaway_(goods.putaway,'请选择上下架', true);
+var goodsData={'detail':''};
+if(id.length > 0){
+	//修改商品
+	//获取商品信息
+	msg.loading('加载中');
+	post('/shop/store/api/goods/getGoods.json?id=' + id ,{},function(data){
+		msg.close();    //关闭“更改中”的等待提示
+		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 		
-		<!-- 实例化编辑器 -->
-		document.getElementById("myEditor").innerHTML = goodsData.detail;
-		var ueditorText = goodsData.detail;
-		var ue = UE.getEditor('myEditor',{
-			autoHeightEnabled: true,
-			autoFloatEnabled: true,
-			initialFrameHeight:460  
-		});
-		//对编辑器的操作最好在编辑器ready之后再做
-		ue.ready(function() {
-			document.getElementById("myEditor").style.height='auto';
-		});	
-	}
-});
-
-
+		if(data.goods == null){
+			document.getElementById('titlePicImg').style.display='none';
+			writeSelectAllOptionFortypeid_('','请选择分类', true);
+			writeSelectAllOptionForputaway_('','请选择上下架', true);
+			return;
+		}else{
+			//成功
+			goods = data.goods;
+			goodsData = data.goodsData;
+			document.getElementById("id").value = goods.id;
+			document.getElementById("title").value = goods.title;
+			document.getElementById('titlePicImg').src = goods.titlepic + '?x-oss-process=image/resize,h_38';
+			document.getElementById('titlePicA').href = goods.titlepic;
+			document.getElementById("titlepic").value = goods.titlepic;
+			document.getElementById("price").value = goods.price/100;
+			document.getElementById("originalPrice").value = goods.originalPrice/100;
+			document.getElementById("inventory").value = goods.inventory;
+			document.getElementById("alarmNum").value = goods.alarmNum;
+			document.getElementById("fakeSale").value = goods.fakeSale;
+			document.getElementById("units").value = goods.units;
+			document.getElementById("intro").innerHTML = goods.intro;
+			writeSelectAllOptionFortypeid_(goods.typeid,'请选择分类', true);
+			writeSelectAllOptionForputaway_(goods.putaway,'请选择上下架', true);
+		}
+		initUE();
+	});
+}else{
+	//添加商品
+	document.getElementById('titlePicImg').style.display='none';
+	writeSelectAllOptionFortypeid_('','请选择分类', true);
+	writeSelectAllOptionForputaway_('','请选择上下架', true);
+	initUE();
+}
 
 </script>
 
