@@ -59,7 +59,7 @@ public class LogAdminController_ extends BaseController{
 		
 		model.addAttribute("list", jsonArray);
 		model.addAttribute("page", page);
-		return "/iw/admin/log/list";
+		return "/wm/admin/log/list";
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class LogAdminController_ extends BaseController{
 			return error(model, "您未开启日志服务！无法查看操作日志");
 		}
 		ActionLogUtil.insert(request, "查看总管理后台操作的统计图表");
-		return "/iw/admin/log/cartogram";
+		return "/wm/admin/log/cartogram";
 	}
 	
 

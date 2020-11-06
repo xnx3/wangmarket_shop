@@ -45,7 +45,7 @@ public class SmsLogAdminController_ extends BaseController {
 		
 		model.addAttribute("page", page);
 		model.addAttribute("list", list);
-		return "/iw/admin/smslog/list";
+		return "/wm/admin/smslog/list";
 	}
 	
 }

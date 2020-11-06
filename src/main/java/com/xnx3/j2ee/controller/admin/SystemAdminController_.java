@@ -52,7 +52,7 @@ public class SystemAdminController_ extends BaseController {
 		
 		model.addAttribute("page", page);
 		model.addAttribute("systemList", systemList);
-		return "/iw/admin/system/variableList";
+		return "/wm/admin/system/variableList";
 	}
 	
 	/**
@@ -84,7 +84,7 @@ public class SystemAdminController_ extends BaseController {
 		
 		//编辑页面
 		model.addAttribute("system", system);
-		return "/iw/admin/system/variable";
+		return "/wm/admin/system/variable";
 	}
 	
 

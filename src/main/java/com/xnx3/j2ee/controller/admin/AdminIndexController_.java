@@ -68,7 +68,7 @@ public class AdminIndexController_ extends BaseController{
 		User user = getUser();
 		model.addAttribute("user", user);
 		model.addAttribute("useSLS", ActionLogUtil.aliyunLogUtil != null); //是否使用日志服务.  true：使用，false不使用
-		return "/iw_update/admin/index/index";
+		return "/wm/admin/index/index";
 	}
 	
 }

@@ -73,7 +73,7 @@ public class UserAdminController_ extends BaseController {
 		
 		model.addAttribute("page", page);
 		model.addAttribute("list", list);
-		return "/iw_update/admin/user/list";
+		return "/wm/admin/user/list";
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public class UserAdminController_ extends BaseController {
 		ActionLogUtil.insert(request, user.getId(), "总管理后台-用户详情", user.toString());
 		
 		model.addAttribute("u", user);
-		return "/iw_update/admin/user/view";
+		return "/wm/admin/user/view";
 	}
 	
 	/**

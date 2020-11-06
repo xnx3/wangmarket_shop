@@ -45,7 +45,7 @@ public class PayLogAdminController_ extends BaseController{
 		
 		model.addAttribute("page", page);
 		model.addAttribute("list", list);
-		return "/iw/admin/payLog/list";
+		return "/wm/admin/payLog/list";
 	}
 	
 }

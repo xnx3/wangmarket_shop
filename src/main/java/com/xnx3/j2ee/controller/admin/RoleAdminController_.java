@@ -61,7 +61,7 @@ public class RoleAdminController_ extends BaseController {
 			//新增
 			ActionLogUtil.insert(request, "进入添加角色页面");
 		}
-		return "iw/admin/role/role";
+		return "/wm/admin/role/role";
 	}
 	
 	/**
@@ -107,7 +107,7 @@ public class RoleAdminController_ extends BaseController {
 		
 		ActionLogUtil.insert(request, "角色列表");
 		model.addAttribute("list", list);
-		return "iw/admin/role/roleList";
+		return "/wm/admin/role/roleList";
 	}
 	
 	/**
@@ -131,7 +131,7 @@ public class RoleAdminController_ extends BaseController {
 		ActionLogUtil.insert(request, parentId, "进入添加资源Permission页面", "所属上级："+parentPermissionDescription);
 		model.addAttribute("permission", permission);
 		model.addAttribute("parentPermissionDescription", parentPermissionDescription);
-		return "iw/admin/role/permission";
+		return "/wm/admin/role/permission";
 	}
 	
 	/**
@@ -154,7 +154,7 @@ public class RoleAdminController_ extends BaseController {
 				
 				model.addAttribute("permission", permission);
 				model.addAttribute("parentPermissionDescription", parentPermissionDescription);
-				return "iw/admin/role/permission";
+				return "/wm/admin/role/permission";
 			}
 		}
 		return error(model, "出错，参数错误");
@@ -228,7 +228,7 @@ public class RoleAdminController_ extends BaseController {
 		
 		model.addAttribute("page", page);
 		model.addAttribute("list", permissionTreeList);
-		return "iw/admin/role/permissionList";
+		return "/wm/admin/role/permissionList";
 	}
 	
 	/**
@@ -249,7 +249,7 @@ public class RoleAdminController_ extends BaseController {
 			ActionLogUtil.insert(request, role.getId(), "编辑某个权限下拥有的资源",role.getName());
 			model.addAttribute("role", role);
 			model.addAttribute("list", list);
-			return "iw/admin/role/rolePermission";
+			return "/wm/admin/role/rolePermission";
 		}
 		return null;
 	}
@@ -289,7 +289,7 @@ public class RoleAdminController_ extends BaseController {
 			
 		model.addAttribute("currentUser", user);
 		model.addAttribute("list", list);
-		return "iw/admin/role/userRole";
+		return "/wm/admin/role/userRole";
 	}
 
 	/**
