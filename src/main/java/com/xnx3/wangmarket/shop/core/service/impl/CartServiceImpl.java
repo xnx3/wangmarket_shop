@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.xnx3.CacheUtil;
 import com.xnx3.Lang;
 import com.xnx3.j2ee.entity.User;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.json.JSONUtil;
@@ -28,6 +29,8 @@ import net.sf.json.JSONObject;
 public class CartServiceImpl implements CartService {
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private SqlCacheService sqlCacheService;
 	
 	@Override
 	public StoreCart getStoreCart(int storeid) {
@@ -70,7 +73,7 @@ public class CartServiceImpl implements CartService {
 		StoreCart storeCart = cartVO.getStoreCartMap().get(goods.getStoreid());
 		if(storeCart == null){
 			storeCart = new StoreCart();
-			storeCart.setStore(sqlService.findById(Store.class, goods.getStoreid()));
+			storeCart.setStore(sqlCacheService.findById(Store.class, goods.getStoreid()));
 			cartVO.getStoreCartMap().put(goods.getStoreid(), storeCart);
 		}
 		
@@ -158,7 +161,7 @@ public class CartServiceImpl implements CartService {
 			//购物车中没有信息，那么从数据表的 shop_cart 中取之前的购物车信息。后面量大会用redis代替 shop_cart
 			User user = SessionUtil.getUser();
 			int userid = user == null ? 0:user.getId();
-			Cart cart = sqlService.findById(Cart.class, userid);
+			Cart cart = sqlCacheService.findById(Cart.class, userid);
 			if(cart == null){
 				cart = new Cart();
 			}
@@ -563,15 +566,17 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void setCart(CartVO cartVO) {
 		cartVO.setBaseVO(CartVO.SUCCESS, "success");
+		User user = SessionUtil.getUser();
 		
 		//存入 session
 		SessionUtil.setCart(cartVO);
+		//删除原本的CacheUtil的缓存
+		sqlCacheService.deleteCacheById(Cart.class, user.getId());
 		
 		if(!CacheUtil.isUseRedis()){
 			//如果不使用redis，那就是java本身缓存，tomcat重启也就关闭了，所以不使用redis，需要将数据变动保存到mysql数据表中
 			//存入数据表，将其转化为json存储
 			String jsonString = cartVO.toJsonString();
-			User user = SessionUtil.getUser();
 			Cart cart = sqlService.findById(Cart.class, user.getId());
 			if(cart == null){
 				cart = new Cart();
