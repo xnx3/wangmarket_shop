@@ -76,7 +76,7 @@ public class GoodsBean implements java.io.Serializable{
 		return units;
 	}
 	public void setUnits(String units) {
-		if(price == null) {
+		if(units == null) {
 			this.units = "";
 		}else {
 			this.units = units;
