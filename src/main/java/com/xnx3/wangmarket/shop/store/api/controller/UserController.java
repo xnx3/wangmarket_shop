@@ -58,8 +58,8 @@ public class UserController extends BaseController {
 
 		// 配置每页显示15条
 		Page page = new Page(count, everyNumber, request);
-		sql.appendWhere("shop_store_user.userid = " + user.getId());
-		//sql.appendWhere("shop_store_user.userid = user.id");
+		//sql.appendWhere("shop_store_user.userid = " + user.getId());
+		sql.appendWhere("shop_store_user.userid = user.id");
 		sql.setSelectFromAndPage("SELECT user.* FROM user,shop_store_user", page);
 		System.out.println(sql.getSql());
 		// 按照上方条件查询出该实体总数 用集合来装
