@@ -12,6 +12,7 @@ import com.xnx3.Lang;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
+import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.json.JSONUtil;
 import com.xnx3.wangmarket.shop.core.entity.Cart;
@@ -533,6 +534,11 @@ public class CartServiceImpl implements CartService {
 		//操作所有商品
 		for(Map.Entry<Integer, StoreCart> entry:cartVO.getStoreCartMap().entrySet()){
 			StoreCart storeCart = entry.getValue();
+			if(storeCart.getStore() == null){
+				//如果storeCart不存在，这种情况的话那就是系统出现故障或者哪里没判断了
+				ConsoleUtil.error("如果storeCart.getStore()不存在，这种情况的话那就是系统出现故障或者哪里没判断了，cartVO:"+cartVO.toJsonString());
+				continue;
+			}
 			if(storeCart.getStore().getId() - storeid == 0){
 				//操作的就是这个店铺
 				
