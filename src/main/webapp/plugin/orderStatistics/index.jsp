@@ -8,7 +8,7 @@
 </jsp:include>
 <script src="/<%=Global.CACHE_FILE %>Order_state.js"></script>
 </head>
-<body>
+<body style="padding: 15px;">
 <div style="margin-top: 20px; margin-bottom: 10px;" class="layui-block">
 	<label style="text-align: left;" class="layui-form-label">日期范围</label>
 	<div class="layui-input-inline">
@@ -81,8 +81,11 @@ function search(){
     			var item = data.list[i];
     			html = html + '<tr><td>'+state[item.state]+'</td><td>'+item.orderNumber+'</td><td>'+(item.money/100)+'元</td></tr>';
     		}
-    	document.getElementById('ddtable').innerHTML = html;
+    		document.getElementById('ddtable').innerHTML = html;
     		
+    		if(data.list.length < 1){
+    			msg.info('此时间段无任何订单');
+    		}
     	}
 
     });    
