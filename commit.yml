@@ -3,57 +3,48 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '967acab02bb754318dca2df87e7ffcbb6a8586bb'
-    oldFile: !uuid 'ca0c8e23a3688411b16c06f0a3b0a27c53f06c58'
+    newFile: !uuid '2636d0a3d11d4b074cb2d961af253a2e7006ca21'
+    oldFile: !uuid '967acab02bb754318dca2df87e7ffcbb6a8586bb'
   /src/main:
-    newFile: !uuid '8296884e89a11870613fbaad40b94be7823e0f45'
-    oldFile: !uuid '8491671769879590ab459ba73f440d7fb3c7b088'
+    newFile: !uuid 'e89744c3506cad61705e2dbedb4e3cbef6ea7235'
+    oldFile: !uuid '8296884e89a11870613fbaad40b94be7823e0f45'
   /src/main/java:
-    newFile: !uuid '1e5780b8a7db53b84fc98090423b6e08e8fe3b76'
-    oldFile: !uuid '98f814cffa48b7e75fd7ba355bcc93067e363728'
+    newFile: !uuid 'de1c23edda14005faa358ffac14af9a50d4c4be5'
+    oldFile: !uuid '1e5780b8a7db53b84fc98090423b6e08e8fe3b76'
   /src/main/java/com:
-    newFile: !uuid 'a519343d7b193cd4fea91e0a08fb8ef1a0e8287b'
-    oldFile: !uuid 'b5046e15cc13e9d76b78fe91501fe82893567a4b'
+    newFile: !uuid 'ab09771b1ba29194aec2badc43ebb6a0c31feec3'
+    oldFile: !uuid 'a519343d7b193cd4fea91e0a08fb8ef1a0e8287b'
   /src/main/java/com/xnx3:
-    newFile: !uuid '27c99e38f868304c9fd93910ac2ad3f68fda8267'
-    oldFile: !uuid '2e149e81392b5edb15a43899b5790c9b26b86427'
+    newFile: !uuid 'f91cd43b98fba06a5e7e9c8e4050c07e7a132c9b'
+    oldFile: !uuid '27c99e38f868304c9fd93910ac2ad3f68fda8267'
   /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid 'afe667503547993ac320f97b66baba057221beea'
-    oldFile: !uuid 'fc2608c4eb28af42cdb4862fb442726ea2fa527a'
+    newFile: !uuid '15a6e8194d5889c79d5b6cd06a6ea6d47ddbc703'
+    oldFile: !uuid 'afe667503547993ac320f97b66baba057221beea'
   /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid '777f7b81c0f24b057575d32271dfce7bdf0da01c'
-    oldFile: !uuid '2b9ae0bccf7b678672f8dcb4d05c8439ed5e55b6'
+    newFile: !uuid '7bdafe0471ddf248c01eb83cd51df19cab48f6e6'
+    oldFile: !uuid '777f7b81c0f24b057575d32271dfce7bdf0da01c'
   /src/main/java/com/xnx3/wangmarket/plugin/orderStatistics:
-    newFile: !uuid '5162014d63a696fe6a22ef9b8644f0d36bf485c4'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/plugin/orderStatistics/Plugin.java:
-    newFile: !uuid '578b2c43130605fe296c5902e0b535e4f1197dad'
-    oldFile: null
+    newFile: !uuid 'c8faac5191bb9bde1a34ef8bbfcc1179898bc57d'
+    oldFile: !uuid '5162014d63a696fe6a22ef9b8644f0d36bf485c4'
   /src/main/java/com/xnx3/wangmarket/plugin/orderStatistics/controller:
-    newFile: !uuid '34ed8652cc5d15f8a6de869ffa6962a6bc9e710e'
-    oldFile: null
+    newFile: !uuid '5a368c8120306b813691ed89fc0e6e9d84f26fd8'
+    oldFile: !uuid '34ed8652cc5d15f8a6de869ffa6962a6bc9e710e'
   /src/main/java/com/xnx3/wangmarket/plugin/orderStatistics/controller/IndexController.java:
-    newFile: !uuid '50189333c65f8d84c75543542ae56abaec384c3d'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/plugin/orderStatistics/vo:
-    newFile: !uuid '510e3f85453f5dc3514148c01e98ca83aef994e9'
-    oldFile: null
-  /src/main/java/com/xnx3/wangmarket/plugin/orderStatistics/vo/OrderStatisticsVO.java:
-    newFile: !uuid 'e1160e8d029d2847edd1ee58fbd9eaae1a10ac44'
-    oldFile: null
+    newFile: !uuid '1796c70718af04557db71f62549a6368a55a3e01'
+    oldFile: !uuid '50189333c65f8d84c75543542ae56abaec384c3d'
   /src/main/webapp:
-    newFile: !uuid '32285a3215875eca2c5ba5e86be55f44682a8665'
-    oldFile: !uuid 'c54ba8a70549f372623233739dd48837064d1761'
+    newFile: !uuid 'd37fc7311b314d1f1116eed0e0f21fe14fb11ff5'
+    oldFile: !uuid '32285a3215875eca2c5ba5e86be55f44682a8665'
   /src/main/webapp/plugin:
-    newFile: !uuid '10f13c52b0acca6fabddd58d3747a81ecd1ccb15'
-    oldFile: !uuid '3b25a107c18ed26d3d79afebf907032990840793'
+    newFile: !uuid '301b6c33e89747ff3c94245875c9e775d1ad6b0f'
+    oldFile: !uuid '10f13c52b0acca6fabddd58d3747a81ecd1ccb15'
   /src/main/webapp/plugin/orderStatistics:
-    newFile: !uuid '4dd3b28bd7fcb38599131d7c42d64f237c542d3d'
-    oldFile: null
+    newFile: !uuid '6ffeb7be228f81a3696613780ff866277a0a26d8'
+    oldFile: !uuid '4dd3b28bd7fcb38599131d7c42d64f237c542d3d'
   /src/main/webapp/plugin/orderStatistics/index.jsp:
-    newFile: !uuid '15db3d15d64e59695635d128d447dc775255c679'
-    oldFile: null
-gitCommitId: !uuid '77d3cb0f3c309964b2be1e7ae2053b4adec0e04b'
+    newFile: !uuid '1215a8d42582421c7900041586693cae39898b59'
+    oldFile: !uuid '15db3d15d64e59695635d128d447dc775255c679'
+gitCommitId: !uuid '573e319058a76d98bdc865682aab629e75481318'
 renames: {
   }
-revisionId: 297
+revisionId: 298
