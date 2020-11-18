@@ -45,24 +45,6 @@ h3{
 		<span id="balance">获取中...</span>
 		<span></span>	
 	</div>
-	<script>
-		post('/shop/store/api/sms/getBalance.json',{},function(data){
-			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-			var info = data.info;
-			if(data.result == 1){
-				//成功获取到了条数
-				var number = data.info;
-				if(number < 100){
-					info = number + '条(注意，短信剩余不多了，请尽快充值)';
-				}else{
-					info = number + '条';
-				}
-				info = info + '<span style="padding-left:20px;"><a href="http://sms.leimingyun.com" style="text-decoration: underline; color: blue;">立即充值</a></span>';
-			}
-			document.getElementById('balance').innerHTML = info;
-		});
-	</script>
-	
 	
 	</br>
 	<h3>发送频率控制</h3>
@@ -113,7 +95,6 @@ function inputUpdate(name,value, shuoming){
 //列表的模版
 var smsMessageTemplate = document.getElementById("smsMessage").innerHTML;
 function smsMessageReplace(item){
-
 	return smsMessageTemplate
 			.replace(/\{uid\}/g, item.uid)
 			.replace(/\{password\}/g, item.password)
@@ -124,7 +105,6 @@ function smsMessageReplace(item){
 
 msg.loading('加载中');
 var smsSet;
-
 post('/shop/store/api/sms/index.json',{},function(data){
 	msg.close();    //关闭“更改中”的等待提示
 	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
@@ -134,15 +114,32 @@ post('/shop/store/api/sms/index.json',{},function(data){
 
 		//是否开启短信功能
 		if(smsSet.useSms == 0){
-		document.getElementById('useSms').innerHTML = '&nbsp关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="update(\'useSms\',\'1\');" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
-		document.getElementById('smsMessage').style.display = 'none';
-		}
-		if(smsSet.useSms == 1) {
+			document.getElementById('useSms').innerHTML = '&nbsp关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="update(\'useSms\',\'1\');" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
+			document.getElementById('smsMessage').style.display = 'none';
+		}else if(smsSet.useSms == 1) {
+			//开启短信功能
 			document.getElementById('smsMessage').innerHTML = smsMessageReplace(smsSet);
 			document.getElementById('useSms').innerHTML = '&nbsp开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="update(\'useSms\',\'0\');" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
 			document.getElementById('smsMessage').style.display = 'block';
+			
+			//获取还剩多少条短信
+			post('/shop/store/api/sms/getBalance.json',{},function(data){
+				var info = '';
+				if(data.result == 1){
+					//成功获取到了条数
+					var number = data.info;
+					if(number < 100){
+						info = number + '条(注意，短信剩余不多了，请尽快充值)';
+					}else{
+						info = number + '条';
+					}
+					info = info + '<span style="padding-left:20px;"><a href="http://sms.leimingyun.com" style="text-decoration: underline; color: blue;">立即充值</a></span>';
+				}else{
+					info = '获取失败：'+data.info;
+				}
+				document.getElementById('balance').innerHTML = info;
+			});
 		}
-
 	}
 });
 </script>
