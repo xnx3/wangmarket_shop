@@ -3,8 +3,9 @@ package com.xnx3.wangmarket.shop.store.api.controller;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
 import com.xnx3.wangmarket.shop.core.vo.OrderListVO;
+import com.xnx3.wangmarket.shop.core.vo.OrderVO;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -24,7 +25,6 @@ import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
-import com.xnx3.wangmarket.shop.store.api.vo.OrderVO;
 
 
 /**
