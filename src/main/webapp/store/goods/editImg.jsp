@@ -54,7 +54,7 @@ layui.use('upload', function(){
 	//upload.render(uploadPic);
 	upload.render({
 		elem: "#uploadImagesButton" //绑定元素
-		,url: '/shop/store/api/common/uploadImage.json' //上传接口
+		,url: '/shop/store/api/common/uploadImage.json?token='+shop.getToken() //上传接口
 		,field: 'image'
 		,accept: 'file'
 		,done: function(res){
@@ -116,7 +116,7 @@ var id = getUrlParams('id');
 
 //获取轮播图列表信息
 msg.loading('加载中');
-post('/shop/store/api/goods/getGoodsImage.json?id=' + id +'&goodId=' + goodsId ,"",function(data){
+post('/shop/store/api/goods/getGoodsImage.json?id=' + id +'&goodId=' + goodsId ,{},function(data){
 msg.close();    //关闭“更改中”的等待提示
 checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 

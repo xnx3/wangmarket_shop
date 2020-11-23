@@ -133,7 +133,7 @@ var goodsId = getUrlParams('id');
 
 //获取轮播图列表信息
 msg.loading('加载中');
-post('/shop/store/api/goods/imgList.json?id=' + goodsId ,"",function(data){
+post('/shop/store/api/goods/imgList.json?id=' + goodsId ,{}, function(data){
 msg.close();    //关闭“更改中”的等待提示
 checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 

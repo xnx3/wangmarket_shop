@@ -74,7 +74,7 @@ layui.use('upload', function(){
 	//upload.render(uploadPic);
 	upload.render({
 		elem: "#uploadImagesButton" //绑定元素
-		,url: '/shop/store/api/common/uploadImage.json' //上传接口
+		,url: '/shop/store/api/common/uploadImage.json?token='+shop.getToken() //上传接口
 		,field: 'image'
 		,accept: 'file'
 		,done: function(res){
