@@ -32,7 +32,7 @@ import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
  * @author 管雷鸣
  */
 @Controller(value="ShopStoreApiOrderController")
-@RequestMapping("/shop/store/api/order")
+@RequestMapping("/shop/store/api/order/")
 public class OrderController extends BaseController {
 	@Resource
 	private SqlService sqlService;
@@ -210,13 +210,71 @@ public class OrderController extends BaseController {
 		sqlService.save(stateLog);
 		
 		//商品的数量改动
+//		BaseVO vo = orderService.orderCancelGoodsNumberChange(order);
+//		if(vo.getResult() - BaseVO.FAILURE == 0){
+//			return vo;
+//		}
+		
+		//写日志
+		ActionLogUtil.insertUpdateDatabase(request, orderid, "订单退单申请被商家拒绝", order.toString());
+	
+		return success();
+	}
+	
+	
+
+	/**
+	 * 退单申请,同意退单
+	 * @param orderid 要同意退单申请的订单id
+	 */
+	@Transactional
+	@RequestMapping(value="refundAllow${api.suffix}", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseVO refundAllow(HttpServletRequest request,
+			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
+		//判断参数
+		if(orderid < 1) {
+			return error("请传入订单ID");
+		}
+		
+		//查找订单信息
+		Order order = sqlService.findById(Order.class, orderid);
+		if(order == null) {
+			return error("订单不存在");
+		}
+		if(order.getStoreid() - getStoreId() != 0) {
+			return error("订单不属于你的店铺，无权操作");
+		}
+		//判断订单状态，是否允许变为同意退款，只有申请退单中的状态才可以拒绝退款
+		if(!(order.getState().equals(Order.STATE_CANCELMONEY_ING))) {
+			return error("订单状态异常");
+		}
+		
+//		//判断当前商家是否开启了订单允许退款功能，这里就不判断了，因为是商家来进行操作的，商家就是大爷，他说了算
+//		OrderRule orderRule = orderRuleService.getRole(order.getStoreid());
+//		if(orderRule.getRefund() - OrderRule.OFF == 0){
+//			return error("商家已设置不允许用户提出退款申请，所以你取消退款也是取消不了的");
+//		}
+		
+		//修改订单状态为已退款（已退单）,钱怎么返给用户待定
+		order.setState(Order.STATE_CANCELMONEY_FINISH);
+		sqlService.save(order);
+		
+		//订单状态改变记录
+		OrderStateLog stateLog = new OrderStateLog();
+		stateLog.setAddtime(DateUtil.timeForUnix10());
+		stateLog.setState(order.getState());
+		stateLog.setOrderid(order.getId());
+		sqlService.save(stateLog);
+		
+		//商品的数量改动
 		BaseVO vo = orderService.orderCancelGoodsNumberChange(order);
 		if(vo.getResult() - BaseVO.FAILURE == 0){
 			return vo;
 		}
 		
 		//写日志
-		ActionLogUtil.insertUpdateDatabase(request, orderid, "订单退单申请被商家拒绝", order.toString());
+		ActionLogUtil.insertUpdateDatabase(request, orderid, "订单退单申请，商家同意退", order.toString());
 	
 		return success();
 	}

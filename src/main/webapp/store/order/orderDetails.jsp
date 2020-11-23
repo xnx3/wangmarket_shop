@@ -112,7 +112,7 @@ function receiveGoods(){
 function refund(action){
 	var api = action == '1' ? 'refundAllow.json':'refundReject.json';
 	msg.loading('操作中');
-	post(api,{"orderid":id}, function(data){
+	post('/shop/store/api/order/'+api,{"orderid":id}, function(data){
 		msg.close();
 		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(data.result == 1){

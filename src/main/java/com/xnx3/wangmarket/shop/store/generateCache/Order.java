@@ -17,7 +17,7 @@ public class Order extends BaseGenerate {
 	
 	public void state() {
 		createCacheObject("state");
-		cacheAdd(com.xnx3.wangmarket.shop.core.entity.Order.STATE_CANCELMONEY_FINISH, "下单后已退款");
+		cacheAdd(com.xnx3.wangmarket.shop.core.entity.Order.STATE_CANCELMONEY_FINISH, "已退款");
 		cacheAdd(com.xnx3.wangmarket.shop.core.entity.Order.STATE_MY_CANCEL, "主动取消");
 		cacheAdd(com.xnx3.wangmarket.shop.core.entity.Order.STATE_CANCELMONEY_ING, "退款中");
 		cacheAdd(com.xnx3.wangmarket.shop.core.entity.Order.STATE_CREATE_BUT_NO_PAY, "待付款");
