@@ -58,7 +58,7 @@ public class CarouselImage extends BaseEntity{
 		this.name = name;
 	}
 	
-	@Column(name = "image_url", columnDefinition="char(100) comment '轮播图url，绝对路径'")
+	@Column(name = "image_url", columnDefinition="char(150) comment '轮播图url，绝对路径'")
 	public String getImageUrl() {
 		return imageUrl;
 	}

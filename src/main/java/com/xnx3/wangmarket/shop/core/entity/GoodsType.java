@@ -62,7 +62,7 @@ public class GoodsType extends BaseEntity implements java.io.Serializable{
 		this.isdelete = isdelete;
 	}
 	
-	@Column(name = "icon", columnDefinition="char(100) comment '分类的图标、图片'")
+	@Column(name = "icon", columnDefinition="char(150) comment '分类的图标、图片'")
 	public String getIcon() {
 		return icon;
 	}

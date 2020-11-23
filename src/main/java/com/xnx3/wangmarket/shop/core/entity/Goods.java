@@ -163,7 +163,7 @@ public class Goods extends BaseEntity implements java.io.Serializable{
 		this.typeid = typeid;
 	}
 	
-	@Column(name = "titlepic", columnDefinition="char(100) comment '该商品的标题图片、列表图片,图片的绝对路径'")
+	@Column(name = "titlepic", columnDefinition="char(150) comment '该商品的标题图片、列表图片,图片的绝对路径'")
 	public String getTitlepic() {
 		return titlepic;
 	}
