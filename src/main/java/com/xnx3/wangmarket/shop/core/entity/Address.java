@@ -22,7 +22,7 @@ public class Address extends BaseEntity {
 	private String phone;		//收货人手机号，限制13个字符
 	private Double longitude;	//经纬度
 	private Double latitude;	//经纬度
-	private String address;		//详细地址，限制100个字符
+	private String address;		//详细地址，限制150个字符
 	private Short defaultUse;	//是否是默认使用的，1是默认使用的地址，0不是默认使用的。一个用户会有多个收货地址，但一个用户默认的收货地址只有一个
 	private Integer userid;		//改地址所属用户，属于那个用户的，对应User.id
 	
@@ -77,7 +77,7 @@ public class Address extends BaseEntity {
 		this.latitude = latitude;
 	}
 	
-	@Column(name = "address", columnDefinition="char(100) comment '具体地址'")
+	@Column(name = "address", columnDefinition="char(150) comment '具体地址'")
 	public String getAddress() {
 		return address;
 	}

@@ -468,7 +468,7 @@ COMMIT;
 DROP TABLE IF EXISTS `shop_address`;
 CREATE TABLE `shop_address` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `address` char(100) DEFAULT NULL COMMENT '具体地址',
+  `address` char(150) DEFAULT NULL COMMENT '具体地址',
   `latitude` double(9,6) DEFAULT NULL COMMENT '经纬度',
   `longitude` double(9,6) DEFAULT NULL COMMENT '经纬度',
   `phone` char(13) DEFAULT NULL COMMENT '收货人手机号',
