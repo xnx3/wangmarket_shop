@@ -33,7 +33,7 @@
 		    </div>
 		    <button class="layui-btn layui-btn-primary" onclick="gainUrl();">获得微信自动登录的url</button>
 		    <div style=" font-size: 13px; color: gray; padding-top:10px;">
-		    	填写如： http://shopdemo.wang.market/index.html
+		    	填写如： http://shopdemo.wang.market/index.html?a=1&b=2
 		    </div>
 		</div>
 		
@@ -57,29 +57,9 @@
 
 <script type="text/javascript">
 
-
-function gainUrl(){
-	var url = document.getElementById('url').value
-	document.getElementById('generateUrl').innerHTML = '<h3 style="padding-bottom:5px;">生成的url：</h3>'+
-					'<%=SystemUtil.get("MASTER_SITE_URL") %>plugin/weixinH5Auth/hiddenAuthJump.do?storeid=${store.id}&url='+url+
-					'<br/><br/>您可以将此生成的url，放到到微信公众号中、或做成二维码供其他人扫码使用、或发送给群聊或者朋友，别人打开即可自动登录进去，跳转到您所设置的'+url;
-	//设置缓存
-	localStorage.setItem("wangmarket_shop_weixinH5Auth_url", url);
-}
-
-try{
-	url = localStorage.getItem("wangmarket_shop_weixinH5Auth_url");
-	if(url != null){
-		document.getElementById('url').value = url;
-		gainUrl();
-	}
-}catch(err){ console.log(err); }
-
-
-
 msg.loading('加载中');
 var payset;
-
+var store;
 post('/plugin/api/weixinH5Auth/store/index.json',{},function(data){
 	msg.close();    //关闭“更改中”的等待提示
 	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
@@ -90,7 +70,7 @@ post('/plugin/api/weixinH5Auth/store/index.json',{},function(data){
 		//登录成功
 
 		payset	= data.payset;
-
+		store = data.store;
 		if(payset.useWeixinServiceProviderPay == '0'){
 			//使用自己配置的公众号，那么需要再公众号上设定网页授权获取用户基本信息的域名
 			document.getElementById('zijigongzhonghao').style.display='';
@@ -107,6 +87,28 @@ post('/plugin/api/weixinH5Auth/store/index.json',{},function(data){
 	}
 
 });
+
+function gainUrl(){
+	var url = document.getElementById('url').value;
+	//替换？ &
+	url = url.replace(/\?/g, '_3F').replace(/&/g, '_26');
+	document.getElementById('generateUrl').innerHTML = '<h3 style="padding-bottom:5px;">生成的url：</h3>'+
+					window.location.origin+'/plugin/weixinH5Auth/hiddenAuthJump.do?storeid='+store.id+'&url='+url+
+					'<br/><br/>您可以将此生成的url，放到到微信公众号中、或做成二维码供其他人扫码使用、或发送给群聊或者朋友，别人打开即可自动登录进去，跳转到您所设置的'+url;
+	//设置缓存
+	localStorage.setItem("wangmarket_shop_weixinH5Auth_url", url);
+}
+
+try{
+	url = localStorage.getItem("wangmarket_shop_weixinH5Auth_url");
+	if(url != null){
+		document.getElementById('url').value = url;
+		gainUrl();
+	}
+}catch(err){ console.log(err); }
+
+
+
 
 
 
