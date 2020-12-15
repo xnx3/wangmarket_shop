@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script type='text/javascript' src='/module/shop/page.js'></script>
+<script type='text/javascript' src='/module/page/page.js'></script>
 <script>
 page.upNextPageNumber = 2;	//上几页、下几页，显示的数。如这里是2，则向上会显示2页
 </script>
