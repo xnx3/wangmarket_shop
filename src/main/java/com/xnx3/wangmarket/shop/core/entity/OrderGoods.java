@@ -83,7 +83,7 @@ public class OrderGoods implements java.io.Serializable{
 	public void setUnits(String units) {
 		this.units = units;
 	}
-	@Column(name = "titlepic", columnDefinition="char(100) comment '商品的标题图片，列表图，对应 Goods.titlepic'")
+	@Column(name = "titlepic", columnDefinition="char(150) comment '商品的标题图片，列表图，对应 Goods.titlepic'")
 	public String getTitlepic() {
 		return titlepic;
 	}
