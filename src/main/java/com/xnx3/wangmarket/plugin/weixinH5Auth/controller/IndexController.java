@@ -224,6 +224,7 @@ public class IndexController extends BasePluginController {
 			url = url + "?";
 		}
 		url = url + "token="+sessionid;
+		ConsoleUtil.debug("redirect url: "+url);
 		return redirect(url);
 	}
 	
