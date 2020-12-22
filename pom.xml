@@ -418,9 +418,9 @@
 	    <dependency> 
 	        <groupId>com.xnx3.wm</groupId>  
 	        <artifactId>wm</artifactId>  
-	        <version>1.9</version>  
+	        <version>1.11</version>  
 	        <scope>system</scope>  
-    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wm-1.9.jar</systemPath>  
+    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wm-1.11.jar</systemPath>  
 	    </dependency>
 	    <dependency> 
 			<groupId>com.xnx3.util</groupId>
