@@ -2,47 +2,10 @@
 branches: {
   }
 fileChange:
-  /pom.xml:
-    newFile: !uuid '00a366e92e04e6325a64e0dec4b8d0e877d21cfc'
-    oldFile: !uuid '1511133b6d4d8c8c8b117fac6950177227d55c84'
-  /src:
-    newFile: !uuid '1a61e069c86f75c28d862d119d08ebf2946cd029'
-    oldFile: !uuid 'b4cd279c1aa07316ec5d6783f37196dc7432cc03'
-  /src/main:
-    newFile: !uuid '60caa37496c5031c2c46e2ebf64f11c83c270d3e'
-    oldFile: !uuid 'f1f0f1e18c327ee5b1502e5740addebbb92df66a'
-  /src/main/webapp:
-    newFile: !uuid 'cf9a982140fde062538acda8444d1f6b64cbeb3e'
-    oldFile: !uuid '9276f4503055ab05ffc6bdb331c549109c7f86b9'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid '0fc3e936a9523f5947b6a44c10e5a38dcf8cf0a9'
-    oldFile: !uuid '35c7491c4b30d0c3a9e85e5f109130812ec54f3c'
-  /src/main/webapp/WEB-INF/lib:
-    newFile: !uuid '1ec1aab808cb2c6612261176ac60602f4b87181b'
-    oldFile: !uuid '66edf2691ca68f7887ea4441c291fc0e4e51ca75'
-  /src/main/webapp/WEB-INF/lib/wm-1.11-sources.jar:
-    newFile: !uuid '3c58023fed5891582d38575df5ff7c104053274f'
-    oldFile: null
-  /src/main/webapp/WEB-INF/lib/wm-1.11.jar:
-    newFile: !uuid '1a0b8c7d800e617d3a085eb2b8d33801787c8ce0'
-    oldFile: null
-  /src/main/webapp/WEB-INF/lib/wm-1.9-sources.jar:
-    newFile: null
-    oldFile: !uuid '45248ac1fbc919139fb55f0b091b607b40c58556'
-  /src/main/webapp/WEB-INF/lib/wm-1.9.jar:
-    newFile: null
-    oldFile: !uuid '83d75e9f24cbc4955b803e3204371cf0fd4933f5'
-  /src/main/webapp/store:
-    newFile: !uuid 'd1a9e4946c10cdad5230b31229bb0edf634a2701'
-    oldFile: !uuid '04563e601b3f887c6edfde3989bb1f207580e55b'
-  /src/main/webapp/store/common:
-    newFile: !uuid '1bb32070a68c6418b60a56534f292636fe595d75'
-    oldFile: !uuid 'a713169e318b93b348cf42dcf97f734ca9202117'
-  /src/main/webapp/store/common/head.jsp:
-    newFile: !uuid '434d6b115cb66feb75a9caaf95cdd32e8cb3491a'
-    oldFile: !uuid '57938798cc22e35db35ab88a74bc28d3e4a9ff37'
-gitCommitId: !uuid 'befea54f1eb04db568367e5cc121e621d6fe52d5'
-renames:
-  /src/main/webapp/WEB-INF/lib/wm-1.11-sources.jar: /src/main/webapp/WEB-INF/lib/wm-1.9-sources.jar
-  /src/main/webapp/WEB-INF/lib/wm-1.11.jar: /src/main/webapp/WEB-INF/lib/wm-1.9.jar
-revisionId: 310
+  /README.md:
+    newFile: !uuid '85f58cd6fe06f80811ebfce3b03be7c0a3771059'
+    oldFile: !uuid '46847e073df924237985ad9487278ca97b0bf105'
+gitCommitId: !uuid '3c5bb3e1ad28fde65c9632ec8eef081c05652b5b'
+renames: {
+  }
+revisionId: 311
