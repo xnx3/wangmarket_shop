@@ -53,6 +53,8 @@ public class IndexController extends BasePluginController {
 	 * @param password 要注册当用户的密码（必填）
 	 * @param referrerid 注册成功的这个用户，他的上级是哪个。这个就是上级的user.id
 	 * @param regstoreid 要注册开通的这个商铺的id，这里制定商铺的id编号。如果没有指定，则是随机分配一个id。要废弃这个，用自动生成，不传入
+	 * @param token 已废弃，因为跟sessionid的token冲突，请使用auth
+	 * @param auth 授权码，也就是wangmarket的授权码
 	 * @return vo result:
 	 * 			<ul>
 	 * 				<li>0:失败</li>
@@ -66,9 +68,15 @@ public class IndexController extends BasePluginController {
 			@RequestParam(value = "password", required = false, defaultValue="") String password,
 			@RequestParam(value = "referrerid", required = false, defaultValue="1") int referrerid,
 			@RequestParam(value = "regstoreid", required = false, defaultValue="0") int regstoreid,
-			@RequestParam(value = "token", required = false, defaultValue="") String token){
+			@RequestParam(value = "token", required = false, defaultValue="") String token,
+			@RequestParam(value = "auth", required = false, defaultValue="") String auth){
+		if(auth.length() == 0){
+			//如果auth为传入，那么用token传入的参数
+			auth = token;
+		}
+		
 		RegVO vo = new RegVO();
-		if(!checkAuthorize(token)){
+		if(!checkAuthorize(auth)){
 			//失败
 			vo.setBaseVO(BaseVO.FAILURE, "token failure");
 			return vo;
@@ -125,7 +133,7 @@ public class IndexController extends BasePluginController {
 				
 				//保存商铺跟授权码的关联
 				AuthStoreBind authStoreBind = new AuthStoreBind();
-				authStoreBind.setAuth(token);
+				authStoreBind.setAuth(auth);
 				authStoreBind.setId(store.getId());
 				sqlService.save(authStoreBind);
 			}else{

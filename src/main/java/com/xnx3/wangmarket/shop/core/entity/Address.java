@@ -15,13 +15,16 @@ import com.xnx3.j2ee.entity.BaseEntity;
  * @author 管雷鸣
  */
 @Entity()
-@Table(name = "shop_address", indexes={@Index(name="suoyin_index",columnList="longitude,latitude,userid")})
+@Table(name = "shop_address", indexes={@Index(name="suoyin_index",columnList="longitude,latitude,userid,sheng,shi,qu,default_use")})
 public class Address extends BaseEntity {
 	private Integer id;			//自动编号
 	private String username;	//收货人用户姓名，限制10个字符
 	private String phone;		//收货人手机号，限制13个字符
 	private Double longitude;	//经纬度
 	private Double latitude;	//经纬度
+	private String sheng;		//所在的省，如 山东省
+	private String shi;			//所在的市，如 潍坊市
+	private String qu;			//所在的区，如 寒亭区
 	private String address;		//详细地址，限制150个字符
 	private Short defaultUse;	//是否是默认使用的，1是默认使用的地址，0不是默认使用的。一个用户会有多个收货地址，但一个用户默认的收货地址只有一个
 	private Integer userid;		//改地址所属用户，属于那个用户的，对应User.id
@@ -103,13 +106,40 @@ public class Address extends BaseEntity {
 	public void setDefaultUse(Short defaultUse) {
 		this.defaultUse = defaultUse;
 	}
+	
+	@Column(name = "sheng", columnDefinition="char(20) comment '所在的省，如 山东省' default ''")
+	public String getSheng() {
+		return sheng;
+	}
+
+	public void setSheng(String sheng) {
+		this.sheng = sheng;
+	}
+	
+	@Column(name = "shi", columnDefinition="char(20) comment '所在的市，如 潍坊市' default ''")
+	public String getShi() {
+		return shi;
+	}
+
+	public void setShi(String shi) {
+		this.shi = shi;
+	}
+
+	@Column(name = "qu", columnDefinition="char(20) comment '所在的区，如 寒亭区' default ''")
+	public String getQu() {
+		return qu;
+	}
+
+	public void setQu(String qu) {
+		this.qu = qu;
+	}
 
 	@Override
 	public String toString() {
 		return "Address [id=" + id + ", username=" + username + ", phone=" + phone + ", longitude=" + longitude
-				+ ", latitude=" + latitude + ", address=" + address + ", defaultUse=" + defaultUse + ", userid="
-				+ userid + "]";
+				+ ", latitude=" + latitude + ", sheng=" + sheng + ", shi=" + shi + ", qu=" + qu + ", address=" + address
+				+ ", defaultUse=" + defaultUse + ", userid=" + userid + "]";
 	}
-
+	
 	
 }

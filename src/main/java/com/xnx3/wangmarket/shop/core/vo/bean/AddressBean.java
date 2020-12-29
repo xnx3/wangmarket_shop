@@ -15,6 +15,11 @@ public class AddressBean {
 	private String address;		//详细地址，限制100个字符
 	private Short defaultUse;	//是否是默认使用的，1是默认使用的地址，0不是默认使用的。一个用户会有多个收货地址，但一个用户默认的收货地址只有一个
 	
+	//v1.3增加
+	private String sheng;		//所在的省，如 山东省
+	private String shi;			//所在的市，如 潍坊市
+	private String qu;			//所在的区，如 寒亭区
+	
 	public Integer getId() {
 		return id;
 	}
@@ -83,6 +88,36 @@ public class AddressBean {
 			this.defaultUse = Address.ISFREEZE_NORMAL;
 		}else {
 			this.defaultUse = defaultUse;
+		}
+	}
+	public String getSheng() {
+		return sheng;
+	}
+	public void setSheng(String sheng) {
+		if(sheng == null){
+			this.sheng = "";
+		}else{
+			this.sheng = sheng;
+		}
+	}
+	public String getShi() {
+		return shi;
+	}
+	public void setShi(String shi) {
+		if(shi == null){
+			this.shi = "";
+		}else{
+			this.shi = shi;
+		}
+	}
+	public String getQu() {
+		return qu;
+	}
+	public void setQu(String qu) {
+		if(qu == null){
+			this.qu = "";
+		}else{
+			this.qu = qu;
 		}
 	}
 }

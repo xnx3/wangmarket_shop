@@ -30,6 +30,9 @@ public class AddressListVO extends BaseVO {
 				addressBean.setLongitude(address.getLongitude());
 				addressBean.setPhone(address.getPhone());
 				addressBean.setUsername(address.getUsername());
+				addressBean.setSheng(address.getSheng());
+				addressBean.setShi(address.getShi());
+				addressBean.setQu(address.getQu());
 				beanList.add(addressBean);
 			}
 		}
@@ -48,6 +51,9 @@ public class AddressListVO extends BaseVO {
 			addressBean.setLongitude(defaultAddress.getLongitude());
 			addressBean.setPhone(defaultAddress.getPhone());
 			addressBean.setUsername(defaultAddress.getUsername());
+			addressBean.setSheng(defaultAddress.getSheng());
+			addressBean.setShi(defaultAddress.getShi());
+			addressBean.setQu(defaultAddress.getQu());
 		}
 		this.defaultAddress = addressBean;
 	}

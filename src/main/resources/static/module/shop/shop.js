@@ -1,8 +1,6 @@
 var shop = {
 	//当前已登陆的用户信息。如果未登录，则是null
 	user:null,
-	//session token
-	token:null,
 	//购物车信息，缓存
 	cart:null,
 	//请求host，域名，格式如 http://weixin.shop.leimingyun.com/ 最后以 / 结尾
@@ -60,20 +58,18 @@ var shop = {
 	},
 	/**
 	 * 获取token，也就是 session id。获取的字符串如 f26e7b71-90e2-4913-8eb4-b32a92e43c00
+	 * 已废弃，请使用 wm.token.get(token);
 	 */
 	getToken:function(){
-		if(this.token == null){
-			this.token = localStorage.getItem('token');
-		}
-		return this.token;
+		return localStorage.getItem('token');
 	},
 	/**
 	 * 设置token，也就是session id
 	 * 格式如 f26e7b71-90e2-4913-8eb4-b32a92e43c00
+	 * 已废弃，请使用 wm.token.set(token);
 	 */
 	setToken:function(t){
-		this.token = t;
-		localStorage.setItem('token',this.token);
+		localStorage.setItem('token',t);
 	},
 	/**
 	 * 获取购物车信息，获取到的格式如 {result: 1, info: "成功", goodsCartMap: {…}, number: 0, money: 0}
