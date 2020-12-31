@@ -19,6 +19,7 @@ public class AddressBean {
 	private String sheng;		//所在的省，如 山东省
 	private String shi;			//所在的市，如 潍坊市
 	private String qu;			//所在的区，如 寒亭区
+	private String house;		//具体房间号，如 17号楼2单元202室
 	
 	public Integer getId() {
 		return id;
@@ -118,6 +119,16 @@ public class AddressBean {
 			this.qu = "";
 		}else{
 			this.qu = qu;
+		}
+	}
+	public String getHouse() {
+		return house;
+	}
+	public void setHouse(String house) {
+		if(house == null){
+			this.house = "";
+		}else{
+			this.house = house;
 		}
 	}
 }

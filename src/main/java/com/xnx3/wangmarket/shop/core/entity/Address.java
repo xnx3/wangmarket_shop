@@ -22,12 +22,15 @@ public class Address extends BaseEntity {
 	private String phone;		//收货人手机号，限制13个字符
 	private Double longitude;	//经纬度
 	private Double latitude;	//经纬度
-	private String sheng;		//所在的省，如 山东省
-	private String shi;			//所在的市，如 潍坊市
-	private String qu;			//所在的区，如 寒亭区
 	private String address;		//详细地址，限制150个字符
 	private Short defaultUse;	//是否是默认使用的，1是默认使用的地址，0不是默认使用的。一个用户会有多个收货地址，但一个用户默认的收货地址只有一个
 	private Integer userid;		//改地址所属用户，属于那个用户的，对应User.id
+	
+	//v1.3增加
+	private String sheng;		//所在的省，如 山东省
+	private String shi;			//所在的市，如 潍坊市
+	private String qu;			//所在的区，如 寒亭区
+	private String house;		//具体房间号，如 17号楼2单元202室
 	
 	public Address() {
 		this.defaultUse = 0;
@@ -133,13 +136,21 @@ public class Address extends BaseEntity {
 	public void setQu(String qu) {
 		this.qu = qu;
 	}
+	
+	@Column(name = "house", columnDefinition="char(80) comment '具体房间号，如 17号楼2单元202室' default ''")
+	public String getHouse() {
+		return house;
+	}
+
+	public void setHouse(String house) {
+		this.house = house;
+	}
 
 	@Override
 	public String toString() {
 		return "Address [id=" + id + ", username=" + username + ", phone=" + phone + ", longitude=" + longitude
-				+ ", latitude=" + latitude + ", sheng=" + sheng + ", shi=" + shi + ", qu=" + qu + ", address=" + address
-				+ ", defaultUse=" + defaultUse + ", userid=" + userid + "]";
+				+ ", latitude=" + latitude + ", address=" + address + ", defaultUse=" + defaultUse + ", userid="
+				+ userid + ", sheng=" + sheng + ", shi=" + shi + ", qu=" + qu + ", house=" + house + "]";
 	}
-	
 	
 }

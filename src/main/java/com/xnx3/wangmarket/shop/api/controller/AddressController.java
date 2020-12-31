@@ -56,6 +56,10 @@ public class AddressController extends BasePluginController {
 	 * @param username 收货人名字
 	 * @param phone 收货人电话
 	 * @param address 收货人地址
+	 * @param sheng 所在的省,如： 山东省
+	 * @param shi 所在的市，如 潍坊市
+	 * @param qu 所在的区，如 寒亭区
+	 * @param house 具体房间号，如 17号楼2单元202室
 	 * @param longitude 经纬度，如 12.223344
 	 * @param latitude 经纬度，如 12.223344
 	 * @param isDefault 当前地址是否为默认地址，若不传递此参数，默认是保存为非默认地址。 可传入值：
@@ -71,6 +75,10 @@ public class AddressController extends BasePluginController {
 			@RequestParam(value = "username", required = false, defaultValue = "") String username,
 			@RequestParam(value = "phone", required = false, defaultValue = "") String phone,
 			@RequestParam(value = "address", required = false, defaultValue = "") String address,
+			@RequestParam(value = "sheng", required = false, defaultValue = "") String sheng,
+			@RequestParam(value = "shi", required = false, defaultValue = "") String shi,
+			@RequestParam(value = "qu", required = false, defaultValue = "") String qu,
+			@RequestParam(value = "house", required = false, defaultValue = "") String house,
 			@RequestParam(value = "longitude", required = false, defaultValue = "0") Double longitude,
 			@RequestParam(value = "latitude", required = false, defaultValue = "0") Double latitude,
 			@RequestParam(value = "isDefault", required = false, defaultValue = "") String isDefault){
@@ -96,6 +104,10 @@ public class AddressController extends BasePluginController {
 		add.setLongitude(longitude);
 		add.setPhone(StringUtil.filterXss(phone));
 		add.setUsername(StringUtil.filterXss(username));
+		add.setSheng(StringUtil.filterXss(sheng));
+		add.setShi(StringUtil.filterXss(shi));
+		add.setQu(StringUtil.filterXss(qu));
+		add.setHouse(StringUtil.filterXss(house));
 		//判断isDefault是否传入值
 		isDefault = isDefault.trim();
 		if(isDefault.length() > 0) {

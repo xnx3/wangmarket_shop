@@ -28,6 +28,7 @@ public class AddressVO extends BaseVO {
 			addressBean.setSheng(address.getSheng());
 			addressBean.setShi(address.getShi());
 			addressBean.setQu(address.getQu());
+			addressBean.setHouse(address.getHouse());
 		}
 		this.address = addressBean;
 	}
