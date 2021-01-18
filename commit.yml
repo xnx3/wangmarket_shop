@@ -3,21 +3,172 @@ branches: {
   }
 fileChange:
   /pom.xml:
-    newFile: !uuid 'f8a24793f0b9609d1fa0da14ac692b566bd456d3'
-    oldFile: !uuid '4bb54868cfa2bba1348d3e56586fdaff4640bea2'
+    newFile: !uuid '817c418a29c6106192bd5dd2b15a93d2ce5491a0'
+    oldFile: !uuid 'f8a24793f0b9609d1fa0da14ac692b566bd456d3'
   /src:
-    newFile: !uuid 'f28fc4063aa60c0f807973bb8dbc4e3c9a25f492'
-    oldFile: !uuid 'af4bb7f1a896beb742bc6c69186f9cae4c7b1583'
+    newFile: !uuid 'ee69b243ef7f65547f63c31d259ddc4c03f09dba'
+    oldFile: !uuid 'f28fc4063aa60c0f807973bb8dbc4e3c9a25f492'
   /src/main:
-    newFile: !uuid 'ef3bfa891276dd5e776ef3a73dbfc3e9b7f393ea'
-    oldFile: !uuid 'eee6447618db8d899a24d8fbb2fd62026c386903'
+    newFile: !uuid 'b20024ed4420f206035eb717f38560fa0f341bba'
+    oldFile: !uuid 'ef3bfa891276dd5e776ef3a73dbfc3e9b7f393ea'
+  /src/main/java:
+    newFile: !uuid '6cad351eff3a2c122288893bb566a02abfabbda1'
+    oldFile: !uuid '7b5565511c80bd298c44e6eb2ef1b33cfbca3a72'
+  /src/main/java/com:
+    newFile: !uuid '5be8bda8e4b4014b3273c8e87c3c07fb02beb0d3'
+    oldFile: !uuid 'f86d40c0ae134bd21cc89b54096d02f553de529c'
+  /src/main/java/com/xnx3:
+    newFile: !uuid '479efd5f78b131fab5b69207add895880512f07e'
+    oldFile: !uuid 'fea5f38a8010dde06bc4799ee5872a4a00773c2a'
+  /src/main/java/com/xnx3/j2ee:
+    newFile: !uuid 'a99e33ff0ed050447e66f84aa848ca41b555c7f2'
+    oldFile: !uuid 'c499d094c982ac7b58d213d1c4fe2d9d21cc7cef'
+  /src/main/java/com/xnx3/j2ee/controller:
+    newFile: !uuid 'f026b67548df5e44f1a32d009db964c1db32ce73'
+    oldFile: !uuid 'aed1a1ccad78617db440f290ca85cd78e9e7451f'
+  /src/main/java/com/xnx3/j2ee/controller/BaseController.java:
+    newFile: !uuid 'a9baf90b48480c864d1bb08f21a74d15a8ae8a44'
+    oldFile: !uuid 'a780146891e0c3cc1be1ad7c43c9f30eb454d614'
+  /src/main/java/com/xnx3/j2ee/controller/InstallController_.java:
+    newFile: null
+    oldFile: !uuid 'f746bd1d36eda8625efb1c963dcf0d3ac824016c'
+  /src/main/java/com/xnx3/j2ee/controller/LoginController.java:
+    newFile: !uuid '0edfc98b18438c5cc0f4cc8a96d2f1151bf7e289'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/LoginController_.java:
+    newFile: null
+    oldFile: !uuid '84276082b4c9985cfb94ded2e1eeed244de37a07'
+  /src/main/java/com/xnx3/j2ee/controller/PublicController.java:
+    newFile: !uuid '91603874e702d54cb495f0c94658424105359a7f'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/PublicController_.java:
+    newFile: null
+    oldFile: !uuid '36b003dd8baf81f55fdd9986c3ba421f09bd0a67'
+  /src/main/java/com/xnx3/j2ee/controller/UserController.java:
+    newFile: !uuid '94ef00bb341a628c69757211d5c345fc99f38b00'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/UserController_.java:
+    newFile: null
+    oldFile: !uuid '1aaa515f055c79788f27bbab9db7def2c2331dd8'
+  /src/main/java/com/xnx3/j2ee/controller/VersionController.java:
+    newFile: !uuid '097fa37c5def7ab40ee1a162ea08bcca221438a1'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/VersionController_.java:
+    newFile: null
+    oldFile: !uuid '9a20884480b67a7b732f1ff49d87f70f43f6a717'
+  /src/main/java/com/xnx3/j2ee/controller/admin:
+    newFile: !uuid 'ef43834f41948cf74ec3b37917b3173f1e8cba9b'
+    oldFile: !uuid '2a8f55706ac924ad94ba38a6414a6928c58da7cd'
+  /src/main/java/com/xnx3/j2ee/controller/admin/AdminIndexController.java:
+    newFile: !uuid '848557f8505406622d119a0a8c3c7f2f86b60352'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/admin/AdminIndexController_.java:
+    newFile: null
+    oldFile: !uuid '900e6039cea0891c3133f8934d23cad24f54ec47'
+  /src/main/java/com/xnx3/j2ee/controller/admin/LogAdminController.java:
+    newFile: !uuid 'ec30aeb8bf1ee82e2e9086c209033a96c3a00813'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/admin/LogAdminController_.java:
+    newFile: null
+    oldFile: !uuid 'd8bd0eb306060beadb3006535a1c8020e0285285'
+  /src/main/java/com/xnx3/j2ee/controller/admin/PayLogAdminController.java:
+    newFile: !uuid '72494f0189ff091265bc2081da2372c56b10395e'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/admin/PayLogAdminController_.java:
+    newFile: null
+    oldFile: !uuid '29380228a6a48865d0bee2164086075e29f5dbd4'
+  /src/main/java/com/xnx3/j2ee/controller/admin/RoleAdminController.java:
+    newFile: !uuid '738264ae032d9f3fa37c28ced4234d52965b536a'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/admin/RoleAdminController_.java:
+    newFile: null
+    oldFile: !uuid '944532d6078d772dc55bbfe5d8b4a6f382cd8ca2'
+  /src/main/java/com/xnx3/j2ee/controller/admin/SmsLogAdminController.java:
+    newFile: !uuid '18b5a36cefd6118cfabf76d8b08de2c4619c5fc5'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/admin/SmsLogAdminController_.java:
+    newFile: null
+    oldFile: !uuid 'ecfcce4a64b551841934299a0b97a1b4e5fe1ab2'
+  /src/main/java/com/xnx3/j2ee/controller/admin/SystemAdminController.java:
+    newFile: !uuid '5f03407993d972cf520fd7641c517dc55d78f259'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/admin/SystemAdminController_.java:
+    newFile: null
+    oldFile: !uuid '2191aff18b131eaa1feecdbef10a699bf13c94a6'
+  /src/main/java/com/xnx3/j2ee/controller/admin/UserAdminController.java:
+    newFile: !uuid '42c8fd7bdb47bc5bb4505962c9b37e8aa7081b52'
+    oldFile: null
+  /src/main/java/com/xnx3/j2ee/controller/admin/UserAdminController_.java:
+    newFile: null
+    oldFile: !uuid 'b0e32abeb630b9290f113941144f5756c6727d13'
+  /src/main/java/com/xnx3/j2ee/entity:
+    newFile: !uuid '8b638d62a6df126a8be3c8ac5d859eac39568234'
+    oldFile: !uuid '4f9783811974155a995f78d68a1db22ee85f4239'
+  /src/main/java/com/xnx3/j2ee/entity/Permission.java:
+    newFile: !uuid '892a243c65bf1c18b701847c97284dcffe237c9c'
+    oldFile: !uuid '54a947df8256cedd46c46da1b4f1e839e8636713'
+  /src/main/java/com/xnx3/wangmarket:
+    newFile: !uuid '5ab1d259a84ba51382e5e574998262b5ab8f270f'
+    oldFile: !uuid '9e4c947b497417eee2e391503a003f45717130bb'
+  /src/main/java/com/xnx3/wangmarket/shop:
+    newFile: !uuid 'c569ee4c55375ab484dcbf5c2d9d94f8157633ee'
+    oldFile: !uuid '4e31c2ec18b9c76c80ddd9d7304b6cb3e7851159'
+  /src/main/java/com/xnx3/wangmarket/shop/superadmin:
+    newFile: !uuid 'd23a3a8ed0e328a57f02a694ff356e6cbdadabd1'
+    oldFile: !uuid 'fe310f976c9d9b5dc6a6b1236a66bcbb743bab77'
+  /src/main/java/com/xnx3/wangmarket/shop/superadmin/Plugin.java:
+    newFile: !uuid '1a4b6b18a2f9f413dc277cfd1368300cd7da37cd'
+    oldFile: null
   /src/main/resources:
-    newFile: !uuid 'df4db733d95314aaf37fcd0a25016f1702eb6735'
-    oldFile: !uuid '6243a5947419ebf5e3e0c1b049c9edc6ef9b32f9'
-  /src/main/resources/application.properties:
-    newFile: !uuid '1a4a62f77d35a5f1e461d94c3833acf88bbc9897'
-    oldFile: !uuid '26a8e4c0e0aacea567fec9338dcb60b3c7f34abf'
-gitCommitId: !uuid 'e50144a2c6549e1a9353a9f669dc7baa231f25e9'
-renames: {
-  }
-revisionId: 315
+    newFile: !uuid '2b0b0cb2a239628bee1e4683baa4aaaae40da50f'
+    oldFile: !uuid 'df4db733d95314aaf37fcd0a25016f1702eb6735'
+  /src/main/resources/META-INF:
+    newFile: !uuid 'b24c3f53a5bffb85a5c548a02dda3a4100c21f4f'
+    oldFile: !uuid '4153f4d9c93e4a1ca4bf29111c7b92fcd4511cc9'
+  /src/main/resources/META-INF/spring-devtools.properties:
+    newFile: !uuid 'b03b251b6b6115cd84cada2331b63b8136a2a0a7'
+    oldFile: !uuid '2b3a5e5981dcc799f2989209132c3be4ec099749'
+  /src/main/webapp:
+    newFile: !uuid 'f5e959a1c021078051dbdf62cf64800bec2042d1'
+    oldFile: !uuid 'b4598581b3efe29f507b47e1a9b59ce440d646dd'
+  /src/main/webapp/WEB-INF:
+    newFile: !uuid 'a9537833ddd9254759680dae31f82c01a15045ff'
+    oldFile: !uuid '80b431716e3b7ec0b7161463bee148e669fa52c4'
+  /src/main/webapp/WEB-INF/lib:
+    newFile: !uuid '1d98b3893c5514d172e4c50c0b19f5559b799d79'
+    oldFile: !uuid 'c36847d9b2f1207efbda875477cf1b368aaa6970'
+  /src/main/webapp/WEB-INF/lib/elasticsearch-1.1.jar:
+    newFile: !uuid 'f5bc784dc4e96fc9f3eb8145bafff37b5f51df5a'
+    oldFile: null
+  /src/main/webapp/WEB-INF/lib/wm-1.14-sources.jar:
+    newFile: null
+    oldFile: !uuid '538b07f10430e9ea9491b13b526ec78789ba8871'
+  /src/main/webapp/WEB-INF/lib/wm-1.14.jar:
+    newFile: null
+    oldFile: !uuid '72cc7016d07c16ea7479f541f929637867f73aa4'
+  /src/main/webapp/WEB-INF/lib/wm-1.15.jar:
+    newFile: !uuid '0e91c6e67e4e1281a5219f332cc52fc6f64f95ef'
+    oldFile: null
+  /src/main/webapp/superadmin:
+    newFile: !uuid '67d1e38ac5042cd662547a4fb018f2dcae791397'
+    oldFile: !uuid '8bcf4c314cb9e506a1937c049aa8128f079393b7'
+  /src/main/webapp/superadmin/store:
+    newFile: !uuid '15a9bac1435d35d0caa67c0d87c80ac4c12ed91f'
+    oldFile: !uuid '2c1aafd0ebc0fc6b8c8e4572f8905fd70b8f836f'
+  /src/main/webapp/superadmin/store/list.jsp:
+    newFile: !uuid 'b4a23a6ac2be290b1d2e03a8c05a5ea5f48bfdec'
+    oldFile: !uuid 'e4522270c4866a88b2f7a13262373b055c46dd10'
+gitCommitId: !uuid 'c84ca1d0ff987963ab8afe308a2f603304fbe334'
+renames:
+  /src/main/java/com/xnx3/j2ee/controller/LoginController.java: /src/main/java/com/xnx3/j2ee/controller/LoginController_.java
+  /src/main/java/com/xnx3/j2ee/controller/PublicController.java: /src/main/java/com/xnx3/j2ee/controller/PublicController_.java
+  /src/main/java/com/xnx3/j2ee/controller/VersionController.java: /src/main/java/com/xnx3/j2ee/controller/VersionController_.java
+  /src/main/java/com/xnx3/j2ee/controller/admin/AdminIndexController.java: /src/main/java/com/xnx3/j2ee/controller/admin/AdminIndexController_.java
+  /src/main/java/com/xnx3/j2ee/controller/admin/LogAdminController.java: /src/main/java/com/xnx3/j2ee/controller/admin/LogAdminController_.java
+  /src/main/java/com/xnx3/j2ee/controller/admin/PayLogAdminController.java: /src/main/java/com/xnx3/j2ee/controller/admin/PayLogAdminController_.java
+  /src/main/java/com/xnx3/j2ee/controller/admin/RoleAdminController.java: /src/main/java/com/xnx3/j2ee/controller/admin/RoleAdminController_.java
+  /src/main/java/com/xnx3/j2ee/controller/admin/SmsLogAdminController.java: /src/main/java/com/xnx3/j2ee/controller/admin/SmsLogAdminController_.java
+  /src/main/java/com/xnx3/j2ee/controller/admin/SystemAdminController.java: /src/main/java/com/xnx3/j2ee/controller/admin/SystemAdminController_.java
+  /src/main/java/com/xnx3/j2ee/controller/admin/UserAdminController.java: /src/main/java/com/xnx3/j2ee/controller/admin/UserAdminController_.java
+  /src/main/webapp/WEB-INF/lib/wm-1.15.jar: /src/main/webapp/WEB-INF/lib/wm-1.14.jar
+revisionId: 316
