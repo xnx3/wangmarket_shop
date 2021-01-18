@@ -6,7 +6,6 @@
 <jsp:include page="../../store/common/head.jsp">
 	<jsp:param name="title" value="商家列表"/>
 </jsp:include>
-<script src="/<%=Global.CACHE_FILE %>Store_state.js"></script>
 
 
 <jsp:include page="../../store/common/list/formSearch_formStart.jsp" ></jsp:include>
@@ -127,28 +126,28 @@ function list(currentPage){
 
 	msg.loading('加载中');
 	post('/shop/superadmin/store/list.json' ,data,function(data){
-	msg.close();    //关闭“更改中”的等待提示
-	checkLogin(parse);	//判断是否登录
-
-	//已登陆
-	if(data.result == '0'){
-		msg.failure(data.info);
-	}else if(data.result == '1'){
-		//成功
-
-		//列表
-		var html = '';
-		for(var index in data.list){
-			var item = data.list[index];
-			//只显示已选中的商品
-			html = html + templateReplace(item);
+		msg.close();    //关闭“更改中”的等待提示
+		checkLogin(data);	//判断是否登录
+	
+		//已登陆
+		if(data.result == '0'){
+			msg.failure(data.info);
+		}else if(data.result == '1'){
+			//成功
+	
+			//列表
+			var html = '';
+			for(var index in data.list){
+				var item = data.list[index];
+				//只显示已选中的商品
+				html = html + templateReplace(item);
+			}
+			document.getElementById("list").innerHTML = html;
+			//分页
+			page.render(data.page);
+	
 		}
-		document.getElementById("list").innerHTML = html;
-		//分页
-		page.render(data.page);
-
-	}
-	 });
+	});
 }
 //刚进入这个页面，加载第一页的数据
 list(1);
