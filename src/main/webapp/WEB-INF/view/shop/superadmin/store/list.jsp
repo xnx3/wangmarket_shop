@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.xnx3.com/java_xnx3/xnx3_tld" prefix="x" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<jsp:include page="../../../iw/common/head.jsp">
+<jsp:include page="/wm/common/head.jsp">
 	<jsp:param name="title" value="商家列表"/>
 </jsp:include>
 <script src="/<%=Global.CACHE_FILE %>Store_state.js"></script>

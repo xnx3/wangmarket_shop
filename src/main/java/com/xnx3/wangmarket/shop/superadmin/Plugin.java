@@ -1,5 +1,6 @@
 package com.xnx3.wangmarket.shop.superadmin;
 
+import com.xnx3.j2ee.pluginManage.PluginRegister;
 import com.xnx3.j2ee.pluginManage.interfaces.SuperAdminIndexInterface;
 
 /**
@@ -7,6 +8,7 @@ import com.xnx3.j2ee.pluginManage.interfaces.SuperAdminIndexInterface;
  * @author 管雷鸣
  *
  */
+@PluginRegister(applyToSuperAdmin=true, menuHref="/shop/superadmin/store/list.do", menuTitle="店铺管理")
 public class Plugin implements SuperAdminIndexInterface{
 
 	@Override
