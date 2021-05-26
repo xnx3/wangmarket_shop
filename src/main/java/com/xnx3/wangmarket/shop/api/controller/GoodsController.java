@@ -87,7 +87,8 @@ public class GoodsController extends BasePluginController {
 	    if(typeid > 0) {
 	    	sql.appendWhere("typeid = " + typeid);
 	    }
-	    sql.appendWhere("isdelete = "+Goods.ISDELETE_NORMAL);
+	    sql.appendWhere("isdelete = "+Goods.ISDELETE_NORMAL);	//正常状态，未被删除的
+	    sql.appendWhere("putaway = "+Goods.PUTAWAY_SELL);		//上下架状态是正常上架中的
 	    //查询user数据表的记录总条数。 传入的user：数据表的名字为user
 	    int count = sqlService.count("shop_goods", sql.getWhere());
 	    //创建分页，并设定每页显示15条
