@@ -3,54 +3,39 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'b31d8db03d911e9a49c7abbe8eb7a333a6cc0109'
-    oldFile: !uuid 'a36dd3683a18d6d0bd7e20db62ab881ca26c697f'
+    newFile: !uuid 'aaa3bdb04c6f5388ac9e1c50096686fad4712ca5'
+    oldFile: !uuid 'b31d8db03d911e9a49c7abbe8eb7a333a6cc0109'
   /src/main:
-    newFile: !uuid '55c4efbaa4c14a8631a61c4e46395134c8ead7a4'
-    oldFile: !uuid '4ad728a6d2cd61e4b60b5a5831651a2b9fea4421'
+    newFile: !uuid '72b8b8efa96d4391bb23ad8c4c0c580a5f2e8a93'
+    oldFile: !uuid '55c4efbaa4c14a8631a61c4e46395134c8ead7a4'
   /src/main/java:
-    newFile: !uuid '9033a0d00d38d68e8c8930e24e123e0397d2a02b'
-    oldFile: !uuid '0db23717bf2b47fbc210ed23502b2f08df1b800c'
+    newFile: !uuid 'c5ed9f0abc0fb7f2b9e88378fae9a934428682bf'
+    oldFile: !uuid '9033a0d00d38d68e8c8930e24e123e0397d2a02b'
   /src/main/java/com:
-    newFile: !uuid '0ff57e8ac6f7983ee347c1543e100e42c450cd68'
-    oldFile: !uuid 'e26b2d257c08936d1c0a79175bfd023a0b3121b7'
+    newFile: !uuid '43fc3b91f9e673b0f987fe54d32bef90febea315'
+    oldFile: !uuid '0ff57e8ac6f7983ee347c1543e100e42c450cd68'
   /src/main/java/com/xnx3:
-    newFile: !uuid 'ea2013af514435d4dcbd7590b167cd92758ae51b'
-    oldFile: !uuid '32137f596e6717aa4302c06f8f9561b5f57bcd7b'
+    newFile: !uuid '2f97583eebd3d5ac98f8c0c8a8ccedd110f42fea'
+    oldFile: !uuid 'ea2013af514435d4dcbd7590b167cd92758ae51b'
   /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '55ab8d916fc1cdfb0ba5f8945607fab9f9ef10ac'
-    oldFile: !uuid '37734fd515f7d9e849fb436f2123917e7e67b3d7'
+    newFile: !uuid 'b15bcdd089efbf85e761751f5642c4e042852450'
+    oldFile: !uuid '55ab8d916fc1cdfb0ba5f8945607fab9f9ef10ac'
   /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid '22c7bd2160168648da356ebc4ff4919cd465781e'
-    oldFile: !uuid '902420dada2d20d46638445cb381e346e681f789'
-  /src/main/java/com/xnx3/wangmarket/shop/core:
-    newFile: !uuid 'ad8139dcadd87a0746b3d45985410fb925ade3fc'
-    oldFile: !uuid '01cddca37c6a62eb2367932967ac91d129f4b1e5'
-  /src/main/java/com/xnx3/wangmarket/shop/core/vo:
-    newFile: !uuid '5061e2a5b4f77512077d95adf7bd6d16ddcc572f'
-    oldFile: !uuid '46ab575705e565876f33483949269a23ce8d9995'
-  /src/main/java/com/xnx3/wangmarket/shop/core/vo/UserVO.java:
-    newFile: !uuid '4ae9dbbe1dbd836757385400bd08f360bbdbd3c6'
-    oldFile: !uuid 'e5a93729a4b77e66a5b8da2b5b76728faf359fdd'
-  /src/main/java/com/xnx3/wangmarket/shop/core/vo/bean:
-    newFile: !uuid '3b9c301b4ce909cd9a3b26dc225c0d4a7e64283b'
-    oldFile: !uuid 'b9fb8505cccbb52c4631a3d111dd957af87bb5cd'
-  /src/main/java/com/xnx3/wangmarket/shop/core/vo/bean/UserBean.java:
-    newFile: !uuid 'ba47a7c1fe14caea4f993a510dc37aab72cd1167'
-    oldFile: !uuid '4a27823098fcb6648966f1209e0549824da87faf'
+    newFile: !uuid '2e8a5fa6fad8ec8e339e9e63654a1b3a851247ae'
+    oldFile: !uuid '22c7bd2160168648da356ebc4ff4919cd465781e'
   /src/main/java/com/xnx3/wangmarket/shop/store:
-    newFile: !uuid 'b6c096cb0bdbde43e62ccd81dba67a9ce923973a'
-    oldFile: !uuid '718b0472c7dfa6169f099a4bdf165468c4353b87'
+    newFile: !uuid 'b699d995f590518407eab357aac616bcbce92828'
+    oldFile: !uuid 'b6c096cb0bdbde43e62ccd81dba67a9ce923973a'
   /src/main/java/com/xnx3/wangmarket/shop/store/api:
-    newFile: !uuid '6f6adbdda8c4b8403f597b0c0c842012e241143c'
-    oldFile: !uuid 'f1e33e1afbd5e97fe8572d00c89ba274c92b6c0c'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo:
-    newFile: !uuid '97f0e5cb8de3afc2ee2f9d57fd5d6cc30466fac7'
-    oldFile: !uuid '1968d7645411bb5010d2ef1a70ed8b70a9ef0c57'
-  /src/main/java/com/xnx3/wangmarket/shop/store/api/vo/UserListVO.java:
-    newFile: !uuid '5cad7f466eb1bc719eec1347ef5ecb290b161623'
-    oldFile: !uuid 'f0dfc7475aee04d069c06e9ae180b25985a33bfb'
-gitCommitId: !uuid '3e645636332afcee9fd2b64df903e011669fee59'
+    newFile: !uuid '77df5d2305aeb894e89e4e73585d794543ef31b1'
+    oldFile: !uuid '6f6adbdda8c4b8403f597b0c0c842012e241143c'
+  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller:
+    newFile: !uuid '41e81c733be44378e2b54d4156896058b7bba501'
+    oldFile: !uuid '1b6402263678a0c934ff7e7cfb00291ac9a2eb7c'
+  /src/main/java/com/xnx3/wangmarket/shop/store/api/controller/UserController.java:
+    newFile: !uuid '7da719204ad39f88c1b31ce6c5171a3f2dd93e68'
+    oldFile: !uuid '0b174efc0fc9e5952fa97ddf0db43caf5905b4e7'
+gitCommitId: !uuid '769a63e68fad8994cb9776d477f75fcc8f429c60'
 renames: {
   }
-revisionId: 322
+revisionId: 323
