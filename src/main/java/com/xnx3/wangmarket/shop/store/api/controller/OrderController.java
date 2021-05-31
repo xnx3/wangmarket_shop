@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.DateUtil;
+import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
@@ -111,8 +112,12 @@ public class OrderController extends BaseController {
 		
 		//订单内商品信息
 		List<OrderGoods> goodsList = sqlService.findByProperty(OrderGoods.class, "orderid", orderid);
-
 		vo.setGoodsList(goodsList);
+		
+		//下单的用户信息
+		User user = sqlService.findById(User.class, order.getUserid());
+		vo.setUser(user);
+		
 		ActionLogUtil.insert(request, order.getId(), "查看订单详情:"+vo.toString());
 		
 		return vo;

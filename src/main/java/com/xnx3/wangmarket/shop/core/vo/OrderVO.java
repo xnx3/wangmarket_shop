@@ -82,6 +82,7 @@ public class OrderVO extends BaseVO{
 			userBean.setPhone(user.getPhone());
 			userBean.setUsername(user.getUsername());
 			userBean.setRegtime(user.getRegtime());
+			userBean.setSign(user.getSign());
 		}
 		this.user = userBean;
 	}
