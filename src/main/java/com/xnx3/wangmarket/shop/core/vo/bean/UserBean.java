@@ -14,6 +14,7 @@ public class UserBean {
 	private String phone;		//手机号
 	private Integer regtime;	//用户注册的时间
 	private String regip;		//用户注册ip
+	private String sign;		//用户的个人签名
 	
 	public Integer getId() {
 		return id;
@@ -87,4 +88,12 @@ public class UserBean {
 			this.regip = regip;
 		}
 	}
+	public String getSign() {
+		return sign;
+	}
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+	
+	
 }

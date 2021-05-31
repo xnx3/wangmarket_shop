@@ -43,6 +43,7 @@ public class UserListVO extends BaseVO{
 				userBean.setUsername(user.getUsername());
 				userBean.setRegtime(user.getRegtime());
 				userBean.setRegip(user.getRegip());
+				userBean.setSign(user.getSign());
 				beanList.add(userBean);
 			}
 		}
