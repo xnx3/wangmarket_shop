@@ -61,7 +61,7 @@ public class UserController extends BaseController {
 		//sql.appendWhere("shop_store_user.userid = " + user.getId());
 		sql.appendWhere("shop_store_user.userid = user.id");
 		sql.setSelectFromAndPage("SELECT user.* FROM user,shop_store_user", page);
-		System.out.println(sql.getSql());
+		sql.setDefaultOrderBy("id DESC");
 		// 按照上方条件查询出该实体总数 用集合来装
 		List<User> list = sqlService.findBySqlQuery(sql.getSql(),User.class);
 
