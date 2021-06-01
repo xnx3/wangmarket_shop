@@ -2,13 +2,25 @@
 branches: {
   }
 fileChange:
-  /else:
-    newFile: !uuid '560983d24d7910df57d883424f9382d57ed8c49d'
-    oldFile: !uuid '2ca97d3b528e0bfeaa817fb713432bf48234b26f'
-  /else/pom_jar.xml:
-    newFile: !uuid 'a505b53c8a7897244a655404492cedd0e70ca643'
-    oldFile: !uuid 'b7d52b7229657dab4be6e8ee9fb1a17226b02b84'
-gitCommitId: !uuid 'fc3cebb90734d1addc11a21bd2ae2283706ad200'
+  /src:
+    newFile: !uuid 'd00a9aa1237bce31e433170c23779cc81bc175b1'
+    oldFile: !uuid '1aa9071f58951fc124a997012321bbe0aaf22b0c'
+  /src/main:
+    newFile: !uuid '5a78594d4b29441a29fde70aaf98bbc0c4fcf781'
+    oldFile: !uuid '940cf9fda3f587a760035fe1aac210326e50d226'
+  /src/main/webapp:
+    newFile: !uuid '69bf61deea7a9e9df38a3d7061681c9c6ab4ed02'
+    oldFile: !uuid 'dd74818946801bf6f7d2475fb20c189fbb4712c9'
+  /src/main/webapp/store:
+    newFile: !uuid '1cba750b6a0cc71713e8af3fd3a98c5cf7f5b32b'
+    oldFile: !uuid 'd1a9e4946c10cdad5230b31229bb0edf634a2701'
+  /src/main/webapp/store/goodsType:
+    newFile: !uuid '2bc80d6fd44dec685e29ef1c45a9a8f50e9b4b18'
+    oldFile: !uuid '405da169d39be76b16ff2556ba7c25b76f7d3142'
+  /src/main/webapp/store/goodsType/list.jsp:
+    newFile: !uuid '072d39d6188e8217969c4611a10766347bc55092'
+    oldFile: !uuid '6b1463fcc10d3595ec5c1f6253d08619c196072b'
+gitCommitId: !uuid '512e89852cb90b7f3fd76afaaf67b1c47ee68f10'
 renames: {
   }
-revisionId: 325
+revisionId: 326
