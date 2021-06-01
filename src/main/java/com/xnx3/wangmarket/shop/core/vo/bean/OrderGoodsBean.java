@@ -7,6 +7,7 @@ import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
  * @author 管雷鸣
  */
 public class OrderGoodsBean {
+	private Integer id;			//OrderGoods.id
 	private Integer orderid;		//订单的ID，对应 Order.id
 	private Integer goodsid;		//商品的id，对应 Goods.id
 	private String title;		//商品名字，对应 Goods.title ，就是吧Goods的信息复制过来了，相当于给商品做了一个镜像
@@ -84,6 +85,16 @@ public class OrderGoodsBean {
 			this.titlepic = "";
 		}else{
 			this.titlepic = titlepic;
+		}
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		if(id == null){
+			this.id = 0;
+		}else{
+			this.id = id;
 		}
 	}
 	

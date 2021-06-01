@@ -124,6 +124,52 @@ public class OrderController extends BaseController {
 	}
 	
 
+
+	/**
+	 * 更改订单内某个商品的数量。这个只是纯粹改数量而已，其他的金额了什么的不会重新计算
+	 * @author 管雷鸣
+	 * @param orderGoodsId 要修改的是哪个订单内商品，也就是 OrderGoods.id
+	 * @param number 要改成的数量。如果传入0，则是删除这个订单内的商品
+	 */
+	@ResponseBody
+	@RequestMapping(value="updateOrderGoodsNumber${api.suffix}", method = {RequestMethod.POST})
+	public BaseVO updateOrderGoodsNumber(HttpServletRequest request,
+		@RequestParam(value = "orderGoodsId", required = false, defaultValue = "0") int orderGoodsId,
+		@RequestParam(value = "number", required = false, defaultValue = "0") int number) {
+		
+		if(orderGoodsId < 1){
+			return error("请传入订单商品的id");
+		}
+		
+		//取出订单内这个商品的信息
+		OrderGoods orderGoods = sqlService.findById(OrderGoods.class, orderGoodsId);
+		if(orderGoods == null){
+			return error("要修改的订单内的这个商品不存在");
+		}
+		//取出订单的信息
+		Order order = sqlService.findById(Order.class, orderGoods.getOrderid());
+		if(order == null){
+			return error("订单不存在");
+		}
+		if(order.getStoreid() - getStoreId() != 0){
+			return error("订单不属于你，无法操作");
+		}
+		
+		//修改订单内商品的信息
+		if(number < 1){
+			//删除
+			ActionLogUtil.insert(request, orderGoods.getId(), "删除订单内的商品", orderGoods.toString());
+			sqlService.delete(orderGoods);
+		}else{
+			ActionLogUtil.insert(request, orderGoods.getId(), "修改订单内的商品数量", "由"+orderGoods.getNumber()+"改成"+number+", "+orderGoods.toString());
+			orderGoods.setNumber(number);
+			sqlService.save(orderGoods);
+		}
+		
+		return success();
+	}
+	
+	
 	/**
 	 * 收到商品，确认收货
 	 * @author 管雷鸣

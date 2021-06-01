@@ -65,6 +65,7 @@ public class OrderVO extends BaseVO{
 				 bean.setUnits(orderGoods.getUnits());
 				 bean.setNumber(orderGoods.getNumber());
 				 bean.setOrderid(orderGoods.getOrderid());
+				 bean.setId(orderGoods.getId());
 				 beanList.add(bean);
 			}
 		 }
