@@ -30,9 +30,9 @@
   <thead>
     <tr>
 		<th style="text-align:center;">ID</th>
-        <th style="text-align:center;">排序</th>
         <th style="text-align:center;">分类名字</th>
          <th style="text-align:center;">图标</th>
+         <th style="text-align:center;">排序</th>
         <th style="text-align:center;">操作</th>
     </tr> 
   </thead>
@@ -46,11 +46,11 @@
 		-->
 		<tr>
 			<td style="text-align:center;">{id}</td>
-			<td style="text-align:center;">{rank}</td>
 			<td style="text-align:center;">{title}</td>
 			<td style="text-align:center;">
 			<a  href="{icon}" target="_black"><img src = '{icon}' /></a>
 			</td>
+			<td style="text-align:center;">{rank}</td>
 			<td style="text-align:center;width: 200px;">
 		 	    <!-- 修改分类信息 -->
 		 	   <a class="layui-btn layui-btn-sm" onclick="addOrUpdate('{id}')" style=""><i class="layui-icon">&#xe642;</i></a>	 
