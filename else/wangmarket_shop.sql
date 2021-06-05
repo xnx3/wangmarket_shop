@@ -620,7 +620,7 @@ COMMIT;
 DROP TABLE IF EXISTS `shop_goods_type`;
 CREATE TABLE `shop_goods_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `icon` char(100) DEFAULT NULL COMMENT '分类的图标、图片',
+  `icon` char(150) DEFAULT NULL COMMENT '分类的图标、图片',
   `isdelete` tinyint(2) DEFAULT NULL COMMENT '是否被删除',
   `rank` int(11) DEFAULT NULL COMMENT '分类间的排序，数字越小越靠前',
   `storeid` int(11) DEFAULT NULL COMMENT '对应店铺id, Store.id ， 该分类是属于那个店铺的',

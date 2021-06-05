@@ -19,7 +19,7 @@ public class GoodsType extends BaseEntity implements java.io.Serializable{
 	
 	private Integer id;			//分类id，自动编号
 	private String title;		//分类的名称，限20个字符
-	private String icon;		//分类的图标、图片，限制100个字符
+	private String icon;		//分类的图标、图片，限制150个字符
 	private Integer rank;		//分类间的排序，数字越小越靠前
 	private Integer storeid;	//对应店铺id, Store.id ， 该分类是属于那个店铺的
 	private Short isdelete;		//是否被删除
