@@ -23,17 +23,9 @@ mysql 数据库所在路径：  else/wangmarket_shop.sql
 商品管理是 /shop/storeadmin/goods/
 轮播图管理是 /shop/storeadmin/carouselImage/
 
-## 登录
-#### 总管理后台
-http://localhost:9090/shop/superadmin/login/login.do
-账号：admin
-密码：admin
-可开通商家
 
-#### 商家登录
-http://localhost:9090/store/login/login.jsp
-账号：store
-密码：store
-商家后台可以管理自己的店铺。而我们平台是多商家的，可以有多个商家存在，每个商家都有一个自己的账号，管理自己的店铺。
-可以通过总管理后台，开通任意多的商家账户 
-  
+ ## 安装部署
+ https://gitee.com/leimingyun/dashboard/wikis/leimingyun/serverinstall/preview?sort_id=4110638&doc_id=1473420
+ 
+ ## 后台登录
+ https://gitee.com/leimingyun/dashboard/wikis/leimingyun/serverinstall/preview?sort_id=4110640&doc_id=1473420
