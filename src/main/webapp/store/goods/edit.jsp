@@ -290,7 +290,8 @@ function commit() {
 
 	//表单序列化
 	parent.msg.loading('保存中');
-	post("shop/store/api/goods/saveAll.json", date, function (result) {
+	$.post("/shop/store/api/goods/saveAll.json",date,function(result){
+	//post("shop/store/api/goods/saveAll.json", date, function (result) {
 		parent.msg.close();
 		checkLogin(result);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(result.result == '1'){
@@ -302,7 +303,7 @@ function commit() {
 			parent.msg.failure('修改失败');
 
 		}
-	}, "text");
+	});
 
 	return false;
 }
