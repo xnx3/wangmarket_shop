@@ -2,31 +2,13 @@
 branches: {
   }
 fileChange:
-  /README.md:
-    newFile: !uuid '50cb13070fec482faf141d389464624d841c7408'
-    oldFile: !uuid '85f58cd6fe06f80811ebfce3b03be7c0a3771059'
-  /src:
-    newFile: !uuid '6af1e0d33f2153dfc798713fd818b56c24d09dbe'
-    oldFile: !uuid '9c5903149768a111fb8a797164d6b25519781408'
-  /src/main:
-    newFile: !uuid 'e0f772abfb8ae96ec29ba54249eebc6bb46ed704'
-    oldFile: !uuid '893bbb7a2a0c562b773b815150af5399abf831ba'
-  /src/main/webapp:
-    newFile: !uuid '0e9561fb4d9ba0ce667b9c9df9898c8ce6c2fed1'
-    oldFile: !uuid '69bf61deea7a9e9df38a3d7061681c9c6ab4ed02'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid '46d6a87fd781a3a42e321a186a753a07e6534319'
-    oldFile: !uuid '9861a0e2ff67168a74e311c531d03c680da4252b'
-  /src/main/webapp/WEB-INF/lib:
-    newFile: !uuid '0c5b6ebfb7eb4dd9f7cc540cb0a96953eb140af3'
-    oldFile: !uuid '6492bcdfb043857a31325d5141586a322e0dbb45'
-  /src/main/webapp/WEB-INF/lib/wm-1.21-sources.jar:
-    newFile: null
-    oldFile: !uuid '1f58936addf2438e3b3a7760d1251c48d35980ef'
-  /src/main/webapp/WEB-INF/lib/wm-1.21.jar:
-    newFile: !uuid '66bb2eb0cb21c059c57a2b763df0e08107e25717'
-    oldFile: !uuid 'ead6e6c69c36639685ca5645dca6ded627bf7e42'
-gitCommitId: !uuid '7c54d2664e6a4a03eddef1d9976adb4b1c7e207e'
+  /else:
+    newFile: !uuid 'c7b4f19785c4b722f9a1c7a9950f94095fbd1f66'
+    oldFile: !uuid '15d849e593a982f9a5df55a3d1af3001a67e71ff'
+  /else/wangmarket_shop.sql:
+    newFile: !uuid '06597952719004608d50931589169be8cb482e3c'
+    oldFile: !uuid '4fcb6180f45ccffc4d0ed984e99bd720756d3981'
+gitCommitId: !uuid 'c1cf21e0c84bfb9e857fb89d9c420f853485a6d8'
 renames: {
   }
-revisionId: 329
+revisionId: 330
