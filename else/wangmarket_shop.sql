@@ -492,7 +492,7 @@ COMMIT;
 DROP TABLE IF EXISTS `shop_carousel_image`;
 CREATE TABLE `shop_carousel_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `image_url` char(100) DEFAULT NULL COMMENT '轮播图url，绝对路径',
+  `image_url` char(180) DEFAULT NULL COMMENT '轮播图url，绝对路径',
   `img_value` char(130) DEFAULT NULL COMMENT '值，如url的路径、商品的id',
   `name` char(40) DEFAULT NULL COMMENT '轮播图的名字，更多的是备注作用，给自己看的。用户看到的只是图片而已',
   `rank` int(11) DEFAULT NULL COMMENT '排序，数字越小越靠前',
