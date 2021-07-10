@@ -2,13 +2,28 @@
 branches: {
   }
 fileChange:
-  /else:
-    newFile: !uuid '99d68da76ce74191f0671f4d2ff3d3adb6360702'
-    oldFile: !uuid 'fac5e68a11ee76a9c1a0f6bf79963421a09ca060'
-  /else/wangmarket_shop.sql:
-    newFile: !uuid '385d0f094423a63f2fac24cab250ec77769b9d89'
-    oldFile: !uuid 'c97eb4b47477b19d8e05f8d133136d7585b6f2fa'
-gitCommitId: !uuid '5a546022941e7be5be3ae1c11e3c5b61f6498113'
+  /src:
+    newFile: !uuid '8d253af0f0e37855abc05c2c914277b73a9147c9'
+    oldFile: !uuid '259a1f2f68735c5f0a452703bf0accc8eeb2d032'
+  /src/main:
+    newFile: !uuid 'eb75328d019df5ef078a03919963ec00b4526b2d'
+    oldFile: !uuid '673d29b6290f272b9d996b2c1c638121af5da5df'
+  /src/main/webapp:
+    newFile: !uuid '6770b44f7c52374823299a7b48c2ede719eaf8c6'
+    oldFile: !uuid 'a002a8ff97c037132eddb45ef80b040f0f66c060'
+  /src/main/webapp/WEB-INF:
+    newFile: !uuid '6f6aad1f005bac4a83144a27a0914ae3de69ec4b'
+    oldFile: !uuid 'bdd3a24658a4456f1a3df2187f2284ca74cc57e4'
+  /src/main/webapp/WEB-INF/lib:
+    newFile: !uuid 'bc268383b1ef94e9b58fbc45e7a2a85560071a63'
+    oldFile: !uuid 'fe856ef0489fa9965506747a7d7cf9c0706af677'
+  /src/main/webapp/WEB-INF/lib/wm-1.22-sources.jar:
+    newFile: !uuid 'b6b31ae072c43dc248851fc07b4e65ae22527f8d'
+    oldFile: !uuid 'c9b4f9e5a42f94cfea2b583bcf511126159ad9ba'
+  /src/main/webapp/WEB-INF/lib/wm-1.22.jar:
+    newFile: !uuid 'c279fab5692398ad3fc3f60c72937dd00bc4722b'
+    oldFile: !uuid 'f2c3d114f1df257aabb0e13796ba06b918ee9d45'
+gitCommitId: !uuid 'f6f8f158e662f60d308aa54d88c21a00f7e04210'
 renames: {
   }
-revisionId: 333
+revisionId: 334
