@@ -72,7 +72,7 @@ public class OrderController extends BaseController {
 		// 按照上方条件查询出该实体总数 用集合来装
 		List<Order> list = sqlService.findBySql(sql,Order.class);
 		
-		vo.setOrderList(list);
+		vo.setList(list);
 		vo.setPage(page);
 		//日志记录
 		ActionLogUtil.insert(request, getUserId(), "查看订单列表");

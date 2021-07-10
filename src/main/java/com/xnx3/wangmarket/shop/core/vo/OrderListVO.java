@@ -12,16 +12,17 @@ import com.xnx3.wangmarket.shop.core.vo.bean.OrderBean;
  * @author 管雷鸣
  */
 public class OrderListVO extends BaseVO {
-	private List<OrderBean> orderList;
+	private List<OrderBean> list;
 	private Page page;
-	public List<OrderBean> getOrderList() {
-		return orderList;
+	
+	public List<OrderBean> getList() {
+		return list;
 	}
-	public void setOrderList(List<Order> orderList) {
+	public void setList(List<Order> list) {
 		List<OrderBean> beanList = new ArrayList<OrderBean>();
-		if(orderList != null) {
-			for (int i = 0; i < orderList.size(); i++) {
-				Order order = orderList.get(i);
+		if(list != null) {
+			for (int i = 0; i < list.size(); i++) {
+				Order order = list.get(i);
 				OrderBean bean = new OrderBean();
 				bean.setAddtime(order.getAddtime());
 				bean.setId(order.getId());
@@ -34,7 +35,7 @@ public class OrderListVO extends BaseVO {
 				beanList.add(bean);
 			}
 		}
-		this.orderList = beanList;
+		this.list = beanList;
 	}
 	public Page getPage() {
 		return page;
