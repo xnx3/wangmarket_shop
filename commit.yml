@@ -3,24 +3,24 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '449a0d403addbe6940ca6240ef907ead8ca1d66d'
-    oldFile: !uuid 'c52cc9476d1541ff94880167882b5036aca73b0f'
+    newFile: !uuid '6c63e06d7caca440c47506cc4721b657a30fea12'
+    oldFile: !uuid '449a0d403addbe6940ca6240ef907ead8ca1d66d'
   /src/main:
-    newFile: !uuid 'bded4724a0ce02fac6b19754f9542c9084933e0d'
-    oldFile: !uuid 'cfdfb76871d689cf4438d7289c29c5d97494f15a'
+    newFile: !uuid 'dd23c5e5fd9157393b6b8c27eac27bddfd22a6f6'
+    oldFile: !uuid 'bded4724a0ce02fac6b19754f9542c9084933e0d'
   /src/main/webapp:
-    newFile: !uuid '9f51f50c9b7e255854aac18d2e77000fc66cded6'
-    oldFile: !uuid 'fa60734b3c42383e5f1bb0d1c39d8fbdacf786d0'
+    newFile: !uuid 'a6823db86679be7fec66a11d01bf779ea9bd6dac'
+    oldFile: !uuid '9f51f50c9b7e255854aac18d2e77000fc66cded6'
   /src/main/webapp/store:
-    newFile: !uuid '04040fbb58ef519baa0f2524a90020936b99f9da'
-    oldFile: !uuid 'f6994a935b296f9ed41f2125e0a07c222f728499'
-  /src/main/webapp/store/common:
-    newFile: !uuid '11a9b65d6820ec2e3b2dbd9cad25cb8772ee8ada'
-    oldFile: !uuid '1bb32070a68c6418b60a56534f292636fe595d75'
-  /src/main/webapp/store/common/head.jsp:
-    newFile: !uuid 'd5b424c10ef9b42fe48f0bfdae8be1b167b70232'
-    oldFile: !uuid '434d6b115cb66feb75a9caaf95cdd32e8cb3491a'
-gitCommitId: !uuid '2e5b36688237de84edad5334fd29ccb9b2e6d057'
+    newFile: !uuid '11794d479e5968c75a0a4a7e40e5efa9a8458b55'
+    oldFile: !uuid '04040fbb58ef519baa0f2524a90020936b99f9da'
+  /src/main/webapp/store/carouselImage:
+    newFile: !uuid 'a4cf146cee0dc655b99b9d42541ac661ada7f4d1'
+    oldFile: !uuid 'a007297ab98c8643a0626d4b124c754bcf6aed32'
+  /src/main/webapp/store/carouselImage/list.jsp:
+    newFile: !uuid '141292c3f33f968d4c24d5e5ee21f5f2cb6561d5'
+    oldFile: !uuid '1e6d7ceecefb17985226553647d2cc3fcbd98cac'
+gitCommitId: !uuid '22acfecedd36a6c094e36412f0ba2a9c4c17c204'
 renames: {
   }
-revisionId: 337
+revisionId: 338
