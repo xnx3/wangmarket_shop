@@ -3,40 +3,12 @@ branches: {
   }
 fileChange:
   /else:
-    newFile: !uuid 'fac5e68a11ee76a9c1a0f6bf79963421a09ca060'
-    oldFile: !uuid 'c7b4f19785c4b722f9a1c7a9950f94095fbd1f66'
+    newFile: !uuid '99d68da76ce74191f0671f4d2ff3d3adb6360702'
+    oldFile: !uuid 'fac5e68a11ee76a9c1a0f6bf79963421a09ca060'
   /else/wangmarket_shop.sql:
-    newFile: !uuid 'c97eb4b47477b19d8e05f8d133136d7585b6f2fa'
-    oldFile: !uuid '06597952719004608d50931589169be8cb482e3c'
-  /pom.xml:
-    newFile: !uuid '05646021da4e227a865ede7fd270e931f077c5ed'
-    oldFile: !uuid '90acd0fa58bf58c5a32cbe307699adcaaf78fa40'
-  /src:
-    newFile: !uuid '259a1f2f68735c5f0a452703bf0accc8eeb2d032'
-    oldFile: !uuid '41564d928c2e05eca93b49bec88a2b50ba819d8e'
-  /src/main:
-    newFile: !uuid '673d29b6290f272b9d996b2c1c638121af5da5df'
-    oldFile: !uuid 'c2e2adad95c8e7bd9f276054d5e060fb09a31842'
-  /src/main/webapp:
-    newFile: !uuid 'a002a8ff97c037132eddb45ef80b040f0f66c060'
-    oldFile: !uuid 'e27f9da82eadd88cc1723c4ac524de45ecebea66'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid 'bdd3a24658a4456f1a3df2187f2284ca74cc57e4'
-    oldFile: !uuid '46d6a87fd781a3a42e321a186a753a07e6534319'
-  /src/main/webapp/WEB-INF/lib:
-    newFile: !uuid 'fe856ef0489fa9965506747a7d7cf9c0706af677'
-    oldFile: !uuid '0c5b6ebfb7eb4dd9f7cc540cb0a96953eb140af3'
-  /src/main/webapp/WEB-INF/lib/wm-1.21.jar:
-    newFile: null
-    oldFile: !uuid '66bb2eb0cb21c059c57a2b763df0e08107e25717'
-  /src/main/webapp/WEB-INF/lib/wm-1.22-sources.jar:
-    newFile: !uuid 'c9b4f9e5a42f94cfea2b583bcf511126159ad9ba'
-    oldFile: null
-  /src/main/webapp/WEB-INF/lib/wm-1.22.jar:
-    newFile: !uuid 'f2c3d114f1df257aabb0e13796ba06b918ee9d45'
-    oldFile: null
-gitCommitId: !uuid '1e3263dc50326d43bb76f66113413c34b6700dfb'
-renames:
-  /src/main/webapp/WEB-INF/lib/wm-1.22-sources.jar: /src/main/webapp/WEB-INF/lib/wm-1.21.jar
-  /src/main/webapp/WEB-INF/lib/wm-1.22.jar: /src/main/webapp/WEB-INF/lib/wm-1.21.jar
-revisionId: 332
+    newFile: !uuid '385d0f094423a63f2fac24cab250ec77769b9d89'
+    oldFile: !uuid 'c97eb4b47477b19d8e05f8d133136d7585b6f2fa'
+gitCommitId: !uuid '5a546022941e7be5be3ae1c11e3c5b61f6498113'
+renames: {
+  }
+revisionId: 333
