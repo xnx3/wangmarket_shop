@@ -3,27 +3,24 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '034a795ad09aba540b0c581313ffad3c2ca4fc81'
-    oldFile: !uuid '8d253af0f0e37855abc05c2c914277b73a9147c9'
+    newFile: !uuid 'c52cc9476d1541ff94880167882b5036aca73b0f'
+    oldFile: !uuid '034a795ad09aba540b0c581313ffad3c2ca4fc81'
   /src/main:
-    newFile: !uuid 'fb2605026f50e45d107ae641fd7d4717b8a78a77'
-    oldFile: !uuid 'eb75328d019df5ef078a03919963ec00b4526b2d'
+    newFile: !uuid 'cfdfb76871d689cf4438d7289c29c5d97494f15a'
+    oldFile: !uuid 'fb2605026f50e45d107ae641fd7d4717b8a78a77'
   /src/main/webapp:
-    newFile: !uuid '9132a1e695e5dd59fbf87bd12e284f3d9cef740f'
-    oldFile: !uuid '6770b44f7c52374823299a7b48c2ede719eaf8c6'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid 'e5da51886890b8b0a242ecc8eb435f3e6eb13622'
-    oldFile: !uuid '6f6aad1f005bac4a83144a27a0914ae3de69ec4b'
-  /src/main/webapp/WEB-INF/lib:
-    newFile: !uuid '62d4dacd8ef2a27ab6a76dcea4b91d6a63877cf1'
-    oldFile: !uuid 'bc268383b1ef94e9b58fbc45e7a2a85560071a63'
-  /src/main/webapp/WEB-INF/lib/wm-1.22-sources.jar:
-    newFile: !uuid '87bb282edd856ae3d07c46cf9408c28a6925505c'
-    oldFile: !uuid 'b6b31ae072c43dc248851fc07b4e65ae22527f8d'
-  /src/main/webapp/WEB-INF/lib/wm-1.22.jar:
-    newFile: !uuid 'c06de0f9abc3486612fe46b2f6c5954d2914523b'
-    oldFile: !uuid 'c279fab5692398ad3fc3f60c72937dd00bc4722b'
-gitCommitId: !uuid 'db4411c5df1038d73d47a2ebe01e46750e42c301'
+    newFile: !uuid 'fa60734b3c42383e5f1bb0d1c39d8fbdacf786d0'
+    oldFile: !uuid '9132a1e695e5dd59fbf87bd12e284f3d9cef740f'
+  /src/main/webapp/store:
+    newFile: !uuid 'f6994a935b296f9ed41f2125e0a07c222f728499'
+    oldFile: !uuid '4abe0040e7a74292213cd54be1f27e4b3e5d81a3'
+  /src/main/webapp/store/goodsType:
+    newFile: !uuid '63bfb05e317b53fdfa0972fdf534b3313b7d7a4e'
+    oldFile: !uuid '2bc80d6fd44dec685e29ef1c45a9a8f50e9b4b18'
+  /src/main/webapp/store/goodsType/list.jsp:
+    newFile: !uuid 'ccc6a42a53090f2b058813883c168ef1ff52d9ce'
+    oldFile: !uuid '072d39d6188e8217969c4611a10766347bc55092'
+gitCommitId: !uuid '4313e8a479be2250851e61eca25ad088a15de711'
 renames: {
   }
-revisionId: 335
+revisionId: 336
