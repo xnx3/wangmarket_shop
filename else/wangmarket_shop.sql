@@ -862,6 +862,18 @@ BEGIN;
 INSERT INTO `shop_store_data` VALUES ('1', '23');
 COMMIT;
 
+-- ----------------------------
+--  Table structure for `shop_store_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `shop_store_user`;
+CREATE TABLE `shop_store_user` (
+  `id` char(20) COLLATE utf8_unicode_ci NOT NULL,
+  `storeid` int(11) DEFAULT NULL COMMENT '此用户拥有哪个站点的管理权。开通子账号会用到这个。如果这个有值，那么就是子账号了。对应 store.id',
+  `userid` int(11) DEFAULT NULL COMMENT '用户id，对应 User.id',
+  `referrerid` char(20) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '此用户的推荐人id, 注意，此处并不是 user.id 而是推荐人的 StoreUser.id ，这里面的值是userid_storeid的组合体， 如  219_1',
+  PRIMARY KEY (`id`),
+  KEY `suoyin_index` (`userid`,`storeid`)
+) ENGINE=MyISAM AUTO_INCREMENT=535 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Records of `shop_store_user`
