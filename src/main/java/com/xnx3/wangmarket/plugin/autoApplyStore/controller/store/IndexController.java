@@ -56,7 +56,7 @@ public class IndexController extends BasePluginController {
 		//按照上方条件查询出该实体总数 用集合来装
 		List<Store> list = sqlService.findBySql(sql, Store.class);
 
- 		vo.setStorelist(list);
+ 		vo.setList(list);
 		vo.setPage(page);
 		//日志记录
 		ActionLogUtil.insert(request, getUserId(), "查看开店申请");

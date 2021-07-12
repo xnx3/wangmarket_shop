@@ -12,15 +12,15 @@ import java.util.List;
  */
 public class StoreListVO extends BaseVO {
 
-    private List<Store> storelist;
+    private List<Store> list;
     private Page page;
 
-    public List<Store> getStorelist() {
-        return storelist;
+    public List<Store> getList() {
+        return list;
     }
 
-    public void setStorelist(List<Store> storelist) {
-        this.storelist = storelist;
+    public void setList(List<Store> list) {
+        this.list = list;
     }
 
     public Page getPage() {
@@ -34,7 +34,7 @@ public class StoreListVO extends BaseVO {
     @Override
     public String toString() {
         return "StoreListVO{" +
-                "storelist=" + storelist +
+                "list=" + list +
                 ", page=" + page +
                 '}';
     }
