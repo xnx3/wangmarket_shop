@@ -105,7 +105,7 @@ function editItem(id, title){
 	layer.open({
 		type: 2, 
 		title:id > 0? '修改商品分类&nbsp;[&nbsp;'+title+'&nbsp;]&nbsp;':'添加商品分类', 
-		area: ['580px', '340px'],
+		area: ['580px', '360px'],
 		shadeClose: true, //开启遮罩关闭
 		content: '/store/goodsType/edit.jsp?id='+id
 	});

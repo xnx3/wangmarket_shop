@@ -95,7 +95,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 		var postDate = wm.getJsonObjectByForm($("form"));	//提交的表单数据
 		wm.post('/shop/store/api/goodsType/save.json', postDate, function (obj) { 
 			parent.parent.msg.close();
-			checkLogin(result);	//验证登录状态。如果未登录，那么跳转到登录页面
+			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 			if(obj.result == '1'){
 				parent.parent.msg.success("操作成功")
 				parent.layer.close(index);
@@ -131,5 +131,4 @@ if(id != null && id.length > 0){
 	});
 }
 </script>
-
 <jsp:include page="/wm/common/foot.jsp"></jsp:include>
