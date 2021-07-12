@@ -3,27 +3,30 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'ebaae59014968a31a59b8f390bd7ee2d9f1ab383'
-    oldFile: !uuid '06bbc1903d6346a0710b696c5da5ca48a0c1f2dd'
+    newFile: !uuid 'baf1f6a15aa492a07d21db38f40f798b822b194c'
+    oldFile: !uuid 'ebaae59014968a31a59b8f390bd7ee2d9f1ab383'
   /src/main:
-    newFile: !uuid '52449be61e689cfb31ca8da48c812acf76d36cfa'
-    oldFile: !uuid '4c65b6a550d7447fdbd37d8f8d0e913115fac3fe'
+    newFile: !uuid 'e4c743fc9fa8709873f59bff623001f5bf296f67'
+    oldFile: !uuid '52449be61e689cfb31ca8da48c812acf76d36cfa'
   /src/main/webapp:
-    newFile: !uuid 'a20c9a3b1913caff79e19302b438cb7dc6d10624'
-    oldFile: !uuid 'a54396a9080887d8bb02677cee6434392b3c4520'
+    newFile: !uuid '60e3025af7e201f73a611c5194baa505c4ce402f'
+    oldFile: !uuid 'a20c9a3b1913caff79e19302b438cb7dc6d10624'
   /src/main/webapp/plugin:
-    newFile: !uuid 'ee180fa065ebb939fcbc3f07c26866cc8a4fbbed'
-    oldFile: !uuid 'c1194b0d8f9d64cdf67a5de0fa730b9deac9b9da'
-  /src/main/webapp/plugin/storeSubAccount:
-    newFile: !uuid '342b28d4a69dc1f86d90cfe0e64a5e88b5614d06'
-    oldFile: !uuid 'ee728789d80e2f7960067549e664301251835993'
-  /src/main/webapp/plugin/storeSubAccount/user:
-    newFile: !uuid 'debe8991949e907d119114330ddea61efc2a0a39'
-    oldFile: !uuid '406db58d65c34ad8677cf989f9d78a5486753e47'
-  /src/main/webapp/plugin/storeSubAccount/user/list.jsp:
-    newFile: !uuid '51f97f1d274837e3f0e42bb7ac36b854e0033400'
-    oldFile: !uuid 'e32ab1b7078d9027cd1762aac537a0328a6b7718'
-gitCommitId: !uuid '20b1c504bb3b6730f3eaad5303b52b0ded4c29f7'
+    newFile: !uuid 'b1bf548b9d90881cfe5998c8a39b7ee645697301'
+    oldFile: !uuid 'ee180fa065ebb939fcbc3f07c26866cc8a4fbbed'
+  /src/main/webapp/plugin/sell:
+    newFile: !uuid '82646f2b62412dfbbe9a59bb73bac483490b4e5b'
+    oldFile: !uuid 'e63fa7c7779446960f7ee4d8ffff7de8d5fbc120'
+  /src/main/webapp/plugin/sell/store:
+    newFile: !uuid '9e7c08729a3e34108a14e5c79913011ae2c9a105'
+    oldFile: !uuid 'eef0c5c03f22bdc56d91af52e92cbf40ada0229a'
+  /src/main/webapp/plugin/sell/store/tixian:
+    newFile: !uuid 'bc1797a99677785c3096542a43a3a3440aa8136a'
+    oldFile: !uuid '18d8313ce8a871c26f63762ae1e9daf8bc3dc44d'
+  /src/main/webapp/plugin/sell/store/tixian/list.jsp:
+    newFile: !uuid '2d7d2b66e8916109b68f79d010daf01152d83b4d'
+    oldFile: !uuid '13d12e9324dc51c054d5090f00c086ee2b5e4582'
+gitCommitId: !uuid '1ce4cc18cfe9c8ff81bd7bcc8d22613e3abe07da'
 renames: {
   }
-revisionId: 343
+revisionId: 344
