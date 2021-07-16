@@ -3,27 +3,24 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '85d00191b9507a00457dab3df8085262a0f1f4d0'
-    oldFile: !uuid 'abc761b128b6c8e31b1e3988160ce0211e4d05ac'
+    newFile: !uuid '53cdc423647bfe0e8708b8c06a82e752dfabacfb'
+    oldFile: !uuid '85d00191b9507a00457dab3df8085262a0f1f4d0'
   /src/main:
-    newFile: !uuid 'a9ed2cb361776c6a04873e8571b2ce6173c2b630'
-    oldFile: !uuid 'ff15c577f1738e9b3a0fde3552139618631421f3'
+    newFile: !uuid '839092faed203c6e67570cedaaf3fdf953c489ea'
+    oldFile: !uuid 'a9ed2cb361776c6a04873e8571b2ce6173c2b630'
   /src/main/webapp:
-    newFile: !uuid '01814bf57e94b4d55dd5b827a84fc6367860f3da'
-    oldFile: !uuid '982198e5083f5bbd59223d64d9cab02061495c34'
+    newFile: !uuid 'd7e47462cd89571169cf3e7b0755c21fceeeb1fd'
+    oldFile: !uuid '01814bf57e94b4d55dd5b827a84fc6367860f3da'
   /src/main/webapp/store:
-    newFile: !uuid 'fa2d85af6a1cca26d7e8bf6801bb76b5948dffc5'
-    oldFile: !uuid 'b247ca100a95e654e7c95e5e0fba97a4665987d1'
-  /src/main/webapp/store/carouselImage:
-    newFile: !uuid '840481746a1b843fe37d9419fcf5124690396fa3'
-    oldFile: !uuid 'a4cf146cee0dc655b99b9d42541ac661ada7f4d1'
-  /src/main/webapp/store/carouselImage/edit.jsp:
-    newFile: !uuid 'da0a6e3cdf92f36837f79026e9a8469f59fd1a70'
-    oldFile: !uuid 'fbcfac34af3c6f6080e522c987387698d38fe50e'
-  /src/main/webapp/store/carouselImage/list.jsp:
-    newFile: !uuid '6cf666896fb4ae71679c4299e539b7cfb6fddef4'
-    oldFile: !uuid '141292c3f33f968d4c24d5e5ee21f5f2cb6561d5'
-gitCommitId: !uuid '56534a87f369d71c4aa283f438e152a67f2ecf0b'
+    newFile: !uuid '71ca2eb6dda10f3ccbb603c03e5bfa1bdf50eac7'
+    oldFile: !uuid 'fa2d85af6a1cca26d7e8bf6801bb76b5948dffc5'
+  /src/main/webapp/store/user:
+    newFile: !uuid '8cc81df61c9fdea16518aa645064f6d0a9fae857'
+    oldFile: !uuid 'fada005ce43eacc60c24f6583109a11b138c8cd7'
+  /src/main/webapp/store/user/list.jsp:
+    newFile: !uuid '16bf50a915a062f56cdaa4ccd9b14b8e15c475a4'
+    oldFile: !uuid '8fa29ff8c0c35110611134cff49ef3ce11f5066f'
+gitCommitId: !uuid 'b025c402efe5874cf625087432117bbae27dc5c0'
 renames: {
   }
-revisionId: 349
+revisionId: 350
