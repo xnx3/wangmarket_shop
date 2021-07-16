@@ -50,7 +50,7 @@
 			<td class="iw_table_td_view_name">当前状态</td>
 			<td>
 				<div id="storeState" style="float: left">
-				加载中...
+					加载中...
 				</div>
 				&nbsp;&nbsp;&nbsp;
 				<a class="layui-btn layui-btn-xs" onclick="stateUpdate()" >
@@ -116,25 +116,24 @@
 			    <a class="layui-btn layui-btn-xs" onclick="addOrUpdate(store.address,'address','编辑地址')" style="margin-left: 0;">
 			       <i class="layui-icon">&#xe642;</i>
 			    </a>
-		  </td>	
+			</td>	
 		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">开通时间</td>
 			<td id="storeAddtime">
-
 			</td>
 		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">店铺公告</td>
 			<td>
-					<div id="storeNotice" style="float: left">
-						加载中...
-					</div>
+				<div id="storeNotice" style="float: left">
+					加载中...
+				</div>
 				&nbsp;&nbsp;&nbsp;
 			    <a class="layui-btn layui-btn-xs" onclick="updateStoreData('notice', document.getElementById('notice').innerHTML,'编辑公告')" style="margin-left: 0;">
-			  	   <i class="layui-icon">&#xe642;</i>
+					<i class="layui-icon">&#xe642;</i>
 			    </a>
-			    <div style="display:none;" id="notice"></div>
+				<div style="display:none;" id="notice"></div>
 			</td>
 		</tr>
     </tbody>
@@ -146,36 +145,36 @@ function toEditPage(type) {
 	var city = encodeURI(encodeURI(store.city));
 	var district = encodeURI(encodeURI(store.district));
 	layer.open({
-	type: 2, 
-	title:'编辑页面', 
-	area: ['400px', '400px'],
-	shadeClose: true, //开启遮罩关闭
-	content: '/store/index/edit.jsp?type=' + type  + '&longitude=' + store.longitude  + '&latitude=' + store.latitude
-		+ '&province=' + province + '&city=' + city + '&district=' + district
-	});	  
+		type: 2, 
+		title:'编辑页面', 
+		area: ['400px', '400px'],
+		shadeClose: true, //开启遮罩关闭
+		content: '/store/index/edit.jsp?type=' + type  + '&longitude=' + store.longitude  + '&latitude=' + store.latitude
+			+ '&province=' + province + '&city=' + city + '&district=' + district
+	});
 }
 //value当前值，name修改那个属性，text编辑标题内容
 function addOrUpdate(value,name,text){
 	layer.prompt({
-		  formType: 2,
-		  value: value,
-		  title: text,
-		  area: ['300px', '100px'] //自定义文本域宽高
+		formType: 2,
+		value: value,
+		title: text,
+		area: ['300px', '100px'] //自定义文本域宽高
 		}, function(value, index, elem){
 		  parent.msg.loading("操作中");
 		  post('/shop/store/api/store/save.json?'+name+'=' + value, {}, function(data){
-			    parent.msg.close();    //关闭“操作中”的等待提示
-			    checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-			  if(data.result == '1'){
-			        parent.msg.success('操作成功');
-			        window.location.reload();	//刷新当前页
-			     }else if(data.result == '0'){
-			         parent.msg.failure(data.info);
-			     }else{
-			         parent.msg.failure();
-			     }
-			});
+			parent.msg.close();    //关闭“操作中”的等待提示
+			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(data.result == '1'){
+			parent.msg.success('操作成功');
+			window.location.reload();	//刷新当前页
+		}else if(data.result == '0'){
+			parent.msg.failure(data.info);
+		}else{
+			parent.msg.failure();
+			}
 		});
+	});
 }
 /*
  * 编辑StoreData的字段
@@ -184,85 +183,82 @@ function addOrUpdate(value,name,text){
  * @param text 弹出窗口的提示文字
  * @author 管雷鸣
  */
-function updateStoreData(name, value,text){
+function updateStoreData(name,value,text){
 	layer.prompt({
-	  formType: 2,
-	  value: value,
-	  title: text,
-	  area: ['300px', '100px'] //自定义文本域宽高
+		formType: 2,
+		value: value,
+		title: text,
+		area: ['300px', '100px'] //自定义文本域宽高
 	}, function(value, index, elem){
-	  parent.msg.loading("操作中"); 
-	  var data;
-	  if(name == 'notice'){
-	  	data = {'notice':value};
-	  }
-	  post('/shop/store/api/store/saveStoreData.json',data,  function(data){
-		    parent.msg.close();    //关闭“操作中”的等待提示
-		    checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-		  if(data.result == '1'){
-		        parent.msg.success('操作成功');
-		        window.location.reload();	//刷新当前页
-		     }else if(data.result == '0'){
-		         parent.msg.failure(data.info);
-		     }else{
-		         parent.msg.failure();
-		     }
+		parent.msg.loading("操作中"); 
+		var data;
+		if(name == 'notice'){
+			data = {'notice':value};
+		}
+		post('/shop/store/api/store/saveStoreData.json',data,  function(data){
+			parent.msg.close();    //关闭“操作中”的等待提示
+			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(data.result == '1'){
+			parent.msg.success('操作成功');
+			window.location.reload();	//刷新当前页
+		}else if(data.result == '0'){
+			parent.msg.failure(data.info);
+		}else{
+			parent.msg.failure();
+			}
 		});
 	});
 }
-
 //id,商家id，
 function stateUpdate() {
 	var value = 2;
 	layer.confirm('修改店铺状态', {
-		  btn: ['营业中','已打烊'] //按钮
+		btn: ['营业中','已打烊'] //按钮
 		}, function(){
-			post('/shop/store/api/store/save.json?state=1', {}, function(data){
-			    parent.msg.close();    //关闭“操作中”的等待提示
-				checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-				if(data.result == '1'){
-			        parent.msg.success('操作成功');
-			        window.location.reload();	//刷新当前页
-			     }else if(data.result == '0'){
-			         parent.msg.failure(data.info);
-			     }else{
-			         parent.msg.failure();
-			     }
-			});
-		}, function(){
-			post('/shop/store/api/store/save.json?state=2',{}, function(data){
-			    parent.msg.close();    //关闭“操作中”的等待提示
-				checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-				if(data.result == '1'){
-			        parent.msg.success('操作成功');
-			        window.location.reload();	//刷新当前页
-			     }else if(data.result == '0'){
-			         parent.msg.failure(data.info);
-			     }else{
-			         parent.msg.failure();
-			     }
-			});
+		post('/shop/store/api/store/save.json?state=1', {}, function(data){
+			parent.msg.close();	//关闭“操作中”的等待提示
+			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(data.result == '1'){
+			parent.msg.success('操作成功');
+			window.location.reload();	//刷新当前页
+		}else if(data.result == '0'){
+			parent.msg.failure(data.info);
+		}else{
+			parent.msg.failure();
+			}
 		});
+		}, function(){
+		post('/shop/store/api/store/save.json?state=2',{}, function(data){
+			parent.msg.close();	//关闭“操作中”的等待提示
+			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+			if(data.result == '1'){
+				parent.msg.success('操作成功');
+				window.location.reload();	//刷新当前页
+			}else if(data.result == '0'){
+				parent.msg.failure(data.info);
+			}else{
+				parent.msg.failure();
+			}
+		});
+	});
 	//console.log(value);
 }
-
 layui.use('upload', function(){
 	var upload = layui.upload;
-	
 	//执行实例
 	var uploadInst = upload.render({
-		  elem: '.uploadImg' //绑定元素
-		 ,field : 'file'
-		 ,url: '/shop/store/api/store/uploadImg.json'
-		 ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-			 msg.loading('上传中...');
-			}
+		elem: '.uploadImg' //绑定元素
+		,field : 'file'
+		,url: '/shop/store/api/store/uploadImg.json'
+		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+			msg.loading('上传中...');
+		}
 		,done: function(res){
 			msg.close();
 			checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
 			if(res.result == '1'){
 				parent.msg.success("上传成功");
-				 window.location.href = '/store/index/welcome.jsp';
+				window.location.href = '/store/index/welcome.jsp';
 			}else if(res.result == '0'){
 				parent.msg.failure(res.info);
 			}else{
@@ -270,17 +266,15 @@ layui.use('upload', function(){
 			}
 		}
 		,error: function(){
-			     
+			
 		}
 	});
 });
-
 msg.loading('加载中');
 var store;
 post('/shop/store/api/store/getStore.json',{},function(data){
-msg.close();    //关闭“更改中”的等待提示
-checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-
+	msg.close();		//关闭“更改中”的等待提示
+	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 	if(data.result != '1'){
 		msg.failure(data.info);
 	}else{

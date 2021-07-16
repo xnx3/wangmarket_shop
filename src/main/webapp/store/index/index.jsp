@@ -52,7 +52,6 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 /*左侧的一级菜单的文字描述*/
 .firstMenuFont{
 }
-
 /* 二级菜单 */
 .menu .layui-nav-item .layui-nav-child .subMenuItem{
 	padding-left:48px;
@@ -64,7 +63,6 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover{
 	background-color: #FFFFFF;
 }
-
 /** 功能插件的一级菜单 **/
 .layui-nav-itemed>a, .layui-nav-tree .layui-nav-title a, .layui-nav-tree .layui-nav-title a:hover{
 	color: rgb(51, 51, 51)!important;;
@@ -75,18 +73,17 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 .layui-nav .layui-nav-mored, .layui-nav-itemed>a .layui-nav-more {
 	border-color: transparent transparent #612525ba;
 }
-
 /** 功能插件二级菜单 **/
 .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover {
 	color: rgb(51, 51, 51);
 }
 .layui-nav-itemed>.layui-nav-child {
-    display: block;
-    padding: 0;
-    background-color: #eaedf0!important;
+	display: block;
+	padding: 0;
+	background-color: #eaedf0!important;
 }
 .layui-nav-tree .layui-nav-child a {
-    color: rgb(51, 51, 51);
+	color: rgb(51, 51, 51);
 }
 .layui-nav-tree .layui-nav-child, .layui-nav-tree .layui-nav-child a:hover {
 	color: rgb(51, 51, 51);
@@ -94,10 +91,8 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 </style>
 
 <div id="leftMenu" class="layui-nav layui-nav-tree layui-nav-side menu">
-	<ul class="">
-		
+	<ul class="">	
 		<div id="menuHtml"></div>
-	
 		<div id="menuAppend" style="margin-left: 3px;">
 			<!-- 插件扩展菜单项。追加的值如： -->
 			<!-- <li class="layui-nav-item" >
@@ -107,26 +102,21 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 				</a>
 			</li>
 			 -->
-		</div>
-		
+		</div>	
 		<li class="layui-nav-item" id="updatePassword">
 			<a href="javascript:storeUpdatePassword();" id="xiugaimima" class="itemA">
 				<i class="layui-icon firstMenuIcon">&#xe642;</i>
 				<span class="firstMenuFont">更改密码</span>
 			</a>
 		</li>
-
 		<li class="layui-nav-item" id="logout">
 			<a href="javascript:logout();" class="itemA">
 				<i class="layui-icon firstMenuIcon">&#xe633;</i>
 				<span class="firstMenuFont">退出登陆</span>
 			</a>
 		</li>
-		
 	</ul>
 </div>
-
-
 <div id="content" style="width: 100%;height:100%;position: absolute;left: 150px;word-wrap: break-word;border-right: 150px;box-sizing: border-box; border-right-style: dotted;">
 	<iframe name="iframe" id="iframe" frameborder="0" style="width:100%;height:100%;box-sizing: border-box;"></iframe>
 </div>
@@ -135,11 +125,9 @@ body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 //菜单颜色
 document.getElementById('leftMenu').style.backgroundColor='#EAEDF1';
 $(".itemA").css("color","#333333");
-
 layui.use('element', function(){
   var element = layui.element;
 });
-
 /**
  * 在主体内容区域iframe中加载制定的页面
  * url 要加载的页面的url
@@ -147,37 +135,34 @@ layui.use('element', function(){
 function loadUrl(url){
 	document.getElementById("iframe").src=url + "?time=" + (new Date()).getTime();
 }
-
 //修改密码
 function storeUpdatePassword(){
 	layer.prompt({
-		  formType: 0,
-		  value: '',
-		  title: '请输入旧密码'
+		formType: 0,
+		value: '',
+		title: '请输入旧密码'
 	}, function(value1, index, elem){
 		layer.close(index);
 		layer.prompt({
-			  formType: 0,
-			  value: '',
-			  title: '请输入新密码'
-		}, function(value, index, elem){
+			formType: 0,
+			value: '',
+			title: '请输入新密码'
+	}, function(value, index, elem){
 			layer.close(index);
 			msg.loading('更改中...');
-			$.post("/shop/store/api/index/updatePassword.json", { "newPassword": value,"oldPassword":value1},
-				function(data){
-					msg.close();
-					if(data.result != '1'){
-						msg.failure(data.info);
-					}else{
-						msg.failure('修改成功！新密码：'+value);
-					}
-				}
-			, "json");
+	$.post("/shop/store/api/index/updatePassword.json", { "newPassword": value,"oldPassword":value1},
+		function(data){
+			msg.close();
+			if(data.result != '1'){
+				msg.failure(data.info);
+			}else{
+				msg.failure('修改成功！新密码：'+value);
+			}
+		}
+		, "json");
 		});
 	});
-	
 }
-
 //退出登录
 function logout(){
 	msg.loading('退出中');
@@ -192,33 +177,26 @@ function logout(){
 		}
 	});
 }
-
-
 //向扩展菜单的div中，加入html。也就是往里再增加别的菜单。 appendHtml要追加的html，这里一般都是追加li
 function menuAppend(appendHtml){
 	document.getElementById("menuAppend").innerHTML = document.getElementById("menuAppend").innerHTML + appendHtml; 
 }
-
 try{
 	//如果从网市场插件进来的，要关闭进入中的提示
 	parent.msg.close();
 }catch(e){
 	console.log(e);
 }
-
 msg.loading('加载中');
 post('shop/store/api/index/index.json',{},function(data){
-msg.close();    //关闭“更改中”的等待提示
-checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-	
+	msg.close();    //关闭“更改中”的等待提示
+	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 	if(data.result != '1'){
 		msg.failure(data.info);
 	}else{
 		//登录成功
-		
 		//加载登录后的默认页面
 		loadUrl('/store/index/welcome.jsp');
-		
 		document.getElementById('menuHtml').innerHTML = data.menuHtml;
 		if(data.useTokenCodeLogin){
 			/*** 下面四个是在网市场云建站系统中使用的，直接通过token+code登录，云商城只是作为其一个模块而已 ***/
@@ -229,16 +207,13 @@ checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录
 		}else{
 			//$(".itemA").css("color","rgba(255, 255, 255, 0.7)");
 		}
-		
 		//刷新插件的layui导航
 		layui.use('element', function(){
-		  var element = layui.element;
-		  element.render('nav');
+			var element = layui.element;
+			element.render('nav');
 		});
 	}
 });
 </script>
-
-
 </body>
 </html>
