@@ -3,30 +3,27 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'abc761b128b6c8e31b1e3988160ce0211e4d05ac'
-    oldFile: !uuid 'e90acbd4ef3ece827bc76fe6f24d19bb03aa26e0'
+    newFile: !uuid '85d00191b9507a00457dab3df8085262a0f1f4d0'
+    oldFile: !uuid 'abc761b128b6c8e31b1e3988160ce0211e4d05ac'
   /src/main:
-    newFile: !uuid 'ff15c577f1738e9b3a0fde3552139618631421f3'
-    oldFile: !uuid 'd0abf908672d157902e7a080754d39d9fb778914'
+    newFile: !uuid 'a9ed2cb361776c6a04873e8571b2ce6173c2b630'
+    oldFile: !uuid 'ff15c577f1738e9b3a0fde3552139618631421f3'
   /src/main/webapp:
-    newFile: !uuid '982198e5083f5bbd59223d64d9cab02061495c34'
-    oldFile: !uuid 'b8560b7a51dc3ec0ae675ca0d3dc2366aa439880'
+    newFile: !uuid '01814bf57e94b4d55dd5b827a84fc6367860f3da'
+    oldFile: !uuid '982198e5083f5bbd59223d64d9cab02061495c34'
   /src/main/webapp/store:
-    newFile: !uuid 'b247ca100a95e654e7c95e5e0fba97a4665987d1'
-    oldFile: !uuid 'ce29643ac50b2661f13cebc7d9c8ca3a97ea7286'
-  /src/main/webapp/store/index:
-    newFile: !uuid 'ff10f081802e73676a0e4f0d5f15b91e8b5defe1'
-    oldFile: !uuid 'e9bead6c79e0eec226cbf3cf3829deeeeb5c5f81'
-  /src/main/webapp/store/index/edit.jsp:
-    newFile: !uuid '9845591b8d0ef723c3b2c57edaa9e79f3956f81f'
-    oldFile: !uuid '1805fa6ae435cac7fff5c7c2acd03d9f92b8f7b3'
-  /src/main/webapp/store/index/index.jsp:
-    newFile: !uuid '6c709d2d033fcc68cb39323b050f5b6bd18ff209'
-    oldFile: !uuid 'd3642741b5dda8d479f8bf576a6457c5f85f0675'
-  /src/main/webapp/store/index/welcome.jsp:
-    newFile: !uuid '341ab342300bfdd4941e3f80a3cc6e629c84cb2c'
-    oldFile: !uuid 'e32a9fd66aaae4d1fba9ff530b500404c3e44c11'
-gitCommitId: !uuid '03b096f50b5ff5d03b277aa75085166e92f50891'
+    newFile: !uuid 'fa2d85af6a1cca26d7e8bf6801bb76b5948dffc5'
+    oldFile: !uuid 'b247ca100a95e654e7c95e5e0fba97a4665987d1'
+  /src/main/webapp/store/carouselImage:
+    newFile: !uuid '840481746a1b843fe37d9419fcf5124690396fa3'
+    oldFile: !uuid 'a4cf146cee0dc655b99b9d42541ac661ada7f4d1'
+  /src/main/webapp/store/carouselImage/edit.jsp:
+    newFile: !uuid 'da0a6e3cdf92f36837f79026e9a8469f59fd1a70'
+    oldFile: !uuid 'fbcfac34af3c6f6080e522c987387698d38fe50e'
+  /src/main/webapp/store/carouselImage/list.jsp:
+    newFile: !uuid '6cf666896fb4ae71679c4299e539b7cfb6fddef4'
+    oldFile: !uuid '141292c3f33f968d4c24d5e5ee21f5f2cb6561d5'
+gitCommitId: !uuid '56534a87f369d71c4aa283f438e152a67f2ecf0b'
 renames: {
   }
-revisionId: 348
+revisionId: 349
