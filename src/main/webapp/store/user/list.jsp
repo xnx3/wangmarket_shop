@@ -6,27 +6,26 @@
 </jsp:include>
 
 <table class="layui-table iw_table">
- <thead>
-    <tr>
-		<th>用户ID</th>
-        <th>登录用户名</th>
-        <th>注册时间</th>
-        <th>注册IP</th>
-    </tr> 
- </thead>
- <tbody>
-	<tr v-for="item in list">
-		<td>{{item.id}}</td>
-		<td>{{item.username}}</td>
-		<td>{{formatTime(item.regtime,'Y-M-D h:m:s')}}</td>
-		<td>{{item.regip}}</td>
-	</tr>
- </tbody>
- </table>
+	<thead>
+    	<tr>
+			<th>用户ID</th>
+        	<th>登录用户名</th>
+        	<th>注册时间</th>
+        	<th>注册IP</th>
+   	 	</tr> 
+	</thead>
+	<tbody>
+		<tr v-for="item in list">
+			<td>{{item.id}}</td>
+			<td>{{item.username}}</td>
+			<td>{{formatTime(item.regtime,'Y-M-D h:m:s')}}</td>
+			<td>{{item.regip}}</td>
+		</tr>
+	</tbody>
+</table>
 <!-- 通用分页跳转 -->
 <jsp:include page="/wm/common/page.jsp" />
 <script type="text/javascript">
-
 //自适应弹出层大小
 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 parent.layer.iframeAuto(index);
