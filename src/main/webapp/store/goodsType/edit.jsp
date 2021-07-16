@@ -7,33 +7,30 @@
 </jsp:include>
 <form  class="layui-form" action="" style="padding:20px; padding-top:35px; margin-bottom: 10px;">
 	<input type="hidden" name="id" value="${goodsType.id }">
-
 	<div class="layui-form-item" id="xnx3_editMode">
 		<label class="layui-form-label">标题</label>
 		<div class="layui-input-block">
 			<input type="text" name="title" class="layui-input" value="${goodsType.title }">
+			<div class="explain">分类的名称</div>
 		</div>
 	</div>
-	
 	<div class="layui-form-item">
 		<label class="layui-form-label">缩略图</label>
 		<div class="layui-input-block">
 			<jsp:include page="/wm/common/edit/form_uploadImage.jsp">
 				<jsp:param name="wm_name" value="icon"/>
 				<jsp:param name="wm_value" value="${goodsType.icon }"/>
-				<jsp:param name="wm_api_url" value="/admin/common/uploadImage.json"/>
+				<jsp:param name="wm_api_url" value="/shop/store/api/common/uploadImage.json"/>
 			</jsp:include>
 		</div>
 	</div>
-	
 	<div class="layui-form-item">
 		<label class="layui-form-label">排序</label>
 		<div class="layui-input-block">
 			<input type="text" name="rank" class="layui-input" value="${goodsType.rank }">
-			  <div class="explain">排序规则：数字越小排列越靠前</div>
+			<div class="explain">排序规则：数字越小排列越靠前</div>
 		</div>
 	</div>
-	
 	<div class="layui-form-item" style="padding-top:15px;">
 		<div class="layui-input-block">
 			<button class="layui-btn" lay-submit="" lay-filter="demo1">保存</button>
@@ -42,11 +39,10 @@
 	</div>
 </form>
 <script>
-
 //自适应弹出层大小
 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-	
- layui.use('upload', function(){
+
+layui.use('upload', function(){
 	var upload = layui.upload;
 	//上传图片,封面图
 	//upload.render(uploadPic);
@@ -80,15 +76,12 @@ var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
 			parent.msg.loading('上传中..');
 		}
-	});
-	
+	});	
 	//上传图片,图集，v4.6扩展
 	//upload.render(uploadExtendPhotos);
 }); 
-
 layui.use(['form', 'layedit', 'laydate'], function(){
 	var form = layui.form;
-
 	//监听提交
 	form.on('submit(demo1)', function(data){
 		parent.parent.msg.loading("保存中");
@@ -109,17 +102,14 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 		return false;
 	});
 });
-
 //当前网址get传入的参数
 var id = wm.getUrlParams('id');	
 if(id != null && id.length > 0){
 	//get传入要修改id了，那就加载要修改的这项的数据
-	
 	msg.loading('加载中');
 	wm.post('/shop/store/api/goodsType/getGoodsType.json?id='+id,{},function(data){
-		msg.close();    //关闭“加载中”的等待提示
+		msg.close();		//关闭“加载中”的等待提示
 		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-		
 		if(data.result == '1'){
 			//获取数据成功
 			//将接口获取到的数据自动填充到 form 表单中
