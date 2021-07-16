@@ -69,11 +69,11 @@ layui.use('upload', function(){
 	var upload = layui.upload;
 	//执行实例
 	var uploadInst = upload.render({
-	  elem: '.uploadImg' //绑定元素
-	 ,field : 'file'
-	 ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-		 msg.loading('上传中...');
-	 }
+		elem: '.uploadImg' //绑定元素
+		,field : 'file'
+		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+		msg.loading('上传中...');
+	}
 	,done: function(res){
 		msg.close();
 		checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
@@ -91,36 +91,34 @@ layui.use('upload', function(){
 	}
 	});
 });
-
 //根据id删除
 function deleteItem(id,name){
 	var dtp_confirm = layer.confirm('确定要删除轮播图“'+name+'”？删除后不可恢复！', {
-	  btn: ['删除','取消'] //按钮
+		btn: ['删除','取消'] //按钮
 	}, function(){
 		layer.close(dtp_confirm);
 		parent.msg.loading("删除中");    //显示“操作中”的等待提示
 		$.post('/shop/store/api/carouselImage/delete.json?id='+id, function(data){
-		    parent.msg.close();    //关闭“操作中”的等待提示
-		    checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-		    if(data.result == '1'){
-		        parent.msg.success('操作成功');
-		        window.location.reload();	//刷新当前页
-		     }else if(data.result == '0'){
-		         parent.msg.failure(data.info);
-		     }else{
-		         parent.msg.failure();
-		     }
+			parent.msg.close();    //关闭“操作中”的等待提示
+			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+			if(data.result == '1'){
+				parent.msg.success('操作成功');
+				window.location.reload();	//刷新当前页
+			}else if(data.result == '0'){
+				parent.msg.failure(data.info);
+			}else{
+				parent.msg.failure();
+			}
 		});
 	}, function(){
 	});
 }
-
 //修改
 function editItem(id, name){
 	layer.open({
 		type: 2, 
 		title:id > 0? '修改轮播图&nbsp;[&nbsp;'+name+'&nbsp;]&nbsp;':'添加轮播图', 
-		area: ['580px', '450px'],
+		area: ['580px', '500px'],
 		shadeClose: true, //开启遮罩关闭
 		content: '/store/carouselImage/edit.jsp?id='+id
 	});
