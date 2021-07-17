@@ -2,69 +2,66 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib uri="http://www.xnx3.com/java_xnx3/xnx3_tld" prefix="x" %>
 <jsp:include page="../common/head.jsp">
-	<jsp:param name="name" value="商品列表"/>
+	<jsp:param name="title" value="商品列表"/>
 </jsp:include>
 <style type="text/css">
-.layui-table img {
-    max-width: 30px;
-    max-height:30px;
-}
-.toubu_xnx3_search_form {
-    padding-top: 0px;
-    padding-bottom: 10px;
-}
+	.layui-table img {
+	    max-width: 30px;
+	    max-height:30px;
+	}
+	.toubu_xnx3_search_form {
+	    padding-top: 0px;
+	    padding-bottom: 10px;
+	}
 </style>
 
 <script>
 //同步加载js
 function loadjs(url){  
-  var  xmlHttp = null;  
-  if(window.ActiveXObject){//IE  
-      try {  
-   //IE6以及以后版本中可以使用  
-   xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");  
-      } catch (e) {  
-   //IE5.5以及以后版本可以使用  
-   xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");  
-      }  
-  }else if(window.XMLHttpRequest){  
-      //Firefox，Opera 8.0+，Safari，Chrome  
-      xmlHttp = new XMLHttpRequest();  
-  }  
-  //采用同步加载  
-  xmlHttp.open("GET",url,false);  
-  //发送同步请求，如果浏览器为Chrome或Opera，必须发布后才能运行，不然会报错  
-  xmlHttp.send(null);  
-  //4代表数据发送完毕  
-  if( xmlHttp.readyState == 4 ){  
-      //0为访问的本地，200到300代表访问服务器成功，304代表没做修改访问的是缓存  
-      if((xmlHttp.status >= 200 && xmlHttp.status <300) || xmlHttp.status == 0 || xmlHttp.status == 304){  
-   var myBody = document.getElementsByTagName("BODY")[0];  
-   var myScript = document.createElement( "script" );  
-   myScript.language = "javascript";  
-   myScript.type = "text/javascript";  
-   try{  
-       //IE8以及以下不支持这种方式，需要通过text属性来设置  
-       myScript.appendChild(document.createTextNode(xmlHttp.responseText));  
-   }catch (ex){  
-       myScript.text = xmlHttp.responseText;  
-   }  
-   myBody.appendChild(myScript);  
-   return true;  
-      }else{  
-   return false;  
-      }  
-  }else{  
-      return false;  
-  }  
+	var  xmlHttp = null;  
+	if(window.ActiveXObject){//IE  
+		try {  
+		//IE6以及以后版本中可以使用  
+		xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");  
+		} catch (e) {  
+		//IE5.5以及以后版本可以使用  
+		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");  
+		}  
+	}else if(window.XMLHttpRequest){  
+		//Firefox，Opera 8.0+，Safari，Chrome  
+		xmlHttp = new XMLHttpRequest();  
+	}  
+	//采用同步加载  
+	xmlHttp.open("GET",url,false);  
+	//发送同步请求，如果浏览器为Chrome或Opera，必须发布后才能运行，不然会报错  
+	xmlHttp.send(null);  
+	//4代表数据发送完毕  
+	if( xmlHttp.readyState == 4 ){  
+		//0为访问的本地，200到300代表访问服务器成功，304代表没做修改访问的是缓存  
+		if((xmlHttp.status >= 200 && xmlHttp.status <300) || xmlHttp.status == 0 || xmlHttp.status == 304){  
+		var myBody = document.getElementsByTagName("BODY")[0];  
+		var myScript = document.createElement( "script" );  
+		myScript.language = "javascript";  
+		myScript.type = "text/javascript";  
+		try{  
+			//IE8以及以下不支持这种方式，需要通过text属性来设置  
+			myScript.appendChild(document.createTextNode(xmlHttp.responseText));  
+		}catch (ex){  
+			myScript.text = xmlHttp.responseText;  
+		}  
+		myBody.appendChild(myScript);  
+			return true;  
+		}else{  
+			return false;  
+		}  
+	}else{  
+		return false;  
+	}  
 }
-
 loadjs(shop.host+'shop/store/api/goodsType/getGoodsTypeJs.json?token='+shop.getToken());
 </script>
-
 <div style="height:10px;"></div>
 <jsp:include page="../common/list/formSearch_formStart.jsp" ></jsp:include>
-
 <jsp:include page="../common/list/formSearch_input.jsp">
 	<jsp:param name="iw_label" value="标题" />
 	<jsp:param name="iw_name" value="title" />
@@ -74,31 +71,30 @@ loadjs(shop.host+'shop/store/api/goodsType/getGoodsTypeJs.json?token='+shop.getT
 	<jsp:param name="iw_name" value="typeid"/>
 	<jsp:param name="iw_type" value="select"/>
 </jsp:include>
-
 	<a class="layui-btn" href="javascript:list(1);" style="margin-left: 15px;">搜索</a>
 	<a class="layui-btn layui-btn-normal" onclick="addOrUpdate(0)" style=""><i class="layui-icon" style="font-size: 14px;">添加商品</i></a>
-		   <div style="float: right; " class="layui-form">
+	<div style="float: right; " class="layui-form">
 		<%--<script type="text/javascript"> orderBy('id_ASC=编号,inventory_DESC=库存降序,inventory_ASC=库存升序,sale_DESC=已售数量降序,sale_ASC=已售数量升序,price_DESC=价格降序,price_ASC=价格升序'); </script>--%>
 	</div>
 </form>
 
 <table class="aui-table-responsive layui-table iw_table" style="color: black;font-size: 14px;">
-  <thead>
-    <tr>
-		<th style="text-align:center;">ID</th>
-		<th style="text-align:center;">所属分类</th>
-        <th style="text-align:center;">商品名</th>
-        <th style="text-align:center;">缩略图</th>
-        <th style="text-align:center;">库存</th>
-        <th style="text-align:center;">告警数量</th>
-        <th style="text-align:center;">上下架</th>
-        <th style="text-align:center;">已售数量</th>
-        <th style="text-align:center;">价格</th>
-        <th style="text-align:center;">排序</th>
-        <th style="text-align:center;">操作</th>
-    </tr> 
-  </thead>
-  <tbody id="list">
+	<thead>
+	    <tr>
+			<th style="text-align:center;">ID</th>
+			<th style="text-align:center;">所属分类</th>
+			<th style="text-align:center;">商品名</th>
+			<th style="text-align:center;">缩略图</th>
+			<th style="text-align:center;">库存</th>
+			<th style="text-align:center;">告警数量</th>
+			<th style="text-align:center;">上下架</th>
+			<th style="text-align:center;">已售数量</th>
+			<th style="text-align:center;">价格</th>
+			<th style="text-align:center;">排序</th>
+			<th style="text-align:center;">操作</th>
+		</tr> 
+	</thead>
+ 	<tbody id="list">
 		<tr>
 			<td style="text-align:center;">{id}</td>
 			<td style="text-align:center;">
@@ -108,24 +104,24 @@ loadjs(shop.host+'shop/store/api/goodsType/getGoodsTypeJs.json?token='+shop.getT
 				<x:substring maxLength="12" text='{title}'></x:substring>
 			</td>
 			<td style="text-align:center;">
-				<a  href="{titlepic}" target="_black"><img src = '{titlepic}' /></a>
+				<a  href='{titlepic}' target="_black"><img src = '{titlepic}' /></a>
 			</td>
 			<td style="text-align:center;">{inventory}</td>
 			<td style="text-align:center;">{alarmNum}</td>
 			<td style="text-align:center;">
 				{mark}
-				 <botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updatePutWay('{id}');" style="margin-left: 3px;margin-top:-1px;">更改</botton>
+				<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updatePutWay('{id}');" style="margin-left: 3px;margin-top:-1px;">更改</botton>
 			</td>
 			<td style="text-align:center;">{sale}</td>
 			<td style="text-align:center;">{price}</td>
 			<td width="50" onclick="updateRank('{id}', '{rank}', '{title}');" style="cursor:pointer;">{rank}</td>
 			<td style="text-align:center;width: 200px;">
-		 	   <a class="layui-btn layui-btn-sm" onclick="imgList('{id}')" style="margin-left: 0;"><i class="layui-icon">轮播图</i></a>
-		 	   <a class="layui-btn layui-btn-sm" onclick="addOrUpdate('{id}')" style="margin-left: 0;"><i class="layui-icon">&#xe642;</i></a>
-		 	   <a class="layui-btn layui-btn-sm" onclick="deleteMes('{id}')" style="margin-left: 0"><i class="layui-icon">&#xe640;</i></a>
+				<a class="layui-btn layui-btn-sm" onclick="imgList('{id}')" style="margin-left: 0;"><i class="layui-icon">轮播图</i></a>
+				<a class="layui-btn layui-btn-sm" onclick="addOrUpdate('{id}')" style="margin-left: 0;"><i class="layui-icon">&#xe642;</i></a>
+				<a class="layui-btn layui-btn-sm" onclick="deleteMes('{id}')" style="margin-left: 0"><i class="layui-icon">&#xe640;</i></a>
 			</td>
 		</tr>
-  </tbody>
+  	</tbody>
 </table>
 <!-- 通用分页跳转 -->
 <jsp:include page="../common/page.jsp" />
@@ -134,52 +130,47 @@ loadjs(shop.host+'shop/store/api/goodsType/getGoodsTypeJs.json?token='+shop.getT
 	<span style="padding-right:20px;"><i class="layui-icon">&#xe642;</i>&nbsp;:&nbsp;编辑</span>
 	<span style="padding-right:20px;"><i class="layui-icon">&#xe640;</i>&nbsp;:&nbsp;删除</span>
 </div>
-
 <script type="text/javascript">
 
 //自适应弹出层大小
 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 parent.layer.iframeAuto(index);
 
-
 layui.use('upload', function(){
 	var upload = layui.upload;
-	
 	//执行实例
 	var uploadInst = upload.render({
-	  elem: '.uploadImg' //绑定元素
-	 ,field : 'file'
-	 ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-		 msg.loading('上传中...');
+		elem: '.uploadImg' //绑定元素
+		,field : 'file'
+		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+		msg.loading('上传中...');
 		}
-	,done: function(res){
+		,done: function(res){
 		msg.close();
 		checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
 			if(res.result == '1'){
-			parent.msg.success("上传成功");
-			parent.layer.close(index);	//关闭当前窗口
-			location.reload();	//刷新父窗口列表
-		}else if(res.result == '0'){
-			parent.msg.failure(res.info);
-		}else{
-			parent.msg.failure("上传失败");
+				parent.msg.success("上传成功");
+				parent.layer.close(index);	//关闭当前窗口
+				location.reload();	//刷新父窗口列表
+			}else if(res.result == '0'){
+				parent.msg.failure(res.info);
+			}else{
+				parent.msg.failure("上传失败");
+			}
 		}
-	}
-	,error: function(){
-		     
-	}
+		,error: function(){	     
+		}
 	});
 });
-
 //删除商品
 function deleteMes(id){
 	var dtp_confirm = layer.confirm('确定要删除该商品？', {
-		  btn: ['确认','取消'] //按钮
+		btn: ['确认','取消'] //按钮
 	}, function(){
 		layer.close(dtp_confirm);
 		parent.msg.loading("删除中");    //显示“操作中”的等待提示
 		post('/shop/store/api/goods/delete.json?goodsid=' + id, {},function(data){
-		    parent.msg.close();    //关闭“操作中”的等待提示
+			parent.msg.close();    //关闭“操作中”的等待提示
 			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 			if(data.result == '1'){
 		        parent.msg.success('操作成功');
@@ -191,7 +182,6 @@ function deleteMes(id){
 		     }
 		});
 	}, function(){
-		
 	});
 }
 //修改信息 id：商品id
@@ -209,14 +199,11 @@ function updatePutWay(id){
 	         parent.msg.failure();
 	     }
 	});
-	
 }
-
 //跳转到商品详情的编辑 id:商品id
 function detail(id){
 	window.location.href = '/shop/store/goods/toDetailPage.do?id=' + id;
 }
-
 //跳转到商品图片列表的编辑 id:商品id
 function imgList(id){
 	layer.open({
@@ -227,7 +214,6 @@ function imgList(id){
 		content: '/store/goods/imgList.jsp?id=' + id
 	});	 
 }
-
 // 跳转添加或者修改页面 id 商品id
 function addOrUpdate(id){
 	if(id == 0) {
@@ -242,7 +228,6 @@ function addOrUpdate(id){
 		content: '/admin/goods/toEditPage.do?id=' + id
 	});	  */
 }
-
 /**
  * 更改某项的排序
  * @param id 要修改的 某项的id编号，要改那一项
@@ -256,42 +241,38 @@ function updateRank(id,rank,title){
 		    parent.msg.close();    //关闭“操作中”的等待提示
 			checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 			if(data.result == '1'){
-		        //由最外层发起提示框
+				//由最外层发起提示框
 				parent.msg.success('操作成功');
 				//刷新当前页
 				window.location.reload();	
 		     }else if(data.result == '0'){
-		         parent.msg.failure(data.info);
+				parent.msg.failure(data.info);
 		     }else{
-		         parent.msg.failure('操作失败');
+				parent.msg.failure('操作失败');
 		     }
 		});
-		
 	});
 }
-
 //列表的模版
 var orderTemplate = document.getElementById("list").innerHTML;
 function templateReplace(item){
 	return orderTemplate.replace(/\{id\}/g, item.id)
-			.replace(/\{title\}/g, item.title)
-			.replace(/\{typeid\}/g, item.typeid == null && typeof(typeid[item.typeid]) == 'undefined' ? "无": typeid[item.typeid]) //所属分类，将typeid 转为 文字说明
-			.replace(/\{titlepic\}/g, item.titlepic)
-			.replace(/\{inventory\}/g, item.inventory)
-			.replace(/\{alarmNum\}/g, item.alarmNum)
-			.replace(/\{mark\}/g, item.putaway == 0 ? "下架":"上架") //判断商品是否上下架，0 下架  1 上架
-			.replace(/\{sale\}/g, item.sale)
-			.replace(/\{price\}/g, item.price/100)
-			.replace(/\{rank\}/g, item.rank)
-			;
+		.replace(/\{title\}/g, item.title)
+		.replace(/\{typeid\}/g, item.typeid == null && typeof(typeid[item.typeid]) == 'undefined' ? "无": typeid[item.typeid]) //所属分类，将typeid 转为 文字说明
+		.replace(/\{titlepic\}/g, item.titlepic)
+		.replace(/\{inventory\}/g, item.inventory)
+		.replace(/\{alarmNum\}/g, item.alarmNum)
+		.replace(/\{mark\}/g, item.putaway == 0 ? "下架":"上架") //判断商品是否上下架，0 下架  1 上架
+		.replace(/\{sale\}/g, item.sale)
+		.replace(/\{price\}/g, item.price/100)
+		.replace(/\{rank\}/g, item.rank)
+		;
 }
-
 /**
  * 获取分类列表数据
  * @param currentPage 要查看第几页，如传入 1
  */
 function list(currentPage){
-
 	var data = {
 		'currentPage':currentPage,
 		'everyNumber':'15',	//这里每页显示2条数据
@@ -301,8 +282,7 @@ function list(currentPage){
 	msg.loading('加载中');
 	post('/shop/store/api/goods/list.json' ,data,function(data){
 	msg.close();    //关闭“更改中”的等待提示
-		checkLogin(data);	//判断是否登录
-
+	checkLogin(data);	//判断是否登录
 		//已登陆
 		if(data.result == '1'){
 			//列表
@@ -316,10 +296,9 @@ function list(currentPage){
 			//分页
 			page.render(data.page);
 		}
-});
+	});
 }
 //刚进入这个页面，加载第一页的数据
 list(1);
 </script>
-
 <jsp:include page="../common/foot.jsp"></jsp:include>
