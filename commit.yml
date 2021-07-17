@@ -3,27 +3,39 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'caeb99fc70def0997c4ecfc1f40362c33eb8d5a4'
-    oldFile: !uuid 'de4c089a20b4dbb86916f78bad58b7cc749f85ff'
+    newFile: !uuid 'b0c0907ce391252baf88953556f85091c91bdc31'
+    oldFile: !uuid 'caeb99fc70def0997c4ecfc1f40362c33eb8d5a4'
   /src/main:
-    newFile: !uuid 'e5ae264dcd3d711574b3a77bcdb4fc035c616822'
-    oldFile: !uuid 'cf50588e57c17eb2fed57592fc1729ee0e5c5ccc'
+    newFile: !uuid '6c0a5c2baec35201a74ae087df2a2a3e1712fd49'
+    oldFile: !uuid 'e5ae264dcd3d711574b3a77bcdb4fc035c616822'
   /src/main/webapp:
-    newFile: !uuid '0a5cc9eaaef15ae0874d947127dbe4ce05fc6b9b'
-    oldFile: !uuid '0b05a7b5dd3b402e22669ce8cb2a186bccc85061'
+    newFile: !uuid '7430ff9761dc74231c9f016792869d29423fe06b'
+    oldFile: !uuid '0a5cc9eaaef15ae0874d947127dbe4ce05fc6b9b'
   /src/main/webapp/plugin:
-    newFile: !uuid 'fed7ab3a832cb37698bf528e0e43cd6fd5b41024'
-    oldFile: !uuid '0606bb85542b3e455a58bbcf9189379e380d7162'
-  /src/main/webapp/plugin/weixinH5Auth:
-    newFile: !uuid '7eb4d5d9f22979bb187852ba7ece82b7af76a559'
-    oldFile: !uuid '0dbb7526b921617e6ab46157184f0640e5d4d24e'
-  /src/main/webapp/plugin/weixinH5Auth/store:
-    newFile: !uuid '8d8a549c6d8bce00fb1d610b4646bae65db1984d'
-    oldFile: !uuid '7902c18e5e49c455e99aab52a3efb0ffc98f252e'
-  /src/main/webapp/plugin/weixinH5Auth/store/index.jsp:
-    newFile: !uuid 'ee52918aeb9f208a0739d4d2156ecfd0abb52d51'
-    oldFile: !uuid '3663aacd53c6b4c4f97ffa66acbcaafce6a65f7a'
-gitCommitId: !uuid 'c00cb71dc654c3624a1a0cc968767436720ce611'
+    newFile: !uuid '80a4bd201bc95400f7b8c32e988fef21b78d8d18'
+    oldFile: !uuid 'fed7ab3a832cb37698bf528e0e43cd6fd5b41024'
+  /src/main/webapp/plugin/sell:
+    newFile: !uuid '6cc845f6be259d027e3cbd30ae384900f88df68d'
+    oldFile: !uuid '82646f2b62412dfbbe9a59bb73bac483490b4e5b'
+  /src/main/webapp/plugin/sell/store:
+    newFile: !uuid '3d66d3b9bb13532a7590e06fc93891e677938e65'
+    oldFile: !uuid '9e7c08729a3e34108a14e5c79913011ae2c9a105'
+  /src/main/webapp/plugin/sell/store/index.jsp:
+    newFile: !uuid 'ea9ce5d82b6d637e6f05709ede8dea0e19a55dae'
+    oldFile: !uuid '758194e7ed3d9c08c1a10e1029188c67a8a6ff0b'
+  /src/main/webapp/plugin/sell/store/set.jsp:
+    newFile: !uuid 'b8b73403abc366853b545f97df482888ae889ea9'
+    oldFile: !uuid '15930ef5f1e247394c7a5297649d6aad5ed7d61b'
+  /src/main/webapp/plugin/sell/store/tixian:
+    newFile: !uuid 'c35db0ff9700584d151abec0a28393e8c5acf31b'
+    oldFile: !uuid 'bc1797a99677785c3096542a43a3a3440aa8136a'
+  /src/main/webapp/plugin/sell/store/tixian/detail.jsp:
+    newFile: !uuid 'c14e26faa82ae9334f7717b7f3096ab87d719333'
+    oldFile: !uuid 'bb56dfe6632316d20dcfb90aa26ed7e072c378c9'
+  /src/main/webapp/plugin/sell/store/tixian/list.jsp:
+    newFile: !uuid '717cf07db6ce8fb74a2ab4d3ca82f9ac8083cfa6'
+    oldFile: !uuid '2d7d2b66e8916109b68f79d010daf01152d83b4d'
+gitCommitId: !uuid '7b455d0805fb9bee52c25e83a4bda91b48f0a26b'
 renames: {
   }
-revisionId: 364
+revisionId: 365
