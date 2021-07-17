@@ -3,33 +3,27 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'a0089b949537d97a8be5aa640e5789a8a390562e'
-    oldFile: !uuid 'f9f9f92acee53820c4a91fb979e2bb956d1ce701'
+    newFile: !uuid '7aee124c306abb393561a477a523acb384352c53'
+    oldFile: !uuid 'a0089b949537d97a8be5aa640e5789a8a390562e'
   /src/main:
-    newFile: !uuid '57010ff9713798e6d2ff66c5c0af768eb9f795f8'
-    oldFile: !uuid '9f13f427830130ba7352ecb31f3ddc0c5aaab16a'
+    newFile: !uuid '957aff25c7c20dcf949e3e103eee637e322c0461'
+    oldFile: !uuid '57010ff9713798e6d2ff66c5c0af768eb9f795f8'
   /src/main/webapp:
-    newFile: !uuid '72fd0c8c0207d727b8159d14f6116ad336659acc'
-    oldFile: !uuid '7a8a3b618342766a648093df66e5f9412c877cea'
+    newFile: !uuid '82db69af84d26575349bcf38fc6a2c4844e59edb'
+    oldFile: !uuid '72fd0c8c0207d727b8159d14f6116ad336659acc'
   /src/main/webapp/store:
-    newFile: !uuid '700a6545cee08db12d0c076b8b8364295f7ab924'
-    oldFile: !uuid '23f85d80445bf1d9c87ac1d5140c7605d9ca0344'
-  /src/main/webapp/store/goods:
-    newFile: !uuid 'c94c282cee4fa6a90b8f886360d7bec53a9ec890'
-    oldFile: !uuid 'a661f1e0d54003296bb7e5bbee3c7413d077ee3a'
-  /src/main/webapp/store/goods/edit.jsp:
-    newFile: !uuid '22baaaaeefb52523e22926dc5ecb6bdc5ee54464'
-    oldFile: !uuid 'a493288cedf8dd6e275b4ddf141566662b829513'
-  /src/main/webapp/store/goods/editImg.jsp:
-    newFile: !uuid 'b93207df415c9b422dbd2ea7597873f9ba817211'
-    oldFile: !uuid '0a45c00480737eb1d5a75260ae2b9190e1431741'
-  /src/main/webapp/store/goods/imgList.jsp:
-    newFile: !uuid '4be7dcac42dfcaf0d4ce453ea0bf1b5b060268dd'
-    oldFile: !uuid 'fe3da21cb7eaf19986f55797d1ea08b4dfb8645a'
-  /src/main/webapp/store/goods/list.jsp:
-    newFile: !uuid '80d7de40ed68afe0f3ffd8b3dad4816e75034fb7'
-    oldFile: !uuid '7cb0809d1c42e9b75a7f3f155f3eb6afa0e52334'
-gitCommitId: !uuid '0d9d993b4f8155f2349784f29c64edd362729b3d'
+    newFile: !uuid '83f17354538df868fc93323b7f2ecde3912f6bf5'
+    oldFile: !uuid '700a6545cee08db12d0c076b8b8364295f7ab924'
+  /src/main/webapp/store/order:
+    newFile: !uuid 'd3c0f6d12cbe85a8f9fe5cd661aede6ee339f8ec'
+    oldFile: !uuid '91da23f9e550a7565cbc1e4a7c9537ae44186644'
+  /src/main/webapp/store/order/list.jsp:
+    newFile: !uuid '776e05f342b21a05301ef1b42384028be07b8234'
+    oldFile: !uuid '7a51f8d70ecb1c00e85e29f16e57814b0d07b7ee'
+  /src/main/webapp/store/order/orderDetails.jsp:
+    newFile: !uuid '8f116426d5479e16e8ec07c1550faac941e87adc'
+    oldFile: !uuid '2b3da237a305937194fef6fe44452708bc00d887'
+gitCommitId: !uuid 'e6761a1b7d3ab98c3cb6d655e7d7d4517d3d3415'
 renames: {
   }
-revisionId: 352
+revisionId: 353
