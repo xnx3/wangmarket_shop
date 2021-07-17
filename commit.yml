@@ -2,28 +2,10 @@
 branches: {
   }
 fileChange:
-  /src:
-    newFile: !uuid '8d8f4b94bd5d3e6022abab173ebd86531fb691d1'
-    oldFile: !uuid 'd0d6e908c8e0691929e98b080894c8b8500bf4bb'
-  /src/main:
-    newFile: !uuid '661f163498f7ab92d523181c36205ef29a654dd5'
-    oldFile: !uuid 'd4f67200ec2135c5d1586668923031129be0537e'
-  /src/main/webapp:
-    newFile: !uuid '5df737547bf42dbec6f4bdd3caa6e59babb6a762'
-    oldFile: !uuid '999ef228ff64a0da25ab413dbcbc0b623abb22dd'
-  /src/main/webapp/plugin:
-    newFile: !uuid '0cd023407e59702b0707f85b2b932fda76ddde61'
-    oldFile: !uuid 'b1bf548b9d90881cfe5998c8a39b7ee645697301'
-  /src/main/webapp/plugin/limitbuy:
-    newFile: !uuid 'cef4f8563fc761476bf79badfd8c245df99ec3b1'
-    oldFile: !uuid 'bb7ecb3f2e4064517e5c4d932ed3e733378c6087'
-  /src/main/webapp/plugin/limitbuy/store:
-    newFile: !uuid '4f3b8598667b87b40578dd7c89801a58d5e38f2d'
-    oldFile: !uuid 'c1e8ece55aa658a6ad64e28daae221182fea4621'
-  /src/main/webapp/plugin/limitbuy/store/index.jsp:
-    newFile: !uuid 'b4657d50ef57f31dbea3657bd0f04fe7f19ec337'
-    oldFile: !uuid '8aee35f8b93ad10055204df239e015ecb1835ead'
-gitCommitId: !uuid '371ffe6be828db41e907e5d05fda5982713b5e74'
+  /README.md:
+    newFile: !uuid '68d4a059a3eecc44ab4f170302e0a8864d980f79'
+    oldFile: !uuid '50cb13070fec482faf141d389464624d841c7408'
+gitCommitId: !uuid 'ee59dfd12cbc7898193978110b3b268b23cf5550'
 renames: {
   }
-revisionId: 357
+revisionId: 358
