@@ -9,26 +9,23 @@
 <div id="shifouqiyong" class="layui-form" style="padding-top:10%; text-align:center;">
 	<span id="qiyongtishi">是否启用限购功能</span> &nbsp;&nbsp;&nbsp;
 	<span id="button">
-
 	</span>
 	<div style="color:gray; padding:5px; text-align: left; padding-left: 20px;">
 		这里是针对整个商城所有商品的限购。用户只可以下单购买几次，用户只有设定的几次下单支付的机会。<br/>
-		
 		比如，设置了每个用户有一次下单购买机会，用户A注册后，下单，但尚未支付，也算是购买了一次，不能继续下单了。<br/>
 		如果超时未支付，订单会自动取消，那么这次机会又会释放出来，可以再次下单购买。<br/>
 		如果用户支付了，那么无论是退单、还是正常完成，都算是消耗了一次机会，无法再下单购买。
 	</div>
-	
 	<style>
-	.shiyongbuzhou{
-		padding:20px; text-align: left; opacity: 0.9;
-	}
-	.shiyongbuzhou h2{
-		padding-bottom:9px; padding-top:20px;
-	}
-	.layui-form-switch{
-		margin-top: 0px;
-	}
+		.shiyongbuzhou{
+			padding:20px; text-align: left; opacity: 0.9;
+		}
+		.shiyongbuzhou h2{
+			padding-bottom:9px; padding-top:20px;
+		}
+		.layui-form-switch{
+			margin-top: 0px;
+		}
 	</style>
 	<!-- 默认隐藏 -->
 	<div class="shiyongbuzhou" id="kaiqitext" style="display:none;">
@@ -43,25 +40,18 @@
 		    </div>
 		</div>
 	</div>
-		
 </div>
-
-
 <script type="text/javascript">
 var form;
 layui.use('form', function(){
 	form = layui.form;
-	
 	form.on('switch(isUse)', function(data){
 		useChange(data.elem.checked);
 		updateUse(data.elem.checked? '1':'0');	//将改动同步到服务器，进行保存
-		
 	});
-	
 	//美化是否启用的开关控件
 	$(".layui-form-switch").css("marginTop","-2px");
 });
-
 //是否使用的开关发生改变触发  use  true:开启使用状态
 function useChange(use){
 	if(use){
@@ -71,12 +61,9 @@ function useChange(use){
 	}else{
 		//不使用
 		//$(".kefuSetInfo").css("opacity","0.3");
-		
 		document.getElementById('kaiqitext').style.display = 'none';
 	}
 }
-
-
 //修改当前是否使用
 function updateUse(value){
 	parent.msg.loading('修改中');
@@ -84,44 +71,39 @@ function updateUse(value){
 	    parent.msg.close();    //关闭“操作中”的等待提示
 		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(data.result == '1'){
-	        parent.msg.success('操作成功');
-	     }else if(data.result == '0'){
-	         parent.msg.failure(data.info);
-	     }else{
-	         parent.msg.failure();
-	     }
+			parent.msg.success('操作成功');
+		}else if(data.result == '0'){
+			parent.msg.failure(data.info);
+		}else{
+			parent.msg.failure();
+		}
 	});
 }
-
 //保存code
 function updateLimitNumber(value){
 	if(!value){
 		parent.msg.failure("请设置值");
 		return;
 	}
-
 	parent.msg.loading("保存中...");
 	post("/plugin/api/limitbuy/store/updateLimitNumber.json?value="+value,{}, function (result) {
-       	parent.msg.close();
+		parent.msg.close();
 		checkLogin(result);	//验证登录状态。如果未登录，那么跳转到登录页面
-       	if(result.result == '1'){
-       		parent.msg.success("设置成功");
-       		window.location.reload();
-       	}else if(result.result == '0'){
-       		parent.msg.failure(result.info);
-       	}else{
-       		parent.msg.failure("出错");
-       	}
+		if(result.result == '1'){
+			parent.msg.success("设置成功");
+			window.location.reload();
+		}else if(result.result == '0'){
+			parent.msg.failure(result.info);
+		}else{
+			parent.msg.failure("出错");
+		}
 	});
 }
-
 msg.loading('加载中');
 var limitBuyStore;
-
 post('/plugin/api/limitbuy/store/index.json',{},function(data){
-	msg.close();    //关闭“更改中”的等待提示
+	msg.close();	//关闭“更改中”的等待提示
 	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
-
 	if(data.result != '1'){
 		msg.failure(data.info);
 	}else {
@@ -138,8 +120,6 @@ post('/plugin/api/limitbuy/store/index.json',{},function(data){
 			layui.form.render();;
 		});
 	}
-
 });
 </script>
-
 <jsp:include page="../../../store/common/foot.jsp"></jsp:include>
