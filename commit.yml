@@ -3,30 +3,27 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'de4c089a20b4dbb86916f78bad58b7cc749f85ff'
-    oldFile: !uuid '14697415ad724f8ff3b698b064a7fac1942c924a'
+    newFile: !uuid 'caeb99fc70def0997c4ecfc1f40362c33eb8d5a4'
+    oldFile: !uuid 'de4c089a20b4dbb86916f78bad58b7cc749f85ff'
   /src/main:
-    newFile: !uuid 'cf50588e57c17eb2fed57592fc1729ee0e5c5ccc'
-    oldFile: !uuid 'df8cb772d6b8854d8cf96830f65c8d7c143126b9'
+    newFile: !uuid 'e5ae264dcd3d711574b3a77bcdb4fc035c616822'
+    oldFile: !uuid 'cf50588e57c17eb2fed57592fc1729ee0e5c5ccc'
   /src/main/webapp:
-    newFile: !uuid '0b05a7b5dd3b402e22669ce8cb2a186bccc85061'
-    oldFile: !uuid '681cb67d3418164ff36a03b110533b98743a5c7e'
+    newFile: !uuid '0a5cc9eaaef15ae0874d947127dbe4ce05fc6b9b'
+    oldFile: !uuid '0b05a7b5dd3b402e22669ce8cb2a186bccc85061'
   /src/main/webapp/plugin:
-    newFile: !uuid '0606bb85542b3e455a58bbcf9189379e380d7162'
-    oldFile: !uuid 'deed224fa1ad60aea47575189afef1c51e1da377'
-  /src/main/webapp/plugin/storeSubAccount:
-    newFile: !uuid '14de6a1d39e4c95ab466230ac27fb19cb5d40ef7'
-    oldFile: !uuid '342b28d4a69dc1f86d90cfe0e64a5e88b5614d06'
-  /src/main/webapp/plugin/storeSubAccount/user:
-    newFile: !uuid '3f0bc6eac59ee1a8db0c9c32b35905cf26ee10b4'
-    oldFile: !uuid 'debe8991949e907d119114330ddea61efc2a0a39'
-  /src/main/webapp/plugin/storeSubAccount/user/edit.jsp:
-    newFile: !uuid '49ae1d8c1924b66509f21372586f20f7290db39b'
-    oldFile: !uuid '33dea731562951f05a7a26aeaef8fb13ecc02ee7'
-  /src/main/webapp/plugin/storeSubAccount/user/list.jsp:
-    newFile: !uuid '8a124f91d2a4b4804b20bf5b88d1d5e3d5bcb933'
-    oldFile: !uuid '51f97f1d274837e3f0e42bb7ac36b854e0033400'
-gitCommitId: !uuid '477309fc436dd40a168e0386f32c871c61cc7b34'
+    newFile: !uuid 'fed7ab3a832cb37698bf528e0e43cd6fd5b41024'
+    oldFile: !uuid '0606bb85542b3e455a58bbcf9189379e380d7162'
+  /src/main/webapp/plugin/weixinH5Auth:
+    newFile: !uuid '7eb4d5d9f22979bb187852ba7ece82b7af76a559'
+    oldFile: !uuid '0dbb7526b921617e6ab46157184f0640e5d4d24e'
+  /src/main/webapp/plugin/weixinH5Auth/store:
+    newFile: !uuid '8d8a549c6d8bce00fb1d610b4646bae65db1984d'
+    oldFile: !uuid '7902c18e5e49c455e99aab52a3efb0ffc98f252e'
+  /src/main/webapp/plugin/weixinH5Auth/store/index.jsp:
+    newFile: !uuid 'ee52918aeb9f208a0739d4d2156ecfd0abb52d51'
+    oldFile: !uuid '3663aacd53c6b4c4f97ffa66acbcaafce6a65f7a'
+gitCommitId: !uuid 'c00cb71dc654c3624a1a0cc968767436720ce611'
 renames: {
   }
-revisionId: 363
+revisionId: 364
