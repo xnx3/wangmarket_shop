@@ -3,30 +3,96 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '7d5f156a8be4895fe4f8862c6a3fbfeee49aff16'
-    oldFile: !uuid 'b0c0907ce391252baf88953556f85091c91bdc31'
+    newFile: !uuid 'cbcf3bf7ed81de7ecf122183a3ec3776a47eb90a'
+    oldFile: !uuid '7d5f156a8be4895fe4f8862c6a3fbfeee49aff16'
   /src/main:
-    newFile: !uuid '1780a9f953b0a956f83a377ad547b3eab6d66ce9'
-    oldFile: !uuid '6c0a5c2baec35201a74ae087df2a2a3e1712fd49'
+    newFile: !uuid '1805e237dd60fc8a542df1d5255fe2af5ad38eaf'
+    oldFile: !uuid '1780a9f953b0a956f83a377ad547b3eab6d66ce9'
   /src/main/webapp:
-    newFile: !uuid '7297794bc5cfa1942ad2b02f5e2adeb7d0756902'
-    oldFile: !uuid '7430ff9761dc74231c9f016792869d29423fe06b'
-  /src/main/webapp/plugin:
-    newFile: !uuid '41126ee863a4768115dddd6d691cba429c147b2c'
-    oldFile: !uuid '80a4bd201bc95400f7b8c32e988fef21b78d8d18'
-  /src/main/webapp/plugin/sell:
-    newFile: !uuid '20a301eef99bb2eaa5785dc2d1f0d5ff8ad52dd2'
-    oldFile: !uuid '6cc845f6be259d027e3cbd30ae384900f88df68d'
-  /src/main/webapp/plugin/sell/store:
-    newFile: !uuid '22d76dd011e0403b9cdef7ca6ffabe9663928dac'
-    oldFile: !uuid '3d66d3b9bb13532a7590e06fc93891e677938e65'
-  /src/main/webapp/plugin/sell/store/commission:
-    newFile: !uuid 'dc5aa8ae02626dd3fc0c40d1cf93884c15a18b76'
-    oldFile: !uuid '54cb33d67c07ecc3563fc542b1af3721af38353e'
-  /src/main/webapp/plugin/sell/store/commission/list.jsp:
-    newFile: !uuid 'b059bab56a3d54359a3a5c858d15f7c4c08f4bcf'
-    oldFile: !uuid 'a296e326f75a1084f4ee769c4e57e170946791b3'
-gitCommitId: !uuid 'bb7eb48d0a0e70b3a97e74da6e19098d8be25110'
+    newFile: !uuid '776fce12f18cf409576c8a25d4ef80d09f86aec8'
+    oldFile: !uuid '7297794bc5cfa1942ad2b02f5e2adeb7d0756902'
+  /src/main/webapp/WEB-INF:
+    newFile: !uuid 'f37ff3ba6adc065f7e3b13ebd86ceaf200114298'
+    oldFile: !uuid 'd9f4d24f71a7c890507b8347df3693c3f8dd1085'
+  /src/main/webapp/WEB-INF/view:
+    newFile: !uuid '1ab33d1b1123af592b4f9ae41a6fbc3822e5c8ee'
+    oldFile: !uuid 'cf526da18c674c4ff8dc609639047bb6e56ffebd'
+  /src/main/webapp/WEB-INF/view/wm:
+    newFile: !uuid '232e6c43a5d66d17bab534c6573370b792c79e49'
+    oldFile: !uuid '557442f1fd1b5be9dda72a3514ba7f5f621dc0c2'
+  /src/main/webapp/WEB-INF/view/wm/admin:
+    newFile: !uuid 'a2179c9f870428b47f0f754769341fbb06111142'
+    oldFile: !uuid '0dc22011dca3f52ea9d2704f01dd57240f9d79c2'
+  /src/main/webapp/WEB-INF/view/wm/admin/index:
+    newFile: !uuid '9426e955c4b8afe39229c2e437d87711d474082c'
+    oldFile: !uuid 'cf751e4a73e53d14aef519c406ec46a389c6de90'
+  /src/main/webapp/WEB-INF/view/wm/admin/index/index.jsp:
+    newFile: null
+    oldFile: !uuid '37105e1255a0006b75b2def65a2a4dd8c7facd67'
+  /src/main/webapp/WEB-INF/view/wm/admin/log:
+    newFile: null
+    oldFile: !uuid '22767f457d494f1edd9d4b50c7811cdd6705072d'
+  /src/main/webapp/WEB-INF/view/wm/admin/log/cartogram.jsp:
+    newFile: null
+    oldFile: !uuid 'cefd657b7997558fb5fb56c45f8ba0f19d6dbf91'
+  /src/main/webapp/WEB-INF/view/wm/admin/log/list.jsp:
+    newFile: null
+    oldFile: !uuid '509511df80be019a577ed07d2a3a54f485879be2'
+  /src/main/webapp/WEB-INF/view/wm/admin/payLog:
+    newFile: null
+    oldFile: !uuid 'a0b9ea713c80a739cb63bc7ad2b737bae6d79fe0'
+  /src/main/webapp/WEB-INF/view/wm/admin/payLog/list.jsp:
+    newFile: null
+    oldFile: !uuid '71f3d7f359939e8e36e9235e84343a642d02b126'
+  /src/main/webapp/WEB-INF/view/wm/admin/role:
+    newFile: null
+    oldFile: !uuid 'a4df3731214fea81d27e0eed3dc94cb8538c20fc'
+  /src/main/webapp/WEB-INF/view/wm/admin/role/permission.jsp:
+    newFile: null
+    oldFile: !uuid 'b341e15a05f9eecaa9b217e278dc12108044cb39'
+  /src/main/webapp/WEB-INF/view/wm/admin/role/permissionList.jsp:
+    newFile: null
+    oldFile: !uuid '2d12fa2d1ddfe75920f771cf5ad1d80156288fa5'
+  /src/main/webapp/WEB-INF/view/wm/admin/role/role.jsp:
+    newFile: null
+    oldFile: !uuid 'c9448719ef009a68aab84efeba0928ef638ec1b2'
+  /src/main/webapp/WEB-INF/view/wm/admin/role/roleList.jsp:
+    newFile: null
+    oldFile: !uuid '9638fb9cfa92e7c1faa69dd5c962923dd7e6de52'
+  /src/main/webapp/WEB-INF/view/wm/admin/role/rolePermission.jsp:
+    newFile: null
+    oldFile: !uuid '5cad49465d51d2592f07b3fbe9b425219676ce95'
+  /src/main/webapp/WEB-INF/view/wm/admin/role/userRole.jsp:
+    newFile: null
+    oldFile: !uuid '48c0c14f64ac7474dd3fd27bbcae98c6d11231bb'
+  /src/main/webapp/WEB-INF/view/wm/admin/smslog:
+    newFile: null
+    oldFile: !uuid 'f585ac1f0c54569a551dbf0307657e22d530ac0f'
+  /src/main/webapp/WEB-INF/view/wm/admin/smslog/list.jsp:
+    newFile: null
+    oldFile: !uuid '96c5ee2b52f4c049e9df8cb22bbc4f64d59362d6'
+  /src/main/webapp/WEB-INF/view/wm/admin/system:
+    newFile: null
+    oldFile: !uuid '416dde68f1f496883241517e87f433a56f9380d3'
+  /src/main/webapp/WEB-INF/view/wm/admin/system/variable.jsp:
+    newFile: null
+    oldFile: !uuid '16c932c9e9ff08f9c5986903214763dd5ff497ae'
+  /src/main/webapp/WEB-INF/view/wm/admin/system/variableList.jsp:
+    newFile: null
+    oldFile: !uuid '6c83d2369f49760228ce41986e23e842bd0623f9'
+  /src/main/webapp/WEB-INF/view/wm/admin/user:
+    newFile: null
+    oldFile: !uuid '21a3b9d45523ddb44bb78c348c9f9ad0551d481d'
+  /src/main/webapp/WEB-INF/view/wm/admin/user/list.jsp:
+    newFile: null
+    oldFile: !uuid '063502d51afa22e259ef0bafd2fd664d1c3c4faa'
+  /src/main/webapp/WEB-INF/view/wm/admin/user/onlineUserList.jsp:
+    newFile: null
+    oldFile: !uuid 'd801e9bef8f2e92e4cfce196b1ff3de772321d01'
+  /src/main/webapp/WEB-INF/view/wm/admin/user/view.jsp:
+    newFile: null
+    oldFile: !uuid '12eac7d00f7dc281cf96acaab8bbc582c836e574'
+gitCommitId: !uuid 'aa252429e07b431f3b4337088bca9d5940d52d43'
 renames: {
   }
-revisionId: 366
+revisionId: 367
