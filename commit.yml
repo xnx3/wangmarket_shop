@@ -3,24 +3,27 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'd0d6e908c8e0691929e98b080894c8b8500bf4bb'
-    oldFile: !uuid 'cd52839e15ae97ebb5471a2252ff0f544dea2280'
+    newFile: !uuid '8d8f4b94bd5d3e6022abab173ebd86531fb691d1'
+    oldFile: !uuid 'd0d6e908c8e0691929e98b080894c8b8500bf4bb'
   /src/main:
-    newFile: !uuid 'd4f67200ec2135c5d1586668923031129be0537e'
-    oldFile: !uuid 'c512b64da3d7f3ff6efa0fe6c5735490824de2f6'
+    newFile: !uuid '661f163498f7ab92d523181c36205ef29a654dd5'
+    oldFile: !uuid 'd4f67200ec2135c5d1586668923031129be0537e'
   /src/main/webapp:
-    newFile: !uuid '999ef228ff64a0da25ab413dbcbc0b623abb22dd'
-    oldFile: !uuid '1cc73d695edf5db71e672a214b98d8e082b25ba9'
-  /src/main/webapp/store:
-    newFile: !uuid '0ee449ff9b701a1753a1cc920c306a9195acfffb'
-    oldFile: !uuid '2718876b19cc1ebe0400e14ed78435647d2c8e41'
-  /src/main/webapp/store/sms:
-    newFile: !uuid 'c33a5287dd555f4ba97b056897cf44d2fcdd09f5'
-    oldFile: !uuid '0ac35b0fb097d553cf041404bc6f7887f9d7f428'
-  /src/main/webapp/store/sms/index.jsp:
-    newFile: !uuid '319cf44bcdcbc16915654c8f55ae69311fac725f'
-    oldFile: !uuid '5d503e861d8c4f40d9330746a9be8c4cf767739c'
-gitCommitId: !uuid 'c7388a94321215c79b7efa0811a591c2d2c4b887'
+    newFile: !uuid '5df737547bf42dbec6f4bdd3caa6e59babb6a762'
+    oldFile: !uuid '999ef228ff64a0da25ab413dbcbc0b623abb22dd'
+  /src/main/webapp/plugin:
+    newFile: !uuid '0cd023407e59702b0707f85b2b932fda76ddde61'
+    oldFile: !uuid 'b1bf548b9d90881cfe5998c8a39b7ee645697301'
+  /src/main/webapp/plugin/limitbuy:
+    newFile: !uuid 'cef4f8563fc761476bf79badfd8c245df99ec3b1'
+    oldFile: !uuid 'bb7ecb3f2e4064517e5c4d932ed3e733378c6087'
+  /src/main/webapp/plugin/limitbuy/store:
+    newFile: !uuid '4f3b8598667b87b40578dd7c89801a58d5e38f2d'
+    oldFile: !uuid 'c1e8ece55aa658a6ad64e28daae221182fea4621'
+  /src/main/webapp/plugin/limitbuy/store/index.jsp:
+    newFile: !uuid 'b4657d50ef57f31dbea3657bd0f04fe7f19ec337'
+    oldFile: !uuid '8aee35f8b93ad10055204df239e015ecb1835ead'
+gitCommitId: !uuid '371ffe6be828db41e907e5d05fda5982713b5e74'
 renames: {
   }
-revisionId: 356
+revisionId: 357
