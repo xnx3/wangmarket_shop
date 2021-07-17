@@ -22,28 +22,28 @@
 </form>
 
 <table class="aui-table-responsive layui-table iw_table">
- <thead>
-    <tr>
-		<th>ID</th>
-		<th>订单号</th>
-        <th>付款金额</th>
-        <th>状态</th>
-        <th>下单时间</th>
-        <th>操作</th>
-    </tr> 
- </thead>
- <tbody>
-	<tr v-for="item in list">
-		<td>{{item.id}}</td>
-		<td>{{item.no}}</td>
-		<td>{{item.payMoney}}元</td>
-		<td>{{state[item.state]}}</td>
-		<td>{{formatTime(item.addtime,'Y-M-D h:m:s')}}</td>
-		<td style="width: 100px;">
-			<botton class="layui-btn layui-btn-sm" :onclick="'seeGoods('+item.id+', \''+item.no+'\');'" style="margin-left: 3px;">详情</botton>
-		</td> 
-	</tr>
- </tbody>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>订单号</th>
+			<th>付款金额</th>
+			<th>状态</th>
+			<th>下单时间</th>
+			<th>操作</th>
+		</tr> 
+	</thead>
+	<tbody>
+		<tr v-for="item in list">
+			<td>{{item.id}}</td>
+			<td>{{item.no}}</td>
+			<td>{{item.payMoney}}元</td>
+			<td>{{state[item.state]}}</td>
+			<td>{{formatTime(item.addtime,'Y-M-D h:m:s')}}</td>
+			<td style="width: 100px;">
+				<botton class="layui-btn layui-btn-sm" :onclick="'seeGoods('+item.id+', \''+item.no+'\');'" style="margin-left: 3px;">详情</botton>
+			</td> 
+		</tr>
+	</tbody>
 </table>
 <!-- 通用分页跳转 -->
 <jsp:include page="/wm/common/page.jsp" />
