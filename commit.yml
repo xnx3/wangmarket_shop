@@ -3,24 +3,24 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '925312d74a9edc46a77d4836300fee5d12ab7758'
-    oldFile: !uuid '7aee124c306abb393561a477a523acb384352c53'
+    newFile: !uuid 'cd52839e15ae97ebb5471a2252ff0f544dea2280'
+    oldFile: !uuid '925312d74a9edc46a77d4836300fee5d12ab7758'
   /src/main:
-    newFile: !uuid '6715504b0a875a02dc441ae5b2852e426ce80acc'
-    oldFile: !uuid '957aff25c7c20dcf949e3e103eee637e322c0461'
+    newFile: !uuid 'c512b64da3d7f3ff6efa0fe6c5735490824de2f6'
+    oldFile: !uuid '6715504b0a875a02dc441ae5b2852e426ce80acc'
   /src/main/webapp:
-    newFile: !uuid '9b85638d0bcbf53b25f54923cd47839f0ca9382c'
-    oldFile: !uuid '82db69af84d26575349bcf38fc6a2c4844e59edb'
+    newFile: !uuid '1cc73d695edf5db71e672a214b98d8e082b25ba9'
+    oldFile: !uuid '9b85638d0bcbf53b25f54923cd47839f0ca9382c'
   /src/main/webapp/store:
-    newFile: !uuid '8422d5825b5c1ef770ca1bb261bd99c6aadb4df5'
-    oldFile: !uuid '83f17354538df868fc93323b7f2ecde3912f6bf5'
-  /src/main/webapp/store/paySet:
-    newFile: !uuid '94c78534b11233fc965edb24210f36c9262441de'
-    oldFile: !uuid '469dd8a7e2fd4061e58f2c061f3cdde20f869007'
-  /src/main/webapp/store/paySet/index.jsp:
-    newFile: !uuid '0a6c49b604b66127a05b5b15fcc581f7c1969f90'
-    oldFile: !uuid '9230289c99b47d42acb04ddf5cbbc4b40e6b5783'
-gitCommitId: !uuid '54d30ed74331cc2f4b0c5e834c05b10f345b4ad3'
+    newFile: !uuid '2718876b19cc1ebe0400e14ed78435647d2c8e41'
+    oldFile: !uuid '8422d5825b5c1ef770ca1bb261bd99c6aadb4df5'
+  /src/main/webapp/store/orderRule:
+    newFile: !uuid '97846df234ef5763eaa463f324b8ff2492956454'
+    oldFile: !uuid 'c14b2e169599ef8e833ca98d15b89d851e7d2c3a'
+  /src/main/webapp/store/orderRule/index.jsp:
+    newFile: !uuid '0a1126dc89a7ce1afed357a4f705b53a99ff4d53'
+    oldFile: !uuid '44668ccfe57bfd5339b3e96111847e9ec836805c'
+gitCommitId: !uuid 'b573200c7bd32dda109c6a60a57653a4da2f333a'
 renames: {
   }
-revisionId: 354
+revisionId: 355
