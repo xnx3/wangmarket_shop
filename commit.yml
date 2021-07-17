@@ -3,96 +3,33 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'cbcf3bf7ed81de7ecf122183a3ec3776a47eb90a'
-    oldFile: !uuid '7d5f156a8be4895fe4f8862c6a3fbfeee49aff16'
+    newFile: !uuid '19cebb4ed788bddb615fbbe0839dcef1f71b0a6c'
+    oldFile: !uuid 'cbcf3bf7ed81de7ecf122183a3ec3776a47eb90a'
   /src/main:
-    newFile: !uuid '1805e237dd60fc8a542df1d5255fe2af5ad38eaf'
-    oldFile: !uuid '1780a9f953b0a956f83a377ad547b3eab6d66ce9'
-  /src/main/webapp:
-    newFile: !uuid '776fce12f18cf409576c8a25d4ef80d09f86aec8'
-    oldFile: !uuid '7297794bc5cfa1942ad2b02f5e2adeb7d0756902'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid 'f37ff3ba6adc065f7e3b13ebd86ceaf200114298'
-    oldFile: !uuid 'd9f4d24f71a7c890507b8347df3693c3f8dd1085'
-  /src/main/webapp/WEB-INF/view:
-    newFile: !uuid '1ab33d1b1123af592b4f9ae41a6fbc3822e5c8ee'
-    oldFile: !uuid 'cf526da18c674c4ff8dc609639047bb6e56ffebd'
-  /src/main/webapp/WEB-INF/view/wm:
-    newFile: !uuid '232e6c43a5d66d17bab534c6573370b792c79e49'
-    oldFile: !uuid '557442f1fd1b5be9dda72a3514ba7f5f621dc0c2'
-  /src/main/webapp/WEB-INF/view/wm/admin:
-    newFile: !uuid 'a2179c9f870428b47f0f754769341fbb06111142'
-    oldFile: !uuid '0dc22011dca3f52ea9d2704f01dd57240f9d79c2'
-  /src/main/webapp/WEB-INF/view/wm/admin/index:
-    newFile: !uuid '9426e955c4b8afe39229c2e437d87711d474082c'
-    oldFile: !uuid 'cf751e4a73e53d14aef519c406ec46a389c6de90'
-  /src/main/webapp/WEB-INF/view/wm/admin/index/index.jsp:
-    newFile: null
-    oldFile: !uuid '37105e1255a0006b75b2def65a2a4dd8c7facd67'
-  /src/main/webapp/WEB-INF/view/wm/admin/log:
-    newFile: null
-    oldFile: !uuid '22767f457d494f1edd9d4b50c7811cdd6705072d'
-  /src/main/webapp/WEB-INF/view/wm/admin/log/cartogram.jsp:
-    newFile: null
-    oldFile: !uuid 'cefd657b7997558fb5fb56c45f8ba0f19d6dbf91'
-  /src/main/webapp/WEB-INF/view/wm/admin/log/list.jsp:
-    newFile: null
-    oldFile: !uuid '509511df80be019a577ed07d2a3a54f485879be2'
-  /src/main/webapp/WEB-INF/view/wm/admin/payLog:
-    newFile: null
-    oldFile: !uuid 'a0b9ea713c80a739cb63bc7ad2b737bae6d79fe0'
-  /src/main/webapp/WEB-INF/view/wm/admin/payLog/list.jsp:
-    newFile: null
-    oldFile: !uuid '71f3d7f359939e8e36e9235e84343a642d02b126'
-  /src/main/webapp/WEB-INF/view/wm/admin/role:
-    newFile: null
-    oldFile: !uuid 'a4df3731214fea81d27e0eed3dc94cb8538c20fc'
-  /src/main/webapp/WEB-INF/view/wm/admin/role/permission.jsp:
-    newFile: null
-    oldFile: !uuid 'b341e15a05f9eecaa9b217e278dc12108044cb39'
-  /src/main/webapp/WEB-INF/view/wm/admin/role/permissionList.jsp:
-    newFile: null
-    oldFile: !uuid '2d12fa2d1ddfe75920f771cf5ad1d80156288fa5'
-  /src/main/webapp/WEB-INF/view/wm/admin/role/role.jsp:
-    newFile: null
-    oldFile: !uuid 'c9448719ef009a68aab84efeba0928ef638ec1b2'
-  /src/main/webapp/WEB-INF/view/wm/admin/role/roleList.jsp:
-    newFile: null
-    oldFile: !uuid '9638fb9cfa92e7c1faa69dd5c962923dd7e6de52'
-  /src/main/webapp/WEB-INF/view/wm/admin/role/rolePermission.jsp:
-    newFile: null
-    oldFile: !uuid '5cad49465d51d2592f07b3fbe9b425219676ce95'
-  /src/main/webapp/WEB-INF/view/wm/admin/role/userRole.jsp:
-    newFile: null
-    oldFile: !uuid '48c0c14f64ac7474dd3fd27bbcae98c6d11231bb'
-  /src/main/webapp/WEB-INF/view/wm/admin/smslog:
-    newFile: null
-    oldFile: !uuid 'f585ac1f0c54569a551dbf0307657e22d530ac0f'
-  /src/main/webapp/WEB-INF/view/wm/admin/smslog/list.jsp:
-    newFile: null
-    oldFile: !uuid '96c5ee2b52f4c049e9df8cb22bbc4f64d59362d6'
-  /src/main/webapp/WEB-INF/view/wm/admin/system:
-    newFile: null
-    oldFile: !uuid '416dde68f1f496883241517e87f433a56f9380d3'
-  /src/main/webapp/WEB-INF/view/wm/admin/system/variable.jsp:
-    newFile: null
-    oldFile: !uuid '16c932c9e9ff08f9c5986903214763dd5ff497ae'
-  /src/main/webapp/WEB-INF/view/wm/admin/system/variableList.jsp:
-    newFile: null
-    oldFile: !uuid '6c83d2369f49760228ce41986e23e842bd0623f9'
-  /src/main/webapp/WEB-INF/view/wm/admin/user:
-    newFile: null
-    oldFile: !uuid '21a3b9d45523ddb44bb78c348c9f9ad0551d481d'
-  /src/main/webapp/WEB-INF/view/wm/admin/user/list.jsp:
-    newFile: null
-    oldFile: !uuid '063502d51afa22e259ef0bafd2fd664d1c3c4faa'
-  /src/main/webapp/WEB-INF/view/wm/admin/user/onlineUserList.jsp:
-    newFile: null
-    oldFile: !uuid 'd801e9bef8f2e92e4cfce196b1ff3de772321d01'
-  /src/main/webapp/WEB-INF/view/wm/admin/user/view.jsp:
-    newFile: null
-    oldFile: !uuid '12eac7d00f7dc281cf96acaab8bbc582c836e574'
-gitCommitId: !uuid 'aa252429e07b431f3b4337088bca9d5940d52d43'
+    newFile: !uuid 'c34c8c726add5949ccfaed8906037c58d62cc48c'
+    oldFile: !uuid '1805e237dd60fc8a542df1d5255fe2af5ad38eaf'
+  /src/main/java:
+    newFile: !uuid '2f2d8615a503d94ce11ce43ea24d2450d474d2d7'
+    oldFile: !uuid '6330a935d325bacf961b9f6e88d64cc701ac5b08'
+  /src/main/java/com:
+    newFile: !uuid 'b322e8c402e0ef4ee9d00c823ff20631a50ab57a'
+    oldFile: !uuid 'a82e4da6e3c7ac25d011d7dda010b7d43f11d324'
+  /src/main/java/com/xnx3:
+    newFile: !uuid 'b902aa86b02bb1a95b4d070e3fd248834e7931eb'
+    oldFile: !uuid 'bbc55333b12e35e0bf5ce0782afb8b93412cc419'
+  /src/main/java/com/xnx3/wangmarket:
+    newFile: !uuid '79c3bcafac0e0c4bf93f5a065c25bd5941dc2c26'
+    oldFile: !uuid '4d2d52a7a3a03f4fb9c1a88c45a9da7cbe031849'
+  /src/main/java/com/xnx3/wangmarket/shop:
+    newFile: !uuid '4444e5f55a26aa095f07b5a1836f5bdc11fc0a4b'
+    oldFile: !uuid '0830ed35820ecebf58eb8434bb1aa7777a9870ed'
+  /src/main/java/com/xnx3/wangmarket/shop/core:
+    newFile: !uuid '43c3e8de0feaac9b8b91eb8c7356a10cb67d1ec7'
+    oldFile: !uuid '639291d2c6687134a10715d9c64d9a66ef1677aa'
+  /src/main/java/com/xnx3/wangmarket/shop/core/Global.java:
+    newFile: !uuid '99460f482f50d6dc2d121c1c61a1ef6631c1e376'
+    oldFile: !uuid 'a2c2d96c22a47926038e80849b3f341a855f86b2'
+gitCommitId: !uuid '3146f4ffe341d6fa45298189d048ab6d8de0864e'
 renames: {
   }
-revisionId: 367
+revisionId: 368
