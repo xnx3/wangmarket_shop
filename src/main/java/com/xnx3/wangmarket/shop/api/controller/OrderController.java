@@ -344,7 +344,7 @@ public class OrderController extends BasePluginController {
 	    sql.setDefaultOrderBy("shop_order.id DESC");
 	    //因只查询的一个表，所以可以将查询结果转化为实体类，用List接收。
 	    List<Order> list = sqlService.findBySql(sql, Order.class);
-	    vo.setOrderList(list);
+	    vo.setList(list);
 	    vo.setPage(page);
 	    
 		//写日志

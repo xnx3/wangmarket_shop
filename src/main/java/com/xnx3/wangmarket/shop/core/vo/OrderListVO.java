@@ -13,6 +13,11 @@ import com.xnx3.wangmarket.shop.core.vo.bean.OrderBean;
  */
 public class OrderListVO extends BaseVO {
 	private List<OrderBean> list;
+	/**
+	 * 兼容1.4及以前版本，1.5版本都变为list返回
+	 * @deprecated
+	 */
+	private List<OrderBean> orderList;
 	private Page page;
 	
 	public List<OrderBean> getList() {
@@ -36,6 +41,7 @@ public class OrderListVO extends BaseVO {
 			}
 		}
 		this.list = beanList;
+		this.orderList = beanList;
 	}
 	public Page getPage() {
 		return page;
@@ -43,6 +49,11 @@ public class OrderListVO extends BaseVO {
 	public void setPage(Page page) {
 		this.page = page;
 	}
-	
+	public List<OrderBean> getOrderList() {
+		return orderList;
+	}
+	public void setOrderList(List<OrderBean> orderList) {
+		this.orderList = orderList;
+	}
 	
 }
