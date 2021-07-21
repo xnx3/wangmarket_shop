@@ -250,6 +250,7 @@ function commit() {
 	date.titlepic = $("#titlepic").val() //图片url
 	date.id = $("#id").val() //商品id
 	date.detail = ue.getContent(); //商品详情
+	date.token = wm.token.get();	//token
 
 	if(date.title == ''){
 		msg.failure("请输入标题");
