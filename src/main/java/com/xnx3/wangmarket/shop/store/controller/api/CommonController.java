@@ -8,7 +8,10 @@ import com.xnx3.wangmarket.shop.core.Global;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,10 +31,11 @@ public class CommonController extends BaseController {
 	 */
 	@RequestMapping(value="uploadImage${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
-	public UploadFileVO uploadImage(HttpServletRequest request){
+	public UploadFileVO uploadImage(HttpServletRequest request,
+			@RequestParam("file") MultipartFile multipartFile){
 		String path = Global.ATTACHMENT_FILE_CAROUSEL_IMAGE.replace("{storeid}", getStoreId()+"");
-		UploadFileVO uploadFileVO = AttachmentUtil.uploadImage(path, request, "image", 0);
-		
+
+		UploadFileVO uploadFileVO = AttachmentUtil.uploadFile(path, multipartFile);
 		if(uploadFileVO.getResult() == UploadFileVO.SUCCESS){
 			//上传成功，写日志
 			ActionLogUtil.insert(request, "商家上传图片", uploadFileVO.getPath());
