@@ -68,18 +68,14 @@ loadjs(shop.host+'shop/store/api/goodsType/getGoodsTypeJs.json?token='+shop.getT
 			商品的名称，如：西瓜
 		</div>
 	</div>
-	<!-- 标题图片、封面图片。若是使用，可以在 栏目管理 中，编辑栏目时，有个 信息录入的选项卡，找到 标题图片，点击 使用 即可。若是自己添加的输入模型，请保留 id="sitecolumn_editUseTitlepic" ,不然栏目设置中的是否使用图集功能将会失效！ -->
-	<div class="layui-form-item" id="icon_div">
-		<label class="layui-form-label" id="label_columnName">缩略图</label>
+	<div class="layui-form-item">
+		<label class="layui-form-label">列表图片</label>
 		<div class="layui-input-block">
-			<input name="titlepic" id="titlepic" type="text" autocomplete="off" placeholder="点击右侧添加" class="layui-input"  style="padding-right: 120px;">
-			<button type="button" class="layui-btn" id="uploadImagesButton1" style="float: right;margin-top: -38px;">
-				<i class="layui-icon layui-icon-upload"></i>
-			</button>
-			<a id="titlePicA" style="float: right;margin-top: -38px;margin-right: 60px;" title="预览原始图片" target="_black">
-				<img id="titlePicImg"  onerror="this.style.display='none';" style="height: 36px;max-width: 57px; padding-top: 1px;" alt="预览原始图片">
-			</a>
-			<input class="layui-upload-file" type="file" name="fileName">
+			<jsp:include page="/wm/common/edit/form_uploadImage.jsp">
+				<jsp:param name="wm_name" value="titlepic"/>
+				<jsp:param name="wm_value" value="${inputGoods.titlepic}"/>
+				<jsp:param name="wm_api_url" value="/shop/store/api/common/uploadImage.json"/>
+			</jsp:include>
 		</div>
 	</div>
 	<div class="layui-form-item" id="xnx3_editMode">
@@ -178,45 +174,6 @@ loadjs(shop.host+'shop/store/api/goodsType/getGoodsTypeJs.json?token='+shop.getT
 <script type="text/javascript" src="/module/ueditor/ueditor.all.js"></script>
 <script>
 
-layui.use('upload', function(){
-	var upload = layui.upload;
-	//上传图片,封面图
-	//upload.render(uploadPic);
-	upload.render({
-		elem: "#uploadImagesButton1" //绑定元素
-		,url: '/shop/store/api/common/uploadImage.json?token='+shop.getToken() //上传接口
-		,field: 'image'
-		,accept: 'file'
-		,done: function(res){
-			//上传完毕回调
-			parent.msg.close();
-			checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
-			if(res.result == 1){
-				try{
-					document.getElementById("titlepic").value = res.url;
-					document.getElementById("titlePicA").href = res.url;
-					document.getElementById("titlePicImg").src = res.url;
-					document.getElementById("titlePicImg").style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
-				}catch(err){
-					console.log(err);
-				}
-				parent.msg.success("上传成功");
-			}else{
-				parent.msg.failure(res.info);
-			}
-		}
-		,error: function(index, upload){
-			//请求异常回调
-			parent.msg.close();
-			parent.msg.failure('异常');
-		}
-		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-			parent.msg.loading('上传中');
-		}
-	});
-	//上传图片,图集，v4.6扩展
-	//upload.render(uploadExtendPhotos);
-});	
 layui.use('laydate', function(){
 	var laydate = layui.laydate;
 	//执行一个laydate实例
@@ -237,21 +194,11 @@ layui.use('laydate', function(){
 });
 // 提交修改添加信息
 function commit() {
-	var date = {};
-	date.title = $("#title").val();	//标题
-	date.inventory = $("#inventory").val();	//库存
+	var date = wm.getJsonObjectByForm($('#form'));
 	date.price = Math.round($("#price").val()*100);	//价格
 	date.originalPrice = Math.round($("#originalPrice").val()*100);	//原价
-	date.intro = $("#intro").val()	//简介
-	date.alarmNum = $("#alarmNum").val() //警告数量
-	date.fakeSale = $("#fakeSale").val() //假售数量
-	date.units = $("#units").val()	//单位
-	date.typeid = $("#typeid").val() //分类
-	date.titlepic = $("#titlepic").val() //图片url
-	date.id = $("#id").val() //商品id
-	date.detail = ue.getContent(); //商品详情
 	date.token = wm.token.get();	//token
-
+	console.log(date);
 	if(date.title == ''){
 		msg.failure("请输入标题");
 		return ;
@@ -289,82 +236,6 @@ function commit() {
 	});
 	return false;
 }
-var uploadExtendPhotos = {
-	elem: '.uploadImagesButton' //绑定元素
-	,url: '/shop/store/api/common/uploadImage.json'  //上传接口
-	,field: 'image'
-	,accept: 'file'
-	,done: function(res){
-		//上传完毕回调
-		parent.msg.close();
-		checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
-		var key = this.item[0].name;	//拿到传递参数的key，也就是 extend.photos 中，数组某项的下表
-		if(res.result == 1){
-			try{
-				document.getElementById("titlepic"+key).value = res.url;
-				document.getElementById("titlePicA"+key).href = res.url;
-				document.getElementById("titlePicImg"+key).src = res.url;
-				document.getElementById("titlePicImg"+key).style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
-				parent.msg.success('上传成功');
-			}catch(err){
-				console.log(err);
-				parent.msg.failure(err);
-			}
-		}else{
-			parent.msg.failure(res.info);
-		}
-	}
-	,error: function(index, upload){
-		//请求异常回调
-		parent.msg.close();
-		parent.msg.failure('异常');
-	}
-	,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-		parent.msg.loading('上传中');
-	}
-};			
-var upload;
-layui.use('upload', function(){
-	upload = layui.upload;
-	//上传图片,封面图
-	//upload.render(uploadPic);
-	upload.render({
-		elem: "#uploadImagesButton" //绑定元素
-		,url: '/shop/store/api/common/uploadImage.json'  //上传接口
-		,field: 'image'
-		,accept: 'file'
-		,done: function(res){
-			//上传完毕回调
-			//loadClose();
-			msg.close();
-			checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
-			if(res.result == 1){
-				try{
-					document.getElementById("titlepic").value = res.url;
-					document.getElementById("titlePicA").href = res.url;
-					document.getElementById("titlePicImg").src = res.url;
-					document.getElementById("titlePicImg").style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
-					parent.msg.success('上传成功');
-				}catch(err){
-					console.log(err);
-					parent.msg.failure(err);
-				}
-			}else{
-				parent.msg.failure(res.info);
-			}
-		}
-		,error: function(index, upload){
-			//请求异常回调
-			parent.msg.close();
-			parent.msg.failure('异常');
-		}
-		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-			parent.msg.loading('上传中');
-		}
-	});
-	//上传图片,图集，v4.6扩展
-	upload.render(uploadExtendPhotos);
-});
 function writeSelectAllOptionFortypeid_(selectValue, firstTitle, required) {
 	var content = "";
 	if (selectValue == '') {
@@ -436,7 +307,6 @@ if(id.length > 0){
 		msg.close();    //关闭“更改中”的等待提示
 		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(data.goods == null){
-			document.getElementById('titlePicImg').style.display='none';
 			writeSelectAllOptionFortypeid_('','请选择分类', true);
 			writeSelectAllOptionForputaway_('','请选择上下架', true);
 			return;
@@ -446,9 +316,6 @@ if(id.length > 0){
 			goodsData = data.goodsData;
 			document.getElementById("id").value = goods.id;
 			document.getElementById("title").value = goods.title;
-			document.getElementById('titlePicImg').src = goods.titlepic + '?x-oss-process=image/resize,h_38';
-			document.getElementById('titlePicA').href = goods.titlepic;
-			document.getElementById("titlepic").value = goods.titlepic;
 			document.getElementById("price").value = goods.price/100;
 			document.getElementById("originalPrice").value = goods.originalPrice/100;
 			document.getElementById("inventory").value = goods.inventory;
@@ -458,15 +325,17 @@ if(id.length > 0){
 			document.getElementById("intro").innerHTML = goods.intro;
 			writeSelectAllOptionFortypeid_(goods.typeid,'请选择分类', true);
 			writeSelectAllOptionForputaway_(goods.putaway,'请选择上下架', true);
+			//将接口获取到的数据自动填充到 form 表单中
+			wm.fillFormValues($('form'), data.goods);
 		}
 		initUE();
 	});
 }else{
 	//添加商品
-	document.getElementById('titlePicImg').style.display='none';
 	writeSelectAllOptionFortypeid_('','请选择分类', true);
 	writeSelectAllOptionForputaway_('','请选择上下架', true);
 	initUE();
 }
+
 </script>
 <jsp:include page="../common/foot.jsp"></jsp:include>
