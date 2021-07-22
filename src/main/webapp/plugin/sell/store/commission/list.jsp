@@ -35,7 +35,7 @@
 			<td>{{item.orderid}}</td>
 			<td>{{item.userid}}</td>
 			<td>{{formatTime(item.addtime,'Y-M-D h:m:s')}}</td>
-			<td>{{transfer_state[item.transferState]}}</td>
+			<td>{{transferState[item.transferState]}}</td>
 		</tr>
 	</tbody>
 </table>
