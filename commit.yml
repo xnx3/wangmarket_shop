@@ -3,27 +3,24 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '6c00b6026ce9b74e94969f728af20656b678c3d1'
-    oldFile: !uuid '070ad028cc62ddb337e82a56c5ca66ce72e3c7cb'
+    newFile: !uuid '05da3ad1232ff19c9c43a2cd0c240e72a155be9c'
+    oldFile: !uuid '6c00b6026ce9b74e94969f728af20656b678c3d1'
   /src/main:
-    newFile: !uuid 'a88f238385965ef5f8c78bcf1731cf9b032eaaf7'
-    oldFile: !uuid '6f45056417f0712ed4b23eb41200c5520ad34032'
+    newFile: !uuid '8dc0598134244b6219b9c2257843a29100aba156'
+    oldFile: !uuid 'a88f238385965ef5f8c78bcf1731cf9b032eaaf7'
   /src/main/webapp:
-    newFile: !uuid '17265b52518c214a38eb50c9c81533b552829333'
-    oldFile: !uuid 'd9de63a1073c715ecc971a3dc2e3fa1f292bd3c0'
+    newFile: !uuid '89a8da0e4fe4b578cb0fba1cc21847783d43ed27'
+    oldFile: !uuid '17265b52518c214a38eb50c9c81533b552829333'
   /src/main/webapp/store:
-    newFile: !uuid '12445578e9f182b4760467318226764ebb971375'
-    oldFile: !uuid '9687a55797cd3ad3d52de12a96800c96ddc01b34'
-  /src/main/webapp/store/goods:
-    newFile: !uuid '6fe271a1f36fb201ac894662473c590e8f558d9f'
-    oldFile: !uuid '5f72f773558c007fa8a4edc136b230c77c0dbb9c'
-  /src/main/webapp/store/goods/edit.jsp:
-    newFile: !uuid '0bd877f8157a10dc92dac9c3df0b7099dfdd21fa'
-    oldFile: !uuid 'c1539fcc52d0b9d13c66dfe870c6045afc4e5d44'
-  /src/main/webapp/store/goods/editImg.jsp:
-    newFile: !uuid '1d56c5cfa7eb5fd277f7f594a01734891bd759a6'
-    oldFile: !uuid 'b93207df415c9b422dbd2ea7597873f9ba817211'
-gitCommitId: !uuid '9b0fbfa3232c11783801fc7c23b36a7feaacd0ed'
+    newFile: !uuid '110f2fe16577ab8f9bc50c566bd109b2601d4584'
+    oldFile: !uuid '12445578e9f182b4760467318226764ebb971375'
+  /src/main/webapp/store/goodsType:
+    newFile: !uuid '76f7f4f21de28751c059c6167c11896f3ae7a4fd'
+    oldFile: !uuid '9179813b756fadbc80d3a12bffe2caddd3d021a9'
+  /src/main/webapp/store/goodsType/edit.jsp:
+    newFile: !uuid 'a37d9172d0d3336b3aa764668a12532e663e7363'
+    oldFile: !uuid '1de9a84efa19175cc604b984260a67fa87e9a63c'
+gitCommitId: !uuid '0b61d60beb9c27406b0e4f0f69689bfe6ff5cc50'
 renames: {
   }
-revisionId: 378
+revisionId: 379
