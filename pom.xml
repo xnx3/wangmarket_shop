@@ -131,9 +131,9 @@
 	<dependency> 
         <groupId>com.xnx3.wm</groupId>  
         <artifactId>wm</artifactId>  
-        <version>1.22</version>  
+        <version>1.23</version>  
         <scope>system</scope>  
-   		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wm-1.22.jar</systemPath>  
+   		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wm-1.23.jar</systemPath>  
     </dependency>
        
    </dependencies>  
