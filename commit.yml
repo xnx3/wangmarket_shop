@@ -3,24 +3,30 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '05da3ad1232ff19c9c43a2cd0c240e72a155be9c'
-    oldFile: !uuid '6c00b6026ce9b74e94969f728af20656b678c3d1'
+    newFile: !uuid '24d1abafd4322bd763b63fe384190216a54b6b4c'
+    oldFile: !uuid '05da3ad1232ff19c9c43a2cd0c240e72a155be9c'
   /src/main:
-    newFile: !uuid '8dc0598134244b6219b9c2257843a29100aba156'
-    oldFile: !uuid 'a88f238385965ef5f8c78bcf1731cf9b032eaaf7'
+    newFile: !uuid '6924d3c1bad39bfe7cbb4a6a43a16f88a7fa863a'
+    oldFile: !uuid '8dc0598134244b6219b9c2257843a29100aba156'
   /src/main/webapp:
-    newFile: !uuid '89a8da0e4fe4b578cb0fba1cc21847783d43ed27'
-    oldFile: !uuid '17265b52518c214a38eb50c9c81533b552829333'
-  /src/main/webapp/store:
-    newFile: !uuid '110f2fe16577ab8f9bc50c566bd109b2601d4584'
-    oldFile: !uuid '12445578e9f182b4760467318226764ebb971375'
-  /src/main/webapp/store/goodsType:
-    newFile: !uuid '76f7f4f21de28751c059c6167c11896f3ae7a4fd'
-    oldFile: !uuid '9179813b756fadbc80d3a12bffe2caddd3d021a9'
-  /src/main/webapp/store/goodsType/edit.jsp:
-    newFile: !uuid 'a37d9172d0d3336b3aa764668a12532e663e7363'
-    oldFile: !uuid '1de9a84efa19175cc604b984260a67fa87e9a63c'
-gitCommitId: !uuid '0b61d60beb9c27406b0e4f0f69689bfe6ff5cc50'
+    newFile: !uuid 'd411e9d770411c2bea4e579313d89e3199a8df83'
+    oldFile: !uuid '89a8da0e4fe4b578cb0fba1cc21847783d43ed27'
+  /src/main/webapp/plugin:
+    newFile: !uuid '457a6d54aa926ccd4cf056127215da3019fafee3'
+    oldFile: !uuid '41126ee863a4768115dddd6d691cba429c147b2c'
+  /src/main/webapp/plugin/sell:
+    newFile: !uuid '196be6ba0890f20ed32ac003f6d39eefc684c257'
+    oldFile: !uuid '20a301eef99bb2eaa5785dc2d1f0d5ff8ad52dd2'
+  /src/main/webapp/plugin/sell/store:
+    newFile: !uuid '4c7ad55487d3cb24dd63be7f0bfa71cf2463be23'
+    oldFile: !uuid '22d76dd011e0403b9cdef7ca6ffabe9663928dac'
+  /src/main/webapp/plugin/sell/store/commission:
+    newFile: !uuid '5360584c70e53e9145b01787e0111aa68f3fa512'
+    oldFile: !uuid 'dc5aa8ae02626dd3fc0c40d1cf93884c15a18b76'
+  /src/main/webapp/plugin/sell/store/commission/list.jsp:
+    newFile: !uuid '705140695623e699fb2990a18e6528824f4720cf'
+    oldFile: !uuid 'b059bab56a3d54359a3a5c858d15f7c4c08f4bcf'
+gitCommitId: !uuid 'e4caf9650e20a2bb227c7c59e29c25f44b9cd045'
 renames: {
   }
-revisionId: 379
+revisionId: 380
