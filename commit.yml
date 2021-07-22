@@ -3,27 +3,24 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '46c46d0a27be15b7e62f53d1daa5e89f228714a9'
-    oldFile: !uuid '1b3044daee0d71c137ac0927b42445c4d197644e'
+    newFile: !uuid '070ad028cc62ddb337e82a56c5ca66ce72e3c7cb'
+    oldFile: !uuid '46c46d0a27be15b7e62f53d1daa5e89f228714a9'
   /src/main:
-    newFile: !uuid 'e8d8b27cb6364f8549c9abb60bb9d07f6af58414'
-    oldFile: !uuid '74f6decaaccaeb4875e6ceade2eadef4a309dd30'
+    newFile: !uuid '6f45056417f0712ed4b23eb41200c5520ad34032'
+    oldFile: !uuid 'e8d8b27cb6364f8549c9abb60bb9d07f6af58414'
   /src/main/webapp:
-    newFile: !uuid 'b831df33e72e84da1ed95de6a58189c708c4b357'
-    oldFile: !uuid '9a6adff97316debd1a834c7ea2dd093fe745cbef'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid 'e01ee29ebc2c062e93e8b52815644c458568b1bb'
-    oldFile: !uuid '0da6ca843d69ccd6631932f5a1ae5b350e026531'
-  /src/main/webapp/WEB-INF/lib:
-    newFile: !uuid 'bf0dd0e03c09f80a405513f6d25d58d1cfd55b30'
-    oldFile: !uuid 'beb89abad411a9a7610e811d50b07dbc903d4ddf'
-  /src/main/webapp/WEB-INF/lib/wm-1.23-sources.jar:
-    newFile: !uuid '14c76724bf1e87ff60a226ffc5cf178fba78219b'
-    oldFile: !uuid '146272b6b15ebf9ae7968a7115c3c78996458767'
-  /src/main/webapp/WEB-INF/lib/wm-1.23.jar:
-    newFile: !uuid 'a683220947ddad49f30c5514580e05ae6b61d894'
-    oldFile: !uuid '9e6ab6ae68eeabd56278e0912ff803e89a8691ff'
-gitCommitId: !uuid '04cc1360b2c8516f7068927951246d3e0e80e7a8'
+    newFile: !uuid 'd9de63a1073c715ecc971a3dc2e3fa1f292bd3c0'
+    oldFile: !uuid 'b831df33e72e84da1ed95de6a58189c708c4b357'
+  /src/main/webapp/store:
+    newFile: !uuid '9687a55797cd3ad3d52de12a96800c96ddc01b34'
+    oldFile: !uuid 'bb69f266a926643e1312bdfcf1501a0ba07f6dee'
+  /src/main/webapp/store/carouselImage:
+    newFile: !uuid '7c4e0de37bfa785126cfad32148c776dbce9c7f8'
+    oldFile: !uuid '840481746a1b843fe37d9419fcf5124690396fa3'
+  /src/main/webapp/store/carouselImage/edit.jsp:
+    newFile: !uuid '760f5a558c0842c551944c34e3a958a4add2a28f'
+    oldFile: !uuid 'da0a6e3cdf92f36837f79026e9a8469f59fd1a70'
+gitCommitId: !uuid '5ddd563027bcdca3da3a0b56cd2e4d47e63a232b'
 renames: {
   }
-revisionId: 376
+revisionId: 377
