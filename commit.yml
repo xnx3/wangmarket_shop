@@ -2,35 +2,10 @@
 branches: {
   }
 fileChange:
-  /src:
-    newFile: !uuid 'a4f15c27eb315655894dde82f70bc17d6826921d'
-    oldFile: !uuid 'd4ff2b5bea9acfae0f09bca6f6fe4f7409947da7'
-  /src/main:
-    newFile: !uuid '688616fb07c1a116d80120da05efa5ff97daed09'
-    oldFile: !uuid '408568dfac3e36beb920251a3f6cae6202c05624'
-  /src/main/webapp:
-    newFile: !uuid 'd41de096fa88a6eb0e85297acc78e55a29bae9f6'
-    oldFile: !uuid '4e46d3a50232435dd1dc1925bae3b4801dddda95'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid '3368cf2550bc1f06a0a9748493d7940a0f391272'
-    oldFile: !uuid 'f37ff3ba6adc065f7e3b13ebd86ceaf200114298'
-  /src/main/webapp/WEB-INF/lib:
-    newFile: !uuid '12db59ee0b8206c5376e08593a036c1078a42adb'
-    oldFile: !uuid '62d4dacd8ef2a27ab6a76dcea4b91d6a63877cf1'
-  /src/main/webapp/WEB-INF/lib/wm-1.22-sources.jar:
-    newFile: null
-    oldFile: !uuid '87bb282edd856ae3d07c46cf9408c28a6925505c'
-  /src/main/webapp/WEB-INF/lib/wm-1.22.jar:
-    newFile: null
-    oldFile: !uuid 'c06de0f9abc3486612fe46b2f6c5954d2914523b'
-  /src/main/webapp/WEB-INF/lib/wm-1.23-sources.jar:
-    newFile: !uuid 'd0a59b840a6f050699a36a0ad9a16e9a8df3c520'
-    oldFile: null
-  /src/main/webapp/WEB-INF/lib/wm-1.23.jar:
-    newFile: !uuid '3f8e3fcb6d9b5f30df5f0aea6644543e321716a4'
-    oldFile: null
-gitCommitId: !uuid '3d5dc2eeef09732d0443633d3eb5d43710a29826'
-renames:
-  /src/main/webapp/WEB-INF/lib/wm-1.23-sources.jar: /src/main/webapp/WEB-INF/lib/wm-1.22-sources.jar
-  /src/main/webapp/WEB-INF/lib/wm-1.23.jar: /src/main/webapp/WEB-INF/lib/wm-1.22.jar
-revisionId: 373
+  /pom.xml:
+    newFile: !uuid 'd332df1b62d27b2d9e545b68b105c237151a4a00'
+    oldFile: !uuid '05646021da4e227a865ede7fd270e931f077c5ed'
+gitCommitId: !uuid 'bd787886e5e2e8eb0e97c7045fb603db0c08386f'
+renames: {
+  }
+revisionId: 374
