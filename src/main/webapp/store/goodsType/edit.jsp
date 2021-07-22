@@ -42,44 +42,6 @@
 //自适应弹出层大小
 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 
-layui.use('upload', function(){
-	var upload = layui.upload;
-	//上传图片,封面图
-	//upload.render(uploadPic);
-	upload.render({
-		elem: "#uploadImagesButton" //绑定元素
-		,url: '/shop/store/api/common/uploadImage.json?token='+shop.getToken() //上传接口
-		,field: 'image'
-		,accept: 'file'
-		,done: function(res){
-			//上传完毕回调
-			//loadClose();
-			msg.close();
-			checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
-			if(res.result == 1){
-				try{
-					document.getElementById("titlePicInput").value = res.url;
-					document.getElementById("titlePicA").href = res.url;
-					document.getElementById("titlePicImg").src = res.url;
-					document.getElementById("titlePicImg").style.display='';	//避免新增加的文章，其titlepicImg是隐藏的
-				}catch(err){}
-				parent.msg.success("上传成功");
-			}else{
-				parent.msg.failure(res.info);
-			}
-		}
-		,error: function(index, upload){
-			//请求异常回调
-			parent.msg.close();
-			parent.msg.failure();
-		}
-		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-			parent.msg.loading('上传中..');
-		}
-	});	
-	//上传图片,图集，v4.6扩展
-	//upload.render(uploadExtendPhotos);
-}); 
 layui.use(['form', 'layedit', 'laydate'], function(){
 	var form = layui.form;
 	//监听提交
@@ -104,7 +66,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 });
 //当前网址get传入的参数
 var id = wm.getUrlParams('id');	
-if(id != null && id.length > 0){
+if(id != null && id.length > 0 && id != '0'){
 	//get传入要修改id了，那就加载要修改的这项的数据
 	msg.loading('加载中');
 	wm.post('/shop/store/api/goodsType/getGoodsType.json?id='+id,{},function(data){
