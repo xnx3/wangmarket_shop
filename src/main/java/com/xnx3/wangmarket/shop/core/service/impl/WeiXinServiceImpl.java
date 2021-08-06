@@ -71,7 +71,6 @@ public class WeiXinServiceImpl implements WeiXinService {
 			}
 			util = new WeiXinAppletUtil(payset.getWeixinAppletAppid(), payset.getWeixinAppletAppSecret());
 			CacheUtil.setWeekCache(cacheKey, util);
-			System.out.println("new weixinapplet util:"+util);
 		}
 		
 		return util;
