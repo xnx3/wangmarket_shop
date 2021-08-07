@@ -22,7 +22,7 @@ var masterSiteUrl = '<%=Global.get("MASTER_SITE_URL") %>';
 </style>
 
 <div style="text-align:center; font-size:29px; padding-top:7%; padding-bottom: 10px;">
-	欢迎使用网市场云建站系统  
+	欢迎使用网市场云商城系统
 </div>
 
 
@@ -49,7 +49,7 @@ var masterSiteUrl = '<%=Global.get("MASTER_SITE_URL") %>';
 		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">官网</td>
-			<td><a href="http://www.wang.market" target="_black">www.wang.market</a></td>
+			<td><a href="http://www.shop.zvo.cn" target="_black">www.shop.zvo.cn</a></td>
 		</tr>
 		<tr>
 			<td class="iw_table_td_view_name">微信公众号</td>
@@ -62,7 +62,7 @@ var masterSiteUrl = '<%=Global.get("MASTER_SITE_URL") %>';
 <script>
 //检测最新版本
 function checkVersion(){
-	$.getJSON("../../getNewVersion.do",function(result){
+	$.getJSON("/getNewVersion.json",function(result){
 		if(result.findNewVersion){
 			document.getElementById('versionTishi').innerHTML = '<span style="color:red;">发现新版本&nbsp;v'+result.newVersion+' <a href="'+result.previewUrl+'" style="color:red;" target="_black">点此查看</a></span>';
 		}else{
