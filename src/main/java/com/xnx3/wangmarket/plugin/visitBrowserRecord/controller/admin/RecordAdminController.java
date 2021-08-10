@@ -7,11 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
-import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.j2ee.vo.ElasticSearchPageListVO;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
 
 /**
@@ -23,9 +21,24 @@ import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginControlle
 public class RecordAdminController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
-	@Resource
-	private SqlCacheService sqlCacheService;
 	
-	
+	/**
+	 * 商家管理后台，查看用户访问记录
+	 * @param storeid 当前商铺的id
+	 */
+	@ResponseBody
+	@RequestMapping(value="/list.do",method= {RequestMethod.POST})
+	public ElasticSearchPageListVO list(HttpServletRequest request,Model model) {
+		ElasticSearchPageListVO vo = new ElasticSearchPageListVO();
+		
+		
+		/*
+		 * 
+		 * 待薛浩完善
+		 * 
+		 */
+		
+		return vo;
+	}
 	
 }
