@@ -2,41 +2,19 @@
 branches: {
   }
 fileChange:
-  /parent_pom.xml:
-    newFile: !uuid '06e21220b2c4fe7137df173933925282184ef540'
-    oldFile: null
-  /pom.xml:
-    newFile: !uuid '0a8f6b630c5a4184fda3d79a6f4b0a02c3ba829b'
-    oldFile: !uuid 'd332df1b62d27b2d9e545b68b105c237151a4a00'
   /src:
-    newFile: !uuid 'cd078d453cf248706e58432e67119ae76e860d9b'
-    oldFile: !uuid '99a56cd80a9f4ab64f12e586681e44a81d0ec2bb'
+    newFile: !uuid '9a688b01e07c55e83a23ac4fdd8798d031a5134f'
+    oldFile: !uuid 'cd078d453cf248706e58432e67119ae76e860d9b'
   /src/main:
-    newFile: !uuid '1b50168d39f331eb70092bd56535cd566846327c'
-    oldFile: !uuid 'da245b78fb90ba0a06070c686d7d80c88cd589dc'
-  /src/main/webapp:
-    newFile: !uuid 'e58fbf262e1550f7c3602c8a160c0c36526f6379'
-    oldFile: !uuid '780a6c94f1859f92d28270fe83696bd5728ec752'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid '15cc0659e4695322321130c20979cc13885e74d5'
-    oldFile: !uuid '6c8a649c61c4dba0d668a3c35914e7053d26a4cb'
-  /src/main/webapp/WEB-INF/lib:
-    newFile: !uuid 'd389ee3e655ed04ae58e42c3885ea65718e87e19'
-    oldFile: !uuid 'bf0dd0e03c09f80a405513f6d25d58d1cfd55b30'
-  /src/main/webapp/WEB-INF/lib/wm-1.23-sources.jar:
-    newFile: null
-    oldFile: !uuid '14c76724bf1e87ff60a226ffc5cf178fba78219b'
-  /src/main/webapp/WEB-INF/lib/wm-1.23.jar:
-    newFile: null
-    oldFile: !uuid 'a683220947ddad49f30c5514580e05ae6b61d894'
-  /src/main/webapp/WEB-INF/lib/wm-1.25-sources.jar:
-    newFile: !uuid '3c4c2fe3627e7eadbb934b4e8001f38066d14ab2'
-    oldFile: null
-  /src/main/webapp/WEB-INF/lib/wm-1.25.jar:
-    newFile: !uuid '8b1e4faf3dad1d47f49977b19bfd5b6dbb9f68f5'
-    oldFile: null
-gitCommitId: !uuid '481a1fde3052b73ccd945612dc5e9f224ca44e41'
-renames:
-  /src/main/webapp/WEB-INF/lib/wm-1.25-sources.jar: /src/main/webapp/WEB-INF/lib/wm-1.23-sources.jar
-  /src/main/webapp/WEB-INF/lib/wm-1.25.jar: /src/main/webapp/WEB-INF/lib/wm-1.23.jar
-revisionId: 383
+    newFile: !uuid '2bd1110e0f7ea231d1ebd0ff282ad6b7426f3fe4'
+    oldFile: !uuid '1b50168d39f331eb70092bd56535cd566846327c'
+  /src/main/resources:
+    newFile: !uuid 'f8cc79357fd4e3f01d25ab300dfead7061367c77'
+    oldFile: !uuid '2b0b0cb2a239628bee1e4683baa4aaaae40da50f'
+  /src/main/resources/application.properties:
+    newFile: !uuid '7f27acd43920c62716876f004a6139e172f58dd4'
+    oldFile: !uuid '1a4a62f77d35a5f1e461d94c3833acf88bbc9897'
+gitCommitId: !uuid '489ff6b2462f804dfae817d531069be7e2257a67'
+renames: {
+  }
+revisionId: 384
