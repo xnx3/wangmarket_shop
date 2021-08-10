@@ -2,34 +2,10 @@
 branches: {
   }
 fileChange:
-  /src:
-    newFile: !uuid '922d7e958466131bfccc22abcc8fbd40cb47778b'
-    oldFile: !uuid '2719cbbf3d6a9d569d8348efe1e5fc005ff20b25'
-  /src/main:
-    newFile: !uuid '37f03b11b17e251e4cd97712cbeacfe373217461'
-    oldFile: !uuid '05b0bc13e0f62b14a648ff2ad6e92078f2256906'
-  /src/main/java:
-    newFile: !uuid 'ad3cb2528bfe03a276738d68cc99954f4891ac5c'
-    oldFile: !uuid '2d8dc00962f2badc821d5f9cf1ab5db3c238a518'
-  /src/main/java/com:
-    newFile: !uuid '1c5ba3afd225e02eda732c51239e7e591b7653d9'
-    oldFile: !uuid '940ce93652368db9e2be3631e6b1d1ed333f7a00'
-  /src/main/java/com/xnx3:
-    newFile: !uuid '01fa9474da3fe0c88890d9d443ee34cd032968ab'
-    oldFile: !uuid 'd7ac5a23c6627d0b688e328f79d4b742973a903c'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid 'ec4424c0512585244b46ec7261c81be7b280ce02'
-    oldFile: !uuid '6ecee9a03e0766c736c7c7c606c4f11e1e7574b3'
-  /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid '2309216b61eb0e294437baeef183906e1c8d425f'
-    oldFile: !uuid '136f848948590383c210b535df9ba165846613b5'
-  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord:
-    newFile: !uuid 'b283c83ce9b28c870417aab6d14b751be7720c17'
-    oldFile: !uuid '38c53923860d99622191bea9bf97bc5d50165de5'
-  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord/Global.java:
-    newFile: !uuid '2af58d1b4c7d667a15f3971c99cd899bbb66c7ec'
-    oldFile: !uuid '0c2513d9563cc74a5342f235c87a1acd894bdcd0'
-gitCommitId: !uuid '3c73e7e741d898ca82188093691392d7a058c02b'
+  /README.md:
+    newFile: !uuid '6696edd791f056ea80d1314ab4126455bd9ef33f'
+    oldFile: !uuid '12f97feaaf6e9f3e3cd5767996457974f73edf47'
+gitCommitId: !uuid '23d71403263a9cbadd9df19372439dc18f5e7063'
 renames: {
   }
-revisionId: 386
+revisionId: 387
