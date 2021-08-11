@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.xnx3.BaseVO;
 import com.xnx3.DateUtil;
 import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.util.ElasticSearchUtil;
@@ -32,25 +33,19 @@ public class RecordAdminController extends BasePluginController {
 	
 	/**
 	 * 商家管理后台，查看用户访问记录
-	 *  storeid 当前商铺的id
 	 */
 	@ResponseBody
 	@RequestMapping(value="/list.json",method= {RequestMethod.POST})
 	public ElasticSearchPageListVO list(HttpServletRequest request,Model model) {
-		ElasticSearchPageListVO vo = new ElasticSearchPageListVO();
-		/*
-		 * 待薛浩完善
-		 */
-
-
-		List<Map<String, Object>> list = ElasticSearchUtil.getElasticSearch().searchBySqlQuery("SELECT * FROM "+Global.INDEX_NAME);
-		System.out.println(list.size());
-
-		String query = "storeid:" + SessionUtil.getStore().getId();
-		ConsoleUtil.log(query);
-		ElasticSearchUtil.list(Global.INDEX_NAME,query,5,request);
+		if(!haveStoreAuth()) {
+			ElasticSearchPageListVO vo = new ElasticSearchPageListVO();
+			vo.setBaseVO(BaseVO.FAILURE, "请先登录");
+			return vo;
+		}
+		
+		String query = "storeid:"+SessionUtil.getStore().getId();
+		ElasticSearchPageListVO vo = ElasticSearchUtil.list(Global.INDEX_NAME,query,15,request);
 		return vo;
 	}
-
 
 }
