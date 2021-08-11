@@ -19,14 +19,14 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr v-for="item in jsonArray">
-		<td>{{item.head}}</td>
+	<tr v-for="item in list">
+		<td><img :src='item.head' style="width:35px; height:35px; border-radius:50%;"  /></td>
 		<td>{{item.nickname}}</td>
 		<td>{{item.phone}}</td>
-		<td>{{item.startTime}}</td>
-		<td>{{item.endTime}}</td>
-		<td>{{item.useTime}}</td>
-		<td>{{item.time}}</td>
+		<td>{{formatTime(item.startTime,'Y-M-D h:m:s')}}</td>
+		<td>{{formatTime(item.endTime,'Y-M-D h:m:s')}}</td>
+		<td>{{formatTime(item.useTime,' m:s')}}</td>
+		<td>{{formatTime(item.time,'Y-M-D h:m:s')}}</td>
 	</tr>
 	</tbody>
 </table>
