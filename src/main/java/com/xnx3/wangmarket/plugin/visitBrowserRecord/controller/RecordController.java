@@ -64,7 +64,7 @@ public class RecordController extends BasePluginController {
 		params.put("startTime", startTime);
 		params.put("endTime", endTime);
 		params.put("useTime", endTime - startTime);	//耗时，也就是访客停留时间，单位是秒
-		params.put("time", DateUtil.timeForUnix13());	//记录创建的时间
+		params.put("time", DateUtil.timeForUnix10());	//记录创建的时间
 		
 		//将其写入到 ElasticSearch 中进行保存
 		ElasticSearchUtil.getElasticSearch().put(params, Global.INDEX_NAME);
