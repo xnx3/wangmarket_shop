@@ -2,13 +2,52 @@
 branches: {
   }
 fileChange:
-  /parent_pom.xml:
-    newFile: null
-    oldFile: !uuid '06e21220b2c4fe7137df173933925282184ef540'
-  /pom.xml:
-    newFile: !uuid 'e41eec5a3995b79bf5c090b624c8186c1e509b93'
-    oldFile: !uuid '0a8f6b630c5a4184fda3d79a6f4b0a02c3ba829b'
-gitCommitId: !uuid 'dd9dc6a5bd52af9a2e6debe8b7ca26944cd9d5d7'
+  /src:
+    newFile: !uuid '8e98d947fd749361278b9c87654caa51ab4989d0'
+    oldFile: !uuid '3cc2718b5ac967ca241dded8ba18ec111f62fe36'
+  /src/main:
+    newFile: !uuid 'e9ae0325c7fb3dd66c42b23bdcb1c2458996daad'
+    oldFile: !uuid 'cc03133bab3b6b10420977657a6035358f31b561'
+  /src/main/java:
+    newFile: !uuid 'c7f49abb3f9c6b9ae8d90e35544934c8f7a76e38'
+    oldFile: !uuid '09df4a6ec1941a5b439a4d14ee3938b27d8ec7a8'
+  /src/main/java/com:
+    newFile: !uuid '1c1ce4fcd240826f44de6e2535682361c73f108f'
+    oldFile: !uuid '5d4975a2846cc96d8e7e1e44c37ef04d53acaa4d'
+  /src/main/java/com/xnx3:
+    newFile: !uuid '168958f79f4f4a7f683d96c7e6753a9a80754b15'
+    oldFile: !uuid 'd7b61f01fd50c476d3c3bb88621d24ecac87c11a'
+  /src/main/java/com/xnx3/wangmarket:
+    newFile: !uuid '280e4aec98eb317b3a51487bb3c4699a53c8f25c'
+    oldFile: !uuid '4cad63ecc5abd9d042983e63475dbeafa7ae02cd'
+  /src/main/java/com/xnx3/wangmarket/plugin:
+    newFile: !uuid 'f644ee153b57e7963d3b6ae3970f8b0321059e09'
+    oldFile: !uuid '64bacdaadba7265d1ac927d416fc412e2c435dab'
+  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord:
+    newFile: !uuid 'f3b5e9458be71ebaa068f91094e21f579051f964'
+    oldFile: !uuid '115d7e2cf6f1d58c46d918c9c10a66628d35e572'
+  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord/controller:
+    newFile: !uuid '03300fc952695ad903d64b47315e27195895aca5'
+    oldFile: !uuid 'f46182f831b2699528bc681171c139c23d70d5b7'
+  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord/controller/RecordController.java:
+    newFile: !uuid '1a6fe083b5167bd57ea7aa36351bc562361895d5'
+    oldFile: !uuid 'bd5ca890584fb9fba16e4fb88c2db7bd16c7c2fb'
+  /src/main/webapp:
+    newFile: !uuid '9a573c112694de2e6bab6132ab91a587eb138712'
+    oldFile: !uuid '19ae8af42ca0bcddd02685a6ce7e83c1e2844e84'
+  /src/main/webapp/plugin:
+    newFile: !uuid 'af79e3b9359c1e13ee35196ec68fe0e9e699a9ec'
+    oldFile: !uuid '24f8e34f09b94c9c971479262e9bbb76e1e997cc'
+  /src/main/webapp/plugin/visitBrowserRecord:
+    newFile: !uuid 'b4b264328e30894d34b88a0b03b3734a925519d1'
+    oldFile: !uuid '98a42d8b4624780810ebd5eaf3da87347aa66c8f'
+  /src/main/webapp/plugin/visitBrowserRecord/admin:
+    newFile: !uuid '04e50b3822439ec4a95d17ae09ceec40b03b93c7'
+    oldFile: !uuid '7c1bb1fbe2bd93c58b47d755973d33aa5c374b20'
+  /src/main/webapp/plugin/visitBrowserRecord/admin/list.jsp:
+    newFile: !uuid '77151a13b94941054b153335fd29e4dc6b57d193'
+    oldFile: !uuid '3c1bc9fc1438807e05c71c084803261e84193ac2'
+gitCommitId: !uuid '34d8e9f5ae6a0d789439148379abdc03c9e5d0c7'
 renames: {
   }
-revisionId: 395
+revisionId: 396
