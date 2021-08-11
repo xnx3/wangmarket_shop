@@ -2,28 +2,13 @@
 branches: {
   }
 fileChange:
-  /src:
-    newFile: !uuid '3cc2718b5ac967ca241dded8ba18ec111f62fe36'
-    oldFile: !uuid 'ab50cf1961ed4be8970b4204e912a48148964faa'
-  /src/main:
-    newFile: !uuid 'cc03133bab3b6b10420977657a6035358f31b561'
-    oldFile: !uuid '8c975de5522e1dfffb8337a9b910f4b66d5b0bea'
-  /src/main/webapp:
-    newFile: !uuid '19ae8af42ca0bcddd02685a6ce7e83c1e2844e84'
-    oldFile: !uuid '01460489abcffc56a45431314b37af69b56ce57e'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid 'f696235d56798c9af80a5276a35dda739f84e101'
-    oldFile: !uuid '15cc0659e4695322321130c20979cc13885e74d5'
-  /src/main/webapp/WEB-INF/lib:
-    newFile: !uuid '60cb4a2e88675a07576afa77dae082a92ded998e'
-    oldFile: !uuid 'd389ee3e655ed04ae58e42c3885ea65718e87e19'
-  /src/main/webapp/WEB-INF/lib/wm-1.25-sources.jar:
-    newFile: !uuid 'dccfbb50364135c8644f0e20fe0f10071b24f6b4'
-    oldFile: !uuid '3c4c2fe3627e7eadbb934b4e8001f38066d14ab2'
-  /src/main/webapp/WEB-INF/lib/wm-1.25.jar:
-    newFile: !uuid 'deb699f9556adb19a3f4e70de17147eb93e3be00'
-    oldFile: !uuid '8b1e4faf3dad1d47f49977b19bfd5b6dbb9f68f5'
-gitCommitId: !uuid 'd0aeaf7c115b0822e8f8413f3e724bfb006f7d85'
+  /parent_pom.xml:
+    newFile: null
+    oldFile: !uuid '06e21220b2c4fe7137df173933925282184ef540'
+  /pom.xml:
+    newFile: !uuid 'e41eec5a3995b79bf5c090b624c8186c1e509b93'
+    oldFile: !uuid '0a8f6b630c5a4184fda3d79a6f4b0a02c3ba829b'
+gitCommitId: !uuid 'dd9dc6a5bd52af9a2e6debe8b7ca26944cd9d5d7'
 renames: {
   }
-revisionId: 394
+revisionId: 395
