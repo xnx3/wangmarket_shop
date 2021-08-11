@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 50623
  Source Host           : localhost
- Source Database       : wangmarket_shop
+ Source Database       : wangmarket_shop_20210811
 
  Target Server Type    : MySQL
  Target Server Version : 50623
  File Encoding         : utf-8
 
- Date: 05/26/2020 16:24:28 PM
+ Date: 08/11/2021 16:37:35 PM
 */
 
 SET NAMES utf8;
@@ -59,7 +59,6 @@ CREATE TABLE `agency_data` (
   `notice` text COLLATE utf8_unicode_ci COMMENT '代理的公告信息，显示给下级用户看的'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代理表的变长字段表，存储代理的公告等';
 
-
 -- ----------------------------
 --  Table structure for `pay_log`
 -- ----------------------------
@@ -86,16 +85,20 @@ CREATE TABLE `permission` (
   `name` char(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '名字，菜单的名字，显示给用户的',
   `parent_id` int(11) DEFAULT NULL COMMENT '上级资源的id',
   `percode` char(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `menu` smallint(6) DEFAULT NULL,
+  `rank` int(11) DEFAULT '0' COMMENT '排序，数字越小越靠前',
+  `icon` char(100) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '图标字符，这里是layui 的图标 ， https://www.layui.com/doc/element/icon.html ，这里存的是 unicode  字符，如  &#xe60c;',
   PRIMARY KEY (`id`),
   UNIQUE KEY `url` (`url`,`name`,`percode`),
-  KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Shiro权限管理中的资源';
+  KEY `parent_id` (`parent_id`),
+  KEY `suoyin_index` (`menu`,`rank`)
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Shiro权限管理中的资源';
 
 -- ----------------------------
 --  Records of `permission`
 -- ----------------------------
 BEGIN;
-INSERT INTO `permission` VALUES ('1', '用户前台用户的个人中心', '/user/info.do', '个人中心', '0', 'user'), ('2', '用户前台用户的个人中心', '/user/info.do', '我的信息', '1', 'userInfo'), ('3', '前端用户在论坛发表帖子', '/bbs/addPost.do', '发帖', '4', 'bbsAddPost'), ('4', '前端，论坛', '/bbs/list.do', '论坛', '0', 'bbs'), ('7', '用户端的我的好友', '/friend/list.do', '我的好友', '0', 'friend'), ('9', '前端的我的好友，添加好友', '/friend/add.do', '添加好友', '7', 'friendAdd'), ('10', '前端，我的好友，好友列表', '/friend/list.do', '好友列表', '7', 'friendList'), ('11', '前端的我的好友，删除好友', '/friend/delete.do', '删除好友', '7', 'friendDelete'), ('12', '后台的用户管理', '/admin/user/list.do', '用户管理', '0', 'adminUser'), ('13', '后台用户管理下的菜单', '/admin/user/list.do', '用户列表', '12', 'adminUserList'), ('14', '后台用户管理下的菜单', '/admin/user/delete.do', '删除用户', '12', 'adminUserDelete'), ('15', '管理后台－系统管理栏目', '/admin/system/index.do', '系统管理', '0', 'adminSystem'), ('16', '管理后台－系统管理－系统参数、系统变量', '/admin/system/variableList.do', '全局变量', '15', 'adminSystemVariable'), ('17', '管理后台－系统管理，刷新所有缓存', '/admin/system/generateAllCache.do', '刷新缓存', '15', 'adminSystemGenerateAllCache'), ('18', '前端，用户中心，注销登录', '/user/logout.do', '注销', '1', 'userLogout'), ('19', '前端，用户中心，更改头像', '/user/uploadHead.do', '更改头像', '1', 'userUploadHead'), ('20', '前端，用户中心，更改用户自己的昵称', '/user/updateNickName.do', '更改昵称', '1', 'userUpdateNickName'), ('21', '前端，用户中心，更改密码', '/user/updatePassword.do', '更改密码', '1', 'userUpdatePassword'), ('22', '前端，用户中心，邮件邀请用户注册', '/user/inviteEmail.do', '邮件邀请注册', '1', 'userInviteEmail'), ('23', '前端，好友中心，首页', '/friend/index.do', '首页', '7', 'friendIndex'), ('24', '前端，站内信', '/message/list.do', '信息', '0', 'message'), ('25', '前端，站内信，信息列表', '/message/list.do', '信息列表', '24', 'messageList'), ('26', '前端，站内信，阅读信息', '/message/view.do', '阅读信息', '24', 'messageView'), ('27', '前端，站内信，发送信息', '/message/send.do', '发送信息', '24', 'messageSend'), ('28', '前端，论坛，帖子列表', '/bbs/list.do', '帖子列表', '4', 'bbsList'), ('29', '前端，论坛，帖子详情', '/bbs/view.do', '帖子详情', '4', 'bbsView'), ('30', '前端，论坛，回复帖子', '/bbs/addComment.do', '回复帖子', '4', 'bbsAddComment'), ('31', '前端，项目组', '/project/index.do', '项目组', '0', 'project'), ('32', '前端，项目组，项目列表', '/project/list.do', '列表', '31', 'projectList'), ('33', '前端，项目组，项目详情', '/project/view.do', '项目详情', '31', 'projectView'), ('34', '前端，项目组，添加项目', '/project/add.do', '添加项目', '31', 'projectAdd'), ('35', '前端，项目组，删除项目', '/project/delete.do', '删除项目', '31', 'projectDelete'), ('36', '前端，项目组，列出属于自己管理的项目列表', '/project/adminList.do', '管理项目列表', '31', 'projectAdminList'), ('37', '前端，项目组，添加成员到项目组', '/project/addMember.do', '添加成员到项目组', '31', 'projectAddMember'), ('38', '前端，项目组，获取项目组用户列表', '/project/memberList.do', '获取项目组用户列表', '31', 'projectMemberList'), ('39', '前端，图表（线框图，流程图等）', '/paint/index.do', '图表', '0', 'paint'), ('40', '前端，图表，图表首页', '/paint/index.do', '首页', '39', 'paintIndex'), ('41', '前端，图表，添加图表（流程、线框图）', '/paint/add.do', '添加', '39', 'paintAdd'), ('42', '前端，图表，评论图表（流程、线框图）', '/paint/addComment.do', '评论图表', '39', 'paintAddComment'), ('43', '前端，图表，该图（流程、线框图）的评论列表', '/paint/commentList.do', '该图评论列表', '39', 'paintCommentList'), ('44', '后台，权限管理', '/admin/role/roleList.do', '权限管理', '0', 'adminRole'), ('46', '后台，权限管理，新增、编辑角色', '/admin/role/editRole.do', '编辑角色', '44', 'adminRoleRole'), ('48', '后台，权限管理，角色列表', '/admin/role/roleList.do', '角色列表', '44', 'adminRoleRoleList'), ('49', '后台，权限管理，删除角色', '/admin/role/deleteRole.do', '删除角色', '44', 'adminRoleDeleteRole'), ('51', '后台，权限管理，资源Permission的添加、编辑功能', '/admin/role/editPermission.do', '编辑资源', '44', 'adminRolePermission'), ('53', '后台，权限管理，资源Permission列表', '/admin/role/permissionList.do', '资源列表', '44', 'adminRolePermissionList'), ('54', '后台，权限管理，删除资源Permission', '/admin/role/deletePermission.do', '删除资源', '44', 'adminRoleDeletePermission'), ('55', '后台，权限管理，编辑角色下资源', '/admin/role/editRolePermission.do', '编辑角色下资源', '44', 'adminRoleEditRolePermission'), ('56', '后台，权限管理，编辑用户所属角色', '/admin/role/editUserRole.do', '编辑用户所属角色', '44', 'adminRoleEditUserRole'), ('57', '后台，论坛管理', '/admin/bbs/postList.do', '论坛管理', '0', 'adminBbs'), ('58', '后台，论坛管理，帖子列表', '/admin/bbs/postList.do', '帖子列表', '57', 'adminBbsPostList'), ('59', '后台，论坛管理，删除帖子', '/admin/bbs/deletePost.do', '删除帖子', '57', 'adminBbsDeletePost'), ('60', '后台，论坛管理，添加板块', '/admin/bbs/addClass.do', '添加板块', '57', 'adminBbsAddClass'), ('61', '后台，论坛管理，添加，修改板块', '/admin/bbs/editClass.do', '修改板块', '57', 'adminBbsClass'), ('63', '后台，论坛管理，板块列表', '/admin/bbs/classList.do', '板块列表', '57', 'adminBbsClassList'), ('64', '后台，论坛管理，删除板块', '/admin/bbs/deleteClass.do', '删除板块', '57', 'adminBbsDeleteClass'), ('65', '后台，站内信消息管理', '/admin/message/list.do', '消息管理', '0', 'adminMessage'), ('66', '后台，站内信消息管理，消息列表', '/admin/message/list.do', '消息列表', '65', 'adminMessageList'), ('67', '后台，站内信消息管理，删除消息', '/admin/message/delete.do', '删除消息', '65', 'adminMessageDelete'), ('68', '后台，系统设置，用户注册后自动拥有的一个权限', '/admin/system/userRegRole.do', '注册用户权限', '15', 'adminSystemUserRegRole'), ('71', '后台，日志管理', '/admin/log/list.do', '日志管理', '0', 'adminLog'), ('72', '后台，日志管理，日志列表', '/admin/log/list.do', '日志列表', '71', 'adminLogList'), ('74', '管理后台－系统管理，新增、修改系统的全局变量', '/admin/system/variable.do', '修改全局变量', '15', 'adminSystemVariable'), ('75', '邀请注册页面，介绍说明页面', '/user/invite.do', '邀请注册页面', '1', 'userInvite'), ('77', '后台，论坛管理，帖子编辑、添加', '/admin/bbs/post.do', '添加修改帖子', '57', 'adminBbsPost'), ('78', '后台，论坛管理，删除帖子回复', '/admin/bbs/deleteComment.do', '删除回帖', '57', 'adminBbsDeletePostComment'), ('79', '后台，论坛管理，回帖列表', '/admin/bbs/commentList.do', '回帖列表', '57', 'adminBbsPostCommentList'), ('80', '后台，用户管理，查看用户详情', '/admin/user/view.do', '用户详情', '12', 'adminUserView'), ('81', '后台，用户管理，冻结、解除冻结会员', '/admin/user/updateFreeze.do', '冻结会员', '12', 'adminUserUpdateFreeze'), ('82', '后台，历史发送的短信验证码', '/admin/smslog/list.do', '验证码管理', '0', 'adminSmsLog'), ('83', '后台，历史发送的短信验证码列表', '/admin/smslog/list.do', '验证码列表', '82', 'adminSmsLogList'), ('86', '后台，在线支付记录', '/admin/payLog/list.do', '支付记录', '0', 'adminPayLog'), ('87', '后台，在线支付记录，记录列表', '/admin/payLog/list.do', '支付列表', '86', 'adminPayLogList'), ('88', '建站代理', '', '建站代理', '0', 'agencyIndex'), ('89', '建站代理，代理商后台首页', '', '首页', '88', 'agencyIndex'), ('90', '建站代理，代理商会员站点列表', '', '会员站点列表', '88', 'agencyUserList'), ('91', '建站代理，添加用户站点', '', '添加用户站点', '88', 'agencyAdd'), ('92', '信息文章相关操作', '', '文章管理', '0', 'adminNews'), ('93', 'News数据表，信息列表', '', '信息列表', '92', 'adminNewsList'), ('94', 'News数据表，信息详情', '', '信息详情', '92', 'adminNewsView'), ('95', 'News数据表，删除信息', '', '删除信息', '92', 'adminNewsDelete'), ('96', 'News数据表，合法性改为合法状态', '', '改为合法', '92', 'adminNewsCancelLegitimate'), ('97', '建站代理，代理商后台，开通其下级普通代理', '', '开通普通代理', '88', 'AgencyNormalAdd'), ('98', '查看当前在线的会员', '', '在线会员', '12', 'adminOnlineUserList'), ('99', '总管理后台的网站管理', '', '全部网站管理', '0', 'adminSite'), ('100', '网站列表', '', '网站列表', '99', 'adminSiteList'), ('101', '网站详情页面', '', '网站详情', '99', 'adminSiteView'), ('102', '添加一个网站跟用户', '', '添加网站', '99', 'adminSiteAdd'), ('103', '访问统计相关', '', '访问统计', '0', 'adminRequestLog'), ('104', '网站的访问情况', '', '访问统计', '103', 'adminRequestLogFangWen'), ('105', '操作的日志列表', '', '操作日志', '88', 'agencyActionLogList'), ('106', '资金变动日志', '', '资金日志', '88', 'agencySiteSizeLogList'), ('107', '我的下级代理商列表', '', '下级列表', '88', 'agencySubAgencyList'), ('108', '给我的下级代理充值站币', null, '站币充值', '88', 'agencyTransferSiteSizeToSubAgencyList'), ('109', '给我开通的网站续费延长使用时间', null, '网站续费', '88', 'agencySiteXuFie'), ('110', '给我下级的代理延长使用期限', '', '代理延期', '88', 'agencyYanQi'), ('111', '将我下级的代理冻结，暂停', '', '冻结代理', '88', 'agencyAgencyFreeze'), ('112', '将我下级的代理接触冻结，恢复正常', '', '解冻代理', '88', 'agencyAgencyUnFreeze'), ('113', '修改站点、代理帐户的密码', '', '修改密码', '88', 'agencySiteUpdatePassword'), ('114', '后台管理首页，登录后台的话，需要授权此项，不然登录成功后仍然无法进入后台，被此页给拦截了', null, '管理后台', '0', 'adminIndex'), ('115', '管理后台首页', '', '后台首页', '114', 'adminIndexIndex'), ('116', '删除系统变量', 'admin/system/deleteVariable.do', '删除变量', '15', 'adminSystemDeleteVariable'), ('117', '后台，日志管理，所有动作的日志图表', '/admin/log/cartogram.do', '统计图表', '71', 'adminLogCartogram'), ('118', '将自己直属下级的某个网站冻结', '', '冻结网站', '88', 'agencySiteFreeze'), ('119', '将自己直属下级的某个网站解除冻结', '', '网站解冻', '88', 'agencySiteFreeze');
+INSERT INTO `permission` VALUES ('12', '后台的用户管理', '/admin/user/list.do', '用户管理', '0', 'adminUser', '1', '1', '&#xe612;'), ('13', '后台用户管理下的菜单', '/admin/user/list.do', '用户列表', '12', 'adminUserList', null, '0', ''), ('14', '后台用户管理下的菜单', '/admin/user/delete.do', '删除用户', '12', 'adminUserDelete', null, '0', ''), ('15', '管理后台－系统管理栏目', '/admin/system/index.do', '系统管理', '0', 'adminSystem', '1', '4', '&#xe614;'), ('16', '管理后台－系统管理－系统参数、系统变量', '/admin/system/variableList.do', '系统变量', '15', 'adminSystemVariable', '1', '0', ''), ('18', '退出登录，注销登录状态', '/user/logout.do', '退出登录', '0', 'userLogout', '1', '20', '&#xe633;'), ('21', '更改当前登录的密码', 'javascript:updatePassword();', '更改密码', '0', 'adminUserUpdatePassword', '1', '19', '&#xe642;'), ('44', '后台，权限管理', '/admin/role/roleList.do', '权限管理', '0', 'adminRole', '1', '3', '&#xe628;'), ('46', '后台，权限管理，新增、编辑角色', '/admin/role/editRole.do', '编辑角色', '44', 'adminRoleRole', null, '101', ''), ('48', '后台，权限管理，角色列表', '/admin/role/roleList.do', '角色管理', '44', 'adminRoleRoleList', '1', '1', ''), ('49', '后台，权限管理，删除角色', '/admin/role/deleteRole.do', '删除角色', '44', 'adminRoleDeleteRole', null, '102', ''), ('51', '后台，权限管理，资源Permission的添加、编辑功能', '/admin/role/editPermission.do', '编辑资源', '44', 'adminRolePermission', null, '103', ''), ('53', '后台，权限管理，资源Permission列表', '/admin/role/permissionList.do', '资源管理', '44', 'adminRolePermissionList', '1', '2', ''), ('54', '后台，权限管理，删除资源Permission', '/admin/role/deletePermission.do', '删除资源', '44', 'adminRoleDeletePermission', null, '104', ''), ('55', '后台，权限管理，编辑角色下资源', '/admin/role/editRolePermission.do', '编辑角色下资源', '44', 'adminRoleEditRolePermission', null, '105', ''), ('56', '后台，权限管理，编辑用户所属角色', '/admin/role/editUserRole.do', '编辑用户所属角色', '44', 'adminRoleEditUserRole', null, '106', ''), ('71', '后台，日志管理', '/admin/log/list.do', '日志统计', '0', 'adminLog', '1', '5', '&#xe62c;'), ('72', '后台，日志管理，用户动作的日志列表', '/admin/log/list.do', '用户动作', '71', 'adminLogList', '1', '1', ''), ('74', '管理后台－系统管理，新增、修改系统的全局变量', '/admin/system/variable.do', '修改变量', '15', 'adminSystemVariable', null, '0', ''), ('80', '后台，用户管理，查看用户详情', '/admin/user/view.do', '用户详情', '12', 'adminUserView', null, '0', ''), ('81', '后台，用户管理，冻结、解除冻结会员。冻结后用户将不能登录', '/admin/user/updateFreeze.do', '冻结用户', '12', 'adminUserUpdateFreeze', null, '0', ''), ('82', '后台，历史发送的短信验证码', '/admin/smslog/list.do', '短信验证', '0', 'adminSmsLogList', '1', '2', '&#xe63a;'), ('114', '后台管理首页，登录后台的话，需要授权此项，不然登录成功后仍然无法进入后台，被此页给拦截了', null, '管理后台', '0', 'adminIndex', null, '0', ''), ('115', '管理后台首页', '', '后台首页', '114', 'adminIndexIndex', null, '0', ''), ('116', '删除系统变量', 'admin/system/deleteVariable.do', '删除变量', '15', 'adminSystemDeleteVariable', null, '0', ''), ('117', '后台，日志管理，所有动作的日志图表', '/admin/log/cartogram.do', '动作统计', '71', 'adminLogCartogram', '1', '2', ''), ('120', '可以将某个资源设置为菜单是菜单项', '/admin/role/editPermissionMenu.do', '设为菜单', '44', 'adminRoleEditPermissionMenu', '0', '107', ''), ('121', '对资源进行排序', '/admin/role/savePermissionRank.do', '资源排序', '44', 'adminRoleEditPermissionRank', '0', '108', ''), ('122', '这里只有总管理才能使用这个功能，商家即使选上这个功能也没法用', '/shop/superadmin/store/list.do', '店铺管理', '0', 'ShopSuperAdminStoreController', '1', '1', '&#xe770;');
 COMMIT;
 
 -- ----------------------------
@@ -125,6 +128,90 @@ CREATE TABLE `plugin_firstorderaward_award` (
 BEGIN;
 INSERT INTO `plugin_firstorderaward_award` VALUES ('1', '15', '1'), ('219', null, '0'), ('341', null, '1'), ('4315', null, '0'), ('4321', null, '1'), ('4356', null, '0');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `plugin_limitbuy_store`
+-- ----------------------------
+DROP TABLE IF EXISTS `plugin_limitbuy_store`;
+CREATE TABLE `plugin_limitbuy_store` (
+  `id` int(11) NOT NULL COMMENT '对应 store.id， 是哪个商家的奖品规则',
+  `is_use` int(11) DEFAULT '0' COMMENT '是否是在使用， 1使用，0不使用',
+  `limit_number` int(11) DEFAULT NULL COMMENT '限额的次数，限制购买多少次。（订单）',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+--  Table structure for `plugin_limitbuy_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `plugin_limitbuy_user`;
+CREATE TABLE `plugin_limitbuy_user` (
+  `id` char(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'userid_storeid的组合体， 如  219_1',
+  `limit_number` int(11) DEFAULT NULL COMMENT '限额的次数，限制购买多少次。（订单）',
+  `storeid` int(11) DEFAULT NULL COMMENT '此用户拥有哪个站点的管理权。开通子账号会用到这个。如果这个有值，那么就是子账号了。对应 store.id',
+  `use_number` int(11) DEFAULT NULL COMMENT '限额的次数，限制购买多少次。（订单）',
+  `userid` int(11) DEFAULT NULL COMMENT '用户id，对应 User.id',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+--  Table structure for `plugin_pay_notice`
+-- ----------------------------
+DROP TABLE IF EXISTS `plugin_pay_notice`;
+CREATE TABLE `plugin_pay_notice` (
+  `id` int(11) NOT NULL COMMENT '对应 store.id， 是哪个商家的规则',
+  `is_use` int(11) DEFAULT '0' COMMENT '是否是在使用， 1使用，0不使用',
+  `phone` char(15) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '发送短信通知，发送到哪个手机号',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+--  Table structure for `plugin_sell_commission_log`
+-- ----------------------------
+DROP TABLE IF EXISTS `plugin_sell_commission_log`;
+CREATE TABLE `plugin_sell_commission_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增，自动编号',
+  `addtime` int(11) DEFAULT NULL COMMENT '此条记录产生的时间',
+  `money` int(11) DEFAULT NULL COMMENT '收入的金额，单位是分',
+  `orderid` int(11) DEFAULT NULL COMMENT '订单id， Order.id ，该佣金是哪个订单产生的',
+  `storeid` int(11) DEFAULT NULL COMMENT '店铺id，该佣金是属于哪个店铺，要哪个店铺发放',
+  `transfer_state` tinyint(2) DEFAULT NULL COMMENT '转账状态，结算状态，是否已经跟用户结算了。 1 已结算， 0未结算',
+  `userid` int(11) DEFAULT NULL COMMENT '用户id，该佣金是属于哪个用户的',
+  PRIMARY KEY (`id`),
+  KEY `suoyin_index` (`userid`,`storeid`,`addtime`,`transfer_state`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+--  Table structure for `plugin_sell_storeset`
+-- ----------------------------
+DROP TABLE IF EXISTS `plugin_sell_storeset`;
+CREATE TABLE `plugin_sell_storeset` (
+  `id` int(11) NOT NULL COMMENT '对应 store.id， 是哪个商家的奖品规则',
+  `dispose_day` int(2) DEFAULT '1' COMMENT '处理时间，也就是提交申请后，会在几个工作日内进行处理。这个字段主要是给用户端，给用户看的。',
+  `first_commission` int(3) DEFAULT '0' COMMENT '一级分成， A推荐B注册，B消费完成后，A能获得百分之多少分成。 单位是百分之几。如这里填写2，则A能获得B实际支付的百分之2作为佣金',
+  `is_use` int(11) DEFAULT '0' COMMENT '是否是在使用， 1使用，0不使用',
+  `money` int(11) DEFAULT NULL COMMENT '提现时，需要金额满足多少钱，可提现金额大于这个钱，才允许提交提现申请。这里单位是分',
+  `sms_notify` tinyint(11) DEFAULT NULL COMMENT '短信通知，是否开启短信通知， 0不开启，1开启。 开启这个的前提，是已经配置了短信接口。',
+  `two_commission` int(3) DEFAULT '0' COMMENT '二级分成， A推荐B注册，B推荐C注册，C消费完成后，A能获得百分之多少分成。单位是百分之几。如这里填写2，则A能获得C实际支付的百分之2作为佣金',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+--  Table structure for `plugin_sell_tixian_log`
+-- ----------------------------
+DROP TABLE IF EXISTS `plugin_sell_tixian_log`;
+CREATE TABLE `plugin_sell_tixian_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增，自动编号',
+  `addtime` int(11) DEFAULT NULL COMMENT '此次申请提现的时间，10位时间戳',
+  `card` char(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '卡号,收款账号',
+  `money` int(11) DEFAULT NULL COMMENT '此次提现金额，单位是分',
+  `phone` char(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '联系手机，如果出现什么问题，会打电话沟通',
+  `state` tinyint(2) DEFAULT NULL COMMENT '当前状态。0申请中，1已通过并汇款，2已拒绝。拒绝后店家会主动联系这个客户说明情况，就不需要走线上了',
+  `storeid` int(11) DEFAULT NULL COMMENT '此用户拥有哪个站点的管理权。开通子账号会用到这个。如果这个有值，那么就是子账号了。对应 store.id',
+  `userid` int(11) DEFAULT NULL COMMENT '用户id，对应 User.id',
+  `username` char(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '收款人姓名，收款的是谁',
+  PRIMARY KEY (`id`),
+  KEY `suoyin_index` (`userid`,`storeid`,`addtime`,`state`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `plugin_storesubaccount_user_role`
@@ -180,7 +267,7 @@ CREATE TABLE `role` (
 --  Records of `role`
 -- ----------------------------
 BEGIN;
-INSERT INTO `role` VALUES ('1', '建站用户', '建立网站的用户'), ('2', '论坛用户', '用户网站自己的论坛用户'), ('9', '总管理', '总后台管理，超级管理员'), ('10', '代理', '商代理，可以开通子代理、网站');
+INSERT INTO `role` VALUES ('1', '商家管理', '有权登录使用商家管理后台的'), ('9', '总管理', '总后台管理，超级管理员');
 COMMIT;
 
 -- ----------------------------
@@ -193,13 +280,13 @@ CREATE TABLE `role_permission` (
   `permissionid` int(11) DEFAULT NULL COMMENT '资源id，permission.id，一个角色可以拥有多个permission资源',
   PRIMARY KEY (`id`),
   KEY `roleid` (`roleid`)
-) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Shiro权限管理中，角色所拥有哪些资源的操作权限';
+) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Shiro权限管理中，角色所拥有哪些资源的操作权限';
 
 -- ----------------------------
 --  Records of `role_permission`
 -- ----------------------------
 BEGIN;
-INSERT INTO `role_permission` VALUES ('1', '9', '7'), ('4', '9', '4'), ('5', '9', '3'), ('6', '1', '1'), ('7', '1', '2'), ('8', '1', '4'), ('9', '1', '3'), ('10', '1', '7'), ('11', '1', '9'), ('12', '9', '12'), ('13', '9', '13'), ('14', '9', '1'), ('15', '9', '2'), ('16', '9', '9'), ('17', '9', '15'), ('18', '9', '16'), ('19', '9', '17'), ('20', '9', '18'), ('21', '9', '19'), ('23', '9', '21'), ('24', '9', '22'), ('25', '9', '28'), ('27', '9', '30'), ('28', '9', '11'), ('29', '9', '23'), ('30', '9', '14'), ('31', '9', '24'), ('32', '9', '26'), ('33', '9', '27'), ('34', '9', '31'), ('35', '9', '32'), ('36', '9', '33'), ('37', '9', '34'), ('38', '9', '35'), ('39', '9', '36'), ('40', '9', '37'), ('41', '9', '38'), ('47', '9', '68'), ('48', '9', '25'), ('49', '9', '44'), ('51', '9', '46'), ('53', '9', '48'), ('54', '9', '49'), ('56', '9', '51'), ('58', '9', '53'), ('59', '9', '54'), ('60', '9', '55'), ('61', '9', '56'), ('75', '9', '71'), ('76', '9', '72'), ('77', '9', '74'), ('78', '9', '10'), ('79', '9', '20'), ('80', '9', '75'), ('81', '9', '29'), ('85', '1', '18'), ('86', '1', '19'), ('87', '1', '20'), ('88', '1', '21'), ('89', '1', '22'), ('90', '1', '75'), ('91', '1', '28'), ('92', '1', '29'), ('93', '1', '30'), ('94', '1', '10'), ('95', '1', '11'), ('96', '1', '23'), ('97', '1', '24'), ('98', '1', '25'), ('99', '1', '26'), ('100', '1', '27'), ('101', '9', '80'), ('104', '9', '81'), ('109', '10', '1'), ('110', '10', '2'), ('111', '10', '18'), ('112', '10', '20'), ('113', '10', '21'), ('114', '10', '22'), ('115', '10', '75'), ('116', '10', '24'), ('117', '10', '25'), ('118', '10', '26'), ('119', '10', '27'), ('120', '10', '88'), ('121', '10', '89'), ('122', '10', '90'), ('123', '10', '91'), ('124', '11', '1'), ('125', '11', '2'), ('126', '11', '18'), ('127', '11', '19'), ('128', '11', '20'), ('129', '11', '21'), ('130', '11', '22'), ('131', '11', '75'), ('132', '11', '7'), ('133', '11', '9'), ('134', '11', '10'), ('135', '11', '11'), ('136', '11', '23'), ('137', '11', '24'), ('138', '11', '25'), ('139', '11', '26'), ('140', '11', '27'), ('141', '11', '88'), ('142', '11', '89'), ('143', '11', '90'), ('144', '11', '91'), ('145', '12', '1'), ('146', '12', '2'), ('147', '12', '18'), ('148', '12', '19'), ('149', '12', '20'), ('150', '12', '21'), ('151', '12', '22'), ('152', '12', '75'), ('153', '12', '88'), ('154', '12', '89'), ('155', '12', '90'), ('156', '12', '91'), ('157', '9', '92'), ('158', '9', '93'), ('159', '9', '94'), ('160', '9', '95'), ('161', '9', '96'), ('162', '12', '4'), ('163', '12', '3'), ('164', '12', '28'), ('165', '12', '29'), ('166', '12', '30'), ('167', '12', '7'), ('168', '12', '9'), ('169', '12', '10'), ('170', '12', '11'), ('171', '12', '23'), ('172', '12', '24'), ('173', '12', '25'), ('174', '12', '26'), ('175', '12', '27'), ('176', '10', '19'), ('177', '10', '4'), ('178', '10', '3'), ('179', '10', '28'), ('180', '10', '29'), ('181', '10', '30'), ('182', '10', '7'), ('183', '10', '9'), ('184', '10', '10'), ('185', '10', '11'), ('186', '10', '23'), ('187', '10', '97'), ('188', '9', '98'), ('189', '9', '99'), ('190', '9', '100'), ('191', '9', '101'), ('192', '9', '102'), ('193', '9', '103'), ('194', '9', '104'), ('195', '10', '105'), ('196', '10', '106'), ('197', '10', '107'), ('198', '10', '108'), ('199', '10', '109'), ('200', '10', '110'), ('201', '10', '111'), ('202', '10', '112'), ('203', '10', '113'), ('204', '9', '114'), ('205', '9', '115'), ('206', '10', '114'), ('207', '10', '115'), ('208', '9', '117'), ('209', '9', '116'), ('210', '10', '118'), ('211', '10', '119');
+INSERT INTO `role_permission` VALUES ('12', '9', '12'), ('13', '9', '13'), ('17', '9', '15'), ('18', '9', '16'), ('20', '9', '18'), ('23', '9', '21'), ('30', '9', '14'), ('49', '9', '44'), ('51', '9', '46'), ('53', '9', '48'), ('54', '9', '49'), ('56', '9', '51'), ('58', '9', '53'), ('59', '9', '54'), ('60', '9', '55'), ('61', '9', '56'), ('75', '9', '71'), ('76', '9', '72'), ('77', '9', '74'), ('85', '1', '18'), ('88', '1', '21'), ('101', '9', '80'), ('104', '9', '81'), ('109', '10', '1'), ('110', '10', '2'), ('111', '10', '18'), ('112', '10', '20'), ('113', '10', '21'), ('114', '10', '22'), ('115', '10', '75'), ('116', '10', '24'), ('117', '10', '25'), ('118', '10', '26'), ('119', '10', '27'), ('120', '10', '88'), ('121', '10', '89'), ('122', '10', '90'), ('123', '10', '91'), ('124', '11', '1'), ('125', '11', '2'), ('126', '11', '18'), ('127', '11', '19'), ('128', '11', '20'), ('129', '11', '21'), ('130', '11', '22'), ('131', '11', '75'), ('132', '11', '7'), ('133', '11', '9'), ('134', '11', '10'), ('135', '11', '11'), ('136', '11', '23'), ('137', '11', '24'), ('138', '11', '25'), ('139', '11', '26'), ('140', '11', '27'), ('141', '11', '88'), ('142', '11', '89'), ('143', '11', '90'), ('144', '11', '91'), ('145', '12', '1'), ('146', '12', '2'), ('147', '12', '18'), ('148', '12', '19'), ('149', '12', '20'), ('150', '12', '21'), ('151', '12', '22'), ('152', '12', '75'), ('153', '12', '88'), ('154', '12', '89'), ('155', '12', '90'), ('156', '12', '91'), ('162', '12', '4'), ('163', '12', '3'), ('164', '12', '28'), ('165', '12', '29'), ('166', '12', '30'), ('167', '12', '7'), ('168', '12', '9'), ('169', '12', '10'), ('170', '12', '11'), ('171', '12', '23'), ('172', '12', '24'), ('173', '12', '25'), ('174', '12', '26'), ('175', '12', '27'), ('176', '10', '19'), ('177', '10', '4'), ('178', '10', '3'), ('179', '10', '28'), ('180', '10', '29'), ('181', '10', '30'), ('182', '10', '7'), ('183', '10', '9'), ('184', '10', '10'), ('185', '10', '11'), ('186', '10', '23'), ('187', '10', '97'), ('195', '10', '105'), ('196', '10', '106'), ('197', '10', '107'), ('198', '10', '108'), ('199', '10', '109'), ('200', '10', '110'), ('201', '10', '111'), ('202', '10', '112'), ('203', '10', '113'), ('204', '9', '114'), ('205', '9', '115'), ('206', '10', '114'), ('207', '10', '115'), ('208', '9', '117'), ('209', '9', '116'), ('210', '10', '118'), ('211', '10', '119'), ('212', '9', '120'), ('213', '9', '121'), ('214', '9', '82'), ('216', '9', '122');
 COMMIT;
 
 -- ----------------------------
@@ -215,6 +302,10 @@ CREATE TABLE `shop_address` (
   `userid` int(11) DEFAULT NULL COMMENT '改地址所属用户，属于那个用户的，对应User.id',
   `username` char(10) DEFAULT NULL COMMENT '收货人用户姓名',
   `default_use` tinyint(2) DEFAULT '0' COMMENT '是否是默认使用的，1是默认使用的地址，0不是默认使用的。一个用户会有多个收货地址，但一个用户默认的收货地址只有一个',
+  `house` char(80) DEFAULT '' COMMENT '具体房间号，如 17号楼2单元202室',
+  `qu` char(20) DEFAULT '' COMMENT '所在的区，如 寒亭区',
+  `sheng` char(20) DEFAULT '' COMMENT '所在的省，如 山东省',
+  `shi` char(20) DEFAULT '' COMMENT '所在的市，如 潍坊市',
   PRIMARY KEY (`id`),
   KEY `suoyin_index` (`longitude`,`latitude`,`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
@@ -223,7 +314,7 @@ CREATE TABLE `shop_address` (
 --  Records of `shop_address`
 -- ----------------------------
 BEGIN;
-INSERT INTO `shop_address` VALUES ('1', 'sadfssdg阿斯顿阿斯顿', '0.000000', '0.000000', '1707', '1', 'guan是测试', '0'), ('5', '好多僵尸粉看巨额话费', '0.000000', '0.000000', '5545', '1', '哈哈哈', '0'), ('6', '山东潍坊市寒亭区开元街道通亭街亚星路路口向西20米路北，中国兽药饲料交易大厦十三楼E1308', '0.000000', '0.000000', '17076012262', '1', '管雷鸣', '1'), ('7', '33333', '0.000000', '0.000000', '344', '1', 'haha', '0'), ('8', '湖北', '0.000000', '0.000000', '15997778666', '398', 'ceshi520', '1'), ('10', '世界尽头', '1.333300', '1.333300', '1555555', '412', '渡劫', '1'), ('12', 'sgsdfsdf第三方史蒂夫史蒂夫史蒂夫史蒂夫史蒂夫史蒂夫收到sgsdfsdf第三方史蒂夫史蒂夫史蒂夫史蒂夫史蒂夫史蒂夫收到', '0.000000', '0.000000', '如444444', '411', '44444', '1'), ('22', '梧州市我的位置', '22.918280', '110.994900', '15526541989', '413', 'ggl', '0'), ('23', '广西壮族自治区梧州市岑溪市义州大道88号岑溪商贸中心', '22.915370', '110.995000', '15526541989', '413', 'ggl', '0'), ('24', '广西壮族自治区梧州市岑溪市水东街北水猪脚粉', '22.917499', '110.996238', '15526541989', '413', 'ggl', '0'), ('25', '在地图选择', '0.000000', '0.000000', '15526541999', '413', '555', '1'), ('26', 'sssssd', '0.000000', '0.000000', 'dddd', '411', 'sddd', '0'), ('27', '广西壮族自治区梧州市岑溪市义洲大道岑溪人民广场', '22.914580', '110.994590', '15526541989', '413', 'hh', '0'), ('28', '1', '0.000000', '0.000000', '1', '480', '1', '1');
+INSERT INTO `shop_address` VALUES ('1', 'sadfssdg阿斯顿阿斯顿', '0.000000', '0.000000', '1707', '1', 'guan是测试', '0', '', '', '', ''), ('5', '好多僵尸粉看巨额话费', '0.000000', '0.000000', '5545', '1', '哈哈哈', '0', '', '', '', ''), ('6', '山东潍坊市寒亭区开元街道通亭街亚星路路口向西20米路北，中国兽药饲料交易大厦十三楼E1308', '0.000000', '0.000000', '17076012262', '1', '管雷鸣', '1', '', '', '', ''), ('7', '33333', '0.000000', '0.000000', '344', '1', 'haha', '0', '', '', '', ''), ('8', '湖北', '0.000000', '0.000000', '15997778666', '398', 'ceshi520', '1', '', '', '', ''), ('10', '世界尽头', '1.333300', '1.333300', '1555555', '412', '渡劫', '1', '', '', '', ''), ('12', 'sgsdfsdf第三方史蒂夫史蒂夫史蒂夫史蒂夫史蒂夫史蒂夫收到sgsdfsdf第三方史蒂夫史蒂夫史蒂夫史蒂夫史蒂夫史蒂夫收到', '0.000000', '0.000000', '如444444', '411', '44444', '1', '', '', '', ''), ('22', '梧州市我的位置', '22.918280', '110.994900', '15526541989', '413', 'ggl', '0', '', '', '', ''), ('23', '广西壮族自治区梧州市岑溪市义州大道88号岑溪商贸中心', '22.915370', '110.995000', '15526541989', '413', 'ggl', '0', '', '', '', ''), ('24', '广西壮族自治区梧州市岑溪市水东街北水猪脚粉', '22.917499', '110.996238', '15526541989', '413', 'ggl', '0', '', '', '', ''), ('25', '在地图选择', '0.000000', '0.000000', '15526541999', '413', '555', '1', '', '', '', ''), ('26', 'sssssd', '0.000000', '0.000000', 'dddd', '411', 'sddd', '0', '', '', '', ''), ('27', '广西壮族自治区梧州市岑溪市义洲大道岑溪人民广场', '22.914580', '110.994590', '15526541989', '413', 'hh', '0', '', '', '', ''), ('28', '1', '0.000000', '0.000000', '1', '480', '1', '1', '', '', '', '');
 COMMIT;
 
 -- ----------------------------
@@ -459,6 +550,7 @@ CREATE TABLE `shop_order_rule` (
   `id` int(11) NOT NULL,
   `distribution` tinyint(11) DEFAULT '1' COMMENT '是否使用配送中这个状态，如果没有，订单可以有已支付直接变为已完成。1使用，0不使用。默认是1使用',
   `refund` tinyint(11) DEFAULT '1' COMMENT '是否使用退款这个状态，也就是是否允许用户退款。1使用，0不使用。默认是1使用',
+  `not_pay_timeout` int(11) DEFAULT '1800' COMMENT '订单如果创建订单了，但未支付，多长时间会自动取消订单，订单状态变为已取消。这里的单位是秒',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -466,7 +558,7 @@ CREATE TABLE `shop_order_rule` (
 --  Records of `shop_order_rule`
 -- ----------------------------
 BEGIN;
-INSERT INTO `shop_order_rule` VALUES ('1', '0', '1');
+INSERT INTO `shop_order_rule` VALUES ('1', '0', '1', '1800');
 COMMIT;
 
 -- ----------------------------
@@ -543,6 +635,20 @@ INSERT INTO `shop_pay_set` VALUES ('0', null, null, null, null, null, null, null
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `shop_sms_set`
+-- ----------------------------
+DROP TABLE IF EXISTS `shop_sms_set`;
+CREATE TABLE `shop_sms_set` (
+  `id` int(11) NOT NULL,
+  `password` char(30) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '短信平台登录的密码，30个字符内',
+  `quota_day_ip` int(11) DEFAULT '30' COMMENT '发送限制，此店铺下某个ip一天最多能发多少条短信，默认30',
+  `quota_day_phone` int(11) DEFAULT '5' COMMENT '发送限制，此店铺下某个手机号一天最多能发多少条短信。默认五条',
+  `uid` int(11) DEFAULT '0' COMMENT '短信平台登录的uid',
+  `use_sms` tinyint(2) DEFAULT '0' COMMENT '是否使用短信发送功能，启用短信接口的短信发送功能。1使用；0不使用。默认不使用。 ',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
 --  Table structure for `shop_store`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_store`;
@@ -564,6 +670,7 @@ CREATE TABLE `shop_store` (
   `state` tinyint(2) DEFAULT NULL COMMENT '店铺状态，0审核中，1营业中，2已打烊',
   `userid` int(11) DEFAULT NULL COMMENT '店铺所属用户，哪个用户创建的，对应 User.id',
   `version` int(11) DEFAULT '0' COMMENT '乐观锁',
+  `referrer_userid` int(11) DEFAULT '0' COMMENT '来源id，推荐人的user.id，上级的用户id。是哪个用户推荐这个商家入驻的',
   PRIMARY KEY (`id`),
   KEY `suoyin_index` (`userid`,`state`,`longitude`,`latitude`,`province`,`city`,`district`,`sale`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
@@ -572,7 +679,7 @@ CREATE TABLE `shop_store` (
 --  Records of `shop_store`
 -- ----------------------------
 BEGIN;
-INSERT INTO `shop_store` VALUES ('1', '亚华大酒店', '1582872019', '潍坊市', '管雷鸣', '寒亭区', '//cdn.shop.leimingyun.com/slideshow/e57cf791afa44fe19f7a8d7e1f5bd6d7.png', '111.217350', '23.117628', '管大店铺1', 'bie', '17076000000', '山东省', '195', '1', '393', '39');
+INSERT INTO `shop_store` VALUES ('1', '亚华大酒店', '1582872019', '潍坊市', '管雷鸣', '寒亭区', '//cdn.shop.leimingyun.com/slideshow/e57cf791afa44fe19f7a8d7e1f5bd6d7.png', '111.217350', '23.117628', '管大店铺1', 'bie', '17076000000', '山东省', '195', '1', '393', '39', '0');
 COMMIT;
 
 -- ----------------------------
@@ -603,6 +710,24 @@ INSERT INTO `shop_store_data` VALUES ('1', '23');
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `shop_store_sms_log`
+-- ----------------------------
+DROP TABLE IF EXISTS `shop_store_sms_log`;
+CREATE TABLE `shop_store_sms_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `addtime` int(11) DEFAULT NULL COMMENT '添加时间',
+  `code` char(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '发送的验证码，6位数字',
+  `ip` char(22) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '触发发送操作的客户ip地址',
+  `phone` char(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '发送到的手机号',
+  `storeid` int(11) DEFAULT NULL COMMENT '哪个店铺的',
+  `type` char(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '类型',
+  `used` tinyint(2) DEFAULT NULL COMMENT '是否被使用了,1已使用，0未使用',
+  `userid` int(11) DEFAULT NULL COMMENT '哪个用户',
+  PRIMARY KEY (`id`),
+  KEY `suoyin_index` (`code`,`userid`,`used`,`type`,`addtime`,`phone`,`ip`,`storeid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
 --  Table structure for `shop_store_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_store_user`;
@@ -614,7 +739,6 @@ CREATE TABLE `shop_store_user` (
   PRIMARY KEY (`id`),
   KEY `suoyin_index` (`userid`,`storeid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=535 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 
 -- ----------------------------
 --  Table structure for `sms_log`
@@ -650,7 +774,7 @@ CREATE TABLE `system` (
 --  Records of `system`
 -- ----------------------------
 BEGIN;
-INSERT INTO `system` VALUES ('USER_REG_ROLE', '用户注册后的权限，其值对应角色 role.id', '1', '6', '1506333513'), ('SITE_NAME', '网站名称', '网·市场', '7', null), ('SITE_KEYWORDS', '网站SEO搜索的关键字，首页根内页没有设置description的都默认用此', '网市场云建站系统', '8', null), ('SITE_DESCRIPTION', '网站SEO描述，首页根内页没有设置description的都默认用此', '管雷鸣', '9', null), ('CURRENCY_NAME', '站内货币名字', '仙玉', '10', null), ('INVITEREG_AWARD_ONE', '邀请注册后奖励给邀请人多少站内货币（一级下线，直接推荐人，值必须为整数）', '5', '11', null), ('INVITEREG_AWARD_TWO', '邀请注册后奖励给邀请人多少站内货币（二级下线，值必须为整数）', '2', '12', null), ('INVITEREG_AWARD_THREE', '邀请注册后奖励给邀请人多少站内货币（三级下线，值必须为整数）', '1', '13', null), ('INVITEREG_AWARD_FOUR', '邀请注册后奖励给邀请人多少站内货币（四级下线，值必须为整数）', '1', '14', null), ('ROLE_USER_ID', '普通用户的角色id，其值对应角色 role.id', '1', '15', '1506333544'), ('ROLE_SUPERADMIN_ID', '超级管理员的角色id，其值对应角色 role.id', '9', '16', '1506333534'), ('BBS_DEFAULT_PUBLISH_CLASSID', '论坛中，如果帖子发布时，没有指明要发布到哪个论坛板块，那么默认选中哪个板块(分类)，这里便是分类的id，即数据表中的 post_class.id', '3', '20', '1506478724'), ('USER_HEAD_PATH', '用户头像(User.head)上传OSS或服务器进行存储的路径，存储于哪个文件夹中。<br/><b>注意</b><br/>1.这里最前面不要加/，最后要带/，如 head/<br/>2.使用中时，中途最好别改动，不然改动之前的用户设置好的头像就都没了', 'head/', '21', '1506481173'), ('ALLOW_USER_REG', '是否允许用户自行注册。<br/>1：允许用户自行注册<br/>0：禁止用户自行注册', '1', '22', '1507537911'), ('LIST_EVERYPAGE_NUMBER', '所有列表页面，每页显示的列表条数。', '15', '23', '1507538582'), ('SERVICE_MAIL', '网站管理员的邮箱。<br/>当网站出现什么问题，或者什么提醒时，会自动向管理员邮箱发送提示信息', '123456@qq.com', '24', '1511934294'), ('AGENCY_ROLE', '代理商得角色id', '10', '25', '1511943731'), ('ALIYUN_ACCESSKEYID', '阿里云平台的accessKeyId。<br/>若/src下的配置文件中有关此参数为空，则参数变会从这里赋值。<br/>可从这里获取 https://ak-console.aliyun.com', '', '26', '1581924825'), ('ALIYUN_ACCESSKEYSECRET', '阿里云平台的accessKeySecret。<br/>若/src下的配置文件中有关此参数为空，则参数变会从这里赋值。<br/>可从这里获取 https://ak-console.aliyun.com', '', '27', '1581924830'), ('ALIYUN_OSS_BUCKETNAME', '其实就是xnx3Config配置文件中配置OSS节点进行文件上传的OSS配置。若xml文件中没有配置，那么会自动从这里读取。<br/>若值为auto，则会自动创建。建议值不必修改，默认即可。它可自动给你赋值。', 'wangmarket1581924839', '28', '1512626183'), ('IW_AUTO_INSTALL_USE', '是否允许通过访问/install/目录进行可视化配置参数。<br/>true：允许使用<br/>false:不允许使用<br/>建议不要动此处。执行完/install 配置完后，此处会自动变为false', 'true', '29', '1512616421'), ('ALIYUN_LOG_SITESIZECHANGE', '站币变动的日志记录。此项无需改动', 'sitemoneychange', '30', '1512700960'), ('AUTO_ASSIGN_DOMAIN', '网站生成后，会自动分配给网站一个二级域名。这里便是泛解析的主域名。<br/>如果分配有多个二级域名，则用,分割。并且第一个是作为主域名会显示给用户看到。后面的其他的域名用户不会看到，只可以使用访问网站。', '', '31', '1512717500'), ('MASTER_SITE_URL', '设置当前建站系统的域名。如建站系统的登录地址为 http://wang.market/login.do ，那么就将 http://wang.market/  填写到此处。', 'https://api.shop.leimingyun.com/', '134', '1515401613'), ('ATTACHMENT_FILE_URL', '设置当前建站系统中，上传的图片、附件的访问域名。若后续想要将附件转到云上存储、或开通CDN加速，可平滑上云使用。', '//www.xxxxxx.com/', '135', '1581924902'), ('ATTACHMENT_FILE_MODE', '当前文件附件存储使用的模式，用的阿里云oss，还是服务器本身磁盘进行存储。<br/>可选一：aliyunOSS：阿里云OSS模式存储<br/>可选二：localFile：服务器本身磁盘进行附件存储', 'localFile', '136', '1515395510'), ('SITEUSER_FIRST_USE_EXPLAIN_URL', '网站建站用户第一天登陆网站管理后台时，在欢迎页面会自动通过iframe引入的入门使用说明的视频，这里便是播放的视频的页面网址', '//video.leimingyun.com/sitehelp/sitehelp.html', '137', '1533238686'), ('AGENCYUSER_FIRST_USE_EXPLAIN_URL', '代理用户前15天登陆代理后台时，会自动弹出使用教程的提示。这里便是教程的链接地址', '//www.wscso.com/jianzhanDemo.html', '138', '1533238686'), ('SITE_TEMPLATE_DEVELOP_URL', '模版开发说明，模版开发入门', '//tag.wscso.com/4192.html', '139', '1540972613'), ('FORBID_DOMAIN', '保留不给用户申请的二级域名。多个用|分割，且填写字符必须小写，格式如 admin|domain|m|wap|www  如果留空不填则无保留域名', 'admin|domain', '149', '1566269940'), ('STATIC_RESOURCE_PATH', '系统静态资源如css、js等调用的路径。填写如:  //res.weiunity.com/   默认是/ 则是调取当前项目的资源，以相对路径调用', '/', '150', '1540972613'), ('ROLE_ADMIN_SHOW', '总管理后台中，是否显示权限管理菜单。1为显示，0为不显示', '0', '151', '1540972613'), ('FEN_GE_XIAN', '分割线，系统变量，若您自己添加，请使用id为 10000以后的数字。 10000以前的数字为系统预留。', '10000', '10000', '1540972613'), ('WEIXIN_APPLET_APPID', null, '', '10001', '0'), ('WEIXIN__APPLET_APPSECRET', null, '9aaf03a65a321df8e400d34a6538f360', '10002', '0'), ('ALIYUN_COMMON_ENDPOINT', '阿里云通用的地域设置。如香港，则此处的值为 hongkong ；上海，则是 shanghai', 'beijing', '10003', '1581924836'), ('ALIYUN_OSS_ENDPOINT', '阿里云OSS的Endpoint设置。如香港，则此处的值为 oss-cn-hongkong.aliyuncs.com ；上海，则是 oss-cn-shanghai.aliyuncs.com', 'oss-cn-beijing.aliyuncs.com', '10004', '1581924838');
+INSERT INTO `system` VALUES ('USER_REG_ROLE', '用户注册后的权限，其值对应角色 role.id', '1', '6', '1506333513'), ('SITE_NAME', '网站名称', '网市场云商城', '7', '1628668798'), ('SITE_KEYWORDS', '网站SEO搜索的关键字，首页根内页没有设置description的都默认用此', '网市场云商城系统', '8', '1628668802'), ('SITE_DESCRIPTION', '网站SEO描述，首页根内页没有设置description的都默认用此', '管雷鸣', '9', null), ('ROLE_USER_ID', '普通用户的角色id，其值对应角色 role.id', '1', '15', '1506333544'), ('ROLE_SUPERADMIN_ID', '超级管理员的角色id，其值对应角色 role.id', '9', '16', '1506333534'), ('USER_HEAD_PATH', '用户头像(User.head)上传OSS或服务器进行存储的路径，存储于哪个文件夹中。<br/><b>注意</b><br/>1.这里最前面不要加/，最后要带/，如 head/<br/>2.使用中时，中途最好别改动，不然改动之前的用户设置好的头像就都没了', 'head/', '21', '1506481173'), ('ALLOW_USER_REG', '是否允许用户自行注册。<br/>1：允许用户自行注册<br/>0：禁止用户自行注册', '1', '22', '1507537911'), ('LIST_EVERYPAGE_NUMBER', '所有列表页面，每页显示的列表条数。', '15', '23', '1507538582'), ('SERVICE_MAIL', '网站管理员的邮箱。<br/>当网站出现什么问题，或者什么提醒时，会自动向管理员邮箱发送提示信息', '123456@qq.com', '24', '1511934294'), ('AGENCY_ROLE', '代理商得角色id', '10', '25', '1511943731'), ('IW_AUTO_INSTALL_USE', '是否允许通过访问/install/目录进行可视化配置参数。<br/>true：允许使用<br/>false:不允许使用<br/>建议不要动此处。执行完/install 配置完后，此处会自动变为false', 'true', '29', '1512616421'), ('MASTER_SITE_URL', '设置当前建站系统的域名。如建站系统的登录地址为 http://wang.market/login.do ，那么就将 http://wang.market/  填写到此处。', 'https://api.shop.leimingyun.com/', '134', '1515401613'), ('ATTACHMENT_FILE_URL', '设置当前建站系统中，上传的图片、附件的访问域名。若后续想要将附件转到云上存储、或开通CDN加速，可平滑上云使用。', '//www.xxxxxx.com/', '135', '1581924902'), ('ATTACHMENT_FILE_MODE', '当前文件附件存储使用的模式，用的阿里云oss，还是服务器本身磁盘进行存储。<br/>可选一：aliyunOSS：阿里云OSS模式存储<br/>可选二：localFile：服务器本身磁盘进行附件存储', 'localFile', '136', '1515395510'), ('STATIC_RESOURCE_PATH', '系统静态资源如css、js等调用的路径。填写如:  //res.weiunity.com/   默认是/ 则是调取当前项目的资源，以相对路径调用', '/', '150', '1540972613'), ('ROLE_ADMIN_SHOW', '总管理后台中，是否显示权限管理菜单。1为显示，0为不显示', '0', '151', '1540972613'), ('FEN_GE_XIAN', '分割线，系统变量，若您自己添加，请使用id为 10000以后的数字。 10000以前的数字为系统预留。', '10000', '10000', '1540972613');
 COMMIT;
 
 -- ----------------------------
@@ -688,7 +812,7 @@ CREATE TABLE `user` (
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1', 'admin', '', '94940b4491a87f15333ed68cc0cdf833', 'default.png', '好看环境卡萨丁', '9', '1512818402', '1588492735', '127.0.0.1', '9738', '17000000002', '1', '0', '0.00', '127.0.0.1', '0', '0.00', '1', null, '256'), ('392', 'agency', '', '80c5df10de72fde1b346de758c70d337', 'default.png', '代理', '10', '1512818402', '1515402763', '127.0.0.1', '9738', '17000000001', '0', '1', '0.00', '127.0.0.1', '0', '0.00', null, null, '1'), ('393', 'store', null, 'aa6d0fa04e70ab7b343a32c9812a4956', null, '商家', '8', '1589531514', '1589531514', '', '1234', null, '0', '1', '0.00', '127.0.0.1', '0', '0.00', null, null, '178');
+INSERT INTO `user` VALUES ('1', 'admin', '', '94940b4491a87f15333ed68cc0cdf833', 'default.png', '好看环境卡萨丁', '9', '1512818402', '1628670987', '127.0.0.1', '9738', '17000000002', '1', '0', '0.00', '127.0.0.1', '0', '0.00', '1', null, '256'), ('393', 'store', null, 'aa6d0fa04e70ab7b343a32c9812a4956', null, '商家', '8', '1589531514', '1589531514', '', '1234', null, '0', '1', '0.00', '127.0.0.1', '0', '0.00', null, null, '178');
 COMMIT;
 
 -- ----------------------------
@@ -724,7 +848,7 @@ CREATE TABLE `user_role` (
 --  Records of `user_role`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user_role` VALUES ('257', '243', '1'), ('412', '392', '10'), ('413', '1', '9'), ('414', '394', '1'), ('415', '395', '1'), ('416', '396', '1'), ('417', '397', '1'), ('418', '398', '1'), ('419', '399', '1'), ('420', '400', '1'), ('421', '401', '1'), ('422', '402', '1'), ('423', '403', '1'), ('424', '404', '1'), ('425', '405', '1'), ('426', '406', '1'), ('427', '407', '1'), ('428', '408', '1'), ('429', '409', '1'), ('430', '410', '1'), ('431', '411', '1'), ('432', '412', '1'), ('433', '413', '1'), ('434', '414', '1'), ('435', '415', '1'), ('436', '416', '1'), ('437', '417', '1'), ('438', '418', '1'), ('439', '419', '1'), ('440', '420', '1'), ('441', '421', '1'), ('442', '422', '1'), ('443', '423', '1'), ('444', '424', '1'), ('445', '425', '1'), ('446', '426', '1'), ('447', '427', '1'), ('448', '428', '1'), ('449', '429', '1'), ('450', '430', '1'), ('451', '431', '1'), ('452', '432', '1'), ('453', '433', '1'), ('454', '434', '1'), ('455', '435', '1'), ('456', '436', '1'), ('457', '437', '1'), ('458', '438', '1'), ('459', '439', '1'), ('460', '440', '1'), ('461', '441', '1'), ('462', '442', '1'), ('463', '443', '1'), ('464', '444', '1'), ('465', '445', '1'), ('466', '446', '1'), ('467', '447', '1'), ('468', '448', '1'), ('469', '449', '1'), ('470', '450', '1'), ('471', '451', '1'), ('472', '452', '1'), ('473', '453', '1'), ('474', '454', '1'), ('475', '455', '1'), ('476', '456', '1'), ('477', '457', '8'), ('478', '458', '8'), ('479', '459', '1'), ('480', '460', '1'), ('481', '461', '1'), ('482', '462', '8'), ('483', '463', '8'), ('484', '464', '8'), ('485', '465', '1'), ('486', '466', '1'), ('487', '467', '8'), ('488', '468', '1'), ('489', '469', '1'), ('490', '470', '1'), ('491', '471', '1'), ('492', '472', '1'), ('493', '473', '1'), ('494', '474', '1'), ('495', '475', '1'), ('496', '476', '1'), ('497', '477', '8'), ('498', '478', '1'), ('499', '479', '8'), ('500', '480', '1'), ('501', '481', '1'), ('502', '482', '8'), ('503', '483', '8'), ('504', '484', '8'), ('505', '485', '8'), ('506', '486', '8'), ('507', '487', '8'), ('508', '488', '8'), ('509', '489', '8'), ('510', '490', '8'), ('511', '394', '8');
+INSERT INTO `user_role` VALUES ('412', '392', '10'), ('413', '1', '9'), ('414', '393', '1');
 COMMIT;
 
 -- ----------------------------
