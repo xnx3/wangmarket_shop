@@ -3,54 +3,18 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '5f156c4e4743f777c359b6666dd7eacba27121ce'
-    oldFile: !uuid '922d7e958466131bfccc22abcc8fbd40cb47778b'
+    newFile: !uuid 'd97bcfae278336cd9e6b395a1b548a72d574370b'
+    oldFile: !uuid '5f156c4e4743f777c359b6666dd7eacba27121ce'
   /src/main:
-    newFile: !uuid 'e1721b5f40055c2a37f0d5c6a5c3dc649a684419'
-    oldFile: !uuid '37f03b11b17e251e4cd97712cbeacfe373217461'
-  /src/main/java:
-    newFile: !uuid '295496bca3c8cf3ebaafd56eb6f293b9415b96b7'
-    oldFile: !uuid 'ad3cb2528bfe03a276738d68cc99954f4891ac5c'
-  /src/main/java/com:
-    newFile: !uuid '502bd6a3b389e05080badd4468498ee4330f65eb'
-    oldFile: !uuid '1c5ba3afd225e02eda732c51239e7e591b7653d9'
-  /src/main/java/com/xnx3:
-    newFile: !uuid 'bdedbca8ec56f948e4ff4b845acdd848e3abf43e'
-    oldFile: !uuid '01fa9474da3fe0c88890d9d443ee34cd032968ab'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '86d1cad35f1ac38ff488754736a5bf0ace3bb5cb'
-    oldFile: !uuid 'ec4424c0512585244b46ec7261c81be7b280ce02'
-  /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid '1188e844d3987a9de7017610d36103b918540a1a'
-    oldFile: !uuid '2309216b61eb0e294437baeef183906e1c8d425f'
-  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord:
-    newFile: !uuid '5fd287330f674ef0363340ac5834293cfc9738f8'
-    oldFile: !uuid 'b283c83ce9b28c870417aab6d14b751be7720c17'
-  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord/controller:
-    newFile: !uuid '04a5088ca6596ad008b68164d7640764ccc615b0'
-    oldFile: !uuid '2c2ae0cfb3506ff7a669e9c34597a57659b85d46'
-  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord/controller/admin:
-    newFile: !uuid '5a12a6f55d3db0c3a86f0670078d05ebc3b82b7d'
-    oldFile: !uuid 'c44a6fcd63c6c00f6022a9d7c975a6cf29985b22'
-  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord/controller/admin/RecordAdminController.java:
-    newFile: !uuid 'a90dd97625cd0cab991c03d0732d1fcfd6406938'
-    oldFile: !uuid 'd0ed83486cbf12ed69f311b09164dbeb4f29fa5e'
-  /src/main/webapp:
-    newFile: !uuid 'f81e2f765e4e46d096249baae3f4f845136dc9da'
-    oldFile: !uuid 'e58fbf262e1550f7c3602c8a160c0c36526f6379'
-  /src/main/webapp/plugin:
-    newFile: !uuid '162285403c5c84f73e396d55f20c2d74a7cdfb96'
-    oldFile: !uuid '457a6d54aa926ccd4cf056127215da3019fafee3'
-  /src/main/webapp/plugin/visitBrowserRecord:
-    newFile: !uuid '96ca99f4b2be9ed19a790387300b593a3f16cc1b'
-    oldFile: null
-  /src/main/webapp/plugin/visitBrowserRecord/admin:
-    newFile: !uuid '9e71489fb3737f02ebd17baa51330c52b68531ae'
-    oldFile: null
-  /src/main/webapp/plugin/visitBrowserRecord/admin/list.jsp:
-    newFile: !uuid 'b91125d22470b1cb1911a0cc5a537f80cad5b89f'
-    oldFile: null
-gitCommitId: !uuid 'b810e680c0cd9adafca9d2e5db8d9529a54e433f'
+    newFile: !uuid '747ade28d52f94b92127213f29c8cc6baddf7e6e'
+    oldFile: !uuid 'e1721b5f40055c2a37f0d5c6a5c3dc649a684419'
+  /src/main/resources:
+    newFile: !uuid 'bfa25689bf37577f787eecd4a98a5f3bf13437db'
+    oldFile: !uuid 'f8cc79357fd4e3f01d25ab300dfead7061367c77'
+  /src/main/resources/application.properties:
+    newFile: !uuid '2d7342518a5ee976f157b51c845f1903b2b6bf59'
+    oldFile: !uuid '7f27acd43920c62716876f004a6139e172f58dd4'
+gitCommitId: !uuid '0ec842a65faff2732edbeb68f5b5bdbdc9a41fc4'
 renames: {
   }
-revisionId: 389
+revisionId: 390
