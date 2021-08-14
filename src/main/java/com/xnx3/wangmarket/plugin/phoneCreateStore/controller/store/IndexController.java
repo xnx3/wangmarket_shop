@@ -46,7 +46,7 @@ public class IndexController extends BasePluginController{
 		}
 
 		ActionLogUtil.insert(request, "phoneCreateKefu plugin 打开根据手机号注册页面");
-		return "/plugin/phoneCreateKefu/reg";
+		return "/plugin/phoneCreateStore/reg";
 	}
 
 	/**
