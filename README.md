@@ -35,7 +35,7 @@ host： 商城的url，如果你是自己跑在本地，这里可以传入 http:
 | 二次开发  | [点此查看文档](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/bed2ecca-8e2e-4b20-8099-10f09101b097/preview?doc_id=1532896&sort_id=4255124)  | 本地运行、二次开发相关说明 |
 | 安装部署  | [点此查看文档](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/bed2ecca-8e2e-4b20-8099-10f09101b097/preview?doc_id=1532896&sort_id=4255147)  | 将本项目部署到线上服务器 |
 | 后台账号  | [点此查看文档](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/serverinstall/preview?sort_id=4110640&doc_id=1473420)  | 登录管理后台、商城的默认账号密码 |
-| 商家后台API  | [点此查看文档](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/889cb0c9-be33-4a47-aec6-20cd27ea52be/preview?doc_id=1525567&sort_id=4241705)  | 商家管理后台的API开放文档，可以自由定制管理后台 |
+| 商家后台API  | [点此查看文档](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/889cb0c9-be33-4a47-aec6-20cd27ea52be/preview?doc_id=1525567&sort_id=4298491)  | 商家管理后台的API开放文档，可以自由定制管理后台 |
 | 用户商城API  | [点此查看文档](http://shop.wang.market)  | 用户在使用商城的API功能，可以用来定做小程序商城、APP商城等 |
 
 
