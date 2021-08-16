@@ -20,7 +20,7 @@
 #### 2. 体验店铺管理后台  
 记得添加个分类、添加个商品，试试功能，同时也能测试时看到效果  
 #### 3. 体验效果  
-这里我们开放了一个方便体验的h5页面（这个H5页面也是开源的），访问url：   
+这里我们开放了一个方便体验的h5页面（[这个H5页面也是开源的](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/wangmarket_site_learn/preview?doc_id=1258300&sort_id=3912490)），访问url：   
 http://demo.imall.net.cn/index.html?storeid=1&host=https://api.imall.net.cn/  
 其中:  
 storeid： 便是你开通的店铺的id，刚开通店铺后跳转的页面里就有。  
