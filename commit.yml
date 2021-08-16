@@ -2,19 +2,10 @@
 branches: {
   }
 fileChange:
-  /src:
-    newFile: !uuid 'c91357fd3b1f9be0d86c52d0375710a886f8cd9e'
-    oldFile: !uuid 'ee756af915ce7539d5f7b1d5ffef44a141111a94'
-  /src/main:
-    newFile: !uuid 'c2bce7a9e7a327bde2afa61bf9e2b7103cdb1254'
-    oldFile: !uuid 'f7a1d4a7eef3ae20b2f07a06347cb952ce076dfa'
-  /src/main/resources:
-    newFile: !uuid 'a4f2870c6ba873ce70ef7ff0f7c2f77b0907d23c'
-    oldFile: !uuid '37cbb95806fb910452eb1616dfa1ba2941ec57c2'
-  /src/main/resources/application.properties:
-    newFile: !uuid '9cef3f64fab5d759201335cd4fc226c678643d5d'
-    oldFile: !uuid '5ad42e0cc98d70b5667d0690a4769529600b8814'
-gitCommitId: !uuid 'e04f0d17de8a6963a4a4d22f9f785b81d54b8b40'
+  /README.md:
+    newFile: !uuid '6be4e122cd39710f2f054d724839be8353c65799'
+    oldFile: !uuid '6696edd791f056ea80d1314ab4126455bd9ef33f'
+gitCommitId: !uuid '395859b5fe184ee094fa9b18dbdab97357798696'
 renames: {
   }
-revisionId: 401
+revisionId: 402
