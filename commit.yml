@@ -3,36 +3,18 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'ee756af915ce7539d5f7b1d5ffef44a141111a94'
-    oldFile: !uuid 'e6994ccf50962fceb22205e76f73b64cc82e8b92'
+    newFile: !uuid 'c91357fd3b1f9be0d86c52d0375710a886f8cd9e'
+    oldFile: !uuid 'ee756af915ce7539d5f7b1d5ffef44a141111a94'
   /src/main:
-    newFile: !uuid 'f7a1d4a7eef3ae20b2f07a06347cb952ce076dfa'
-    oldFile: !uuid '17ebc7a09e6e05e756652d5ad4d4d7141d3322e6'
-  /src/main/webapp:
-    newFile: !uuid 'c01c4d865fd476306ac40938c280c9cc592258ed'
-    oldFile: !uuid 'c18d758011e65694de1bf51076f377ef8432ad2a'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid '70b5d556eecf23bffa31f0f46382941688d30c48'
-    oldFile: !uuid '1e69b157a7b212e4b4ebc1bce390770842316d3f'
-  /src/main/webapp/WEB-INF/view:
-    newFile: !uuid 'afc189b11912f4db10a50082fe4041e762dbf1aa'
-    oldFile: !uuid '28c37d924b394661107a9d1099c619389ab3fd80'
-  /src/main/webapp/WEB-INF/view/plugin:
-    newFile: !uuid 'dc1e896ad0505b711f28a41396dce0b6d87dad8e'
-    oldFile: !uuid '7544741e50471f125d3faf8368b1e5dba856fced'
-  /src/main/webapp/WEB-INF/view/plugin/phoneCreateStore:
-    newFile: !uuid 'ee275b88bfc309d8f3a92bf187d51b0efac2fdc1'
-    oldFile: !uuid 'd24d11e59c1a777f352618fabff7845fb866a72b'
-  /src/main/webapp/WEB-INF/view/plugin/phoneCreateStore/reg.jsp:
-    newFile: !uuid 'c3ca514ac177f7085113744614506861cd0beb30'
-    oldFile: !uuid 'c4e6aa815accd586da4300cf5f17b95e1e6f1c48'
-  /src/main/webapp/favicon.ico:
-    newFile: null
-    oldFile: !uuid 'e925a100615a83c576588b1f25b428c879c7dc3b'
-  /src/main/webapp/template.jsp:
-    newFile: null
-    oldFile: !uuid '4dcb1977d4aa2350d3966fe10adbf3e4d3abfe0e'
-gitCommitId: !uuid '6a77295c5b41a3e32bdb1ac89f3b20b63fb132a4'
+    newFile: !uuid 'c2bce7a9e7a327bde2afa61bf9e2b7103cdb1254'
+    oldFile: !uuid 'f7a1d4a7eef3ae20b2f07a06347cb952ce076dfa'
+  /src/main/resources:
+    newFile: !uuid 'a4f2870c6ba873ce70ef7ff0f7c2f77b0907d23c'
+    oldFile: !uuid '37cbb95806fb910452eb1616dfa1ba2941ec57c2'
+  /src/main/resources/application.properties:
+    newFile: !uuid '9cef3f64fab5d759201335cd4fc226c678643d5d'
+    oldFile: !uuid '5ad42e0cc98d70b5667d0690a4769529600b8814'
+gitCommitId: !uuid 'e04f0d17de8a6963a4a4d22f9f785b81d54b8b40'
 renames: {
   }
-revisionId: 400
+revisionId: 401
