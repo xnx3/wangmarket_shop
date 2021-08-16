@@ -3,63 +3,36 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'e6994ccf50962fceb22205e76f73b64cc82e8b92'
-    oldFile: !uuid '3e1e651cbcec847248e476ddeb44960f734bb9f4'
+    newFile: !uuid 'ee756af915ce7539d5f7b1d5ffef44a141111a94'
+    oldFile: !uuid 'e6994ccf50962fceb22205e76f73b64cc82e8b92'
   /src/main:
-    newFile: !uuid '17ebc7a09e6e05e756652d5ad4d4d7141d3322e6'
-    oldFile: !uuid '93213733def8c9d06484c1504b4038716c6847c9'
-  /src/main/java:
-    newFile: !uuid '7ec4319c88988d88c54edba69082997b066e5062'
-    oldFile: !uuid 'b99886f6b83d18c615692b8bc7071b99c3f10166'
-  /src/main/java/com:
-    newFile: !uuid '06d64e26394ceb7e9e6a2018099e9c96b5dc72f1'
-    oldFile: !uuid 'dd51240adc1caffa09f1e39184a0ca3521011d25'
-  /src/main/java/com/xnx3:
-    newFile: !uuid '1c02f0c5341a10ce6ffbd63a09e795db2579ee91'
-    oldFile: !uuid '054ab77b13f96b7d4ad6b7b00ee3ce00eed59a93'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid 'cd22ee880c391ea8d376197d1bde9e2477326e1f'
-    oldFile: !uuid '1abe44173802f3712794efaa45980800642f6b46'
-  /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid 'acf35e734beb649ee200009c3994a3b03439632a'
-    oldFile: !uuid 'd62fc4943fd0a0ba2153fbbdda3b90e291b87fd1'
-  /src/main/java/com/xnx3/wangmarket/plugin/phoneCreateStore:
-    newFile: !uuid '14a789e547058890c4513b2f1f40d03ff5fca27e'
-    oldFile: !uuid '8180bf4650ab7115f523fa6926ca4268cf35a1bd'
-  /src/main/java/com/xnx3/wangmarket/plugin/phoneCreateStore/controller:
-    newFile: !uuid 'ad0b2c00fe39b05173fab164646d725ac92d9e06'
-    oldFile: !uuid '6ce3cf0b3d026f8a547e1c489abda36359215dcb'
-  /src/main/java/com/xnx3/wangmarket/plugin/phoneCreateStore/controller/store:
-    newFile: !uuid '332084bf62e71ce26f97a3a3e6c2af52afb8d6eb'
-    oldFile: !uuid 'f1d8c2f01089c5caafb77345484618fe6d1ce5f8'
-  /src/main/java/com/xnx3/wangmarket/plugin/phoneCreateStore/controller/store/IndexController.java:
-    newFile: !uuid '35e529a68902a2a096a80234b85dcdeebbc13bb4'
-    oldFile: !uuid 'eb1d2b32fccccbb47da544734763fda36693d6d4'
+    newFile: !uuid 'f7a1d4a7eef3ae20b2f07a06347cb952ce076dfa'
+    oldFile: !uuid '17ebc7a09e6e05e756652d5ad4d4d7141d3322e6'
   /src/main/webapp:
-    newFile: !uuid 'c18d758011e65694de1bf51076f377ef8432ad2a'
-    oldFile: !uuid 'cdfbe698ff6308223d44a2617134a9295abb90b4'
+    newFile: !uuid 'c01c4d865fd476306ac40938c280c9cc592258ed'
+    oldFile: !uuid 'c18d758011e65694de1bf51076f377ef8432ad2a'
   /src/main/webapp/WEB-INF:
-    newFile: !uuid '1e69b157a7b212e4b4ebc1bce390770842316d3f'
-    oldFile: !uuid '14d41d85cfb3539fe2971b63283f9cd19df71fd9'
+    newFile: !uuid '70b5d556eecf23bffa31f0f46382941688d30c48'
+    oldFile: !uuid '1e69b157a7b212e4b4ebc1bce390770842316d3f'
   /src/main/webapp/WEB-INF/view:
-    newFile: !uuid '28c37d924b394661107a9d1099c619389ab3fd80'
-    oldFile: !uuid '1691a654fa2c56b3b9c6601a8a9ca729198f8bbe'
+    newFile: !uuid 'afc189b11912f4db10a50082fe4041e762dbf1aa'
+    oldFile: !uuid '28c37d924b394661107a9d1099c619389ab3fd80'
   /src/main/webapp/WEB-INF/view/plugin:
-    newFile: !uuid '7544741e50471f125d3faf8368b1e5dba856fced'
-    oldFile: !uuid 'b591431c20b23ebc22dd57ba724fe070e391c58c'
-  /src/main/webapp/WEB-INF/view/plugin/phoneCreateKefu:
-    newFile: null
-    oldFile: !uuid 'd24d11e59c1a777f352618fabff7845fb866a72b'
-  /src/main/webapp/WEB-INF/view/plugin/phoneCreateKefu/reg.jsp:
-    newFile: null
-    oldFile: !uuid 'c4e6aa815accd586da4300cf5f17b95e1e6f1c48'
+    newFile: !uuid 'dc1e896ad0505b711f28a41396dce0b6d87dad8e'
+    oldFile: !uuid '7544741e50471f125d3faf8368b1e5dba856fced'
   /src/main/webapp/WEB-INF/view/plugin/phoneCreateStore:
-    newFile: !uuid 'd24d11e59c1a777f352618fabff7845fb866a72b'
-    oldFile: null
+    newFile: !uuid 'ee275b88bfc309d8f3a92bf187d51b0efac2fdc1'
+    oldFile: !uuid 'd24d11e59c1a777f352618fabff7845fb866a72b'
   /src/main/webapp/WEB-INF/view/plugin/phoneCreateStore/reg.jsp:
-    newFile: !uuid 'c4e6aa815accd586da4300cf5f17b95e1e6f1c48'
-    oldFile: null
-gitCommitId: !uuid 'a905227b47cee265fd978228c6377502689e6b11'
-renames:
-  /src/main/webapp/WEB-INF/view/plugin/phoneCreateStore/reg.jsp: /src/main/webapp/WEB-INF/view/plugin/phoneCreateKefu/reg.jsp
-revisionId: 399
+    newFile: !uuid 'c3ca514ac177f7085113744614506861cd0beb30'
+    oldFile: !uuid 'c4e6aa815accd586da4300cf5f17b95e1e6f1c48'
+  /src/main/webapp/favicon.ico:
+    newFile: null
+    oldFile: !uuid 'e925a100615a83c576588b1f25b428c879c7dc3b'
+  /src/main/webapp/template.jsp:
+    newFile: null
+    oldFile: !uuid '4dcb1977d4aa2350d3966fe10adbf3e4d3abfe0e'
+gitCommitId: !uuid '6a77295c5b41a3e32bdb1ac89f3b20b63fb132a4'
+renames: {
+  }
+revisionId: 400
