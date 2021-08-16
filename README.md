@@ -14,6 +14,19 @@
 7. 独立订单体系，可自由管理自己店铺中所产生的订单，以及对订单进行某些操作等。
 8. 无限扩展！用户端、商家管理端全部开放api，可自由定制开发app、小程序、h5、以及做自己OEM定制的商家后台等等。
 
+## 快速体验
+#### 1. 在线开通一个商城  
+开通url： http://api.imall.net.cn/plugin/phoneCreateStore/reg.do  
+#### 2. 体验店铺管理后台  
+记得添加个分类、添加个商品，试试功能，同时也能测试时看到效果  
+#### 3. 在线体验  
+这里我们开放了一个方便体验的h5页面（这个H5页面也是开源的），访问url： http://demo.imall.net.cn/index.html?storeid=1&host=https://api.imall.net.cn/
+其中:  
+storeid： 便是你开通的店铺的id，刚开通店铺后跳转的页面里就有。  
+host： 商城的url，如果你是自己跑在本地，这里可以传入 http://localhost:8080/ ，如果你部署在服务器，可以传入 http://服务器ip/ ，格式一定是 http:// 或者 https:// 开头、  / 结尾
+
+
+
 ## 开发语言及环境
 Java 1.8、Maven 3.5、Mysql 5.7
 
