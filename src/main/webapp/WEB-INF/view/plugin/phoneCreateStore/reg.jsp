@@ -58,7 +58,7 @@ body{
 
 <form class="layui-form layui-elem-quote layui-quote-nm myForm" action="/regSubmit.do">
 	<div class="layui-form-item touming" style="height: 70px;background-color: #eeeeee;line-height: 70px;text-align: center;font-size: 25px;color: #3F4056;">
-	    云客服 平台开通
+	    云商城 店铺平台开通
 	  </div>
   <div style="padding: 30px 50px 40px 0px;">
   
@@ -125,4 +125,4 @@ layui.use('form', function(){
 
 });
 </script>
-<jsp:include page="../../iw/common/foot.jsp"></jsp:include>
+<jsp:include page="/wm/common/foot.jsp"></jsp:include>
