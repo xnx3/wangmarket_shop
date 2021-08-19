@@ -1,6 +1,6 @@
 package com.xnx3.wangmarket.shop.core.util;
 
-import com.xnx3.wangmarket.shop.core.service.SMSService;
+import com.xnx3.wangmarket.shop.core.service.StoreSMSService;
 
 /**
  * Spring 工具类
@@ -9,11 +9,11 @@ import com.xnx3.wangmarket.shop.core.service.SMSService;
 public class SpringUtil extends com.xnx3.j2ee.util.SpringUtil{
 	
 	/**
-	 * 获取 {@link SMSService}
-	 * @return {@link SMSService}
+	 * 获取 {@link StoreSMSService}
+	 * @return {@link StoreSMSService}
 	 */
-	public static SMSService getSMSService() {
-        return (SMSService) getApplicationContext().getBean("smsService");
+	public static StoreSMSService getStoreSMSService() {
+        return (StoreSMSService) getApplicationContext().getBean("storeSmsService");
     }
 	
 }

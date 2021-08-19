@@ -8,7 +8,7 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.wangmarket.plugin.payNotice.entity.PayNotice;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.OrderPayFinishInterface;
-import com.xnx3.wangmarket.shop.core.service.SMSService;
+import com.xnx3.wangmarket.shop.core.service.StoreSMSService;
 import com.xnx3.wangmarket.shop.core.util.SpringUtil;
 
 /**
@@ -28,7 +28,7 @@ public class Plugin implements OrderPayFinishInterface{
 			return;
 		}
 		
-		SMSService smsService = SpringUtil.getSMSService();
+		StoreSMSService smsService = SpringUtil.getStoreSMSService();
 		if(smsService == null){
 			return;
 		}

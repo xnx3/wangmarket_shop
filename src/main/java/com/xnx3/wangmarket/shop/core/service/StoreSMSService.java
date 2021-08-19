@@ -13,7 +13,7 @@ import com.xnx3.wangmarket.shop.core.entity.SmsSet;
  * @author 管雷鸣
  *
  */
-public interface SMSService {
+public interface StoreSMSService {
 	
 	/**
 	 * 发送短信

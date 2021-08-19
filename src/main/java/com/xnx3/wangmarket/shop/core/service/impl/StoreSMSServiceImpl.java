@@ -20,11 +20,11 @@ import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.SmsSet;
 import com.xnx3.wangmarket.shop.core.entity.StoreSmsLog;
-import com.xnx3.wangmarket.shop.core.service.SMSService;
 import com.xnx3.wangmarket.shop.core.service.SMSSetService;
+import com.xnx3.wangmarket.shop.core.service.StoreSMSService;
 
-@Service("smsService")
-public class SMSServiceImpl implements SMSService {
+@Service("storeSMSService")
+public class StoreSMSServiceImpl implements StoreSMSService {
 	@Resource
 	private SqlDAO sqlDAO;
 	@Resource

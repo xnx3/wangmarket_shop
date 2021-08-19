@@ -8,8 +8,8 @@ import com.xnx3.j2ee.util.SafetyUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.SmsSet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
-import com.xnx3.wangmarket.shop.core.service.SMSService;
 import com.xnx3.wangmarket.shop.core.service.SMSSetService;
+import com.xnx3.wangmarket.shop.core.service.StoreSMSService;
 import com.xnx3.wangmarket.shop.store.vo.SmsSetVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +29,7 @@ public class SmsController extends BaseController {
 	@Resource
 	private SqlService sqlService;
 	@Resource
-	private SMSService smsService;
+	private StoreSMSService storeSmsService;
 	@Resource
 	private SMSSetService smsSetService;
 
@@ -100,7 +100,7 @@ public class SmsController extends BaseController {
 		//更新缓存
 		smsSetService.setSMSSet(smsSet);
 		if(smsSet.getUid() != null && smsSet.getPassword() != null){
-			smsService.setSMSUtil(store.getId(), new SMSUtil(smsSet.getUid(), smsSet.getPassword()));
+			storeSmsService.setSMSUtil(store.getId(), new SMSUtil(smsSet.getUid(), smsSet.getPassword()));
 		}
 		
 		//日志
@@ -128,7 +128,7 @@ public class SmsController extends BaseController {
 			return error("您尚未设置短信接口");
 		}
 		
-		SMSUtil smsUtil = smsService.getSMSUtil(store.getId());
+		SMSUtil smsUtil = storeSmsService.getSMSUtil(store.getId());
 		if(smsUtil == null){
 			return error("尚未配置短信通道");
 		}

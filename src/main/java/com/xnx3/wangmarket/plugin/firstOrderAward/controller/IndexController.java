@@ -6,19 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
-import com.xnx3.j2ee.service.SqlService;
-import com.xnx3.j2ee.util.ActionLogUtil;
-import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.wangmarket.plugin.firstOrderAward.entity.Award;
-import com.xnx3.wangmarket.shop.core.entity.Goods;
-import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
-import com.xnx3.wangmarket.shop.core.service.SMSService;
-import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
 /**
  * 推广用户，用户下单消费后，推广人获赠某个商品。用户端使用的
@@ -29,8 +18,6 @@ import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 public class IndexController extends BasePluginController {
 	@Resource
 	private SqlCacheService sqlCacheService;
-	@Resource
-	private SMSService smsService;
 	
 	/**
 	 * 分享出去的链接，点击链接进入的url，也就是入口url,拿到openid自动注册为用户,并关联推荐人

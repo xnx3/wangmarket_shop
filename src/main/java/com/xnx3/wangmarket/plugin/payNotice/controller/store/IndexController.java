@@ -12,7 +12,7 @@ import com.xnx3.wangmarket.plugin.payNotice.vo.PayNoticeVO;
 import com.xnx3.wangmarket.shop.core.entity.SmsSet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
-import com.xnx3.wangmarket.shop.core.service.SMSService;
+import com.xnx3.wangmarket.shop.core.service.StoreSMSService;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +35,7 @@ public class IndexController extends BasePluginController {
 	@Resource
 	private SqlCacheService sqlCacheService;
 	@Resource
-	private SMSService smsService;
+	private StoreSMSService storeSmsService;
 	
 	
 	/**
@@ -165,7 +165,7 @@ public class IndexController extends BasePluginController {
 			return vo;
 		}
 		
-		SMSUtil smsUtil = smsService.getSMSUtil(store.getId());
+		SMSUtil smsUtil = storeSmsService.getSMSUtil(store.getId());
 		if(smsUtil == null){
 			BaseVO vo = new BaseVO();
 			vo.setBaseVO(3, "请先设置短信通道");
