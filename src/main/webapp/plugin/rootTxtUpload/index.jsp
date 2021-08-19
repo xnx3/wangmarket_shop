@@ -15,8 +15,9 @@
     </tr>
     </thead>
     <tbody id="app">
-   <!--  <tr >
-            <td style="width:58px;">en</td>
+   <!--
+        <tr >
+            <td style="width:58px;">1.txt</td>
         </tr>
     -->
     </tbody>
@@ -24,7 +25,7 @@
 
 <script type="application/javascript">
     $(function (){
-        wm.post('/plugin/api/weChatMiniAuth/store/list.json', {},function(data){
+        wm.post('/plugin/api/rootTxtUpload/store/list.json', {},function(data){
             console.log('接口返回值:');
             console.log(data);
             var list = data.list
@@ -43,12 +44,10 @@
 
             //执行实例
             var uploadInst = upload.render({
-                elem: '#test3'
+                elem: '#test3' //绑定元素
                 ,accept: 'file'
-                ,url: '/plugin/api/weChatMiniAuth/store/upload.do'
-                // elem: '.uploadImg' //绑定元素
+                ,url: '/plugin/api/rootTxtUpload/store/upload.do'
                 ,size: 5  ////限制文件大小，单位 KB
-                // ,field : 'file'
                 ,exts : 'txt'
                 ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                     msg.loading('上传中...');
