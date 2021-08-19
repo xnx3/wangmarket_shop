@@ -3,67 +3,60 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '89f6d247f959262035c9e2bee5182a0b8a31f5f7'
-    oldFile: !uuid '0b5cb81a2f5a6022021d1740ba8dabc6b4b6c7dd'
+    newFile: !uuid '932e6d6877976c13450503e1b36423f7292aebe0'
+    oldFile: !uuid '89f6d247f959262035c9e2bee5182a0b8a31f5f7'
   /src/main:
-    newFile: !uuid '048ad588f1007b8e007a3fa086da997c8ebc3ee6'
-    oldFile: !uuid '9c971ec8eb98741f4c72a797b7d5ee3447ad262b'
+    newFile: !uuid '92eb23589f6e7353ec618bec41eafe9a176cd988'
+    oldFile: !uuid '048ad588f1007b8e007a3fa086da997c8ebc3ee6'
   /src/main/java:
-    newFile: !uuid 'eceb64284618425547c3d567b56dc7c06fb4dbd3'
-    oldFile: !uuid '0be64d96029f47544cc6148a6840f42c2affb5f1'
+    newFile: !uuid 'b4e0d72f393962e66ac2c7bff8afb7fe5284032f'
+    oldFile: !uuid 'eceb64284618425547c3d567b56dc7c06fb4dbd3'
   /src/main/java/com:
-    newFile: !uuid '6451fb98555c959ddcad8e74be0911b21c96b4b1'
-    oldFile: !uuid '0d656aa1b68cf171815d28cf2b20d81db1c05c66'
+    newFile: !uuid '3e79f90c5ff2b6e11f491c40eeb55f9d41246f40'
+    oldFile: !uuid '6451fb98555c959ddcad8e74be0911b21c96b4b1'
   /src/main/java/com/xnx3:
-    newFile: !uuid 'a376271dc5890c4ea7224ee99b8a3baa19edea87'
-    oldFile: !uuid '2887467da84ac980e1a7b2092719a806ce4672b9'
+    newFile: !uuid '7e9766aa83d66ba04aec4a8b8c44c06a14e30329'
+    oldFile: !uuid 'a376271dc5890c4ea7224ee99b8a3baa19edea87'
   /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '79a54bac238de33582e12fe265b69a4885685d5c'
-    oldFile: !uuid '04519dcd5acf15199cc6bb97f37b01f01377f080'
+    newFile: !uuid 'fe847ba06e06bf55ffa6d2d7e74f7c13da103845'
+    oldFile: !uuid '79a54bac238de33582e12fe265b69a4885685d5c'
   /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid '61c8836b4f3f2d993b01937929d183d3c8a190b9'
-    oldFile: !uuid '6c299f013198a09991b418115624c9ff60ae0723'
+    newFile: !uuid '562a4b5789fbaf5b9ead937dd6c0c86b146b4186'
+    oldFile: !uuid '61c8836b4f3f2d993b01937929d183d3c8a190b9'
   /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload:
-    newFile: !uuid '2a098d245be01f708cd67c65c02e3314aa02a659'
-    oldFile: !uuid '3f7789b47d9d84808137152d7aac093850cecb2c'
-  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/Plugin.java:
-    newFile: !uuid '9663d61b43c9ae4e4e14a868982f789e72bf6428'
-    oldFile: !uuid '1a671c2f3406a737821c67cdd0f7d8583a2d0e7e'
+    newFile: !uuid '93f62968098a1a73c71344ae5b26dd00f73f4763'
+    oldFile: !uuid '2a098d245be01f708cd67c65c02e3314aa02a659'
+  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/Global.java:
+    newFile: !uuid 'a03d33b2c40942ccf2347a245b5e7555c4ad006f'
+    oldFile: null
   /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/controller:
-    newFile: !uuid 'b9200d2d2e9046cd87f36058359a9181739f2317'
-    oldFile: !uuid '423cde9fd17bc0bce911ca8ebb56925149d0955c'
+    newFile: !uuid 'eb0f97af70818ed566ccf1bb716c0d4ed13137d8'
+    oldFile: !uuid 'b9200d2d2e9046cd87f36058359a9181739f2317'
+  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/controller/DomainVisitTxtController.java:
+    newFile: !uuid '970f5d0bc224fee58d7cbd871695f3c423ca319f'
+    oldFile: null
   /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/controller/RootTxtUploadController.java:
-    newFile: !uuid '3104071c765b12c8f7a38b4bf3a80373900bd406'
-    oldFile: !uuid '195b5043342e19e9aadfbc5d845701a273878faf'
+    newFile: !uuid 'a22f2dbe5942629aadcfdee0ba60a39e2258249f'
+    oldFile: !uuid '3104071c765b12c8f7a38b4bf3a80373900bd406'
   /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/vo:
-    newFile: !uuid 'f2bf34cacd7728b5d95601f3fc2db6d80878b19a'
-    oldFile: !uuid '6f66314173c0aedfebf37a43896f0d3d669a0e7a'
-  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/vo/Upfilevo.java:
     newFile: null
-    oldFile: !uuid '508f1f77534aca0165cff9d38a8c1755551118f9'
+    oldFile: !uuid 'f2bf34cacd7728b5d95601f3fc2db6d80878b19a'
   /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/vo/UploadFileListVO.java:
-    newFile: !uuid '23a2e5ef0496caab291bb86df1e7c4cffccde39d'
-    oldFile: null
+    newFile: null
+    oldFile: !uuid '23a2e5ef0496caab291bb86df1e7c4cffccde39d'
   /src/main/webapp:
-    newFile: !uuid '59485d350505e5410c35266cfd9d8fa18aea4e4f'
-    oldFile: !uuid 'bce8b188274ee0dbe94eb80ef37272bac6454367'
+    newFile: !uuid 'e416b78b8596241fd8196e517fae3fd7ed2c67a6'
+    oldFile: !uuid '59485d350505e5410c35266cfd9d8fa18aea4e4f'
   /src/main/webapp/plugin:
-    newFile: !uuid '993e6ad9890d37c9ac6d228a8ecbfe3739c67580'
-    oldFile: !uuid '7df1fa1fa8c656e5601b180528731545e6dd4ff6'
+    newFile: !uuid '6b0eda7d3d202ec4abd11297d82371aa848a0bc9'
+    oldFile: !uuid '993e6ad9890d37c9ac6d228a8ecbfe3739c67580'
   /src/main/webapp/plugin/rootTxtUpload:
-    newFile: !uuid 'd0fd12c5b361092a1395a1afc65dea9db6e6cbb7'
-    oldFile: null
+    newFile: !uuid '96e94339d1ea783029dd103e9d290d3c4a963b02'
+    oldFile: !uuid 'd0fd12c5b361092a1395a1afc65dea9db6e6cbb7'
   /src/main/webapp/plugin/rootTxtUpload/index.jsp:
-    newFile: !uuid 'b4fd43dc41a12b9dc5b8f98a757cf517a357ea95'
-    oldFile: null
-  /src/main/webapp/plugin/weChatMiniAuth:
-    newFile: null
-    oldFile: !uuid '219611767ef69db0c49ab043d1b14c675103c48e'
-  /src/main/webapp/plugin/weChatMiniAuth/index.jsp:
-    newFile: null
-    oldFile: !uuid 'af17afe74a9e847a1dfef9e237ea2fb72b2673dd'
-gitCommitId: !uuid '78a103968931f482ceb9dabc748d17f689efd80c'
-renames:
-  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/vo/UploadFileListVO.java: /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/vo/Upfilevo.java
-  /src/main/webapp/plugin/rootTxtUpload/index.jsp: /src/main/webapp/plugin/weChatMiniAuth/index.jsp
-revisionId: 409
+    newFile: !uuid '5ccf73205c45e324974910624804d2b28ff47ee0'
+    oldFile: !uuid 'b4fd43dc41a12b9dc5b8f98a757cf517a357ea95'
+gitCommitId: !uuid '6fdc4cfb6829c44194856dad3588f08fe606a0c3'
+renames: {
+  }
+revisionId: 410
