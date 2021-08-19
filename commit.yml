@@ -2,10 +2,58 @@
 branches: {
   }
 fileChange:
-  /README.md:
-    newFile: !uuid '89bdbbe3b75788d7f267b0722aa15a4e0da00716'
-    oldFile: !uuid '065a7d2606aacb7bdfa377a134944f5985125cea'
-gitCommitId: !uuid '23b2e8df89dfce44d28aec37e667f36bbd585b40'
+  /src:
+    newFile: !uuid '0b5cb81a2f5a6022021d1740ba8dabc6b4b6c7dd'
+    oldFile: !uuid 'c91357fd3b1f9be0d86c52d0375710a886f8cd9e'
+  /src/main:
+    newFile: !uuid '9c971ec8eb98741f4c72a797b7d5ee3447ad262b'
+    oldFile: !uuid 'c2bce7a9e7a327bde2afa61bf9e2b7103cdb1254'
+  /src/main/java:
+    newFile: !uuid '0be64d96029f47544cc6148a6840f42c2affb5f1'
+    oldFile: !uuid '7ec4319c88988d88c54edba69082997b066e5062'
+  /src/main/java/com:
+    newFile: !uuid '0d656aa1b68cf171815d28cf2b20d81db1c05c66'
+    oldFile: !uuid '06d64e26394ceb7e9e6a2018099e9c96b5dc72f1'
+  /src/main/java/com/xnx3:
+    newFile: !uuid '2887467da84ac980e1a7b2092719a806ce4672b9'
+    oldFile: !uuid '1c02f0c5341a10ce6ffbd63a09e795db2579ee91'
+  /src/main/java/com/xnx3/wangmarket:
+    newFile: !uuid '04519dcd5acf15199cc6bb97f37b01f01377f080'
+    oldFile: !uuid 'cd22ee880c391ea8d376197d1bde9e2477326e1f'
+  /src/main/java/com/xnx3/wangmarket/plugin:
+    newFile: !uuid '6c299f013198a09991b418115624c9ff60ae0723'
+    oldFile: !uuid 'acf35e734beb649ee200009c3994a3b03439632a'
+  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload:
+    newFile: !uuid '3f7789b47d9d84808137152d7aac093850cecb2c'
+    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/Plugin.java:
+    newFile: !uuid '1a671c2f3406a737821c67cdd0f7d8583a2d0e7e'
+    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/controller:
+    newFile: !uuid '423cde9fd17bc0bce911ca8ebb56925149d0955c'
+    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/controller/RootTxtUploadController.java:
+    newFile: !uuid '195b5043342e19e9aadfbc5d845701a273878faf'
+    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/vo:
+    newFile: !uuid '6f66314173c0aedfebf37a43896f0d3d669a0e7a'
+    oldFile: null
+  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/vo/Upfilevo.java:
+    newFile: !uuid '508f1f77534aca0165cff9d38a8c1755551118f9'
+    oldFile: null
+  /src/main/webapp:
+    newFile: !uuid 'bce8b188274ee0dbe94eb80ef37272bac6454367'
+    oldFile: !uuid 'c01c4d865fd476306ac40938c280c9cc592258ed'
+  /src/main/webapp/plugin:
+    newFile: !uuid '7df1fa1fa8c656e5601b180528731545e6dd4ff6'
+    oldFile: !uuid 'af79e3b9359c1e13ee35196ec68fe0e9e699a9ec'
+  /src/main/webapp/plugin/weChatMiniAuth:
+    newFile: !uuid '219611767ef69db0c49ab043d1b14c675103c48e'
+    oldFile: null
+  /src/main/webapp/plugin/weChatMiniAuth/index.jsp:
+    newFile: !uuid 'af17afe74a9e847a1dfef9e237ea2fb72b2673dd'
+    oldFile: null
+gitCommitId: !uuid 'c5950ea68be39caf0c41a99e072ec0074ffa3967'
 renames: {
   }
-revisionId: 407
+revisionId: 408
