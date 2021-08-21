@@ -26,7 +26,7 @@ public class RootTxtUploadController extends BasePluginController {
      * 上传txt文件
      */
     @ResponseBody
-    @RequestMapping(value = "/upload.do")
+    @RequestMapping(value = "/upload.json")
     public BaseVO upload(HttpServletRequest request, MultipartFile file) throws IOException {
         if(!haveUser()){
             return error("请先登陆");
