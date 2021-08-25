@@ -76,6 +76,9 @@ public class Order extends BaseEntity implements java.io.Serializable{
 	private String state;		//订单状态，限20个字符
 	private String remark;		//用户备注，限制100个字符
 	
+	//购买的商品是什么规格，这里是规格的名字。如果商品没有规格，那这里则是空字符串。 v1.6增加
+	private String specificationName;	
+	
 	private Integer version;	//乐观锁
 	
 	public Order() {
@@ -185,6 +188,18 @@ public class Order extends BaseEntity implements java.io.Serializable{
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+	
+	@Column(name = "specification_name", columnDefinition="char(30) comment '购买的商品是什么规格，这里是规格的名字。如果商品没有规格，那这里则是空字符串'")
+	public String getSpecificationName() {
+		if(this.specificationName == null) {
+			this.specificationName = "";
+		}
+		return specificationName;
+	}
+
+	public void setSpecificationName(String specificationName) {
+		this.specificationName = specificationName;
 	}
 
 	@Override

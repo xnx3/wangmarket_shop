@@ -50,6 +50,14 @@ public class Goods extends BaseEntity implements java.io.Serializable{
 	private String intro;		//简介说明，限制40个字符
 	private Integer version;	//乐观锁
 	
+	/*
+	 * 商品规格，型号 v1.6增加。
+	 * 比如商品是衣服，这里就可以是 黑色、黄色 等颜色的。里面的数据格式为JSONArray类型。 
+	 * 存入的格式为： [{"黄色":90.1},{"黑色":80},{"白色":70.5}]  
+	 * 其中 key是对用户显示的规格文字， value是这个规格的价格，float类型
+	 */
+	private String specification;	
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
@@ -240,6 +248,17 @@ public class Goods extends BaseEntity implements java.io.Serializable{
 		this.version = version;
 	}
 	
+	@Column(name = "specification", columnDefinition="char(255) comment '商品规格，JSONArray类型'")
+	public String getSpecification() {
+		if(this.specification == null || this.specification.equals("")) {
+			this.specification = "[]";
+		}
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
 
 	@Override
 	public String toString() {

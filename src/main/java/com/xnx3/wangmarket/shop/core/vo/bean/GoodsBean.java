@@ -21,6 +21,13 @@ public class GoodsBean implements java.io.Serializable{
 	private String titlepic;	//该商品的标题图片、列表图片,图片的绝对路径
 	private Integer userBuyRestrict;	//用户购买限制。如果值是0，则可以任意购买，没有什么限制，如果是1，则代表每个用户只能购买一个，如果是2，代表每个用户只能购买2个以内，不超过2个。 只要是下单了，未退单成功的，都算是购买了
 	private String intro;		//简介说明，限制40个字符
+	/*
+	 * 商品规格，型号 v1.6增加。
+	 * 比如商品是衣服，这里就可以是 黑色、黄色 等颜色的。里面的数据格式为JSONArray类型。 
+	 * 存入的格式为： [{"黄色":90.1},{"黑色":80},{"白色":70.5}]  
+	 * 其中 key是对用户显示的规格文字， value是这个规格的价格，float类型
+	 */
+	private String specification;	
 	
 	public GoodsBean() {
 	}
@@ -45,6 +52,7 @@ public class GoodsBean implements java.io.Serializable{
 			this.setUnits(goods.getUnits());
 			this.setUserBuyRestrict(goods.getUserBuyRestrict());
 			this.setIntro(goods.getIntro());
+			this.setSpecification(goods.getSpecification());
 		}
 	}
 	
@@ -188,4 +196,15 @@ public class GoodsBean implements java.io.Serializable{
 			this.intro = intro;
 		}
 	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		if(specification == null) {
+			this.specification = "[]";
+		}else {
+			this.specification = specification;
+		}
+	}
+	
 }

@@ -230,6 +230,7 @@ public class GoodsController extends BaseController {
 		goods.setUpdatetime(DateUtil.timeForUnix10());
 		goods.setTitlepic(inputGoods.getTitlepic());
 		goods.setIntro(inputGoods.getIntro());
+		goods.setSpecification(inputGoods.getSpecification());
 		//保存实体
 		sqlService.save(goods);
 
