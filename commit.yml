@@ -3,36 +3,48 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '6f63295ac2fdcf03d742bfedb8e88035a31edc88'
-    oldFile: !uuid '13dc10199ea5a16805031452196347a9f487a948'
+    newFile: !uuid '90ffbee5e55fef4ba0608cb3bb6737c0dda46b73'
+    oldFile: !uuid '6f63295ac2fdcf03d742bfedb8e88035a31edc88'
   /src/main:
-    newFile: !uuid '4d75ec9b30ad2ff20ef8c0272aee2e796cc1ef76'
-    oldFile: !uuid '99031eccd0c32335dd782046ef2e1a116408efbe'
+    newFile: !uuid '8e28b74731069a77979dfe80aaeed8b540b6a3fa'
+    oldFile: !uuid '4d75ec9b30ad2ff20ef8c0272aee2e796cc1ef76'
   /src/main/java:
-    newFile: !uuid '9bafbc5e82885e2928999f9025f19186eeab2c00'
-    oldFile: !uuid '0bbfccb35e31d41e7e2dfd80d90a2a845040ad7f'
+    newFile: !uuid '919c30cd0889405cf390b27de49f28214b14366a'
+    oldFile: !uuid '9bafbc5e82885e2928999f9025f19186eeab2c00'
   /src/main/java/com:
-    newFile: !uuid '677c9a1c5265dc71b665e4ce10a6427d0ccaba3e'
-    oldFile: !uuid 'e93cfc2d38c7daa345f39a7a688ddf602e0f16e1'
+    newFile: !uuid 'ade74de39a55b150b9a2b397e0f7255d9efb42a6'
+    oldFile: !uuid '677c9a1c5265dc71b665e4ce10a6427d0ccaba3e'
   /src/main/java/com/xnx3:
-    newFile: !uuid '500f00db501aa5ad1b93814e056033c11a31780d'
-    oldFile: !uuid '6c6b33f02c6500535d6322d7e0cd4dee0fa1ec56'
+    newFile: !uuid '2ba19643c39fc552f599af4beebdd4c58bae79e1'
+    oldFile: !uuid '500f00db501aa5ad1b93814e056033c11a31780d'
   /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '32cedf17fe9187e5b31721820a7f972b643a5c95'
-    oldFile: !uuid '0caa7860e0a31fde5a1d30c2e6c4ba4e12882ef8'
-  /src/main/java/com/xnx3/wangmarket/plugin:
-    newFile: !uuid '39fb02cb2cd927363a6f4357e38238db08f49ec8'
-    oldFile: !uuid '04ab3dae9b6d0a5433624ed075372a7e40387a4b'
-  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload:
-    newFile: !uuid 'd50dbca3e7fc19c9a60469938bac501e7421c215'
-    oldFile: !uuid '93f62968098a1a73c71344ae5b26dd00f73f4763'
-  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/controller:
-    newFile: !uuid '83215dc3242e92abb83c3ed60cbc292c6ef2ce9a'
-    oldFile: !uuid 'eb0f97af70818ed566ccf1bb716c0d4ed13137d8'
-  /src/main/java/com/xnx3/wangmarket/plugin/rootTxtUpload/controller/RootTxtUploadController.java:
-    newFile: !uuid '6db44fb0d31c35aeda3fcb35269465bf21160672'
-    oldFile: !uuid 'a22f2dbe5942629aadcfdee0ba60a39e2258249f'
-gitCommitId: !uuid '816fa03939f88a017ed2694d59c2d5fc7577061f'
+    newFile: !uuid 'daaa0a1bb29735d964adc12d6992c5204f3a0c90'
+    oldFile: !uuid '32cedf17fe9187e5b31721820a7f972b643a5c95'
+  /src/main/java/com/xnx3/wangmarket/shop:
+    newFile: !uuid '199b1b1db0b79d2d6b3ea1823fff8962b43eeab8'
+    oldFile: !uuid '5061fa307e33d585028ad75adfc46491b64787cc'
+  /src/main/java/com/xnx3/wangmarket/shop/core:
+    newFile: !uuid 'ee379445a28fce11edfde722f6356c3ad3745a7e'
+    oldFile: !uuid '24f86fedacfbd08fb5fd60930807d97ad4d3007f'
+  /src/main/java/com/xnx3/wangmarket/shop/core/vo:
+    newFile: !uuid '63282d60e2228ce9e7e71a7ccb65209e76facd85'
+    oldFile: !uuid 'a452f49ea9a5b8dd1753b4150f26fbc08ce32904'
+  /src/main/java/com/xnx3/wangmarket/shop/core/vo/GoodsDetailsVO.java:
+    newFile: !uuid 'b4a128e4e1486bfc73f61f0572838c40290e5eea'
+    oldFile: !uuid 'fa3b78c7ea482e04f46d78dc813ee310fc0ac0f0'
+  /src/main/java/com/xnx3/wangmarket/shop/core/vo/GoodsListVO.java:
+    newFile: !uuid '4b2982af86f0f553e446a51fb7b8140e004c1a19'
+    oldFile: !uuid 'de828a406ca3487c7f15839aab3153ee0efe859c'
+  /src/main/java/com/xnx3/wangmarket/shop/core/vo/bean:
+    newFile: !uuid 'e3c051fd3906d4ddf65500239c185d610c8eed5a'
+    oldFile: !uuid 'da7a1d12ee87c2a327860352558fc55e0a017cfa'
+  /src/main/java/com/xnx3/wangmarket/shop/core/vo/bean/GoodsBean.java:
+    newFile: !uuid '704feaf54f2a63e8a70f169a078c0db36f8220fa'
+    oldFile: !uuid '87fa891609dd2305258c01e7b68422249f3f75bb'
+  /src/main/java/com/xnx3/wangmarket/shop/core/vo/bean/GoodsCart.java:
+    newFile: !uuid 'fd8a2d7d5fcbd6a51c026b16e3fce4131358a0c0'
+    oldFile: !uuid 'ba8a85a8f26404c19d5fa82095daedf56e0b3868'
+gitCommitId: !uuid 'faa8e606d02ff11fc48a7a54e449925ea3604985'
 renames: {
   }
-revisionId: 414
+revisionId: 415
