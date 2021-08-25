@@ -25,22 +25,7 @@ public class GoodsListVO extends BaseVO{
 		if(list != null){
 			for (int i = 0; i < list.size(); i++) {
 				Goods goods = list.get(i);
-				GoodsBean goodsBean = new GoodsBean();
-				goodsBean.setAddtime(goods.getAddtime());
-				goodsBean.setId(goods.getId());
-				goodsBean.setInventory(goods.getInventory());
-				goodsBean.setOriginalPrice(goods.getOriginalPrice());
-				goodsBean.setPrice(goods.getPrice());
-				goodsBean.setPutaway(goods.getPutaway());
-				goodsBean.setSale(goods.getSale()+goods.getFakeSale());
-				goodsBean.setStoreid(goods.getStoreid());
-				goodsBean.setTitle(goods.getTitle());
-				goodsBean.setTitlepic(goods.getTitlepic());
-				goodsBean.setTypeid(goods.getTypeid());
-				goodsBean.setUnits(goods.getUnits());
-				goodsBean.setUserBuyRestrict(goods.getUserBuyRestrict());
-				goodsBean.setIntro(goods.getIntro());
-				beanList.add(goodsBean);
+				beanList.add(new GoodsBean(goods));
 			}
 		}
 		this.list = beanList;

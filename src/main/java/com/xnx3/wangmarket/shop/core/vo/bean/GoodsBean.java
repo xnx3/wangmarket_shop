@@ -22,6 +22,32 @@ public class GoodsBean implements java.io.Serializable{
 	private Integer userBuyRestrict;	//用户购买限制。如果值是0，则可以任意购买，没有什么限制，如果是1，则代表每个用户只能购买一个，如果是2，代表每个用户只能购买2个以内，不超过2个。 只要是下单了，未退单成功的，都算是购买了
 	private String intro;		//简介说明，限制40个字符
 	
+	public GoodsBean() {
+	}
+	
+	/**
+	 * 通过实体类初始化给bean赋值
+	 * @param goods {@link Goods}实体类
+	 */
+	public GoodsBean(Goods goods) {
+		if(goods != null){
+			this.setAddtime(goods.getAddtime());
+			this.setId(goods.getId());
+			this.setInventory(goods.getInventory());
+			this.setOriginalPrice(goods.getOriginalPrice());
+			this.setPrice(goods.getPrice());
+			this.setPutaway(goods.getPutaway());
+			this.setSale(goods.getSale()+goods.getFakeSale());
+			this.setStoreid(goods.getStoreid());
+			this.setTitle(goods.getTitle());
+			this.setTitlepic(goods.getTitlepic());
+			this.setTypeid(goods.getTypeid());
+			this.setUnits(goods.getUnits());
+			this.setUserBuyRestrict(goods.getUserBuyRestrict());
+			this.setIntro(goods.getIntro());
+		}
+	}
+	
 	public Integer getId() {
 		return id;
 	}
