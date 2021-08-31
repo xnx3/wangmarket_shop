@@ -1,6 +1,8 @@
 package com.xnx3.wangmarket.shop.core.util;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 商品规格方面的工具类
@@ -24,16 +26,26 @@ public class GoodsSpecificationUtil {
 	 */
 	public static int getPrice(String specification, String key) {
 		/*
-		 * 1. 验证specification空
-		 * 2. 转换为JSON数组
-		 * 3. 判断取值
+		 * 当传入空字符串或json格式错误，返回0
+		 * 当key找不到则返回 -1
 		 */
-		
-		JSONArray jsonArray = JSONArray.fromObject(specification);
-		
-		
-		
-		return -1;
+		if ("".equals(specification) || "".equals(key)){
+			return 0;
+		}
+		try {
+			JSONArray jsonArray = JSONArray.fromObject(specification);
+			AtomicInteger flag = new AtomicInteger(-1);
+			jsonArray.forEach( j ->{
+				JSONObject obj = JSONObject.fromObject(j);
+				if (obj.containsKey(key)) {
+					flag.set(Integer.parseInt(obj.get(key) + ""));
+					return;
+				}
+			});
+			return flag.get();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
-	
 }
