@@ -10,7 +10,7 @@ import com.xnx3.wangmarket.shop.core.entity.Order;
  * @author 管雷鸣
  */
 public class OrderListVO extends BaseVO {
-	private List<Order> orderList;
+	private List<Order> list;
 	private Page page;
 	
 	public Page getPage() {
@@ -19,15 +19,15 @@ public class OrderListVO extends BaseVO {
 	public void setPage(Page page) {
 		this.page = page;
 	}
-	public List<Order> getOrderList() {
-		return orderList;
+	public List<Order> getList() {
+		return list;
 	}
-	public void setOrderList(List<Order> orderList) {
-		this.orderList = orderList;
+	public void setList(List<Order> list) {
+		this.list = list;
 	}
 	@Override
 	public String toString() {
-		return "OrderListVO [orderList=" + orderList + ", page=" + page + "]";
+		return "OrderListVO [list=" + list + ", page=" + page + "]";
 	}
 	
 }
