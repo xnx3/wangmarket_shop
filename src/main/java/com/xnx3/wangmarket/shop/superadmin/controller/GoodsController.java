@@ -6,15 +6,16 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.wangmarket.shop.core.entity.Goods;
-import com.xnx3.wangmarket.shop.core.entity.GoodsType;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
+import com.xnx3.wangmarket.shop.store.vo.GoodsListVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
 
 /**
  * 商品管理
@@ -32,9 +33,11 @@ public class GoodsController extends BasePluginController {
 	 * 查看所有商品列表
 	 * @author 刘鹏
 	 */
-	@RequestMapping("/list${url.suffix}")
-	public String list(HttpServletRequest request,Model model) {
-
+	@ResponseBody
+	@RequestMapping(value="list.json", method = {RequestMethod.POST})
+	public GoodsListVO list(HttpServletRequest request,Model model) {
+		GoodsListVO vo = new GoodsListVO();
+		
 		//创建Sql
 		Sql sql = new Sql(request);
 		//配置查询那个表
@@ -57,15 +60,15 @@ public class GoodsController extends BasePluginController {
 		//按照上方条件查询出该实体总数 用集合来装
 		List<Goods> list = sqlService.findBySql(sql,Goods.class);
 		//查询商品的分类
-		List<GoodsType> typeList = sqlService.findAll(GoodsType.class);
-		// 将信息保存到model中
-		model.addAttribute("list", list);
-		model.addAttribute("page", page);
-		model.addAttribute("typeList", typeList);
+		//List<GoodsType> typeList = sqlService.findAll(GoodsType.class);
+		//model.addAttribute("typeList", typeList);
+		
+		vo.setList(list);
+		vo.setPage(page);
+		
 		//日志记录
 		ActionLogUtil.insert(request, "查看商品列表");
-		return "/shop/superadmin/goods/list";
+		return vo;
 	}
-
 
 }
