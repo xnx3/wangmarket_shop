@@ -29,6 +29,7 @@
 </form>
 
 <script type="text/javascript">
+var index = parent.layer.getFrameIndex(window.name);
 //form组件，开启select
 layui.use(['form'], function(){
 	var form = layui.form;
@@ -46,12 +47,13 @@ layui.use(['form'], function(){
 		
 		parent.msg.loading('开通中');
 		var d=$("form").serialize();
-        $.post("addSubmit.do", d, function (result) { 
+        $.post("/shop/superadmin/store/addSubmit.json", d, function (result) { 
         	parent.msg.close();
         	var obj = JSON.parse(result);
         	if(obj.result == '1'){
         		parent.msg.success('开通成功');
-        		window.location.href="list.do?orderBy=addtime_DESC";
+        		parent.layer.close(index);//关闭当前窗口
+        		parent.location.reload();	//刷新父窗口
         	}else if(obj.result == '0'){
         		parent.msg.failure(obj.info);
         	}else{

@@ -7,6 +7,7 @@ import com.xnx3.wangmarket.shop.core.entity.StoreData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.DateUtil;
@@ -18,8 +19,10 @@ import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.wangmarket.plugin.autoApplyStore.vo.StoreListVO;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreUser;
+import com.xnx3.wangmarket.shop.core.vo.StoreVO;
 
 /**
  * 商家管理
@@ -32,17 +35,18 @@ public class StoreController extends BasePluginController {
 	private UserService userService;
 	@Resource
 	private SqlService sqlService;
-	
 
 	/**
 	 * 查看商家列表
 	 * @author 管雷鸣
 	 */
-	@RequestMapping("/list${url.suffix}")
-	public String list(HttpServletRequest request,Model model) {
-		if(!haveSuperAdminAuth()){
-			return error(model, "无权使用，请先登录");
-		}
+	@ResponseBody
+	@RequestMapping(value="list.json", method = {RequestMethod.POST})
+	public StoreListVO list(HttpServletRequest request,Model model) {
+		StoreListVO vo = new StoreListVO();
+//		if(!haveSuperAdminAuth()){
+//			return error("无权使用，请先登录");
+//		}
 		
 		Sql sql = new Sql(request);
 		//配置查询那个表
@@ -51,41 +55,40 @@ public class StoreController extends BasePluginController {
 		sql.setSearchColumn(new String[] {"name","contacts","phone"});
 		// 查询数据表的记录总条数
 		int count = sqlService.count("shop_store", sql.getWhere());
-		// 配置每页显示50条
-		Page page = new Page(count, 50, request);
+		// 配置每页显示15条
+		Page page = new Page(count, 15, request);
 		sql.setSelectFromAndPage("SELECT * FROM shop_store ", page);
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
 		sql.setDefaultOrderBy("id DESC");
 		List<Store> list = sqlService.findBySql(sql,Store.class);
 		
-		// 将信息保存到model中 
-		model.addAttribute("list", list);
-		model.addAttribute("page", page);
+		// 将信息保存到vo中
+		vo.setList(list);
+		vo.setPage(page);
 		//日志记录
 		ActionLogUtil.insert(request, "查看商家列表");
-		return "/shop/superadmin/store/list";
+		return vo;
 	}
-	
 
 	/**
 	 * 开通店铺
 	 */
-	@RequestMapping("add${url.suffix}")
-	public String add(HttpServletRequest request, Model model){
+	@ResponseBody
+	@RequestMapping(value="edit.json" ,method = {RequestMethod.POST})
+	public BaseVO edit(HttpServletRequest request, Model model){
 		if(!haveSuperAdminAuth()){
-			return error(model, "无权使用，请先登录");
+			return error("无权使用，请先登录");
 		}
 		
 		ActionLogUtil.insert(request, "进入开通店铺的页面");
-		return "/shop/superadmin/store/edit";
+		return success();
 	}
 	
-
 	/**
 	 * 开通店铺提交保存的
 	 */
 	@ResponseBody
-	@RequestMapping("addSubmit${url.suffix}")
+	@RequestMapping(value="addSubmit.json",method = {RequestMethod.POST})
 	public BaseVO addSubmit(HttpServletRequest request,
 			@RequestParam(value = "username",defaultValue = "", required = false) String username,
 			@RequestParam(value = "password",defaultValue = "", required = false) String password){
@@ -126,7 +129,6 @@ public class StoreController extends BasePluginController {
 		storeUser.setUserid(user.getId());
 		sqlService.save(storeUser);
 		
-		
 		ActionLogUtil.insert(request, "开通店铺", store.toString());
 		return success(store.getId()+"");
 	}
@@ -134,14 +136,16 @@ public class StoreController extends BasePluginController {
 	/**
 	 * 使用店铺ID查询店铺详情信息
 	 */
-	@RequestMapping("storeDetailsView${url.suffix}")
-	public String storeDetailsView(HttpServletRequest request,
+	@ResponseBody
+	@RequestMapping(value="storeDetailsView.json", method = RequestMethod.POST)
+	public StoreVO storeDetailsView(HttpServletRequest request,
 						@RequestParam(value = "id", required = true) int id,Model model){
+		StoreVO vo = new StoreVO();
 		//查询店铺
 		Store store = sqlService.findById(Store.class, id);
-		if(store == null){
-			return error(model, "要查看的店铺不存在");
-		}
+//		if(store == null){
+//			return error(model, "要查看的店铺不存在");
+//		}
 		//查询店铺描述
 		StoreData storeData = sqlService.findById(StoreData.class, id);
 		//如果无店铺描述设置为无
@@ -151,11 +155,28 @@ public class StoreController extends BasePluginController {
 			storeData.setNotice("无");
 		}
 		ActionLogUtil.insert(request,store.getId(), "总管理后台-店铺详情", store.toString());
-		model.addAttribute("s", store);
-		model.addAttribute("st",storeData);
-		return "/shop/superadmin/store/storeDetailsView";
+
+		vo.setStore(store);
+		vo.setStoreData(storeData);
+		return vo;
 	}
 
-
-
+	/**
+	 * 网站更改密码
+	 * @param userid 要更改密码的用户ID
+	 * @param newPassword 要更改上的新密码
+	 */
+	@RequestMapping(value="updateShopPassword.json", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseVO storeUpdatePassword(HttpServletRequest request,
+			@RequestParam(value = "userid", required = true) int userid,
+			@RequestParam(value = "newPassword", required = true) String newPassword){
+		User user = sqlService.findById(User.class, userid);
+		if(user == null){
+			return error("用户不存在");
+		}
+		
+		ActionLogUtil.insertUpdateDatabase(request, userid, "管理后台给其下的某个商家更改密码", newPassword);
+		return userService.updatePassword(userid, newPassword);
+	}
 }
