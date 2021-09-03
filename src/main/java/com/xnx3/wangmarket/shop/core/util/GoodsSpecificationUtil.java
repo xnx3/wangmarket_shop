@@ -30,7 +30,7 @@ public class GoodsSpecificationUtil {
 		 * 当key找不到则返回 -1
 		 */
 		if ("".equals(specification) || "".equals(key)){
-			return 0;
+			return -1;
 		}
 		try {
 			JSONArray jsonArray = JSONArray.fromObject(specification);
@@ -45,7 +45,7 @@ public class GoodsSpecificationUtil {
 			return flag.get();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 	}
 }

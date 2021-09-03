@@ -57,16 +57,7 @@ public class OrderVO extends BaseVO{
 		 if(goodsList != null) {
 			 for (int i = 0; i < goodsList.size(); i++) {
 				 OrderGoods orderGoods = goodsList.get(i);
-				 OrderGoodsBean bean = new OrderGoodsBean();
-				 bean.setGoodsid(orderGoods.getId());
-				 bean.setPrice(orderGoods.getPrice());
-				 bean.setTitle(orderGoods.getTitle());
-				 bean.setTitlepic(orderGoods.getTitlepic());
-				 bean.setUnits(orderGoods.getUnits());
-				 bean.setNumber(orderGoods.getNumber());
-				 bean.setOrderid(orderGoods.getOrderid());
-				 bean.setId(orderGoods.getId());
-				 beanList.add(bean);
+				 beanList.add(new OrderGoodsBean(orderGoods));
 			}
 		 }
 		this.goodsList = beanList;

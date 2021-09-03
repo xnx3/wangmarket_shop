@@ -40,6 +40,7 @@ import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
 import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.util.DoubleUtil;
+import com.xnx3.wangmarket.shop.core.util.GoodsSpecificationUtil;
 import com.xnx3.wangmarket.shop.core.vo.OrderListVO;
 import com.xnx3.wangmarket.shop.core.vo.OrderStateLogListVO;
 import com.xnx3.wangmarket.shop.core.vo.OrderStateStatisticsVO;
@@ -72,7 +73,7 @@ public class OrderController extends BasePluginController {
 	/**
 	 * 创建订单
 	 * 创建订单后，将会减掉商品库存、同时购物车中，订单创建的商品也会减掉
-	 * @param buygoods 购买的商品，必须传入，json格式，如：  [{"goodsid":20,"num":2},{"goodsid":24,"num":1}]
+	 * @param buygoods 购买的商品，必须传入，json格式，如：  [{"goodsid":20,"num":2},{"goodsid":24,"specificationName":"红色","num":1}]
 	 * @param remark 订单备注，可不传
 	 * @param username 收货人姓名，可不传
 	 * @param phone 收货人手机号/电话，可不传
@@ -113,6 +114,10 @@ public class OrderController extends BasePluginController {
 			BuyGoods buyGoods = new BuyGoods();
 			buyGoods.setGoodsid(JSONUtil.getInt(json, "goodsid"));
 			buyGoods.setNum(JSONUtil.getInt(json, "num"));
+			if(json.get("specification") != null) {
+				//有规格，那么取出这个规格的商品的价格,这里是规格名字，如 [{"黄色":90.1},{"黑色":80},{"白色":70.5}]， 那么这里存的是 黄色
+				buyGoods.setSpecificationName(JSONUtil.getString(json, "specificationName"));
+			}
 			if(buyGoods.getGoodsid() == 0 || buyGoods.getNum() == 0){
 				vo.setBaseVO(OrderVO.FAILURE, "goodsid为0或num为0，数据异常！接收到的数据："+buygoods);
 				return vo;
@@ -152,6 +157,7 @@ public class OrderController extends BasePluginController {
 			//加入 goodsMap
 			goodsMap.put(goods.getId(), goods);
 		}
+		
 		//查询店铺信息,看是否正常
 		Store store = sqlService.findById(Store.class, storeid);
 		if(store.getState() - Store.STATE_OPEN != 0){
@@ -170,8 +176,12 @@ public class OrderController extends BasePluginController {
 		int allNumber = 0;	//计算出当前购买商品的总数量
 		for (int i = 0; i < buyGoodsList.size(); i++) {
 			BuyGoods buyGoods = buyGoodsList.get(i);	//购物车中要购买的某个商品
-			allMoney = allMoney + buyGoods.getGoods().getPrice() * buyGoods.getNum();
-			allNumber = allNumber + buyGoods.getNum();
+			allMoney = allMoney + buyGoods.getBuyMoney();
+			if(allMoney - -1 == 0) {
+				vo.setBaseVO(OrderVO.FAILURE, "取商品["+buyGoods.getGoods().getTitle()+"]的价格有误，该商品的规格["+buyGoods.getSpecificationName()+"]未找到其价格。");
+				return vo;
+			}
+			allNumber = allNumber + allMoney;
 		}
 		
 		//当前登录的用户
@@ -225,13 +235,20 @@ public class OrderController extends BasePluginController {
 			Goods goods = goodsMap.get(buyGoods.getGoods().getId());
 			OrderGoods orderGoods = new OrderGoods();
 			orderGoods.setGoodsid(goods.getId());
-			orderGoods.setPrice(goods.getPrice());
+			if(buyGoods.getBuyMoney() > -1) {
+				//是规格商品，取商品具体规格的单价
+				orderGoods.setPrice(GoodsSpecificationUtil.getPrice(goods.getSpecification(), buyGoods.getSpecificationName()));
+			}else {
+				//普通商品，没有规格，直接赋予goods.price
+				orderGoods.setPrice(goods.getPrice());
+			}
 			orderGoods.setTitle(goods.getTitle());
 			orderGoods.setTitlepic(goods.getTitlepic());
 			orderGoods.setUnits(goods.getUnits());
 			orderGoods.setNumber(buyGoods.getNum());
 			orderGoods.setOrderid(order.getId());
 			orderGoods.setUserid(user.getId());
+			orderGoods.setSpecificationName(buyGoods.getSpecificationName());
 			sqlService.save(orderGoods);
 			
 			//增加商品销量、减去商品库存。 如果用户后面不支付，或者订单退单，那么库存、销量还会再变回来
