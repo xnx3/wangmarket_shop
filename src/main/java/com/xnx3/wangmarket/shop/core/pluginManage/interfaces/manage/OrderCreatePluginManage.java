@@ -98,10 +98,14 @@ public class OrderCreatePluginManage {
 			Class<?> c = classList.get(i);
 			Object invoke = null;
 			invoke = c.newInstance();
-			//运用newInstance()来生成这个新获取方法的实例  
-			Method m = c.getMethod("orderCreateAfter",new Class[]{Order.class, List.class, OrderAddress.class, User.class, Store.class});	//获取要调用的方法  
-			//动态构造的Method对象invoke委托动态构造的InvokeTest对象，执行对应形参的add方法
-			m.invoke(invoke, new Object[]{order, buyGoodsList, orderAddress, user, store});
+			try {
+				//运用newInstance()来生成这个新获取方法的实例  
+				Method m = c.getMethod("orderCreateAfter",new Class[]{Order.class, List.class, OrderAddress.class, User.class, Store.class});	//获取要调用的方法  
+				//动态构造的Method对象invoke委托动态构造的InvokeTest对象，执行对应形参的add方法
+				m.invoke(invoke, new Object[]{order, buyGoodsList, orderAddress, user, store});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

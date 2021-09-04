@@ -19,7 +19,7 @@ public class BuyGoods {
 	 * 	<p>如果返回-1 ，那么是购买的是商品的某种规格，但是选的这个规格又不存在，没有找到其相对应的价格所致。正常操作不会出现，除非用户是提前缓存了很久，商品规格数据变动了，规格才会出现不一致</p>
 	 */
 	public int getBuyMoney() {
-		if(this.specificationName != null || this.specificationName.length() > 0) {
+		if(this.specificationName != null && this.specificationName.length() > 0) {
 			//有规格，那么获取这个规格是多少钱。
 			
 			int money = GoodsSpecificationUtil.getPrice(this.goods.getSpecification(), this.specificationName);

@@ -114,7 +114,7 @@ public class OrderController extends BasePluginController {
 			BuyGoods buyGoods = new BuyGoods();
 			buyGoods.setGoodsid(JSONUtil.getInt(json, "goodsid"));
 			buyGoods.setNum(JSONUtil.getInt(json, "num"));
-			if(json.get("specification") != null) {
+			if(json.get("specificationName") != null) {
 				//有规格，那么取出这个规格的商品的价格,这里是规格名字，如 [{"黄色":90.1},{"黑色":80},{"白色":70.5}]， 那么这里存的是 黄色
 				buyGoods.setSpecificationName(JSONUtil.getString(json, "specificationName"));
 			}
@@ -176,12 +176,14 @@ public class OrderController extends BasePluginController {
 		int allNumber = 0;	//计算出当前购买商品的总数量
 		for (int i = 0; i < buyGoodsList.size(); i++) {
 			BuyGoods buyGoods = buyGoodsList.get(i);	//购物车中要购买的某个商品
-			allMoney = allMoney + buyGoods.getBuyMoney();
-			if(allMoney - -1 == 0) {
+			
+			int goodsBuyMoney = buyGoods.getBuyMoney();
+			if(goodsBuyMoney - -1 == 0) {
 				vo.setBaseVO(OrderVO.FAILURE, "取商品["+buyGoods.getGoods().getTitle()+"]的价格有误，该商品的规格["+buyGoods.getSpecificationName()+"]未找到其价格。");
 				return vo;
 			}
-			allNumber = allNumber + allMoney;
+			allMoney = allMoney + goodsBuyMoney;
+			allNumber = allNumber + buyGoods.getNum();
 		}
 		
 		//当前登录的用户

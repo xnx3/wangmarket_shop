@@ -28,7 +28,7 @@ public class OrderGoods implements java.io.Serializable{
 	
 	//购买的商品是什么规格，这里是规格的名字。
 	//比如goods.specification 为 [{"黄色":901},{"黑色":800},{"白色":705}] ，那么这里存的便是 黄色 。
-	//如果商品没有规格，那这里则是空字符串。 v1.6增加
+	//如果商品没有规格，那这里则是空字符串。 v1.6增加, 限制30个字符以内
 	private String specificationName;	
 	
 	@Id
@@ -106,7 +106,7 @@ public class OrderGoods implements java.io.Serializable{
 		this.number = number;
 	}
 	
-	@Column(name = "specification_name", columnDefinition="int(11) comment '购买的商品是什么规格，这里是规格的名字。如果商品没有规格，那这里则是空字符串。 '")
+	@Column(name = "specification_name", columnDefinition="char(30) comment '购买的商品是什么规格，这里是规格的名字。如果商品没有规格，那这里则是空字符串。 '")
 	public String getSpecificationName() {
 		if(specificationName == null) {
 			return "";
