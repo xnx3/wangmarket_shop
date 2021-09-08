@@ -1,6 +1,7 @@
+<%@page import="com.xnx3.j2ee.util.SystemUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="../common/head.jsp">
-	<jsp:param name="title" value="代理欢迎页面"/>
+	<jsp:param name="title" value="欢迎页面"/>
 </jsp:include>
 <style>
 .iw_table tbody tr .iw_table_td_view_name{
@@ -10,7 +11,7 @@
 </style>
 
 <div style="text-align:center; font-size:29px; padding-top:35px; padding-bottom: 10px;">
-	欢迎使用 云商城系统
+	欢迎使用 <%=SystemUtil.get("SITE_NAME") %>
 </div>
 
 <table class="layui-table iw_table" lay-even lay-skin="nob" style="margin:3%; width:94%;">

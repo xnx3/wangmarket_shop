@@ -26,7 +26,7 @@ public class GoodsCart implements java.io.Serializable{
 	 */
 	public static final int SELECTED_NO = 0;
 	
-	private GoodsBean goods;	//当前商品的信息
+	private Goods goods;	//当前商品的信息
 	private Integer number;		//此种商品数量，加入购物车中的数量
 	private Integer money;		//此种商品加入购物车中的总金额，单位是分。也就是 goods.price * number 的值
 	
@@ -43,12 +43,12 @@ public class GoodsCart implements java.io.Serializable{
 		this.selected = 1;
 	}
 
-	public GoodsBean getGoods() {
+	public Goods getGoods() {
 		return goods;
 	}
 
 	public void setGoods(Goods goods) {
-		this.goods = new GoodsBean(goods);
+		this.goods = goods;
 	}
 
 	public Integer getNumber() {

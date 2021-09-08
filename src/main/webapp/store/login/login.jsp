@@ -1,3 +1,4 @@
+<%@page import="com.xnx3.j2ee.util.SystemUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="../common/head.jsp">
 	<jsp:param name="title" value="登录"/>
@@ -54,7 +55,7 @@
 
 <form class="layui-form layui-elem-quote layui-quote-nm myForm">
   <div class="layui-form-item touming" style="height: 70px;background-color: #eeeeee;line-height: 70px;text-align: center;font-size: 25px;color: #3F4056;">
-    云商城 平台登陆
+    <%=SystemUtil.get("SITE_NAME") %> 登陆
   </div>
   <div style="padding: 30px 50px 40px 0px;">
   	<div class="layui-form-item">

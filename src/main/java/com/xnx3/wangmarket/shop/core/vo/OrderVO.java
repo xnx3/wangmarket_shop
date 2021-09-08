@@ -3,6 +3,7 @@ package com.xnx3.wangmarket.shop.core.vo;
 import java.util.ArrayList;
 import java.util.List;
 import com.xnx3.j2ee.entity.User;
+import com.xnx3.j2ee.system.responseBody.ResponseBodyManage;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
@@ -11,7 +12,6 @@ import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.vo.bean.OrderAddressBean;
-import com.xnx3.wangmarket.shop.core.vo.bean.OrderBean;
 import com.xnx3.wangmarket.shop.core.vo.bean.OrderGoodsBean;
 import com.xnx3.wangmarket.shop.core.vo.bean.OrderRuleBean;
 import com.xnx3.wangmarket.shop.core.vo.bean.PaySetBean;
@@ -23,8 +23,9 @@ import com.xnx3.wangmarket.shop.core.vo.bean.UserBean;
  * @author 管雷鸣
  *
  */
+@ResponseBodyManage(ignoreField = {"userid","isdelete","version"}, nullSetDefaultValue = true)
 public class OrderVO extends BaseVO{
-	private OrderBean order;		//订单信息
+	private Order order;		//订单信息
 	private List<OrderGoodsBean> goodsList;	//订单内所含的商品信息列表
 	private UserBean user;			//下单的用户的信息
 	private StoreBean store;		//该订单所属的商家信息
@@ -32,22 +33,11 @@ public class OrderVO extends BaseVO{
 	private PaySetBean paySet;		//当前商家的支付设置。如果该订单已下单，但未支付，此信息就能有用了
 	private OrderRuleBean orderRule;	//当前商家的订单规则
 	
-	public OrderBean getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 	public void setOrder(Order order) {
-		OrderBean bean = new OrderBean();
-		if(order != null) {
-			bean.setAddtime(order.getAddtime());
-			bean.setId(order.getId());
-			bean.setNo(order.getNo());
-			bean.setPayMoney(order.getPayMoney());
-			bean.setPayTime(order.getPayTime());
-			bean.setRemark(order.getRemark());
-			bean.setState(order.getState());
-			bean.setTotalMoney(order.getTotalMoney());
-		}
-		this.order = bean;
+		this.order = order;
 	}
 	public List<OrderGoodsBean> getGoodsList() {
 		return goodsList;
