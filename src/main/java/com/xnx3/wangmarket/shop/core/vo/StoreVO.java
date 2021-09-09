@@ -1,42 +1,25 @@
 package com.xnx3.wangmarket.shop.core.vo;
 
+import com.xnx3.j2ee.system.responseBody.ResponseBodyManage;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreData;
-import com.xnx3.wangmarket.shop.core.vo.bean.StoreBean;
 
 /**
  * 店铺信息
  * @author 管雷鸣
  *
  */
+@ResponseBodyManage(ignoreField = {"userid","referrerUserid","version"}, nullSetDefaultValue = true)
 public class StoreVO extends BaseVO{
-	private StoreBean store;
+	private Store store;
 
-	public StoreBean getStore() {
+	public Store getStore() {
 		return store;
 	}
 
 	public void setStore(Store store) {
-		StoreBean storeBean = new StoreBean();
-		if(store != null) {
-			storeBean.setAddress(store.getAddress());
-			storeBean.setAddtime(store.getAddtime());
-			storeBean.setCity(store.getCity());
-			storeBean.setContacts(store.getContacts());
-			storeBean.setDistrict(store.getDistrict());
-			storeBean.setHead(store.getHead());
-			storeBean.setId(store.getId());
-			storeBean.setLatitude(store.getLatitude());
-			storeBean.setLongitude(store.getLongitude());
-			storeBean.setName(store.getName());
-//			storeBean.setNotice(store.getNotice());
-			storeBean.setPhone(store.getPhone());
-			storeBean.setProvince(store.getProvince());
-			storeBean.setSale(store.getSale());
-			storeBean.setState(store.getState());
-		}
-		this.store = storeBean;
+		this.store = store;
 	}
 	
 	/**
@@ -48,7 +31,7 @@ public class StoreVO extends BaseVO{
 			return;
 		}
 		if(this.store == null){
-			this.store = new StoreBean();
+			this.store = new Store();
 		}
 		this.store.setNotice(storeData.getNotice());
 	}

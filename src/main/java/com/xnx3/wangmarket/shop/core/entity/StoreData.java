@@ -7,8 +7,10 @@ import javax.persistence.Table;
 
 /**
  * store 表的分表，存变长字段
+ * 已废弃，notice 转移到了store
  * @author 管雷鸣
  */
+@Deprecated
 @Entity
 @Table(name = "shop_store_data")
 public class StoreData implements java.io.Serializable {

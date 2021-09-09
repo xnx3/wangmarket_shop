@@ -9,7 +9,6 @@ import com.xnx3.j2ee.util.CacheUtil;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.GoodsType;
 import com.xnx3.wangmarket.shop.core.service.GoodsTypeService;
-import com.xnx3.wangmarket.shop.core.vo.bean.GoodsTypeBean;
 
 @Service
 public class GoodsTypeServiceImpl implements GoodsTypeService {
@@ -25,20 +24,18 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
 	}
 
 	@Override
-	public List<GoodsTypeBean> getGoodsType(int storeid) {
+	public List<GoodsType> getGoodsType(int storeid) {
 		if(storeid < 1){
-			return new ArrayList<GoodsTypeBean>();
+			return new ArrayList<GoodsType>();
 		}
 		String key = Global.CACHE_KEY_STORE_GOODSTYPE.replace("{storeid}", storeid+"");
-		List<GoodsTypeBean> beanList = (List<GoodsTypeBean>)CacheUtil.get(key);
+		List<GoodsType> beanList = (List<GoodsType>)CacheUtil.get(key);
+		
+		//如果没有，从缓存中取
 		if(beanList == null){
-			beanList = new ArrayList<GoodsTypeBean>();
-			List<GoodsType> typeList = sqlDAO.findBySqlQuery("SELECT * FROM shop_goods_type WHERE storeid = "+storeid+" AND isdelete = 0", GoodsType.class);
-			for (int i = 0; i < typeList.size(); i++) {
-				beanList.add(new GoodsTypeBean(typeList.get(i)));
-			}
+			beanList = sqlDAO.findBySqlQuery("SELECT * FROM shop_goods_type WHERE storeid = "+storeid+" AND isdelete = 0", GoodsType.class);
+			CacheUtil.set(key, beanList, CacheUtil.EXPIRETIME);
 		}
-		CacheUtil.set(key, beanList, CacheUtil.EXPIRETIME);
 		
 		return beanList;
 	}

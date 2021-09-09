@@ -1,13 +1,14 @@
 package com.xnx3.wangmarket.shop.core.vo;
 
+import com.xnx3.j2ee.system.responseBody.ResponseBodyManage;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.vo.bean.GoodsCart;
 
 /**
  * 商品的购物车信息,获取某个商品的购物车信息时会返回此
  * @author 管雷鸣
- *
  */
+@ResponseBodyManage(nullSetDefaultValue = true)
 public class GoodsCartVO extends BaseVO{
 	private int number;		//此种商品数量，加入购物车中的数量
 	private int money;		//此种商品加入购物车中的总金额，单位是分。也就是 goods.price * number 的值

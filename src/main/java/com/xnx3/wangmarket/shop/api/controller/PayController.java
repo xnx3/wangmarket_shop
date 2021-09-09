@@ -40,7 +40,6 @@ import com.xnx3.wangmarket.shop.core.service.PaySetService;
 import com.xnx3.wangmarket.shop.core.vo.AlipayUtilVO;
 import com.xnx3.wangmarket.shop.core.vo.PaySetVO;
 import com.xnx3.wangmarket.shop.core.vo.WeiXinPayUtilVO;
-import com.xnx3.wangmarket.shop.core.vo.bean.PaySetBean;
 import com.xnx3.weixin.XmlUtil;
 import com.xnx3.weixin.weixinPay.PayCallBackParamsVO;
 import com.xnx3.weixin.weixinPay.request.AppletOrder;
@@ -71,24 +70,14 @@ public class PayController extends BasePluginController {
 	public BaseVO getPaySet(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){
 		PaySetVO vo = new PaySetVO();
-		
 		if(storeid < 1){
 			return error("请传入storeid");
 		}
-		List<Map<String,Object>> list = sqlService.findMapBySqlQuery("SELECT use_alipay,use_private_pay,use_weixin_pay FROM shop_pay_set WHERE id = " + storeid);
-		Map<String,Object> map;
-		if(list.size() == 0){
-			map = new HashMap<String, Object>();
-		}else{
-			map = list.get(0);
-		}
-		PaySetBean paySetBean = new PaySetBean();
-		paySetBean.setUseAlipay((short) (map.get("use_alipay") != null ? Lang.stringToInt(map.get("use_alipay").toString() , 0):0));
-		paySetBean.setUsePrivatePay((short) (map.get("use_private_pay") != null ? Lang.stringToInt(map.get("use_private_pay").toString() , 0):0));
-		paySetBean.setUseWeixinPay((short) (map.get("use_weixin_pay") != null ? Lang.stringToInt(map.get("use_weixin_pay").toString() , 0):0));
-		vo.setPaySet(paySetBean);
 		
-		ActionLogUtil.insert(request,storeid, "获取店铺支付设置", paySetBean.toString());
+		PaySet paySet = paySetService.getPaySet(storeid);
+		vo.setPaySet(paySet);
+		
+		ActionLogUtil.insert(request,storeid, "获取店铺支付设置", paySet.toString());
 		return vo;
 	}
 	

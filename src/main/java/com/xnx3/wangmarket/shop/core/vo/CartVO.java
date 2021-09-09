@@ -2,6 +2,8 @@ package com.xnx3.wangmarket.shop.core.vo;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.xnx3.j2ee.system.responseBody.ResponseBodyManage;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.vo.bean.StoreCart;
 
@@ -9,6 +11,7 @@ import com.xnx3.wangmarket.shop.core.vo.bean.StoreCart;
  * 商城购物车，多店铺
  * @author 管雷鸣
  */
+@ResponseBodyManage(ignoreField = {"userid","referrerUserid","version","rank"}, nullSetDefaultValue = true)
 public class CartVO extends BaseVO implements java.io.Serializable{
 	Map<Integer, StoreCart> storeCartMap;	//每个店铺id编号都有一个自己的购物车。 key:store.id
 	private int number;			//该多店铺购物车中所有商品的总数量

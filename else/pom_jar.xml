@@ -4,7 +4,7 @@
   <artifactId>wangmarket.shop</artifactId>
   <packaging>jar</packaging>
   <name>wangmarket_shop</name>
-  <version>1.6</version>
+  <version>1.7</version>
   <description>网市场商城</description>
   
    <properties>

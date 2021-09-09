@@ -23,7 +23,6 @@ import com.xnx3.j2ee.vo.UploadFileVO;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.GoodsType;
 import com.xnx3.wangmarket.shop.core.service.GoodsTypeService;
-import com.xnx3.wangmarket.shop.core.vo.bean.GoodsTypeBean;
 import com.xnx3.wangmarket.shop.store.vo.GoodsTypeListVO;
 
 
@@ -230,7 +229,7 @@ public class GoodsTypeController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value="/getGoodsTypeJs${api.suffix}",method = {RequestMethod.GET})
 	public void getGoodsTypeJs(HttpServletRequest request,HttpServletResponse response) {
-		List<GoodsTypeBean> list = goodsTypeService.getGoodsType(getStoreId());
+		List<GoodsType> list = goodsTypeService.getGoodsType(getStoreId());
 		
 		BaseGenerate generate = new BaseGenerate();
 		generate.createCacheObject("typeid");

@@ -1,5 +1,6 @@
 package com.xnx3.wangmarket.shop.core.vo;
 
+import com.xnx3.j2ee.system.responseBody.ResponseBodyManage;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.plugin.alipay.util.AlipayUtil;
 
@@ -8,6 +9,7 @@ import com.xnx3.wangmarket.plugin.alipay.util.AlipayUtil;
  * @author 管雷鸣
  *
  */
+@ResponseBodyManage(ignoreField = {}, nullSetDefaultValue = true)
 public class AlipayUtilVO extends BaseVO{
 	private AlipayUtil alipayUtil;
 

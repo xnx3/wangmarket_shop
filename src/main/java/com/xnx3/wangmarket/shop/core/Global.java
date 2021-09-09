@@ -31,9 +31,9 @@ public class Global {
 	
 	
 	/**
-	 * 商家的商品分类列表缓存
+	 * 商家的商品分类列表缓存，只获取正常状态的。像是已删除的就不会获取
 	 */
-	public static final String CACHE_KEY_STORE_GOODSTYPE = "shop:store:goodsType:{storeid}";
+	public static final String CACHE_KEY_STORE_GOODSTYPE = "shop:store:normalGoodsType:{storeid}";
 	//商家设置的微信相关参数，进而缓存的 WeiXinUtil 工具类
 	public static final String CACHE_KEY_STORE_WEIXIN_UTIL = "shop:store:weixin:util:{storeid}";
 	//商家设置的微信相关参数，进而缓存的 WeiXinAppletUtil 工具类

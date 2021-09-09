@@ -1,7 +1,7 @@
 package com.xnx3.wangmarket.plugin.weixinApplet.vo;
 
+import com.xnx3.j2ee.vo.UserVO;
 import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
-import com.xnx3.wangmarket.shop.core.vo.UserVO;
 
 /**
  * 微信小程序登录，返回的响应

@@ -13,7 +13,7 @@ public class StoreCart implements java.io.Serializable{
 	private Map<Integer, GoodsCart> goodsCartMap;	//该店铺购物车的商品列表。 key:goods.id 
 	private Integer number;			//该店铺购物车中商品的总数量
 	private Integer money;			//该店铺购物车中商品的总价格，单位是分
-	private StoreBean store;		//当前店铺信息。适用于多商铺一块结算使用。
+	private Store store;		//当前店铺信息。适用于多商铺一块结算使用。
 	
 	public StoreCart() {
 		this.number = 0;
@@ -59,30 +59,12 @@ public class StoreCart implements java.io.Serializable{
 		}
 	}
 
-	public StoreBean getStore() {
+	public Store getStore() {
 		return store;
 	}
 
 	public void setStore(Store store) {
-		StoreBean storeBean = new StoreBean();
-		if(store != null){
-			storeBean.setAddress(store.getAddress());
-			storeBean.setAddtime(store.getAddtime());
-			storeBean.setCity(store.getCity());
-			storeBean.setContacts(store.getContacts());
-			storeBean.setDistrict(store.getDistrict());
-			storeBean.setHead(store.getHead());
-			storeBean.setId(store.getId());
-			storeBean.setLatitude(store.getLatitude());
-			storeBean.setLongitude(store.getLongitude());
-			storeBean.setName(store.getName());
-//			storeBean.setNotice(store.getNotice());
-			storeBean.setPhone(store.getPhone());
-			storeBean.setProvince(store.getProvince());
-			storeBean.setSale(store.getSale());
-			storeBean.setState(store.getState());
-		}
-		this.store = storeBean;
+		this.store = store;
 	}
 	
 	/**
