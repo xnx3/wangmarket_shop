@@ -484,7 +484,6 @@ CREATE TABLE `shop_order` (
   `storeid` int(11) DEFAULT NULL COMMENT '商家id，这个订单购买的商品是哪个商家的。如果一次购买多个店铺的商品，那么最终订单会分解为每个店铺一个订单',
   `total_money` int(11) DEFAULT NULL COMMENT '订单总金额,单位：元',
   `userid` int(11) DEFAULT NULL COMMENT '该订单所属的用户，是哪个用户下的单，对应 User.id',
-  `username` char(20) DEFAULT NULL COMMENT '用户填写名字',
   `version` int(11) DEFAULT '0' COMMENT '乐观锁',
   PRIMARY KEY (`id`),
   KEY `suoyin_index` (`no`,`storeid`,`userid`,`state`)
