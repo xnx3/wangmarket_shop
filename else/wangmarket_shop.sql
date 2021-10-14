@@ -478,7 +478,6 @@ CREATE TABLE `shop_order` (
   `no` char(10) DEFAULT NULL COMMENT '订单号，这个是支付宝支付、微信支付传过去的订单号，也是给用户显示出来的订单号',
   `pay_money` int(11) DEFAULT NULL COMMENT '需要实际支付的金额,单位：元',
   `pay_time` int(11) DEFAULT NULL COMMENT '该订单支付的时间，10位时间戳',
-  `phone` char(20) DEFAULT NULL COMMENT '用户电话',
   `remark` char(100) DEFAULT NULL COMMENT '买家的备注',
   `state` char(20) DEFAULT NULL COMMENT '订单状态',
   `storeid` int(11) DEFAULT NULL COMMENT '商家id，这个订单购买的商品是哪个商家的。如果一次购买多个店铺的商品，那么最终订单会分解为每个店铺一个订单',
