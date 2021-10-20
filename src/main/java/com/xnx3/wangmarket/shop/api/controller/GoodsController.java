@@ -44,13 +44,13 @@ public class GoodsController extends BasePluginController {
 	 * 				</ul>
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
-	 * 
+	 * @author 管雷鸣
 	 * @return {@link GoodsListVO}
 	 */
-	@RequestMapping(value="list${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="list.json", method = RequestMethod.POST)
 	@ResponseBody
 	public GoodsListVO list(HttpServletRequest request,
-			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
+			@RequestParam(value = "storeid", required = true, defaultValue="1") int storeid,
 			@RequestParam(value = "typeid", required = false, defaultValue="0") int typeid,
 			@RequestParam(value = "orderBy", required = false, defaultValue="0") int orderBy,
 			@RequestParam(value = "title", required = false, defaultValue="") String title,
@@ -110,8 +110,9 @@ public class GoodsController extends BasePluginController {
 	 * 获取某个商品的商品详情信息
 	 * @param goodsid 要查看的商品id，goods.id
 	 * @return GoodsDetailsVO
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="detail${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="detail.json", method = RequestMethod.POST)
 	@ResponseBody
 	public GoodsDetailsVO detail(HttpServletRequest request,
 			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid){

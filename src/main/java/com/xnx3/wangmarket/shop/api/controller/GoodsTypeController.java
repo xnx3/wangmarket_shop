@@ -29,11 +29,12 @@ public class GoodsTypeController extends BasePluginController {
 	 * 获取某个店铺的商品分类
 	 * @param storeid 店铺id，对应 Store.id ,要获取的是哪个店铺的商品分类
 	 * @return {@link GoodsTypeListVO} 若不存在，则会new一个返回过来，不会存在null的情况
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="list${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="list.json", method = RequestMethod.POST)
 	@ResponseBody
 	public GoodsTypeListVO list(HttpServletRequest request,
-			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
+			@RequestParam(value = "storeid", required = true, defaultValue="1") int storeid){
 		ActionLogUtil.insert(request, storeid,"获取店铺内商品的分类列表");	//日志记录
 		return goodsService.getStoreGoodsType(storeid);
 	}

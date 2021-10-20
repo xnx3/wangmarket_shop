@@ -34,10 +34,11 @@ public class UserController extends BaseController {
 
 	/**
 	 * 获取当前登录的用户信息
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="getUser${api.suffix}", method = RequestMethod.POST)
-	public UserVO getUser(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	@RequestMapping(value="getUser.json", method = RequestMethod.POST)
+	public UserVO getUser(HttpServletRequest request) throws IOException{
 		ActionLogUtil.insert(request, "获取当前登录的用户信息");
 		UserVO vo = new UserVO();
 		User user = getUser();
@@ -49,6 +50,7 @@ public class UserController extends BaseController {
 	 * 修改密码，如果使用的是账号、密码方式注册、登录的话。
 	 * @param oldPassword 原密码
 	 * @param newPassword 新密码
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
 	@RequestMapping(value="updatePassword", method = RequestMethod.POST)
@@ -81,9 +83,10 @@ public class UserController extends BaseController {
 	/**
 	 * 修改用户昵称
 	 * @param nickname 要修改为的昵称。不允许为空，字符限制1～15个汉字、英文、数字
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="/updateNickname${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="updateNickname.json", method = RequestMethod.POST)
 	public BaseVO updateNickname(HttpServletRequest request,
 			@RequestParam(value = "nickname", required = false, defaultValue = "") String nickname){
 		ActionLogUtil.insert(request, "修改昵称", StringUtil.filterXss(nickname));
@@ -94,9 +97,10 @@ public class UserController extends BaseController {
 	/**
 	 * 上传头像
 	 * @param head 要上传的头像。如果上传的图片超过500，会自动被压缩为宽度500的尺寸
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="/uploadHead${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="uploadHead.json", method = RequestMethod.POST)
 	public BaseVO uploadHead(HttpServletRequest request){
 		BaseVO vo = userService.updateHeadByOSS(request, "head", 500);
 		ActionLogUtil.insert(request, "修改头像", getUser().toString());

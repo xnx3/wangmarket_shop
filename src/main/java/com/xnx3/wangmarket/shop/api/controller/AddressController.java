@@ -34,7 +34,7 @@ public class AddressController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @return {@link AddressVO}
 	 */
-	@RequestMapping(value="/getDefault${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="getDefault.json",method = {RequestMethod.POST})
 	@ResponseBody
 	public AddressVO getDefault(HttpServletRequest request) {
 		AddressVO vo = new AddressVO();
@@ -67,8 +67,9 @@ public class AddressController extends BasePluginController {
 	 * 				<li>1:将当前地址设为默认地址</li>
 	 * 				<li>0:将当前地址设为非默认地址(不传递此参数，默认就是这个)</li>
 	 * 			</ul>
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="/save${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="save.json",method = {RequestMethod.POST})
 	@ResponseBody
 	public BaseVO save(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
@@ -139,7 +140,7 @@ public class AddressController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @return AddressVO
 	 */
-	@RequestMapping(value="/list${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="list.json",method = {RequestMethod.POST})
 	@ResponseBody
 	public AddressListVO list(HttpServletRequest request) {
 		AddressListVO vo = new AddressListVO();
@@ -176,8 +177,9 @@ public class AddressController extends BasePluginController {
 	/**
 	 * 将某个地址设置为默认
 	 * @param id 要设置为默认的地址id， address.id
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="/setDefault${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="setDefault.json",method = {RequestMethod.POST})
 	@ResponseBody
 	public BaseVO setDefault(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
@@ -211,8 +213,9 @@ public class AddressController extends BasePluginController {
 	/**
 	 * 获取自己某个地址的详细信息
 	 * @param id 要获取的这个地址的id， address.id
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="/getAddress${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="getAddress.json",method = {RequestMethod.POST})
 	@ResponseBody
 	public AddressVO getAddress(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
@@ -245,9 +248,10 @@ public class AddressController extends BasePluginController {
 	
 	/**
 	 * 删除自己的某个地址
+	 * @author 管雷鸣
 	 * @param id 要删除的地址id， address.id
 	 */
-	@RequestMapping(value="/delete${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="delete.json",method = {RequestMethod.POST})
 	@ResponseBody
 	public BaseVO delete(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
@@ -271,7 +275,5 @@ public class AddressController extends BasePluginController {
 		
 		return success();
 	}
-	
-	
 	
 }

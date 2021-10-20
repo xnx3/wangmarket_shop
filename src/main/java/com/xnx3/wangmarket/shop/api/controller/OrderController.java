@@ -81,9 +81,10 @@ public class OrderController extends BasePluginController {
 	 * @param latitude 收货人经纬度，可不传
 	 * @param address 收货地址，可不传。传入如 山东省潍坊市寒亭区华亚国际酒店E1308室
 	 * @return {@link OrderVO},若成功，则可以获取到 order 数据
+	 * @author 管雷鸣
 	 */
 	@Transactional
-	@RequestMapping(value="create${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="create.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO create(HttpServletRequest request,
 			@RequestParam(value = "buygoods", required = false, defaultValue = "") String buygoods,
@@ -315,7 +316,7 @@ public class OrderController extends BasePluginController {
 	 * @param storeid 当前查询的订单属于哪个店铺下， store.id
 	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="list${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="list.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderListVO list(HttpServletRequest request,
 			@RequestParam(value = "state", required = false, defaultValue = "") String state,
@@ -373,11 +374,11 @@ public class OrderController extends BasePluginController {
 	
 
 	/**
-	 *查看订单详情
+	 * 查看订单详情
 	 * @author 管雷鸣
 	 * @param orderid 订单id，order.id，要查看哪个订单的信息
 	 */
-	@RequestMapping(value="detail${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="detail.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO detail(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
@@ -439,7 +440,7 @@ public class OrderController extends BasePluginController {
 	 * @param reason 退款理由，非必填，如果想作为必填项，可以在客户端进行必填的判断
 	 */
 	@Transactional
-	@RequestMapping(value="refund${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="refund.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO refund(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid,
@@ -510,7 +511,7 @@ public class OrderController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @param orderid 订单id，要获取的是那个订单
 	 */
-	@RequestMapping(value="getStateChangeLog${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="getStateChangeLog.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderStateLogListVO getStateChangeLog(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
@@ -547,7 +548,7 @@ public class OrderController extends BasePluginController {
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(value="cancelRefund${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="cancelRefund.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO cancelRefund(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
@@ -619,7 +620,7 @@ public class OrderController extends BasePluginController {
 	 * @param id 订单id
 	 */
 	@Transactional
-	@RequestMapping(value="receiveGoods${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="receiveGoods.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO receiveGoods(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
@@ -659,7 +660,7 @@ public class OrderController extends BasePluginController {
 	 * @param id 订单id
 	 */
 	@Transactional
-	@RequestMapping(value="cancel${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="cancel.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO cancel(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
@@ -715,7 +716,7 @@ public class OrderController extends BasePluginController {
 	 * @param storeid 要统计的所在店铺id
 	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="statistics${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="statistics.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderStateStatisticsVO statistics(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){
