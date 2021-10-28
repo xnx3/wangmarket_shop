@@ -36,7 +36,7 @@
 		<tr v-for="item in list">
 			<td>{{item.id}}</td>
 			<td>{{item.no}}</td>
-			<td>{{item.payMoney}}元</td>
+			<td>{{item.payMoney/100}}元</td>
 			<td>{{state[item.state]}}</td>
 			<td>{{formatTime(item.addtime,'Y-M-D h:m:s')}}</td>
 			<td style="width: 100px;">

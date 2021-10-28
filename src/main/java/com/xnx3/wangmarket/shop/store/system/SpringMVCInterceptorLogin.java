@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.xnx3.j2ee.Func;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.interfaces.SpringMVCInterceptorInterface;
 import com.xnx3.j2ee.vo.BaseVO;
@@ -53,7 +55,7 @@ public class SpringMVCInterceptorLogin implements SpringMVCInterceptorInterface{
 		
 		
 		User user = SessionUtil.getUser();
-		if(!user.getAuthority().equals(""+Global.STORE_ROLE_ID)){
+		if(!Func.isAuthorityBySpecific(user.getAuthority(), ""+Global.STORE_ROLE_ID)){
 			//无权使用，自己没有所管理的店铺
 			response.setHeader("Access-Control-Allow-Origin", "*");
 			response.getWriter().write("{"

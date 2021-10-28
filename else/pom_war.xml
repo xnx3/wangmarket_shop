@@ -135,7 +135,13 @@
         <scope>system</scope>  
    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wm-2.7.jar</systemPath>  
     </dependency>
-       
+    <dependency>
+	  <groupId>com.xnx3.wangmarket.shop</groupId>
+	  <artifactId>wangmarket.shop</artifactId>
+	  <version>1.8</version>
+	  <scope>system</scope>  
+	  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wangmarket.shop-1.8.jar</systemPath>  
+	</dependency>
    </dependencies>  
   
 </project>
