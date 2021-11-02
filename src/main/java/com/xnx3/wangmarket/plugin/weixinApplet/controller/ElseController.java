@@ -38,8 +38,8 @@ public class ElseController extends BasePluginController {
 	 * 保存用户手机号。这个手机号是通过微信小程序获取手机号按钮获取加密数据，在这里解密，在保存到 user.phone 字段中
 	 * @param sessionKey 通过小程序code登录后获得的sessionKey
 	 * @param storeid 当前是操作的那个商城，Store.id
-	 * @param encryptedData 小程序通过 open-type="getPhoneNumber" 按钮获取的手机号加密信息
-	 * @param iv 小程序通过 open-type="getPhoneNumber" 按钮获取的
+	 * @param encryptedData 小程序通过 open-type=getPhoneNumber 按钮获取的手机号加密信息
+	 * @param iv 小程序通过 open-type=getPhoneNumber 按钮获取的
 	 * @return 成功后，info会传回手机号
 	 */
 	@RequestMapping(value="/savePhone${api.suffix}",method = {RequestMethod.POST})
