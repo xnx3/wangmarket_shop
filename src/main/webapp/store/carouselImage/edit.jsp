@@ -75,7 +75,7 @@ function commit() {
 	}
 	//表单序列化
 	parent.msg.loading("保存中");
-	post("/shop/store/api/carouselImage/save.json?"+d,{}, function (date) {
+	post("/shop/store/api/carouselImage/save.json",wm.getJsonObjectByForm($("form")), function (date) {
 		parent.msg.close();
 		checkLogin(date);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(date.result == '1'){
