@@ -238,13 +238,26 @@ public class OrderController extends BasePluginController {
 			Goods goods = goodsMap.get(buyGoods.getGoods().getId());
 			OrderGoods orderGoods = new OrderGoods();
 			orderGoods.setGoodsid(goods.getId());
-			if(buyGoods.getBuyMoney() > -1) {
-				//是规格商品，取商品具体规格的单价
-				orderGoods.setPrice(GoodsSpecificationUtil.getPrice(goods.getSpecification(), buyGoods.getSpecificationName()));
-			}else {
-				//普通商品，没有规格，直接赋予goods.price
+			if(buyGoods.getSpecificationName().length() < 1) {
+				//没有规格，直接赋予商品单价,直接赋予goods.price
 				orderGoods.setPrice(goods.getPrice());
+			}else {
+				//有规格，取规格的价格
+				int guigePrice = GoodsSpecificationUtil.getPrice(goods.getSpecification(), buyGoods.getSpecificationName());
+				if(guigePrice < 0) {
+					vo.setBaseVO(OrderVO.FAILURE, "规格异常，商品id:"+goods.getId()+",规格名:"+buyGoods.getSpecificationName()+",取得price是:"+guigePrice);
+					return vo;
+				}
+				//赋予商品具体规格的单价
+				orderGoods.setPrice(guigePrice);
 			}
+//			if(buyGoods.getBuyMoney() > -1) {
+//				//是规格商品，取商品具体规格的单价
+//				orderGoods.setPrice(GoodsSpecificationUtil.getPrice(goods.getSpecification(), buyGoods.getSpecificationName()));
+//			}else {
+//				//普通商品，没有规格，直接赋予goods.price
+//				orderGoods.setPrice(goods.getPrice());
+//			}
 			orderGoods.setTitle(goods.getTitle());
 			orderGoods.setTitlepic(goods.getTitlepic());
 			orderGoods.setUnits(goods.getUnits());
