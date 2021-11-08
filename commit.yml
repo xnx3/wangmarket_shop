@@ -3,46 +3,9 @@ branches: {
   }
 fileChange:
   /pom.xml:
-    newFile: !uuid '475b3741380906b1595d87904819e9a7607c3747'
-    oldFile: !uuid 'fd838499a9e97488badd15813ffc22eafe39a2cb'
-  /src:
-    newFile: !uuid '5717fbe62cbfee965648f9a5390ff57087a0b135'
-    oldFile: !uuid '7d2f779e7a95f983dd5217ca0daf035c7d7eb3ca'
-  /src/main:
-    newFile: !uuid '5e45516085764649e28d4dafa4cdc8c5f7396e83'
-    oldFile: !uuid '62f8e63d37933ada9e05ddad1159c1664c9090fd'
-  /src/main/webapp:
-    newFile: !uuid '105535f9f057918fabca8cb3f5225eb695de6985'
-    oldFile: !uuid '712add7ef0acbeeb25d9b156b7800b37f9f26bd0'
-  /src/main/webapp/WEB-INF:
-    newFile: !uuid '997c89f20e47aa9af5363916b33d18534d0a8a48'
-    oldFile: !uuid '465b6d0130b7b318dc1f14d7353c73d23ae52ce0'
-  /src/main/webapp/WEB-INF/lib:
-    newFile: !uuid 'd8a4a4b78c507927515193f0926198df231191b2'
-    oldFile: !uuid 'bca8259fdd0ea0d75da97b34cd47143ec42c04ea'
-  /src/main/webapp/WEB-INF/lib/wm-2.11-sources.jar:
-    newFile: !uuid '29483d849ff358c0037e15e7504dceb531b9ca90'
-    oldFile: null
-  /src/main/webapp/WEB-INF/lib/wm-2.11.jar:
-    newFile: !uuid '0355d352a65d97887cad33776f21d8b3c50e26c1'
-    oldFile: null
-  /src/main/webapp/WEB-INF/lib/wm-2.7-sources.jar:
-    newFile: null
-    oldFile: !uuid '534ea59f79b1da248d89f21be22364e12c910032'
-  /src/main/webapp/WEB-INF/lib/wm-2.7.jar:
-    newFile: null
-    oldFile: !uuid '2dab19dcbf4704f0be02afb345ace68752ce3066'
-  /src/main/webapp/store:
-    newFile: !uuid '0bb985fb4de0865ca086eb8584b1fe9e9088980f'
-    oldFile: !uuid 'cfc21657bd26f4676a0014c1eedb8e6f43448685'
-  /src/main/webapp/store/goods:
-    newFile: !uuid '6fe271a1f36fb201ac894662473c590e8f558d9f'
-    oldFile: !uuid '310e0d52a219508d9140ce1832dbe35f74eeadf4'
-  /src/main/webapp/store/goods/edit.jsp:
-    newFile: !uuid '0bd877f8157a10dc92dac9c3df0b7099dfdd21fa'
-    oldFile: !uuid 'd3493c5acfb71ff847552ff1d89be1e8d7a736ec'
-gitCommitId: !uuid '5c035d0d99535b9f8c4ba86747984558e00f08dc'
-renames:
-  /src/main/webapp/WEB-INF/lib/wm-2.11-sources.jar: /src/main/webapp/WEB-INF/lib/wm-2.7-sources.jar
-  /src/main/webapp/WEB-INF/lib/wm-2.11.jar: /src/main/webapp/WEB-INF/lib/wm-2.7.jar
-revisionId: 436
+    newFile: !uuid '10d40e9cf5ad7ba16fbb3032aa82b631724063bc'
+    oldFile: !uuid '475b3741380906b1595d87904819e9a7607c3747'
+gitCommitId: !uuid 'c1241957e0af3f1a5d4cef0e8c4247143e849c2a'
+renames: {
+  }
+revisionId: 437
