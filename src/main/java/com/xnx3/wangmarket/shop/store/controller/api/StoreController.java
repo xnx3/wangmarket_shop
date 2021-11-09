@@ -47,6 +47,10 @@ public class StoreController extends BaseController {
 		StoreVO vo = new StoreVO();
 		int storeid = getStoreId();
 		Store store = sqlCacheService.findById(Store.class, storeid);
+		if(store == null) {
+			vo.setBaseVO(BaseVO.FAILURE, "店铺不存在");
+			return vo;
+		}
 		StoreData storeData = sqlCacheService.findById(StoreData.class, storeid);
 		if(storeData == null){
 			storeData = new StoreData();
