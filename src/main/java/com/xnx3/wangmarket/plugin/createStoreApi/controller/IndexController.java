@@ -1,9 +1,11 @@
 package com.xnx3.wangmarket.plugin.createStoreApi.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.ApplicationPropertiesUtil;
 import com.xnx3.j2ee.util.CacheUtil;
+import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.net.AuthHttpUtil;
 import com.xnx3.net.HttpResponse;
@@ -64,17 +67,16 @@ public class IndexController extends BasePluginController {
 	@RequestMapping(value="reg${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public RegVO reg(HttpServletRequest request,Model model,
-			@RequestParam(value = "username", required = false, defaultValue="") String username,
-			@RequestParam(value = "password", required = false, defaultValue="") String password,
+			@RequestParam(value = "username", required = true, defaultValue="") String username,
+			@RequestParam(value = "password", required = true, defaultValue="") String password,
 			@RequestParam(value = "referrerid", required = false, defaultValue="1") int referrerid,
 			@RequestParam(value = "regstoreid", required = false, defaultValue="0") int regstoreid,
 			@RequestParam(value = "token", required = false, defaultValue="") String token,
-			@RequestParam(value = "auth", required = false, defaultValue="") String auth){
+			@RequestParam(value = "auth", required = true, defaultValue="") String auth){
 		if(auth.length() == 0){
 			//如果auth为传入，那么用token传入的参数
 			auth = token;
 		}
-		
 		RegVO vo = new RegVO();
 		if(!checkAuthorize(auth)){
 			//失败
@@ -155,17 +157,17 @@ public class IndexController extends BasePluginController {
 	/**
 	 * 进行登录操作
 	 * @param code 64位登录码
-	 * @param token 约定的token
+//	 * @param token 约定的token
 	 * @return 若成功，info返回session id
 	 */
 	@RequestMapping("login${url.suffix}")
-	public String login(HttpServletRequest request,Model model,
-			@RequestParam(value = "code", required = false, defaultValue="") String code,
-			@RequestParam(value = "token", required = false, defaultValue="") String token){
-		if(!checkAuthorize(token)){
-			//既不是网市场本身的，又不是授权用户的，那么失败
-			return error(model, "token failure");
-		}
+	public String login(HttpServletRequest request,Model model,HttpServletResponse response, 
+//			@RequestParam(value = "token", required = false, defaultValue="") String token,
+			@RequestParam(value = "code", required = false, defaultValue="") String code){
+//		if(!checkAuthorize(token)){
+//			//既不是网市场本身的，又不是授权用户的，那么失败
+//			return error(model, "token failure");
+//		}
 		
 		if(code.length() != 64){
 			return error(model,"登录码长度不合格");
@@ -192,10 +194,15 @@ public class IndexController extends BasePluginController {
 			menuMap.put(e.id, "1");
 		}
 		SessionUtil.setStoreMenuRole(menuMap);
-		SessionUtil.setParentToken(token);
+//		SessionUtil.setParentToken(token);
 		
 		ActionLogUtil.insertUpdateDatabase(request, "用户登录成功","userid:"+u.getUserid());
-		return redirect("store/index/index.jsp?token="+request.getSession().getId());
+		
+		model.addAttribute("token", request.getSession().getId());
+		//会出现  http://shop.imall.net.cn/store/index/index.jsp;JSESSIONID=8af2b7f9-420a-4f25-9af6-e5e1487f71e7?token=8af2b7f9-420a-4f25-9af6-e5e1487f71e7 
+//		return redirect("store/index/index.jsp?token="+request.getSession().getId());
+		
+		return "plugin/createStoreApi/loginJump";
 	}
 	
 	/**
@@ -219,7 +226,6 @@ public class IndexController extends BasePluginController {
 		params.put("auth", token);
 		params.put("domain", domain);
 		params.put("version", "1.0");
-		
 		HttpResponse hr = null;
 		try {
 			hr = http.post(checkAuthorizeUrl, params);
