@@ -2,46 +2,34 @@
 branches: {
   }
 fileChange:
+  /else:
+    newFile: !uuid 'cf69810441192f9c2b947cf2f1582796070614d3'
+    oldFile: !uuid 'dca2e03154e852e91be29e19cc35327484665a36'
+  /else/pom_jar.xml:
+    newFile: !uuid 'e3afe84dbf14f848860f762d6fd39ba0ababf706'
+    oldFile: !uuid '0a05377daebfd2b5e81e53d191da6a867a5cecf3'
+  /else/pom_war.xml:
+    newFile: !uuid 'eac71f043b05b5bc13b039f70eb250ed7c8c4bec'
+    oldFile: !uuid 'a85a153852e37378e74a3ae3e91225e67fe707e9'
+  /pom.xml:
+    newFile: !uuid 'eac71f043b05b5bc13b039f70eb250ed7c8c4bec'
+    oldFile: !uuid 'e3afe84dbf14f848860f762d6fd39ba0ababf706'
   /src:
-    newFile: !uuid '8e9e0b907087dcaeed43559e1ab884817d9656db'
-    oldFile: !uuid 'bd3a2cffe1181145589a449b426b84f7749650c2'
+    newFile: !uuid '0de9ba4e42632663407c5f5868605f9863e7e904'
+    oldFile: !uuid '8e9e0b907087dcaeed43559e1ab884817d9656db'
   /src/main:
-    newFile: !uuid 'd133a1db547f3bdb98c26e7fd53278eef2a7775c'
-    oldFile: !uuid 'b589d4d46ddfcb1128473373c3a449c02a85be0b'
-  /src/main/resources:
-    newFile: !uuid 'd9704ce178e6b58095c0eb2b4f3d5ae0aa80e68d'
-    oldFile: !uuid '8e30777637ccfd9fe5ac2e794c2d27b15f911450'
-  /src/main/resources/banner.txt:
-    newFile: null
-    oldFile: !uuid 'b8442e37ef88b0f5ad2de87de5723ac3e079489c'
-  /src/main/resources/imConfig.xml:
-    newFile: null
-    oldFile: !uuid '462e15a1ac8c37438abde118e4e6342936c5b988'
-  /src/main/resources/language.xml:
-    newFile: null
-    oldFile: !uuid '14ac03dddfd49131a6f54cdc8c6511f6bb2fb63d'
-  /src/main/resources/log4j.properties:
-    newFile: null
-    oldFile: !uuid '56a26881f75ada98de58e5c47a8e584475b1d60b'
-  /src/main/resources/shiro-context.xml:
-    newFile: null
-    oldFile: !uuid 'fd8a891678465853e254b2006b5338ebfe213eac'
-  /src/main/resources/shiro-ehcache.xml:
-    newFile: null
-    oldFile: !uuid '75fab98d3904799a60121326d1457325687e3822'
-  /src/main/resources/systemConfig.xml:
-    newFile: null
-    oldFile: !uuid '5a6654c488cf47ed29583e1b72fd16294694aa44'
-  /src/main/resources/wangMarketConfig.xml:
-    newFile: null
-    oldFile: !uuid '7686fdf98c3322924b08ad694112a3906812b5eb'
-  /src/main/resources/wangmarket.db:
-    newFile: null
-    oldFile: !uuid '0afbb903cddec8413b34019a1fb24765dee63517'
-  /src/main/resources/xnx3Config.xml:
-    newFile: null
-    oldFile: !uuid '43c06cd937284eaefd1924c92ef846b7095fb272'
-gitCommitId: !uuid '85291def06a9e23f4275c91064277f74d6a94fbe'
+    newFile: !uuid 'd0b91e6cfa16b59f215887c1d047f4897b843eb9'
+    oldFile: !uuid 'd133a1db547f3bdb98c26e7fd53278eef2a7775c'
+  /src/main/java:
+    newFile: !uuid '98fb6996b80f719c896254ec3058160fd272406b'
+    oldFile: !uuid '4f0960c2f2a43d71732b39b2dfc67cc9cdb7b95a'
+  /src/main/java/com:
+    newFile: !uuid 'd7aab77ea49a64d70b32fce55bf0411770e74ecc'
+    oldFile: !uuid '634188c1ec75978f7fb5646ec12d8a1374e12d5b'
+  /src/main/java/com/.gitignore:
+    newFile: !uuid 'c07eaba2c534674ec1b7dada2dc34a728c287b50'
+    oldFile: null
+gitCommitId: !uuid '05cf7d3759f5e1122c8abbced856517d790671ed'
 renames: {
   }
-revisionId: 442
+revisionId: 443
