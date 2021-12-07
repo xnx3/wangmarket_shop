@@ -2,34 +2,151 @@
 branches: {
   }
 fileChange:
-  /else:
-    newFile: !uuid 'cf69810441192f9c2b947cf2f1582796070614d3'
-    oldFile: !uuid 'dca2e03154e852e91be29e19cc35327484665a36'
-  /else/pom_jar.xml:
-    newFile: !uuid 'e3afe84dbf14f848860f762d6fd39ba0ababf706'
-    oldFile: !uuid '0a05377daebfd2b5e81e53d191da6a867a5cecf3'
-  /else/pom_war.xml:
-    newFile: !uuid 'eac71f043b05b5bc13b039f70eb250ed7c8c4bec'
-    oldFile: !uuid 'a85a153852e37378e74a3ae3e91225e67fe707e9'
-  /pom.xml:
-    newFile: !uuid 'eac71f043b05b5bc13b039f70eb250ed7c8c4bec'
-    oldFile: !uuid 'e3afe84dbf14f848860f762d6fd39ba0ababf706'
   /src:
-    newFile: !uuid '0de9ba4e42632663407c5f5868605f9863e7e904'
-    oldFile: !uuid '8e9e0b907087dcaeed43559e1ab884817d9656db'
+    newFile: !uuid '95772c3692c809b290e6f042187eddfdbee780a0'
+    oldFile: !uuid '0de9ba4e42632663407c5f5868605f9863e7e904'
   /src/main:
-    newFile: !uuid 'd0b91e6cfa16b59f215887c1d047f4897b843eb9'
-    oldFile: !uuid 'd133a1db547f3bdb98c26e7fd53278eef2a7775c'
-  /src/main/java:
-    newFile: !uuid '98fb6996b80f719c896254ec3058160fd272406b'
-    oldFile: !uuid '4f0960c2f2a43d71732b39b2dfc67cc9cdb7b95a'
-  /src/main/java/com:
-    newFile: !uuid 'd7aab77ea49a64d70b32fce55bf0411770e74ecc'
-    oldFile: !uuid '634188c1ec75978f7fb5646ec12d8a1374e12d5b'
-  /src/main/java/com/.gitignore:
-    newFile: !uuid 'c07eaba2c534674ec1b7dada2dc34a728c287b50'
-    oldFile: null
-gitCommitId: !uuid '05cf7d3759f5e1122c8abbced856517d790671ed'
+    newFile: !uuid 'f9d310c7192af5317862a0a1213f5bbe2f2884a1'
+    oldFile: !uuid 'd0b91e6cfa16b59f215887c1d047f4897b843eb9'
+  /src/main/webapp:
+    newFile: !uuid 'db9f86695acc0fead0a3e6b1fc9305f36b33dc1d'
+    oldFile: !uuid '6cd05cad0812cdcbd6d67921b0b167ce4f1089cd'
+  /src/main/webapp/WEB-INF:
+    newFile: !uuid 'd751f9d6f7faf434481dcface7afb068b99fc568'
+    oldFile: !uuid '1f28b83cdd8017563ce3fa2823abfaec4d05048d'
+  /src/main/webapp/WEB-INF/view:
+    newFile: !uuid '5e8367f88c27a1bf84e113238ca07d7561bce6ad'
+    oldFile: !uuid 'afca85e2a6d29f9a5cb65874712c14b1393a90f4'
+  /src/main/webapp/WEB-INF/view/plugin:
+    newFile: !uuid 'b30f0f8c0217f18392fa9078705989c3e1387d2b'
+    oldFile: !uuid '7a54d778b9a6f3574ffd441fbd3705456fe1d2c1'
+  /src/main/webapp/WEB-INF/view/plugin/autoApplyStore:
+    newFile: null
+    oldFile: !uuid 'dada5ad62196dc92f33f7b8b7891dd7321cff638'
+  /src/main/webapp/WEB-INF/view/plugin/autoApplyStore/list.jsp:
+    newFile: null
+    oldFile: !uuid 'c5ffaf96f64d0d9350b790fd8cac28264e53a2c5'
+  /src/main/webapp/WEB-INF/view/plugin/dataDictionary:
+    newFile: null
+    oldFile: !uuid '89494b6bd31f338b23bb05320d2cea68e058271d'
+  /src/main/webapp/WEB-INF/view/plugin/dataDictionary/tableList.jsp:
+    newFile: null
+    oldFile: !uuid 'e6daa544b43f3992d69ef4bd76dd41567196af08'
+  /src/main/webapp/WEB-INF/view/plugin/dataDictionary/tableView.jsp:
+    newFile: null
+    oldFile: !uuid 'c9e47035ba3e2c57744c5c0667e80fbe33c90060'
+  /src/main/webapp/WEB-INF/view/plugin/firstOrderAward:
+    newFile: null
+    oldFile: !uuid '7243305cfceced22ea9d6cb23734dac98bd5afa1'
+  /src/main/webapp/WEB-INF/view/plugin/firstOrderAward/store:
+    newFile: null
+    oldFile: !uuid '4a515b67097aee1f90df673c380c4277757cc42b'
+  /src/main/webapp/WEB-INF/view/plugin/firstOrderAward/store/setAward.jsp:
+    newFile: null
+    oldFile: !uuid '9a4a04322e677b33683a43aed8feadccfd7415ba'
+  /src/main/webapp/WEB-INF/view/plugin/formManage:
+    newFile: null
+    oldFile: !uuid 'b585e44f49134985308bde0f031c5af80f6d3b4b'
+  /src/main/webapp/WEB-INF/view/plugin/formManage/list.jsp:
+    newFile: null
+    oldFile: !uuid '27d5093e39f7cd9e54bfcb07b94e0c7835d87330'
+  /src/main/webapp/WEB-INF/view/plugin/formManage/view.jsp:
+    newFile: null
+    oldFile: !uuid '415b4733295690f2354350f5d63100e60ab0fe65'
+  /src/main/webapp/WEB-INF/view/plugin/learnExample:
+    newFile: null
+    oldFile: !uuid 'b0971b6cde0431ab8b3d8c93c97725acdad094c0'
+  /src/main/webapp/WEB-INF/view/plugin/learnExample/index.jsp:
+    newFile: null
+    oldFile: !uuid '1b735f74fff736b804067b6bb1aa85225a2ecd00'
+  /src/main/webapp/WEB-INF/view/plugin/limitbuy:
+    newFile: null
+    oldFile: !uuid '5e71627467334f62e90a696b9327ee56160b9ee3'
+  /src/main/webapp/WEB-INF/view/plugin/limitbuy/store:
+    newFile: null
+    oldFile: !uuid '9dfa3ac77a0bca9ad52cd00e0a8410003b202459'
+  /src/main/webapp/WEB-INF/view/plugin/limitbuy/store/index.jsp:
+    newFile: null
+    oldFile: !uuid 'bc24cedb5219eda23019d51cce6cb4a2c7010e15'
+  /src/main/webapp/WEB-INF/view/plugin/sell:
+    newFile: null
+    oldFile: !uuid '69e294de76a5fd8159aff6ba3de9a4bb82902813'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store:
+    newFile: null
+    oldFile: !uuid 'bc499af608e8f506c52d48bb3b915a639b244fec'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/commission:
+    newFile: null
+    oldFile: !uuid '1785097b12a74f44b5d2c3d2841014f57b3ee55d'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/commission/list.jsp:
+    newFile: null
+    oldFile: !uuid 'db5ae0a2640a0d17ffc2b2d431d8a128dab81361'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/index.jsp:
+    newFile: null
+    oldFile: !uuid '363d156c91032d34430453f4727525c97121aaf0'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/set.jsp:
+    newFile: null
+    oldFile: !uuid '845316bcb4af536c4e1efa1e2ffbfae34ab8233c'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/tixian:
+    newFile: null
+    oldFile: !uuid 'ccd636b1fd1342c725fac0e1843bcaae4ff24fd8'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/tixian/detail.jsp:
+    newFile: null
+    oldFile: !uuid '57e42e5639b82133566e185811cb2dba6397ff75'
+  /src/main/webapp/WEB-INF/view/plugin/sell/store/tixian/list.jsp:
+    newFile: null
+    oldFile: !uuid '380a3cae5199bd64ae33c768c1041077838b0a42'
+  /src/main/webapp/WEB-INF/view/plugin/storeSubAccount:
+    newFile: null
+    oldFile: !uuid '633f91ae43c4aeef1a0317579dafc14e34f67947'
+  /src/main/webapp/WEB-INF/view/plugin/storeSubAccount/user:
+    newFile: null
+    oldFile: !uuid '2aab947119bf3652d5105707ba4af070afb2c99b'
+  /src/main/webapp/WEB-INF/view/plugin/storeSubAccount/user/edit.jsp:
+    newFile: null
+    oldFile: !uuid '2e5af7d32a3028c7e01ef3bc90d4553963d5a664'
+  /src/main/webapp/WEB-INF/view/plugin/storeSubAccount/user/list.jsp:
+    newFile: null
+    oldFile: !uuid 'fbc3af14db7be4bef59aa8cb310759cef86ffb73'
+  /src/main/webapp/WEB-INF/view/plugin/templateDevelop:
+    newFile: null
+    oldFile: !uuid 'c93d71d158331d21e76579e9753da73d3b525f2f'
+  /src/main/webapp/WEB-INF/view/plugin/templateDevelop/index.jsp:
+    newFile: null
+    oldFile: !uuid '6859c7dc5cd8ba35e84da0db3f41a0f752251a32'
+  /src/main/webapp/WEB-INF/view/plugin/weixinH5Auth:
+    newFile: null
+    oldFile: !uuid '4cece2afd3fc8b80dd6d7b8d392058acdfaf3f5f'
+  /src/main/webapp/WEB-INF/view/plugin/weixinH5Auth/store:
+    newFile: null
+    oldFile: !uuid 'f05557271c7ae2eff009b01bd8d34354c44ce898'
+  /src/main/webapp/WEB-INF/view/plugin/weixinH5Auth/store/index.jsp:
+    newFile: null
+    oldFile: !uuid '0520782ffb61671906b68a1adb7f5d93c8f5e6f2'
+  /src/main/webapp/WEB-INF/view/shop:
+    newFile: !uuid '4269d857854405d0a1967459d908499c47d6bea7'
+    oldFile: !uuid '703c8a29b42d62f7e44e2f813899be56dbfa8248'
+  /src/main/webapp/WEB-INF/view/shop/store:
+    newFile: !uuid 'a7bf357cd2140ff392a899af88cf0a0b0447ab61'
+    oldFile: !uuid 'f7135a414c1cf1713c7490072e97fc70a39c79b3'
+  /src/main/webapp/WEB-INF/view/shop/store/orderRule:
+    newFile: null
+    oldFile: !uuid 'd1d175529532aa2a0925117d9e01736e1e7029ad'
+  /src/main/webapp/WEB-INF/view/shop/store/orderRule/index.jsp:
+    newFile: null
+    oldFile: !uuid 'f66e682df10502f501d5c63ab8beb4997b578317'
+  /src/main/webapp/WEB-INF/view/shop/store/paySet:
+    newFile: null
+    oldFile: !uuid 'cc6a4aadee8e661823a3037afbc55f972ddfb407'
+  /src/main/webapp/WEB-INF/view/shop/store/paySet/index.jsp:
+    newFile: null
+    oldFile: !uuid '746710f3bab65c3240f1ad9107c072168483b6c7'
+  /src/main/webapp/WEB-INF/view/shop/store/sms:
+    newFile: null
+    oldFile: !uuid '05a515ee20a32d7960b51e6a353728a6ae8907e8'
+  /src/main/webapp/WEB-INF/view/shop/store/sms/index.jsp:
+    newFile: null
+    oldFile: !uuid 'e22af3cd1987a6a3d7a501effaceeff9e9b73785'
+gitCommitId: !uuid '28f780a4fe99186fc7b281921565b260f86f675f'
 renames: {
   }
-revisionId: 443
+revisionId: 444
