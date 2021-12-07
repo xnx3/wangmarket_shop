@@ -4,11 +4,10 @@ import com.xnx3.SMSUtil;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
-import com.xnx3.j2ee.util.SpringUtil;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.plugin.orderNotice.Plugin;
-import com.xnx3.wangmarket.plugin.orderNotice.entity.PayNotice;
-import com.xnx3.wangmarket.plugin.orderNotice.vo.PayNoticeVO;
+import com.xnx3.wangmarket.plugin.orderNotice.entity.OrderNotice;
+import com.xnx3.wangmarket.plugin.orderNotice.vo.OrderNoticeVO;
 import com.xnx3.wangmarket.shop.core.entity.SmsSet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;
@@ -27,8 +26,8 @@ import javax.servlet.http.HttpServletRequest;
  * 商家管理后台
  * @author 管雷鸣
  */
-@Controller(value="PayNoticeIndexPluginApiController")
-@RequestMapping("/plugin/payNotice/api/store/")
+@Controller(value="OrderNoticeIndexPluginApiController")
+@RequestMapping("/plugin/orderNotice/api/store/")
 public class IndexController extends BasePluginController {
 	@Resource
 	private SqlService sqlService;
@@ -42,25 +41,25 @@ public class IndexController extends BasePluginController {
 	 * 获取当前商家的支付通知设置信息
 	 */
 	@ResponseBody
-	@RequestMapping(value = "getPayNotice${api.suffix}",method = {RequestMethod.POST})
-	public PayNoticeVO getPayNotice(HttpServletRequest request, Model model){
-		PayNoticeVO vo = new PayNoticeVO();
+	@RequestMapping(value = "getOrderNotice.json",method = {RequestMethod.POST})
+	public OrderNoticeVO getOrderNotice(HttpServletRequest request, Model model){
+		OrderNoticeVO vo = new OrderNoticeVO();
 		if(!haveStoreAuth()){
 			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
 			return vo;
 		}
 		
 		Store store = SessionUtil.getStore();
-		PayNotice payNotice = sqlCacheService.findById(PayNotice.class, store.getId());
-		if(payNotice == null){
-			payNotice = new PayNotice();
-			payNotice.setId(store.getId());
-			payNotice.setIsUse(PayNotice.IS_USE_NO);
-			payNotice.setPhone("");
+		OrderNotice orderNotice = sqlCacheService.findById(OrderNotice.class, store.getId());
+		if(orderNotice == null){
+			orderNotice = new OrderNotice();
+			orderNotice.setId(store.getId());
+			orderNotice.setIsUse(OrderNotice.IS_USE_NO);
+			orderNotice.setPhone("");
 		}
 		
 		ActionLogUtil.insertUpdateDatabase(request, "进入支付通知插件设置页面");
-		vo.setPayNotice(payNotice);
+		vo.setOrderNotice(orderNotice);
 		return vo;
 	}
 	
@@ -78,20 +77,20 @@ public class IndexController extends BasePluginController {
 		}
 		
 		Store store = SessionUtil.getStore();
-		PayNotice payNotice = sqlService.findById(PayNotice.class, store.getId());
-		if(payNotice == null){
-			payNotice = new PayNotice();
-			payNotice.setId(store.getId());
-			payNotice.setPhone("");
+		OrderNotice orderNotice = sqlService.findById(OrderNotice.class, store.getId());
+		if(orderNotice == null){
+			orderNotice = new OrderNotice();
+			orderNotice.setId(store.getId());
+			orderNotice.setPhone("");
 		}
-		payNotice.setIsUse(isUse == 1? PayNotice.IS_USE_YES: PayNotice.IS_USE_NO);//默认不使用
-		sqlService.save(payNotice);
+		orderNotice.setIsUse(isUse == 1? OrderNotice.IS_USE_YES: OrderNotice.IS_USE_NO);//默认不使用
+		sqlService.save(orderNotice);
 		
 		//清理缓存
-		sqlCacheService.deleteCacheById(PayNotice.class, store.getId());
+		sqlCacheService.deleteCacheById(OrderNotice.class, store.getId());
 		
 		//日志
-		ActionLogUtil.insertUpdateDatabase(request, "支付通知插件，修改 isUse 为"+(payNotice.getIsUse()- PayNotice.IS_USE_YES == 0? "使用":"不使用"), payNotice.toString());
+		ActionLogUtil.insertUpdateDatabase(request, "支付通知插件，修改 isUse 为"+(orderNotice.getIsUse()- OrderNotice.IS_USE_YES == 0? "使用":"不使用"), orderNotice.toString());
 		return success();
 	}
 	
@@ -113,20 +112,20 @@ public class IndexController extends BasePluginController {
 		}
 		
 		Store store = SessionUtil.getStore();
-		PayNotice payNotice = sqlService.findById(PayNotice.class, store.getId());
-		if(payNotice == null){
-			payNotice = new PayNotice();
-			payNotice.setId(store.getId());
-			payNotice.setIsUse(PayNotice.IS_USE_NO);//默认不使用
+		OrderNotice orderNotice = sqlService.findById(OrderNotice.class, store.getId());
+		if(orderNotice == null){
+			orderNotice = new OrderNotice();
+			orderNotice.setId(store.getId());
+			orderNotice.setIsUse(OrderNotice.IS_USE_NO);//默认不使用
 		}
-		payNotice.setPhone(phone);
-		sqlService.save(payNotice);
+		orderNotice.setPhone(phone);
+		sqlService.save(orderNotice);
 		
 		//清理缓存
-		sqlCacheService.deleteCacheById(PayNotice.class, store.getId());
+		sqlCacheService.deleteCacheById(OrderNotice.class, store.getId());
 		
 		//日志
-		ActionLogUtil.insertUpdateDatabase(request, "支付通知手机号更改", payNotice.toString());
+		ActionLogUtil.insertUpdateDatabase(request, "支付通知手机号更改", orderNotice.toString());
 		return success();
 	}
 	
@@ -149,12 +148,12 @@ public class IndexController extends BasePluginController {
 		}
 		
 		Store store = SessionUtil.getStore();
-		PayNotice payNotice = sqlCacheService.findById(PayNotice.class, store.getId());
-		if(payNotice == null){
+		OrderNotice orderNotice = sqlCacheService.findById(OrderNotice.class, store.getId());
+		if(orderNotice == null){
 			return error("请先设置用户支付成功后，要通知哪个手机");
 		}
 		
-		if(payNotice.getPhone().length() < 11){
+		if(orderNotice.getPhone().length() < 11){
 			return error("手机号不足11位，不是正常的手机号。");
 		}
 		
@@ -172,13 +171,13 @@ public class IndexController extends BasePluginController {
 			return vo;
 		}
 		
-		com.xnx3.BaseVO vo = smsUtil.send(payNotice.getPhone(), Plugin.SMS_TEMPLATE.replace("{orderno}", "xxxxxxxx").replace("{money}", "0.00"));
+		com.xnx3.BaseVO vo = smsUtil.send(orderNotice.getPhone(), Plugin.SMS_TEMPLATE.replace("{orderno}", "xxxxxxxx").replace("{money}", "0.00"));
 		if(vo.getResult() - com.xnx3.BaseVO.FAILURE == 0){
 			return error(vo.getInfo());
 		}
 		
 		//日志
-		ActionLogUtil.insertUpdateDatabase(request, "支付通知发送短信测试", payNotice.toString());
+		ActionLogUtil.insertUpdateDatabase(request, "支付通知发送短信测试", orderNotice.toString());
 		return success();
 	}
 	

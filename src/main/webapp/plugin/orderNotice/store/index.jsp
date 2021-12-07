@@ -64,7 +64,7 @@ function useChange(use){
 //修改当前是否使用
 function updateUse(value){
 	parent.msg.loading('修改中');
-	post("/plugin/payNotice/api/store/updateIsUse.json?isUse="+value,{}, function(data){
+	post("/plugin/orderNotice/api/store/updateIsUse.json?isUse="+value,{}, function(data){
 		parent.msg.close();	//关闭“操作中”的等待提示
 		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(data.result == '1'){
@@ -83,7 +83,7 @@ function updatePhone(phone){
 		return;
 	}
 	parent.msg.loading("保存中");
-	post("/plugin/payNotice/api/store/updatePhone.json",{"phone":phone}, function (result) {
+	post("/plugin/orderNotice/api/store/updatePhone.json",{"phone":phone}, function (result) {
 		parent.msg.close();
 		checkLogin(result);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(result.result == '1'){
@@ -99,7 +99,7 @@ function updatePhone(phone){
 //发送测试短信
 function sendSmsTest(){
 	parent.msg.loading("发送中");
-	post("/plugin/payNotice/api/store/sendSmsTest.json",{}, function (data) {
+	post("/plugin/orderNotice/api/store/sendSmsTest.json",{}, function (data) {
 		parent.msg.close();
 		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(data.result == '1'){
@@ -117,19 +117,19 @@ function sendSmsTest(){
 	});
 }
 msg.loading('加载中');
-var payNotice;
-post('/plugin/payNotice/api/store/getPayNotice.json',{},function(data){
+var orderNotice;
+post('/plugin/orderNotice/api/store/getOrderNotice.json',{},function(data){
 	msg.close();	//关闭“更改中”的等待提示
 	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 	if(data.result != '1'){
 		msg.failure(data.info);
 	}else {
 		//成功
-		payNotice = data.payNotice;
-		useChange(payNotice.isUse == 1);
-		if (payNotice.isUse == 1) {
+		orderNotice = data.orderNotice;
+		useChange(orderNotice.isUse == 1);
+		if (orderNotice.isUse == 1) {
 			document.getElementById('button').innerHTML = '<input type="checkbox" id="switchInputId" name="isUse" value="1" lay-filter="isUse" lay-skin="switch" lay-text="开启|关闭" checked>';
-			document.getElementById('phone').value = payNotice.phone;
+			document.getElementById('phone').value = orderNotice.phone;
 		}else {
 			document.getElementById('button').innerHTML = '<input type="checkbox" id="switchInputId" name="isUse" value="1" lay-filter="isUse" lay-skin="switch" lay-text="开启|关闭">'
 		}

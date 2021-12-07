@@ -12,7 +12,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  */
 @Entity()
 @Table(name = "plugin_order_notice")
-public class PayNotice extends BaseEntity implements java.io.Serializable{
+public class OrderNotice extends BaseEntity implements java.io.Serializable{
 	/**
 	 * 是否是在使用， 1使用
 	 */
