@@ -1,4 +1,4 @@
-package com.xnx3.wangmarket.plugin.payNotice.controller.store;
+package com.xnx3.wangmarket.plugin.orderNotice.controller.store;
 
 import com.xnx3.SMSUtil;
 import com.xnx3.j2ee.service.SqlCacheService;
@@ -6,9 +6,9 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.SpringUtil;
 import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.wangmarket.plugin.payNotice.Plugin;
-import com.xnx3.wangmarket.plugin.payNotice.entity.PayNotice;
-import com.xnx3.wangmarket.plugin.payNotice.vo.PayNoticeVO;
+import com.xnx3.wangmarket.plugin.orderNotice.Plugin;
+import com.xnx3.wangmarket.plugin.orderNotice.entity.PayNotice;
+import com.xnx3.wangmarket.plugin.orderNotice.vo.PayNoticeVO;
 import com.xnx3.wangmarket.shop.core.entity.SmsSet;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.controller.BasePluginController;

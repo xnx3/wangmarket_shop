@@ -1,7 +1,7 @@
-package com.xnx3.wangmarket.plugin.payNotice.vo;
+package com.xnx3.wangmarket.plugin.orderNotice.vo;
 
 import com.xnx3.j2ee.vo.BaseVO;
-import com.xnx3.wangmarket.plugin.payNotice.entity.PayNotice;
+import com.xnx3.wangmarket.plugin.orderNotice.entity.PayNotice;
 
 /**
  * 商品限购规定用户的可购买次数。

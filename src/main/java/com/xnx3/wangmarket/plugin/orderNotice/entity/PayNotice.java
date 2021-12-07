@@ -1,4 +1,4 @@
-package com.xnx3.wangmarket.plugin.payNotice.entity;
+package com.xnx3.wangmarket.plugin.orderNotice.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
  * @author 管雷鸣
  */
 @Entity()
-@Table(name = "plugin_pay_notice")
+@Table(name = "plugin_order_notice")
 public class PayNotice extends BaseEntity implements java.io.Serializable{
 	/**
 	 * 是否是在使用， 1使用
