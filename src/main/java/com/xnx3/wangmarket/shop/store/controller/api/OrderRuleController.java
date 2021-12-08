@@ -54,7 +54,7 @@ public class OrderRuleController extends BaseController {
 	/**
 	 * 设置某个订单状态是否启用
 	 * @author 管雷鸣
-	 * @param name 订单状态，传入的也就是 {@link OrderRule} 的字段，传入如 distribution 、refund 、 notPayTimeout
+	 * @param name 订单状态，传入的也就是 {@link OrderRule} 的字段，传入如 distribution 、refund 、 notPayTimeout 、receiveTime 、print
 	 * @param value 值。0或者1  ，1使用，0不使用
 	 */
 	@ResponseBody
@@ -74,6 +74,10 @@ public class OrderRuleController extends BaseController {
 			orderRule.setRefund((short) value);
 		}else if(name.equals("notPayTimeout")){
 			orderRule.setNotPayTimeout(value);
+		}else if(name.equals("receiveTime")){
+			orderRule.setReceiveTime(value);
+		}else if(name.equals("print")){
+			orderRule.setPrint((short) value);
 		}else{
 			ConsoleUtil.debug("异常，name:"+name);
 			return error("name异常");

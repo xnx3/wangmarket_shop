@@ -18,6 +18,31 @@
 		<jsp:param name="iw_name" value="state"/>
 		<jsp:param name="iw_type" value="select"/>
 	</jsp:include>
+	<%-- <label class="layui-form-label"></label>
+	<div style="float: left; margin-left: 10px;" class="layui-input-block">
+		<jsp:include page="/wm/common/edit/form_date.jsp">
+			<jsp:param name="wm_name" value="addtime" />
+			<jsp:param name="wm_value" value="${addtime }" />
+			<jsp:param name="wm_type" value="date" />
+		</jsp:include>
+	</div> --%>
+	
+	<label style="text-align: left;" class="layui-form-label">日期范围</label>
+		<div class="layui-input-inline">
+			<jsp:include page="/wm/common/edit/form_date.jsp">
+			<jsp:param name="wm_name" value="startTime"/>
+			<jsp:param name="wm_value" value="${entity.selecttime }"/>
+			<jsp:param name="wm_type" value="date"/>
+		    </jsp:include>
+		</div>
+		&nbsp;-&nbsp;
+		<div class="layui-input-inline">
+			<jsp:include page="/wm/common/edit/form_date.jsp">
+			<jsp:param name="wm_name" value="endTime"/>
+			<jsp:param name="wm_value" value="${entity.selecttime }"/>
+			<jsp:param name="wm_type" value="date"/>
+		    </jsp:include>
+		</div>
 	<a class="layui-btn" href="javascript:wm.list(1);" style="margin-left: 15px;">搜索</a>
 </form>
 
@@ -49,6 +74,7 @@
 <jsp:include page="/wm/common/page.jsp" />
 
 <script type="text/javascript">
+
 //自适应弹出层大小
 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 function change(flag){

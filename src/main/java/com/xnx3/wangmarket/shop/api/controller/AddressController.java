@@ -20,7 +20,8 @@ import com.xnx3.wangmarket.shop.core.vo.AddressListVO;
 import com.xnx3.wangmarket.shop.core.vo.AddressVO;
 
 /**
- * 用户收货地址相关，一个用户会有多个收货地址，但一个用户默认的收货地址只有一个
+ * 用户收货地址相关
+ * <p>一个用户会有多个收货地址，但一个用户默认的收货地址只有一个</p>
  * @author 管雷鸣
  */
 @Controller("ShopAddressController")
@@ -32,7 +33,7 @@ public class AddressController extends BasePluginController {
 	/**
 	 * 获取当前用户所设定的默认地址
 	 * @author 管雷鸣
-	 * @return {@link AddressVO}
+	 * @return 默认地址信息
 	 */
 	@RequestMapping(value="getDefault.json",method = {RequestMethod.POST})
 	@ResponseBody
@@ -68,6 +69,7 @@ public class AddressController extends BasePluginController {
 	 * 				<li>0:将当前地址设为非默认地址(不传递此参数，默认就是这个)</li>
 	 * 			</ul>
 	 * @author 管雷鸣
+	 * @return 操作结果，是否执行成功
 	 */
 	@RequestMapping(value="save.json",method = {RequestMethod.POST})
 	@ResponseBody
@@ -138,7 +140,7 @@ public class AddressController extends BasePluginController {
 	/**
 	 * 获取用户地址列表，包含默认地址跟其他非默认地址列表
 	 * @author 管雷鸣
-	 * @return AddressVO
+	 * @return 地址列表
 	 */
 	@RequestMapping(value="list.json",method = {RequestMethod.POST})
 	@ResponseBody
@@ -178,11 +180,12 @@ public class AddressController extends BasePluginController {
 	 * 将某个地址设置为默认
 	 * @param id 要设置为默认的地址id， address.id
 	 * @author 管雷鸣
+	 * @return 操作结果，是否执行成功
 	 */
 	@RequestMapping(value="setDefault.json",method = {RequestMethod.POST})
 	@ResponseBody
 	public BaseVO setDefault(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+			@RequestParam(value = "id", required = true, defaultValue = "0") int id) {
 		//判断输入参数
 		if(id < 1) {
 			return error("请传入地址id");
@@ -214,11 +217,12 @@ public class AddressController extends BasePluginController {
 	 * 获取自己某个地址的详细信息
 	 * @param id 要获取的这个地址的id， address.id
 	 * @author 管雷鸣
+	 * @return 地址信息
 	 */
 	@RequestMapping(value="getAddress.json",method = {RequestMethod.POST})
 	@ResponseBody
 	public AddressVO getAddress(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+			@RequestParam(value = "id", required = true, defaultValue = "0") int id) {
 		AddressVO vo = new AddressVO();
 		
 		//判断输入参数
@@ -250,11 +254,12 @@ public class AddressController extends BasePluginController {
 	 * 删除自己的某个地址
 	 * @author 管雷鸣
 	 * @param id 要删除的地址id， address.id
+	 * @return 操作结果，是否执行成功
 	 */
 	@RequestMapping(value="delete.json",method = {RequestMethod.POST})
 	@ResponseBody
 	public BaseVO delete(HttpServletRequest request,
-			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+			@RequestParam(value = "id", required = true, defaultValue = "0") int id) {
 		//判断输入参数
 		if(id < 1) {
 			return error("请传入要删除地址id");
