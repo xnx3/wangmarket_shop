@@ -48,6 +48,38 @@
 </div>
 </br>
 </br>
+<!-- 新增功能 -->
+<div>
+	<div style=" font-size: 13px; color: gray; padding-top:15px;">
+	    	订单的确认收货,超过多久没确认收货，订单自动收货。
+	    </div>
+  	<div class="layui-form-item" style=" padding-top: 10px; margin-bottom: 0px; ">
+	    <div class="layui-input-inline" style="width:300px;">
+	      <input type="number" name="receiveTime" id="receiveTime" placeholder="单位是分钟" class="layui-input" style="width:100%">
+	    </div>
+	    <button class="layui-btn layui-btn-primary" onclick="updateState('receiveTime',document.getElementById('receiveTime').value)">保存</button>
+	    <div style=" font-size: 13px; color: gray; padding-top:15px;">
+	    	<p>如果用户没有主动点击确认收货，系统是否会在超过多长时间后自动将订单变为已确认</p>
+	    	<p>注意，这里单位是分钟</p>
+			<p>如果设置为0，则是不使用系统的自动确认收货。（默认不使用）</p>
+	    </div>
+	</div>
+</div>
+</br>
+<hr/>
+</br>
+<div>
+	是否启用订单打印功能
+	<span id="print"></span>
+	<div style="color: gray ;font-size: 12px;font-size: 12px">
+		<p>订单管理中，当查看订单详情时，是否显示 【打印】 按钮。如果关闭，那订单管理-订单详情中的打印按钮会直接不显示</p>
+		<p>这里打印的订单是类似于外卖小票，使用 57mm、58mm 热敏小票打印机 进行打印。</p>
+		<p>操作的电脑中需要提前安装好打印机驱动，对接好热敏小票打印机 ，然后将此项开启，再到订单管理中，点击打印按钮打印一个订单看看效果。</p>
+	</div>
+	</br>
+</div>
+</br>
+</br>
 <script type="text/javascript">
 //更改操作
 function updateState(name,value) {
@@ -74,6 +106,8 @@ post('/shop/store/api/orderRule/index.json',{},function(data){
 		orderRule = data.orderRule;
 		//订单支付超时时间
 		document.getElementById('notPayTimeout').value = orderRule.notPayTimeout;
+		//订单自动收货时间
+		document.getElementById('receiveTime').value = orderRule.receiveTime;
 	//订单是否有配送中这个状态
 	if(orderRule.distribution == 0){
 		document.getElementById('distribution').innerHTML = '&nbsp当前已关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'distribution\',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
@@ -85,6 +119,12 @@ post('/shop/store/api/orderRule/index.json',{},function(data){
 		document.getElementById('refund').innerHTML =  '当前已关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'refund\',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
 	}else if(orderRule.refund == 1){
 		document.getElementById('refund').innerHTML =  '当前已开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'refund\',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
+	}
+	//用户是否打印
+	if(orderRule.print == 0){
+		document.getElementById('print').innerHTML =  '当前已关闭<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'print\',1);" style="margin-left: 3px;margin-top:-1px;">开启</botton>';
+	}else if(orderRule.print == 1){
+		document.getElementById('print').innerHTML =  '当前已开启<botton class="layui-btn layui-btn-xs layui-btn-primary" onclick="updateState(\'print\',0);" style="margin-left: 3px;margin-top:-1px;">关闭</botton>';
 	}
 	}
 });

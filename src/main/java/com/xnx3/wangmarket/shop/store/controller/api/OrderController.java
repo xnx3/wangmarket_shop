@@ -1,10 +1,15 @@
 package com.xnx3.wangmarket.shop.store.controller.api;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 import com.xnx3.wangmarket.shop.core.vo.OrderListVO;
 import com.xnx3.wangmarket.shop.core.vo.OrderVO;
+
+import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,15 +52,26 @@ public class OrderController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value="/list${api.suffix}", method = {RequestMethod.POST})
 	public OrderListVO list(HttpServletRequest request,
-							@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
+							@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
+							@RequestParam(value = "startTime", required = false, defaultValue = "0") int startTime,
+							@RequestParam(value = "endTime", required = false, defaultValue = "0") int endTime) {
 		OrderListVO vo = new OrderListVO();
-		
 		//创建Sql
 		Sql sql = new Sql(request);
 		//配置查询那个表
 		sql.setSearchTable("shop_order");
 		//查询条件
 		sql.appendWhere("storeid = " + getStoreId());
+		//时间查询条件
+		if(startTime != 0 && endTime != 0) {
+			sql.appendWhere(" addtime >=" + startTime + " AND addtime <=" + endTime);
+		}
+		if (startTime != 0 && endTime == 0) {
+			sql.appendWhere(" addtime >= " + startTime);
+		}
+		if (startTime == 0 && endTime != 0) {
+			sql.appendWhere(" addtime <= " + endTime);
+		}
 		//配置按某个字端搜索内容
 		sql.setSearchColumn(new String[] {"no","state="});
 		// 查询数据表的记录总条数
@@ -69,7 +85,6 @@ public class OrderController extends BaseController {
 		sql.setDefaultOrderBy("id DESC");
 		// 按照上方条件查询出该实体总数 用集合来装
 		List<Order> list = sqlService.findBySql(sql,Order.class);
-		
 		vo.setList(list);
 		vo.setPage(page);
 		//日志记录
