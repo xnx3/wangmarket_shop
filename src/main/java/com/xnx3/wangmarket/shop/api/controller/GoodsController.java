@@ -35,14 +35,18 @@ public class GoodsController extends BasePluginController {
 	 * 获取商品列表
 	 * @param storeid 要获取哪个商铺的商品，这里是商店的ID，Store.id。  必填
 	 * @param typeid 要查询商铺中，哪个分类的商品。如果不传，则是查询这个商店中所有的商品
-	 * @param title 要搜索的商品名字,模糊搜索
+	 * @param title 要搜索的商品名字,可模糊搜索。
+	 * 				<p>比如搜索白菜，可以搜索白菜花、白菜叶、白菜根</p>
 	 * @param orderBy 商品排序方式
 	 * 				<ul>
 	 * 					<li>0:默认排序方式，也就是根据商家后台自定义的商品排序，来进行的排序</li>
 	 * 					<li>1:按总销量由高往低来排序</li>
 	 * 					<li>2:最新商品，按发布时间，由高往低来排序，最后发布的商品在最前面</li>
 	 * 				</ul>
-	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
+	 * 				如果不传此参数，默认按照 0 进行排序
+	 * @param everyNumber 每页显示多少条数据。取值 1～100，
+	 * 					<p>最大显示100条数据，若传入超过100，则只会返回100条<p>
+	 * 					<p>若不传，默认显示15条</p>
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 * @author 管雷鸣
 	 * @return {@link GoodsListVO}
@@ -51,10 +55,10 @@ public class GoodsController extends BasePluginController {
 	@ResponseBody
 	public GoodsListVO list(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue="1") int storeid,
-			@RequestParam(value = "typeid", required = true, defaultValue="0") int typeid,
-			@RequestParam(value = "orderBy", required = true, defaultValue="0") int orderBy,
-			@RequestParam(value = "title", required = true, defaultValue="") String title,
-			@RequestParam(value = "everyNumber", required = true, defaultValue = "15") int everyNumber){
+			@RequestParam(value = "typeid", required = false, defaultValue="0") int typeid,
+			@RequestParam(value = "orderBy", required = false, defaultValue="0") int orderBy,
+			@RequestParam(value = "title", required = false, defaultValue="") String title,
+			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber){
 		GoodsListVO vo = new GoodsListVO();
 		if(everyNumber > 100){
 			everyNumber = 100;

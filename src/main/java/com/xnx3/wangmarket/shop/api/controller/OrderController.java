@@ -318,8 +318,11 @@ public class OrderController extends BasePluginController {
 	/**
 	 * 我的订单列表
 	 * @param state 搜索的订单的状态，多个用,分割 传入如 generate_but_no_pay,pay_timeout_cancel
-	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
+	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据
+	 * 					<p>若传入超过100，则只会返回100条</p>
+	 * 					<p>若不传，默认显示15条</p>
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
+	 * 					<p>如果不传，默认获取第一页的</p>
 	 * @param storeid 当前查询的订单属于哪个店铺下， store.id
 	 * @author 管雷鸣
 	 * @return 当前用户的订单列表
@@ -327,8 +330,8 @@ public class OrderController extends BasePluginController {
 	@RequestMapping(value="list.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderListVO list(HttpServletRequest request,
-			@RequestParam(value = "state", required = true, defaultValue = "") String state,
-			@RequestParam(value = "everyNumber", required = true, defaultValue = "15") int everyNumber,
+			@RequestParam(value = "state", required = false, defaultValue = "") String state,
+			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
 			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid) {
 		OrderListVO vo = new OrderListVO();
 		if(everyNumber > 100){

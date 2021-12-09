@@ -133,6 +133,7 @@ public class CartController extends BasePluginController {
 
 	/**
 	 * 获取某个商铺的购物车数据,这里获取到的数据仅仅只是某个商铺下的购物车信息
+	 * @param storeid 商铺编号，要获取的数据是属于哪个商铺的
 	 * @author 管雷鸣
 	 * @return StoreCartVO
 	 */
