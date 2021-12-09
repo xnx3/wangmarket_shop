@@ -1,8 +1,6 @@
 package com.xnx3.wangmarket.shop.api.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.alipay.api.AlipayApiException;
 import com.xnx3.DateUtil;
-import com.xnx3.Lang;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
@@ -64,11 +61,14 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 获取当前商铺的支付列表，列出哪个支付使用，哪个支付不使用
+	 * @param storeid 当前商铺的id
+	 * @author 管雷鸣
+	 * @return 店铺的支付列表
 	 */
 	@ResponseBody
 	@RequestMapping(value="getPaySet${api.suffix}", method = RequestMethod.POST)
 	public BaseVO getPaySet(HttpServletRequest request,
-			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){
+			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid){
 		PaySetVO vo = new PaySetVO();
 		if(storeid < 1){
 			return error("请传入storeid");
@@ -76,7 +76,7 @@ public class PayController extends BasePluginController {
 		
 		PaySet paySet = paySetService.getPaySet(storeid);
 		vo.setPaySet(paySet);
-		
+		//日志记录
 		ActionLogUtil.insert(request,storeid, "获取店铺支付设置", paySet.toString());
 		return vo;
 	}
@@ -85,11 +85,12 @@ public class PayController extends BasePluginController {
 	 * 线下付款。此接口为标注订单状态为 线下支付
 	 * @author 管雷鸣
 	 * @param orderid 订单id
+	 * @return 操作结果
 	 */
 	@RequestMapping(value="privatePay${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO privatePay(HttpServletRequest request,
-			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
+			@RequestParam(value = "orderid", required = true, defaultValue = "0") int orderid){
 		//判断参数
 		if(orderid < 1) {
 			return error("请传入订单ID");
@@ -140,13 +141,14 @@ public class PayController extends BasePluginController {
 	 * 				<li>alipay_pc:支付宝PC端电脑网页支付</li>
 	 * 				<li>alipay_wap:支付宝手机端网页支付</li>
 	 * 			</ul>
+	 * @author 关雷鸣
 	 * @return {@link BaseVO} result 返回1 那么 info 返回要跳转到的支付页面url
 	 */
 	@ResponseBody
 	@RequestMapping(value="alipay${api.suffix}", method = RequestMethod.POST)
 	public BaseVO alipay(HttpServletRequest request,Model model,
-			@RequestParam(value = "orderid", required = false, defaultValue="0") int orderid,
-			@RequestParam(value = "channel", required = false, defaultValue="") String channel){
+			@RequestParam(value = "orderid", required = true, defaultValue="0") int orderid,
+			@RequestParam(value = "channel", required = true, defaultValue="") String channel){
 		if(orderid < 1){
 			return error("请传入要支付订单的订单号");
 		}
@@ -191,7 +193,7 @@ public class PayController extends BasePluginController {
 		}else{
 			return error("channel not find");
 		}
-		
+		//日志记录
 		ActionLogUtil.insert(request, "发起支付请求", order.toString());
 		return success(SystemUtil.get("MASTER_SITE_URL")+"shop/api/pay/pay.do?token="+request.getSession().getId());
 	}
@@ -207,13 +209,14 @@ public class PayController extends BasePluginController {
 	 * 			</ul>
 	 * @param openid 可选，如果这里不传，那么自动取系统记录的 openid，如果传了，那么优先使用传入的这个openid
 	 * @return {@link BaseVO} result 返回1 那么 info 返回要跳转到的支付页面url
+	 * @author 关雷鸣
 	 */
 	@ResponseBody
 	@RequestMapping(value="weixinCreateOrder${api.suffix}", method = RequestMethod.POST)
 	public com.xnx3.BaseVO weixinCreateOrder(HttpServletRequest request,Model model,
-			@RequestParam(value = "orderid", required = false, defaultValue="0") int orderid,
-			@RequestParam(value = "openid", required = false, defaultValue="") String openid,
-			@RequestParam(value = "channel", required = false, defaultValue="") String channel){
+			@RequestParam(value = "orderid", required = true, defaultValue="0") int orderid,
+			@RequestParam(value = "openid", required = true, defaultValue="") String openid,
+			@RequestParam(value = "channel", required = true, defaultValue="") String channel){
 		if(orderid < 1){
 			return error("请传入要支付订单的订单号");
 		}
@@ -243,7 +246,6 @@ public class PayController extends BasePluginController {
 		String notifyUrl = SystemUtil.get("MASTER_SITE_URL")+"shop/api/pay/weixinpayCallback.do";
 		if(openid.length() == 0){
 			//获取用户openid
-			
 			int whereStoreid = 0;	//从user_weixin 查询
 			//判断一下该用户使用的是否是服务商模式
 			PaySet paySet = paySetService.getPaySet(order.getStoreid());
@@ -268,7 +270,6 @@ public class PayController extends BasePluginController {
 			if(paySet.getUseWeixinServiceProviderPay() - 1 == 0){
 				//使用的是服务商模式，目前服务商模式，客户是不需要认证的，省了认证费用，都是使用的服务商的主体
 				com.xnx3.weixin.weixinPay.request.serviceProvider.JSAPIOrder requestOrder = new com.xnx3.weixin.weixinPay.request.serviceProvider.JSAPIOrder(openid, order.getPayMoney(), notifyUrl);
-//				requestOrder.setSubOpenid(openid);
 				requestOrder.setClientIp(IpUtil.getIpAddress(request));
 				requestOrder.setOutTradeNo(order.getNo());
 				return vo.getWeiXinPayUtil().createOrder(requestOrder);
@@ -302,10 +303,10 @@ public class PayController extends BasePluginController {
 		}
 	}
 	
-	
 	/**
 	 * 请求这个网址就是要进行支付了
 	 * 来源页面需要使用 {@link SessionUtil#setAlipayForm(String)} 来设置跳转支付的表单
+	 * @author 关雷鸣 
 	 */
 	@RequestMapping("pay${url.suffix}")
 	public String pay(HttpServletRequest request,Model model){
@@ -314,13 +315,15 @@ public class PayController extends BasePluginController {
 			form = "please first call pay/alipay.json interface to initiate the payment request.";
 		}
 		model.addAttribute("form", form);
-		
+		//日志记录
 		ActionLogUtil.insert(request, "打开支付的html页面");
 		return "plugin/alipay/pay";
 	}
 	
 	/**
 	 * 微信支付成功的回调
+	 * @author 关雷鸣
+	 * @return 结果
 	 */
 	@ResponseBody
 	@RequestMapping("weixinpayCallback${url.suffix}")

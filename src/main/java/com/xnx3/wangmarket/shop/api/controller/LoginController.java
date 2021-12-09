@@ -44,18 +44,19 @@ public class LoginController extends BaseController {
 
 	/**
 	 * 验证码图片显示，直接访问此地址可查看图片
+	 * @author 管雷鸣
 	 */
 	@RequestMapping("/captcha.jpg")
 	public void captcha(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		//日志记录
 		ActionLogUtil.insert(request, "获取验证码显示");
 		
-		CaptchaUtil captchaUtil = new CaptchaUtil();
-	    captchaUtil.setCodeCount(5);                   //验证码的数量，若不增加图宽度的话，只能是1～5个之间
-	    captchaUtil.setFont(new Font("Fixedsys", Font.BOLD, 21));    //验证码字符串的字体
-	    captchaUtil.setHeight(18);  //验证码图片的高度
-	    captchaUtil.setWidth(110);      //验证码图片的宽度
-//	    captchaUtil.setCode(new String[]{"我","是","验","证","码"});   //如果对于数字＋英文不满意，可以自定义验证码的文字！
-	    com.xnx3.j2ee.util.CaptchaUtil.showImage(captchaUtil, request, response);
+		CaptchaUtil captchaUtil = new CaptchaUtil(); //captchaUtil.setCode(new String[]{"我","是","验","证","码"});如果对于数字＋英文不满意，可以自定义验证码的文字！
+		captchaUtil.setCodeCount(5);                   //验证码的数量，若不增加图宽度的话，只能是1～5个之间
+		captchaUtil.setFont(new Font("Fixedsys", Font.BOLD, 21));    //验证码字符串的字体
+		captchaUtil.setHeight(18);  //验证码图片的高度
+	 	captchaUtil.setWidth(110);      //验证码图片的宽度 
+		com.xnx3.j2ee.util.CaptchaUtil.showImage(captchaUtil, request, response);
 	}
 	
 
@@ -63,6 +64,7 @@ public class LoginController extends BaseController {
 	 * 登陆请求验证
 	 * @param request {@link HttpServletRequest} 
 	 * 		<br/>登陆时form表单需提交三个参数：username(用户名/邮箱)、password(密码)、code（图片验证码的字符）
+	 * @author 管雷鸣
 	 * @return vo.result:
 	 * 			<ul>
 	 * 				<li>0:失败</li>
@@ -72,7 +74,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value="login${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public LoginVO login(HttpServletRequest request,Model model,
-			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid){
+			@RequestParam(value = "storeid", required = true, defaultValue="0") int storeid){
 		LoginVO vo = new LoginVO();
 		
 		//验证码校验
@@ -88,6 +90,7 @@ public class LoginController extends BaseController {
 			vo.setBaseVO(baseVO);
 			if(baseVO.getResult() == BaseVO.SUCCESS){
 				User user = getUser();
+				//日志记录
 				ActionLogUtil.insert(request, "用户名密码模式登录成功", user.toString());
 				
 				Store store = null;	//此用户所在的店铺
@@ -138,6 +141,7 @@ public class LoginController extends BaseController {
 	 * @param code 图片验证码（必填）
 	 * @param storeid 此用户是通过哪个店铺注册的（必填）
 	 * @param referrerid 推荐人id，这里传入的是推荐人的 user.id 这个在创建用户信息时，会跟storeid一块计入用户的 StoreUser.referrerid。 可不填
+	 * @author 管雷鸣
 	 * @return vo result:
 	 * 			<ul>
 	 * 				<li>0:失败</li>
@@ -147,10 +151,10 @@ public class LoginController extends BaseController {
 	@RequestMapping(value="reg${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public LoginVO reg(HttpServletRequest request,Model model,
-			@RequestParam(value = "username", required = false, defaultValue="") String username,
-			@RequestParam(value = "password", required = false, defaultValue="") String password,
-			@RequestParam(value = "code", required = false, defaultValue="") String code,
-			@RequestParam(value = "storeid", required = false, defaultValue="0") int storeid,
+			@RequestParam(value = "username", required = true, defaultValue="") String username,
+			@RequestParam(value = "password", required = true, defaultValue="") String password,
+			@RequestParam(value = "code", required = true, defaultValue="") String code,
+			@RequestParam(value = "storeid", required = true, defaultValue="0") int storeid,
 			@RequestParam(value = "referrerid", required = false, defaultValue="0") int referrerid){
 		LoginVO vo = new LoginVO();
 		if(username.length() == 0){
@@ -179,6 +183,7 @@ public class LoginController extends BaseController {
 		//验证码校验
 		BaseVO capVO = com.xnx3.j2ee.util.CaptchaUtil.compare(request.getParameter("code"), request);
 		if(capVO.getResult() == BaseVO.FAILURE){
+			//日志记录
 			ActionLogUtil.insert(request, "用户名密码模式注册失败", "验证码出错，提交的验证码："+StringUtil.filterXss(request.getParameter("code")));
 			vo.setBaseVO(capVO);
 			return vo;
@@ -226,8 +231,10 @@ public class LoginController extends BaseController {
 				
 				//加入user信息
 				vo.setUser(getUser());
+				//日志记录
 				ActionLogUtil.insertUpdateDatabase(request,userid, "通过用户名密码注册成功", getUser().toString());
 			}else{
+				//日志记录
 				ActionLogUtil.insert(request, "用户名密码模式注册失败",baseVO.getInfo());
 				vo.setBaseVO(BaseVO.FAILURE, baseVO.getInfo());
 				return vo;
@@ -239,6 +246,7 @@ public class LoginController extends BaseController {
 	
 	/**
 	 * 获取token，也就是获取 sessionid
+	 * @author 管雷鸣
 	 * @return info便是sessionid
 	 */
 	@RequestMapping(value="getToken${api.suffix}", method = RequestMethod.POST)
@@ -246,17 +254,21 @@ public class LoginController extends BaseController {
 	public BaseVO getToken(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		String token = session.getId();
+		//日志记录
 		ActionLogUtil.insert(request, "获取token", token);
 		return success(token);
 	}
 	
 	/**
 	 * 退出登录
+	 * @author 管雷鸣
+	 * @return 操作结果
 	 */
 	@RequestMapping(value="logout${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO logout(HttpServletRequest request){
 		User user = getUser();
+		//日志记录
 		ActionLogUtil.insert(request, "退出登录", user!=null? user.toString():"");
 		SessionUtil.logout();
 		return success();

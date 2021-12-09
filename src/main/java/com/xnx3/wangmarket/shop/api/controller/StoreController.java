@@ -35,11 +35,13 @@ public class StoreController extends BaseController {
 	/**
 	 * 获取店铺信息， Store 的信息
 	 * @param storeid 要获取的信息是那个店铺的，店铺的id
+	 * @author 管雷鸣
+	 * @return 店铺信息
 	 */
 	@RequestMapping(value="getStore${api.suffix}", method = RequestMethod.POST)
 	@ResponseBody
 	public StoreVO getStore(HttpServletRequest request,
-			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){
+			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid){
 		StoreVO vo = new StoreVO();
 		if(storeid < 1){
 			vo.setBaseVO(StoreVO.FAILURE, "请传入店铺编号");

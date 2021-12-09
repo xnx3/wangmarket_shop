@@ -116,8 +116,6 @@ public class AddressController extends BasePluginController {
 		if(isDefault.length() > 0) {
 			//默认地址有变动
 			if(isDefault.equals("1")){
-				//将该地址设为默认地址
-				
 				//再将传入的地址设为默认
 				add.setDefaultUse((short) 1);
 			}else if(isDefault.equals("0")){

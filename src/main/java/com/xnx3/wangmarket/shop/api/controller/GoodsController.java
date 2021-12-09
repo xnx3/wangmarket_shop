@@ -51,10 +51,10 @@ public class GoodsController extends BasePluginController {
 	@ResponseBody
 	public GoodsListVO list(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue="1") int storeid,
-			@RequestParam(value = "typeid", required = false, defaultValue="0") int typeid,
-			@RequestParam(value = "orderBy", required = false, defaultValue="0") int orderBy,
-			@RequestParam(value = "title", required = false, defaultValue="") String title,
-			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber){
+			@RequestParam(value = "typeid", required = true, defaultValue="0") int typeid,
+			@RequestParam(value = "orderBy", required = true, defaultValue="0") int orderBy,
+			@RequestParam(value = "title", required = true, defaultValue="") String title,
+			@RequestParam(value = "everyNumber", required = true, defaultValue = "15") int everyNumber){
 		GoodsListVO vo = new GoodsListVO();
 		if(everyNumber > 100){
 			everyNumber = 100;
@@ -76,8 +76,6 @@ public class GoodsController extends BasePluginController {
 			orderBySql = "rank ASC"; 
 			break;
 		}
-		
-		
 		Sql sql = new Sql(request);
 	    /*
 	     * 设置可搜索字段。这里填写的跟user表的字段名对应。只有这里配置了的字段，才会有效。这里没有配置，则不会进行筛选
@@ -100,8 +98,8 @@ public class GoodsController extends BasePluginController {
 	    List<Goods> list = sqlService.findBySql(sql, Goods.class);
 	    vo.setList(list);
 	    vo.setPage(page);
-	    
-	    ActionLogUtil.insert(request, storeid,"获取商品列表");	//日志记录
+	    //日志记录
+	    ActionLogUtil.insert(request, storeid,"获取商品列表");	
 		return vo;
 	}
 	
@@ -115,8 +113,9 @@ public class GoodsController extends BasePluginController {
 	@RequestMapping(value="detail.json", method = RequestMethod.POST)
 	@ResponseBody
 	public GoodsDetailsVO detail(HttpServletRequest request,
-			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid){
-		ActionLogUtil.insert(request, goodsid,"获取商品详情");	//日志记录
+			@RequestParam(value = "goodsid", required = true, defaultValue="0") int goodsid){
+		//日志记录
+		ActionLogUtil.insert(request, goodsid,"获取商品详情");	
 		return goodsService.getGoodsDetail(goodsid);
 	}
 	

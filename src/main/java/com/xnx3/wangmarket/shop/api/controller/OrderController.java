@@ -36,7 +36,6 @@ import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderCreatePluginManage;
-import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderReceiveGoodsPluginManage;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderRefundIngPluginManage;
 import com.xnx3.wangmarket.shop.core.service.CartService;
 import com.xnx3.wangmarket.shop.core.service.OrderService;
@@ -90,7 +89,7 @@ public class OrderController extends BasePluginController {
 	@RequestMapping(value="create.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO create(HttpServletRequest request,
-			@RequestParam(value = "buygoods", required = false, defaultValue = "") String buygoods,
+			@RequestParam(value = "buygoods", required = true, defaultValue = "") String buygoods,
 			@RequestParam(value = "remark", required = false, defaultValue = "") String remark,
 			@RequestParam(value = "username", required = false, defaultValue = "") String addressUsername,
 			@RequestParam(value = "phone", required = false, defaultValue = "") String addressPhone,
@@ -205,7 +204,6 @@ public class OrderController extends BasePluginController {
 		Order order = new Order();
 		order.setAddtime(DateUtil.timeForUnix10());
 		order.setPayMoney(allMoney);
-//		order.setPayMoney(1);//测试使用，0.01支付
 		order.setRemark(StringUtil.filterXss(remark));
 		order.setState(Order.STATE_CREATE_BUT_NO_PAY);
 		order.setStoreid(storeid);
@@ -254,13 +252,6 @@ public class OrderController extends BasePluginController {
 				//赋予商品具体规格的单价
 				orderGoods.setPrice(guigePrice);
 			}
-//			if(buyGoods.getBuyMoney() > -1) {
-//				//是规格商品，取商品具体规格的单价
-//				orderGoods.setPrice(GoodsSpecificationUtil.getPrice(goods.getSpecification(), buyGoods.getSpecificationName()));
-//			}else {
-//				//普通商品，没有规格，直接赋予goods.price
-//				orderGoods.setPrice(goods.getPrice());
-//			}
 			orderGoods.setTitle(goods.getTitle());
 			orderGoods.setTitlepic(goods.getTitlepic());
 			orderGoods.setUnits(goods.getUnits());
@@ -331,13 +322,14 @@ public class OrderController extends BasePluginController {
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 * @param storeid 当前查询的订单属于哪个店铺下， store.id
 	 * @author 管雷鸣
+	 * @return 当前用户的订单列表
 	 */
 	@RequestMapping(value="list.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderListVO list(HttpServletRequest request,
-			@RequestParam(value = "state", required = false, defaultValue = "") String state,
-			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
-			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid) {
+			@RequestParam(value = "state", required = true, defaultValue = "") String state,
+			@RequestParam(value = "everyNumber", required = true, defaultValue = "15") int everyNumber,
+			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid) {
 		OrderListVO vo = new OrderListVO();
 		if(everyNumber > 100){
 			everyNumber = 100;
@@ -366,11 +358,7 @@ public class OrderController extends BasePluginController {
 	     * 设置可搜索字段。这里填写的跟user表的字段名对应。只有这里配置了的字段，才会有效。这里没有配置，则不会进行筛选
 	     * 具体规则可参考： http://note.youdao.com/noteshare?id=3ccef2de6a5cda01f95f832b02e356d0&sub=D53E681BBFF04822977C7CFBF8827863
 	     */
-//	    sql.setSearchColumn(new String[]{"state="});
 	    sql.appendWhere("shop_order.userid = "+user.getId() + (stateSql.length() > 1 ? " AND ("+stateSql+")":""));
-//	    if(storeid > 0){
-//	    	sql.appendWhere("storeid = "+storeid);
-//	    }
 	    //查询user数据表的记录总条数。 传入的user：数据表的名字为user
 	    int count = sqlService.count("shop_order", sql.getWhere());
 	    //创建分页，并设定每页显示15条
@@ -454,12 +442,13 @@ public class OrderController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @param orderid 订单id
 	 * @param reason 退款理由，非必填，如果想作为必填项，可以在客户端进行必填的判断
+	 * @return 操作结果
 	 */
 	@Transactional
 	@RequestMapping(value="refund.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO refund(HttpServletRequest request,
-			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid,
+			@RequestParam(value = "orderid", required = true, defaultValue = "0") int orderid,
 			@RequestParam(value = "reason", required = false, defaultValue = "") String reason){
 		//判断参数
 		if(orderid < 1) {
@@ -534,11 +523,12 @@ public class OrderController extends BasePluginController {
 	 * 查看订单状态的变动日志记录
 	 * @author 管雷鸣
 	 * @param orderid 订单id，要获取的是那个订单
+	 * @return 订单的状态变化日志列表
 	 */
 	@RequestMapping(value="getStateChangeLog.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderStateLogListVO getStateChangeLog(HttpServletRequest request,
-			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
+			@RequestParam(value = "orderid", required = true, defaultValue = "0") int orderid){
 		OrderStateLogListVO vo = new OrderStateLogListVO(); 
 		
 		//判断参数
@@ -569,13 +559,14 @@ public class OrderController extends BasePluginController {
 	/**
 	 * 取消退单申请
 	 * @param orderid 要取消退单申请的订单id
-	 * @return
+	 * @author 关雷鸣
+	 * @return 操作结果
 	 */
 	@Transactional
 	@RequestMapping(value="cancelRefund.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO cancelRefund(HttpServletRequest request,
-			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
+			@RequestParam(value = "orderid", required = true, defaultValue = "0") int orderid){
 		//判断参数
 		if(orderid < 1) {
 			return error("请传入订单ID");
@@ -642,12 +633,13 @@ public class OrderController extends BasePluginController {
 	 * 收到商品，确认收货
 	 * @author 管雷鸣
 	 * @param id 订单id
+	 * @return 订单详情
 	 */
 	@Transactional
 	@RequestMapping(value="receiveGoods.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO receiveGoods(HttpServletRequest request,
-			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
+			@RequestParam(value = "orderid", required = true, defaultValue = "0") int orderid){
 		OrderVO vo = new OrderVO();
 		
 		//判断参数
@@ -682,12 +674,13 @@ public class OrderController extends BasePluginController {
 	 * 取消订单。当订单未支付时，可以取消订单
 	 * @author 关光礼
 	 * @param id 订单id
+	 * @return  操作结果
 	 */
 	@Transactional
 	@RequestMapping(value="cancel.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO cancel(HttpServletRequest request,
-			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
+			@RequestParam(value = "orderid", required = true, defaultValue = "0") int orderid){
 		//判断参数
 		if(orderid < 1) {
 			return error("请传入订单ID");
@@ -739,11 +732,12 @@ public class OrderController extends BasePluginController {
 	 * 订单状态统计，统计当前登录用户在某个店铺下，各个状态的订单分别有多少
 	 * @param storeid 要统计的所在店铺id
 	 * @author 管雷鸣
+	 * @return 当前登录用户在某个店铺中各个状态的订单分别有多少
 	 */
 	@RequestMapping(value="statistics.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderStateStatisticsVO statistics(HttpServletRequest request,
-			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid){
+			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid){
 		OrderStateStatisticsVO vo = new OrderStateStatisticsVO();
 		//判断参数
 		if(storeid < 1) {

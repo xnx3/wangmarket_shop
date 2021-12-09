@@ -16,6 +16,7 @@ import com.xnx3.wangmarket.shop.core.vo.CarouselImageVO;
 
 /**
  * 首页的轮播图
+ * @author 管雷鸣
  */
 @Controller(value="ShopCarouselImageController")
 @RequestMapping("/shop/api/carouselImage/")
@@ -32,17 +33,15 @@ public class CarouselImageController extends BasePluginController {
 	@ResponseBody
 	@RequestMapping(value="/list${api.suffix}",method= {RequestMethod.POST})
 	public CarouselImageVO findCarouselImageList(HttpServletRequest request,
-			@RequestParam(value = "storeid", required = false, defaultValue = "0") int storeid) {
+			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid) {
 		CarouselImageVO vo = new CarouselImageVO();
 		if(storeid < 1){
 			vo.setBaseVO(BaseVO.FAILURE, "请传入storeid参数");
 			return vo;
 		}
-		
 		//查轮播图，按顺序字段查找
 		String sql = "SELECT * FROM shop_carousel_image WHERE storeid = "+storeid+" ORDER BY rank ASC";
 		List<CarouselImage> list = sqlService.findBySqlQuery(sql, CarouselImage.class);
-		
 		//返回实体vo
 		vo.setList(list);
 		//日志记录

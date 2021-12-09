@@ -35,7 +35,8 @@ public class GoodsTypeController extends BasePluginController {
 	@ResponseBody
 	public GoodsTypeListVO list(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue="1") int storeid){
-		ActionLogUtil.insert(request, storeid,"获取店铺内商品的分类列表");	//日志记录
+		//日志记录
+		ActionLogUtil.insert(request, storeid,"获取店铺内商品的分类列表");	
 		return goodsService.getStoreGoodsType(storeid);
 	}
 
