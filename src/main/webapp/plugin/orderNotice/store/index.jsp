@@ -6,39 +6,40 @@
 	<jsp:param name="title" value="设置"/>
 </jsp:include>
 
-<div id="shifouqiyong" class="layui-form" style="padding-top:10%; text-align:center;">
+<style>
+	.shiyongbuzhou{
+		padding:20px; text-align: left; opacity: 0.9;
+	}
+	.shiyongbuzhou h2{
+		padding-bottom:9px; padding-top:20px;
+	}
+	.layui-form-switch{
+		margin-top: 0px;
+	}
+</style>
+<div class="shiyongbuzhou" id="kaiqitext" >
+	<h2>通知的手机号</h2>
+	<div class="layui-form-item" style=" padding-top: 10px; margin-bottom: 0px; ">
+		<div class="layui-input-inline" style="width:300px;">
+			<input type="text" name="phone" id="phone" class="layui-input" style="width:100%">
+		</div>
+		<button class="layui-btn layui-btn-primary" onclick="updatePhone(document.getElementById('phone').value);">保存</button>
+		<button class="layui-btn layui-btn-primary" onclick="sendSmsTest();">发送一条短信测试能否收到通知</button>
+		<div style=" font-size: 13px; color: gray; padding-top:15px;">
+	    	也就是商家的手机号，接收短信通知的手机号。 输入手机号，先保存，再发一条测试短信看看能不能正常收到通知
+		</div>
+	</div>
+	<br/>
+</div>		
+
+<div id="shifouqiyong" class="layui-form" style="padding:20px; padding-top:40px; ">
 	<span id="qiyongtishi">是否启用付款通知</span> &nbsp;&nbsp;&nbsp;
 	<span id="button"></span>	
-	<div style="color:gray; padding:5px; text-align: left; padding-left: 20px;">
+	<div style="color:gray;text-align: left; padding-top:10px;">
 		当客户购买了自己商城的商品，付钱后，系统会自动给商家的手机发送一条短信，通知商家有顾客付钱了。
 	</div>
-	<style>
-		.shiyongbuzhou{
-			padding:20px; text-align: left; opacity: 0.9;
-		}
-		.shiyongbuzhou h2{
-			padding-bottom:9px; padding-top:20px;
-		}
-		.layui-form-switch{
-			margin-top: 0px;
-		}
-	</style>
-	<!-- 默认隐藏 -->
-	<div class="shiyongbuzhou" id="kaiqitext" style="display:none;">
-		<h2>通知的手机号</h2>
-		<div class="layui-form-item" style=" padding-top: 10px; margin-bottom: 0px; ">
-			<div class="layui-input-inline" style="width:300px;">
-				<input type="text" name="phone" id="phone" class="layui-input" style="width:100%">
-			</div>
-			<button class="layui-btn layui-btn-primary" onclick="updatePhone(document.getElementById('phone').value);">保存</button>
-			<button class="layui-btn layui-btn-primary" onclick="sendSmsTest();">发送一条短信测试</button>
-			<div style=" font-size: 13px; color: gray; padding-top:15px;">
-		    	也就是商家的手机号，接收短信通知的手机号
-			</div>
-		</div>
-		<br/>
-	</div>		
 </div>
+
 <script type="text/javascript">
 layui.use('form', function(){
 	var form = layui.form;
@@ -51,7 +52,7 @@ layui.use('form', function(){
 });
 //是否使用的开关发生改变触发	use	true:开启使用状态
 function useChange(use){
-	if(use){
+	/* if(use){
 		//使用
 		//$(".kefuSetInfo").css("opacity","1.0");
 		document.getElementById('kaiqitext').style.display = '';
@@ -59,7 +60,7 @@ function useChange(use){
 		//不使用
 		//$(".kefuSetInfo").css("opacity","0.3");
 		document.getElementById('kaiqitext').style.display = 'none';
-	}
+	} */
 }
 //修改当前是否使用
 function updateUse(value){
@@ -116,6 +117,8 @@ function sendSmsTest(){
 		}
 	});
 }
+
+
 msg.loading('加载中');
 var orderNotice;
 post('/plugin/orderNotice/api/store/getOrderNotice.json',{},function(data){

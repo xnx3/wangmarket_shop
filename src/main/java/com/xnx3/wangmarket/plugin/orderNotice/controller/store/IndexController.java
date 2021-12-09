@@ -54,7 +54,7 @@ public class IndexController extends BasePluginController {
 		if(orderNotice == null){
 			orderNotice = new OrderNotice();
 			orderNotice.setId(store.getId());
-			orderNotice.setIsUse(OrderNotice.IS_USE_NO);
+			orderNotice.setPayNotice(OrderNotice.IS_USE_NO);
 			orderNotice.setPhone("");
 		}
 		
@@ -65,13 +65,13 @@ public class IndexController extends BasePluginController {
 	
 	/**
 	 * 管理后台设置保存是否使用
-	 * @param isUse 是否使用， 1使用， 0不使用
+	 * @param payNotice 是否使用， 1使用， 0不使用
 	 * @author 管雷鸣
 	 */
 	@ResponseBody
 	@RequestMapping(value="updateIsUse${api.suffix}" ,method= {RequestMethod.POST})
 	public BaseVO updateIsUse(HttpServletRequest request, Model model,
-			@RequestParam(value = "isUse", required = false, defaultValue = "0") int isUse) {
+			@RequestParam(required = true, defaultValue = "0") int payNotice) {
 		if(!haveStoreAuth()){
 			return error("请先登录");
 		}
@@ -83,14 +83,14 @@ public class IndexController extends BasePluginController {
 			orderNotice.setId(store.getId());
 			orderNotice.setPhone("");
 		}
-		orderNotice.setIsUse(isUse == 1? OrderNotice.IS_USE_YES: OrderNotice.IS_USE_NO);//默认不使用
+		orderNotice.setPayNotice(payNotice == 1? OrderNotice.IS_USE_YES: OrderNotice.IS_USE_NO);//默认不使用
 		sqlService.save(orderNotice);
 		
 		//清理缓存
 		sqlCacheService.deleteCacheById(OrderNotice.class, store.getId());
 		
 		//日志
-		ActionLogUtil.insertUpdateDatabase(request, "支付通知插件，修改 isUse 为"+(orderNotice.getIsUse()- OrderNotice.IS_USE_YES == 0? "使用":"不使用"), orderNotice.toString());
+		ActionLogUtil.insertUpdateDatabase(request, "支付通知插件，修改 isUse 为"+(orderNotice.getPayNotice()- OrderNotice.IS_USE_YES == 0? "使用":"不使用"), orderNotice.toString());
 		return success();
 	}
 	
@@ -116,7 +116,7 @@ public class IndexController extends BasePluginController {
 		if(orderNotice == null){
 			orderNotice = new OrderNotice();
 			orderNotice.setId(store.getId());
-			orderNotice.setIsUse(OrderNotice.IS_USE_NO);//默认不使用
+			orderNotice.setPayNotice(OrderNotice.IS_USE_NO);//默认不使用
 		}
 		orderNotice.setPhone(phone);
 		sqlService.save(orderNotice);
