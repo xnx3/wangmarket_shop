@@ -51,7 +51,7 @@ public class IndexController extends BaseController {
 //		}
 //		model.addAttribute("pluginMenu", pluginMenu);
 		
-		ActionLogUtil.insert(request, "进入商家管理后台首页", getStore().toString());
+		ActionLogUtil.insert(request, "进入商家管理后台首页");
 		
 		IndexVO vo = new IndexVO();
 		vo.setMenuHtml(TemplateAdminMenuUtil.getLeftMenuHtml()); //左侧菜单
