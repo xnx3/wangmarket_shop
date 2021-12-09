@@ -34,38 +34,62 @@
 
 <div id="shifouqiyong" class="layui-form" style="padding:20px; padding-top:40px; ">
 	<span id="qiyongtishi">是否启用付款通知</span> &nbsp;&nbsp;&nbsp;
-	<span id="button"></span>	
+	<span id="fuqian"></span>	
 	<div style="color:gray;text-align: left; padding-top:10px;">
 		当客户购买了自己商城的商品，付钱后，系统会自动给商家的手机发送一条短信，通知商家有顾客付钱了。
 	</div>
 </div>
 
+<div id="shifoutuikuan" class="layui-form" style="padding:20px; padding-top:40px; ">
+	<span id="qiyongtuikuan">是否启用申请退款通知</span> &nbsp;&nbsp;&nbsp;
+	<span id="tuikuan"></span>	
+	<div style="color:gray;text-align: left; padding-top:10px;">
+		当用户发起申请退单时，系统会自动给商家的手机发送一条短信，通知商家有顾客退单了，请及时处理
+	</div>
+</div> 
+
 <script type="text/javascript">
 layui.use('form', function(){
 	var form = layui.form;
-	form.on('switch(isUse)', function(data){
+	form.on('switch(payNotice)', function(data){
 		useChange(data.elem.checked);
-		updateUse(data.elem.checked? '1':'0');	//将改动同步到服务器，进行保存	
-	});
+		updatePayNotice(data.elem.checked? '1':'0');	//将改动同步到服务器，进行保存
+		});
+	//美化是否启用的开关控件
+	$(".layui-form-switch").css("marginTop","-2px");
+});
+layui.use('form', function(){
+	var form = layui.form;
+	form.on('switch(refundNotice)', function(data){
+		useChange(data.elem.checked);
+		updateRefundNotice(data.elem.checked? '1':'0');	//将改动同步到服务器，进行保存
+		});
 	//美化是否启用的开关控件
 	$(".layui-form-switch").css("marginTop","-2px");
 });
 //是否使用的开关发生改变触发	use	true:开启使用状态
 function useChange(use){
-	/* if(use){
-		//使用
-		//$(".kefuSetInfo").css("opacity","1.0");
-		document.getElementById('kaiqitext').style.display = '';
-	}else{
-		//不使用
-		//$(".kefuSetInfo").css("opacity","0.3");
-		document.getElementById('kaiqitext').style.display = 'none';
-	} */
+	
 }
 //修改当前是否使用
-function updateUse(value){
+function updatePayNotice(value){
 	parent.msg.loading('修改中');
-	post("/plugin/orderNotice/api/store/updateIsUse.json?isUse="+value,{}, function(data){
+	post("/plugin/orderNotice/api/store/updatePayNotice.json?payNotice="+value,{}, function(data){
+		parent.msg.close();	//关闭“操作中”的等待提示
+		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+		if(data.result == '1'){
+			parent.msg.success('操作成功');
+		}else if(data.result == '0'){
+			parent.msg.failure(data.info);
+		}else{
+			parent.msg.failure();
+		}
+	});
+}
+//修改当前退款通知是否使用
+function updateRefundNotice(value){
+	parent.msg.loading('修改中');
+	post("/plugin/orderNotice/api/store/updateRefundNotice.json?refundNotice="+value,{}, function(data){
 		parent.msg.close();	//关闭“操作中”的等待提示
 		checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 		if(data.result == '1'){
@@ -118,7 +142,6 @@ function sendSmsTest(){
 	});
 }
 
-
 msg.loading('加载中');
 var orderNotice;
 post('/plugin/orderNotice/api/store/getOrderNotice.json',{},function(data){
@@ -129,12 +152,32 @@ post('/plugin/orderNotice/api/store/getOrderNotice.json',{},function(data){
 	}else {
 		//成功
 		orderNotice = data.orderNotice;
-		useChange(orderNotice.isUse == 1);
-		if (orderNotice.isUse == 1) {
-			document.getElementById('button').innerHTML = '<input type="checkbox" id="switchInputId" name="isUse" value="1" lay-filter="isUse" lay-skin="switch" lay-text="开启|关闭" checked>';
+		useChange(orderNotice.payNotice == 1);
+		if (orderNotice.payNotice == 1) {
+			document.getElementById('fuqian').innerHTML = '<input type="checkbox" id="switchInputId" name="payNotice" value="1" lay-filter="payNotice" lay-skin="switch" lay-text="开启|关闭" checked>';
 			document.getElementById('phone').value = orderNotice.phone;
 		}else {
-			document.getElementById('button').innerHTML = '<input type="checkbox" id="switchInputId" name="isUse" value="1" lay-filter="isUse" lay-skin="switch" lay-text="开启|关闭">'
+			document.getElementById('fuqian').innerHTML = '<input type="checkbox" id="switchInputId" name="payNotice" value="1" lay-filter="payNotice" lay-skin="switch" lay-text="开启|关闭">'
+		}
+		layui.use('form', function(){
+			layui.form.render();;
+		});
+	}
+});
+post('/plugin/orderNotice/api/store/getOrderNotice.json',{},function(data){
+	msg.close();	//关闭“更改中”的等待提示
+	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
+	if(data.result != '1'){
+		msg.failure(data.info);
+	}else {
+		//成功
+		orderNotice = data.orderNotice;
+		useChange(orderNotice.refundNotice == 1);
+		if (orderNotice.refundNotice == 1) {
+			document.getElementById('tuikuan').innerHTML = '<input type="checkbox" id="switchInputId" name="refundNotice" value="1" lay-filter="refundNotice" lay-skin="switch" lay-text="开启|关闭" checked>';
+			document.getElementById('phone').value = orderNotice.phone;
+		}else {
+			document.getElementById('tuikuan').innerHTML = '<input type="checkbox" id="switchInputId" name="refundNotice" value="1" lay-filter="refundNotice" lay-skin="switch" lay-text="开启|关闭">'
 		}
 		layui.use('form', function(){
 			layui.form.render();;

@@ -39,6 +39,8 @@ public class IndexController extends BasePluginController {
 	
 	/**
 	 * 获取当前商家的支付通知设置信息
+	 * @author 管雷鸣
+	 * @return 支付通知列表
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getOrderNotice.json",method = {RequestMethod.POST})
@@ -48,34 +50,35 @@ public class IndexController extends BasePluginController {
 			vo.setBaseVO(BaseVO.FAILURE,"请先登录");
 			return vo;
 		}
-		
 		Store store = SessionUtil.getStore();
 		OrderNotice orderNotice = sqlCacheService.findById(OrderNotice.class, store.getId());
+		//如果没有支付通知设置 创建默认通知
 		if(orderNotice == null){
 			orderNotice = new OrderNotice();
 			orderNotice.setId(store.getId());
 			orderNotice.setPayNotice(OrderNotice.IS_USE_NO);
+			orderNotice.setRefundNotice(OrderNotice.IS_USE_NO);
 			orderNotice.setPhone("");
 		}
-		
+		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, "进入支付通知插件设置页面");
 		vo.setOrderNotice(orderNotice);
 		return vo;
 	}
 	
 	/**
-	 * 管理后台设置保存是否使用
-	 * @param payNotice 是否使用， 1使用， 0不使用
+	 * 管理后台设置下单通知保存是否使用
+	 * @param payNotice 支付通知是否使用， 1使用， 0不使用
+	 * @return 操作结果
 	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="updateIsUse${api.suffix}" ,method= {RequestMethod.POST})
-	public BaseVO updateIsUse(HttpServletRequest request, Model model,
+	@RequestMapping(value="updatePayNotice${api.suffix}" ,method= {RequestMethod.POST})
+	public BaseVO updatePayNotice(HttpServletRequest request, Model model,
 			@RequestParam(required = true, defaultValue = "0") int payNotice) {
 		if(!haveStoreAuth()){
 			return error("请先登录");
 		}
-		
 		Store store = SessionUtil.getStore();
 		OrderNotice orderNotice = sqlService.findById(OrderNotice.class, store.getId());
 		if(orderNotice == null){
@@ -85,12 +88,41 @@ public class IndexController extends BasePluginController {
 		}
 		orderNotice.setPayNotice(payNotice == 1? OrderNotice.IS_USE_YES: OrderNotice.IS_USE_NO);//默认不使用
 		sqlService.save(orderNotice);
+		//清理缓存
+		sqlCacheService.deleteCacheById(OrderNotice.class, store.getId());
+		//日志
+		ActionLogUtil.insertUpdateDatabase(request, "支付通知插件，修改 payNotice 为"+(orderNotice.getPayNotice()- OrderNotice.IS_USE_YES == 0? "使用":"不使用"), orderNotice.toString());
+		return success();
+	}
+	/**
+	 * 管理后台设置退单通知保存是否使用
+	 * @param refundNotice 退单通知是否使用， 1使用， 0不使用
+	 * @return 操作结果
+	 * @author zxy
+	 */
+	@ResponseBody
+	@RequestMapping(value="updateRefundNotice${api.suffix}" ,method= {RequestMethod.POST})
+	public BaseVO updateRefundNotice(HttpServletRequest request, Model model,
+			@RequestParam(required = true, defaultValue = "0") int refundNotice) {
+		if(!haveStoreAuth()){
+			return error("请先登录");
+		}
+		Store store = SessionUtil.getStore();
+		OrderNotice orderNotice = sqlService.findById(OrderNotice.class, store.getId());
+		if(orderNotice == null){
+			orderNotice = new OrderNotice();
+			orderNotice.setId(store.getId());
+			orderNotice.setPhone("");
+		}
+		orderNotice.setRefundNotice(refundNotice == 1? OrderNotice.IS_USE_YES: OrderNotice.IS_USE_NO);//默认不使用
+		sqlService.save(orderNotice);
 		
 		//清理缓存
 		sqlCacheService.deleteCacheById(OrderNotice.class, store.getId());
 		
 		//日志
-		ActionLogUtil.insertUpdateDatabase(request, "支付通知插件，修改 isUse 为"+(orderNotice.getPayNotice()- OrderNotice.IS_USE_YES == 0? "使用":"不使用"), orderNotice.toString());
+		ActionLogUtil.insertUpdateDatabase(request, "退款通知插件，修改 refundNotice 为"+(orderNotice.getRefundNotice()- OrderNotice.IS_USE_YES == 0? "使用":"不使用"), orderNotice.toString());
+		
 		return success();
 	}
 	
@@ -117,6 +149,7 @@ public class IndexController extends BasePluginController {
 			orderNotice = new OrderNotice();
 			orderNotice.setId(store.getId());
 			orderNotice.setPayNotice(OrderNotice.IS_USE_NO);//默认不使用
+			orderNotice.setRefundNotice(OrderNotice.IS_USE_NO);//默认不使用
 		}
 		orderNotice.setPhone(phone);
 		sqlService.save(orderNotice);
