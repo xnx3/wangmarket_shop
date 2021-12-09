@@ -6,6 +6,7 @@
 	<jsp:param name="name" value="订单内商品列表"/>
 </jsp:include>
 <script src="/<%=Global.CACHE_FILE %>Order_state.js"></script>
+
 <style>
 	h2{
 		padding-top: 12px;
@@ -14,7 +15,12 @@
 </style>
 
 <div style="margin-top: 10px; text-align: center;">
-<h2>订单信息</h2>
+	<h2>订单信息</h2>
+	<botton class="layui-btn layui-btn-sm" id="printButton" onclick="printOrder();" style="position: absolute; right: 30px;top: 18px;display:none;">打印小票</botton>
+</div>
+
+</div>
+
 <table class="layui-table iw_table"  style="color: black;font-size: 14px;" id="orderDate">
 	<tr>
 		<th style="text-align:center;width:80px;">id</th>
@@ -85,7 +91,8 @@
 	</tbody>
 </table>
 </div>
-<script type="text/javascript">
+<script src="https://res.zvo.cn/print/print.min.js" type="text/javascript"></script>
+<script  type="text/javascript">
 //自适应弹出层大小
 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 
@@ -176,12 +183,16 @@ function goodsListDate(item){
 		.replace(/\{number\}/g, item.number)
 		;
 }
+
 msg.loading('加载中');
 var id = getUrlParams('id');
+var detail;	//订单详情接口返回的数据
 post('/shop/store/api/order/detail.json?orderid='+ id,{},function(data){
 	msg.close();    //关闭“更改中”的等待提示
 	checkLogin(data);	//验证登录状态。如果未登录，那么跳转到登录页面
 	if(data.result == '1'){
+		detail = data;
+		
 		//登录成功
 		document.getElementById("orderDate").innerHTML = orderDate(data.order);
 		showOrderButton(data.order.state);
@@ -193,7 +204,62 @@ post('/shop/store/api/order/detail.json?orderid='+ id,{},function(data){
 			html = html + goodsListDate(item);
 		}
 		document.getElementById("tbody").innerHTML = html;
+		
+		//判断是否显示打印按钮
+		if(data.orderRule.print == '1'){
+			document.getElementById("printButton").style.display = '';
+		}
 	}
 });
+
+//打印订单信息，打印小票
+function printOrder(){
+	var goods = "";
+		for( var i = 0; i < detail.goodsList.length ; i++) {
+			 var pinjie = '<div style="display: flex;padding: 6px;">'+
+			 '<div style="flex: 1;max-width: calc(50% + 20px);line-height: 1.2;">' + detail.goodsList[i].title + '</div>'+
+			 '<div style="flex: 1;max-width: calc(50% + 20px);line-height: 1.2;">' + detail.goodsList[i].number + '</div>'+
+			 '</div>';
+			 goods = goods + pinjie;
+			};
+	var printHtml = '<div style="width:100%;">'+
+					'<div style="text-align:center; font-size:22px;">' + detail.store.name +'</div>'+
+					'<div style="display: flex;padding: 6px;">'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">订单号：</div>'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">'+detail.order.no+'</div>'+
+					'</div>'+
+					'<div style="display: flex;padding: 6px;">'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">金额：</div>'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">'+(detail.order.totalMoney)/1000+'元</div>'+
+					'</div>'+
+					'<div style="display: flex;padding: 6px;">'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">备注：</div>'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">' + detail.order.remark + '</div>'+
+					'</div>'+
+					'<div style="display: flex;padding: 6px;">======================================</div>'+
+					'<div style="display: flex;padding: 6px;">'+
+						'<div style="flex: 1;max-width: calc(50% + 20px);line-height: 1.2;">商品名：</div>'+
+						'<div style="flex: 1;max-width: calc(50% + 20px);line-height: 1.2;">数量</div>'+
+					'</div>'+
+					goods +
+					'<div style="display: flex;padding: 6px;">======================================</div>'+
+					'<div style="display: flex;padding: 6px;">'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">收货人：</div>'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">' + detail.orderAddress.username + '</div>'+
+					'</div>'+
+					'<div style="display: flex;padding: 6px;">'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">联系电话：</div>'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">' + detail.orderAddress.phone + '</div>'+
+					'</div>'+
+					'<div style="display: flex;padding: 6px;">'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">收货地址：</div>'+
+						'<div style="flex: 1;max-width: calc(50% - 20px);line-height: 1.2;">' + detail.orderAddress.address + '</div>'+
+					'</div>'
+	printJS({
+		printable: printHtml,
+		type: 'raw-html'
+	})
+}
+
 </script>
 <jsp:include page="../common/foot.jsp"></jsp:include>

@@ -12,6 +12,7 @@ import com.xnx3.wangmarket.shop.core.vo.OrderVO;
 import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,7 @@ import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.Order;
 import com.xnx3.wangmarket.shop.core.entity.OrderAddress;
 import com.xnx3.wangmarket.shop.core.entity.OrderGoods;
+import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
@@ -63,13 +65,10 @@ public class OrderController extends BaseController {
 		//查询条件
 		sql.appendWhere("storeid = " + getStoreId());
 		//时间查询条件
-		if(startTime != 0 && endTime != 0) {
-			sql.appendWhere(" addtime >=" + startTime + " AND addtime <=" + endTime);
+		if (startTime > 0) {
+			sql.appendWhere(" addtime <= " + endTime);
 		}
-		if (startTime != 0 && endTime == 0) {
-			sql.appendWhere(" addtime >= " + startTime);
-		}
-		if (startTime == 0 && endTime != 0) {
+		if (endTime > 0) {
 			sql.appendWhere(" addtime <= " + endTime);
 		}
 		//配置按某个字端搜索内容
@@ -122,7 +121,6 @@ public class OrderController extends BaseController {
 		//查到配送信息
 		OrderAddress address = sqlService.findById(OrderAddress.class, orderid);
 		vo.setOrderAddress(address);
-		
 		//订单内商品信息
 		List<OrderGoods> goodsList = sqlService.findByProperty(OrderGoods.class, "orderid", orderid);
 		vo.setGoodsList(goodsList);
@@ -130,9 +128,14 @@ public class OrderController extends BaseController {
 		//下单的用户信息
 		User user = sqlService.findById(User.class, order.getUserid());
 		vo.setUser(user);
+		//判断是否开启了打印功能
+		OrderRule orderRule = sqlService.findById(OrderRule.class, getStoreId());
+		vo.setOrderRule(orderRule);
+		
+		//店铺信息
+		vo.setStore(getStore());
 		
 		ActionLogUtil.insert(request, order.getId(), "查看订单详情:"+vo.toString());
-		
 		return vo;
 	}
 	

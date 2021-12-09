@@ -18,15 +18,6 @@
 		<jsp:param name="iw_name" value="state"/>
 		<jsp:param name="iw_type" value="select"/>
 	</jsp:include>
-	<%-- <label class="layui-form-label"></label>
-	<div style="float: left; margin-left: 10px;" class="layui-input-block">
-		<jsp:include page="/wm/common/edit/form_date.jsp">
-			<jsp:param name="wm_name" value="addtime" />
-			<jsp:param name="wm_value" value="${addtime }" />
-			<jsp:param name="wm_type" value="date" />
-		</jsp:include>
-	</div> --%>
-	
 	<label style="text-align: left;" class="layui-form-label">日期范围</label>
 		<div class="layui-input-inline">
 			<jsp:include page="/wm/common/edit/form_date.jsp">
