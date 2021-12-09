@@ -1,5 +1,6 @@
 package com.xnx3.wangmarket.shop.api.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,8 @@ import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
 import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderCreatePluginManage;
+import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderReceiveGoodsPluginManage;
+import com.xnx3.wangmarket.shop.core.pluginManage.interfaces.manage.OrderRefundIngPluginManage;
 import com.xnx3.wangmarket.shop.core.service.CartService;
 import com.xnx3.wangmarket.shop.core.service.OrderService;
 import com.xnx3.wangmarket.shop.core.service.OrderStateLogService;
@@ -510,6 +513,14 @@ public class OrderController extends BasePluginController {
 		BaseVO vo = orderService.orderCancelGoodsNumberChange(order);
 		if(vo.getResult() - BaseVO.FAILURE == 0){
 			return vo;
+		}
+		
+		//功能插件
+		try {
+			OrderRefundIngPluginManage.orderRefundIng(order);
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException
+				| IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
 		}
 		
 		//写日志
