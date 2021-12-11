@@ -51,7 +51,7 @@
 
 ## 在线快速体验
 #### 微信扫码快速体验（这里只给出一个常规微信小程序）
-[image.png](https://images.gitee.com/uploads/images/2021/1207/105248_7a79d564_429922.png)  
+![image.png](https://images.gitee.com/uploads/images/2021/1207/105248_7a79d564_429922.png)  
 API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。
 
 #### 1. 在线开通一个商城，了解商家管理后台  
