@@ -50,34 +50,26 @@
 
 
 ## 在线快速体验
-#### 1. 在线开通一个商城  
+#### 微信扫码快速体验（这里只给出一个常规微信小程序）
+[image.png](https://images.gitee.com/uploads/images/2021/1207/105248_7a79d564_429922.png)  
+API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。
+
+#### 1. 在线开通一个商城，了解商家管理后台  
 开通url： http://api.imall.net.cn/plugin/phoneCreateStore/reg.do  
-#### 2. 体验店铺管理后台  
-记得添加个分类、添加个商品，试试功能，同时也能测试时看到效果  
-#### 3. 体验效果  
-这里我们开放了一个方便体验的h5页面（[这个H5页面也是开源的](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/wangmarket_site_learn/preview?doc_id=1258300&sort_id=3912490)），访问url：   
-http://demo.imall.net.cn/index.html?storeid=1&host=https://api.imall.net.cn/  
-其中:  
-storeid： 便是你开通的店铺的id，刚开通店铺后跳转的页面里就有。  
-host： 商城的url，如果你是自己跑在本地，这里可以传入 http://localhost:8080/ ，如果你部署在服务器，可以传入 http://服务器ip/ ，格式一定是 http:// 或者 https:// 开头、  / 结尾  
-  
-这里只是给出了一个H5的一个演示，因为全部接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。
+![商家管理后台](https://images.gitee.com/uploads/images/2021/0816/101520_63daccd0_429922.png)
 
 
 ## 相关文档  
-|   | 链接地址  | 说明 |
-|---|---|---|
-| 二次开发  | [点此查看文档](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/bed2ecca-8e2e-4b20-8099-10f09101b097/preview?doc_id=1532896&sort_id=4255124)  | 本地运行、二次开发相关说明 |
-| 安装部署  | [点此查看文档](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/bed2ecca-8e2e-4b20-8099-10f09101b097/preview?doc_id=1532896&sort_id=4255147)  | 将本项目部署到线上服务器 |
-| 后台账号  | [点此查看文档](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/serverinstall/preview?sort_id=4110640&doc_id=1473420)  | 登录管理后台、商城的默认账号密码 |
-| 商家后台API  | [点此查看文档](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/889cb0c9-be33-4a47-aec6-20cd27ea52be/preview?doc_id=1525567&sort_id=4298491)  | 商家管理后台的API开放文档，可以自由定制管理后台 |
-| 用户商城API  | [点此查看文档](http://shop.wang.market)  | 用户在使用商城的API功能，可以用来定做小程序商城、APP商城等 |
+* [二次开发,本地运行、二次开发相关说明](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/bed2ecca-8e2e-4b20-8099-10f09101b097/preview?doc_id=1532896&sort_id=4255124)
+* [安装部署,将本项目部署到线上服务器](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/bed2ecca-8e2e-4b20-8099-10f09101b097/preview?doc_id=1532896&sort_id=4255147)
+* [后台账号,登录管理后台、商城的默认账号密码](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/serverinstall/preview?sort_id=4110640&doc_id=1473420)
+* [商家后台API,可以自由定制商家管理后台](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/889cb0c9-be33-4a47-aec6-20cd27ea52be/preview?doc_id=1525567&sort_id=4298491)
+* [用户商城API,可用来定做小程序商城、APP商城、PC端商城等](http://shop.wang.market)
 
 
 ## 开发语言及环境  
-Java 1.8、Maven 3.5、Mysql 5.7
+Java 1.8、Maven 3.5、Mysql 5.7  
+如果想进行二次开发，可以参考此开发文档 http://wm.zvo.cn
 
 
-## 商家管理后台效果图  
-![商家管理后台](https://images.gitee.com/uploads/images/2021/0816/101520_63daccd0_429922.png)
 
