@@ -37,14 +37,20 @@ public class RecordAdminController extends BasePluginController {
 	@ResponseBody
 	@RequestMapping(value="/list.json",method= {RequestMethod.POST})
 	public ElasticSearchPageListVO list(HttpServletRequest request,Model model) {
+		ElasticSearchPageListVO vo = new ElasticSearchPageListVO();
+		
 		if(!haveStoreAuth()) {
-			ElasticSearchPageListVO vo = new ElasticSearchPageListVO();
 			vo.setBaseVO(BaseVO.FAILURE, "请先登录");
 			return vo;
 		}
 		
+		if(!ElasticSearchUtil.isUsed()) {
+			vo.setBaseVO(BaseVO.FAILURE, "尚未开启访问记录存储");
+			return vo;
+		}
+		
 		String query = "storeid:"+SessionUtil.getStore().getId();
-		ElasticSearchPageListVO vo = ElasticSearchUtil.list(Global.INDEX_NAME,query,15,request);
+		vo = ElasticSearchUtil.list(Global.INDEX_NAME,query,15,request);
 		return vo;
 	}
 
