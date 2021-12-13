@@ -3,45 +3,42 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '7d510503c24c46443d8d413d892d9053a6328369'
-    oldFile: !uuid '14ad4095b5aad592483cae986b90bf29e3aa3bef'
+    newFile: !uuid '5999584ee25348a7afdcfd821526340af3b77c41'
+    oldFile: !uuid '7d510503c24c46443d8d413d892d9053a6328369'
   /src/main:
-    newFile: !uuid '3ad20dfd263a74a7067ef364cac9a8bfe5f48699'
-    oldFile: !uuid 'e61b8e907a10e7c39e40b00d321c4fcd5f33f78d'
+    newFile: !uuid '3516efbfb48f37069c42221862a110a5597905aa'
+    oldFile: !uuid '3ad20dfd263a74a7067ef364cac9a8bfe5f48699'
   /src/main/java:
-    newFile: !uuid '93da9d6fdc3630984174cb5c6b453811f69d42af'
-    oldFile: !uuid '1c90ac6dc515bc72b0192bdb0e64d3d022c2c1f6'
+    newFile: !uuid '40c88c9218e03b693fa28aee47850141aef5966c'
+    oldFile: !uuid '93da9d6fdc3630984174cb5c6b453811f69d42af'
   /src/main/java/com:
-    newFile: !uuid 'adc178de159c964d9702329163f2372021a01d1a'
-    oldFile: !uuid 'bd6863c821219facaae7c8c06fe40f784cb22145'
+    newFile: !uuid '5dfa4af720b084d486e7e231da7907a162aeb107'
+    oldFile: !uuid 'adc178de159c964d9702329163f2372021a01d1a'
   /src/main/java/com/xnx3:
-    newFile: !uuid 'f2ee4f7c508c94a432be5d59f83a3b97ac4f0ea8'
-    oldFile: !uuid '7e3eae1df2d90059b2ae282391a827eb9d4e6ad9'
+    newFile: !uuid '0f82f5c912b320a0621f55a27fc088538c4f0ddb'
+    oldFile: !uuid 'f2ee4f7c508c94a432be5d59f83a3b97ac4f0ea8'
   /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '27b75002a2616255087eccf324be97813150a4e9'
-    oldFile: !uuid 'e5565822d2d90961f082bf5263f7f61c378fadbe'
-  /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid '6a07d451dfde881da828b6494892a238c40fcd26'
-    oldFile: !uuid '839055caaba8dbaa4e6bb5ad46b10e48023ca6d3'
-  /src/main/java/com/xnx3/wangmarket/shop/api:
-    newFile: !uuid '4f69409bcdb959fa580ce4e8ddf1828beb369f94'
-    oldFile: !uuid 'cb222d2ba484d0ebcf70ab049fa36f47528b3c8e'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller:
-    newFile: !uuid '2f58152b3c5113fe3f1a218fca10b6931a10605a'
-    oldFile: !uuid '182f861e93e4378ac4905732c557a77d8e524599'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller/AddressController.java:
-    newFile: !uuid 'bf2750a4aa41f8d57421e37b7f2bbbd0cf4cff70'
-    oldFile: !uuid 'f29b00da1509df46230e96ed6e7a76eed6b04997'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller/GoodsController.java:
-    newFile: !uuid '42a87039db57831cb3335f7afef640ac035ce84f'
-    oldFile: !uuid '1b9227a8eba79ef40c4c4c67d3b44dda1a86afe7'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller/LoginController.java:
-    newFile: !uuid '5a941f5f481f289695f76f2182e7927e5fbb862c'
-    oldFile: !uuid '2712752cb4000a4d32b85db0ce2c32598523abc2'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller/OrderController.java:
-    newFile: !uuid '5410434b1a36d8e1b316bea891e9545287c359da'
-    oldFile: !uuid '21a841afc328d5e4a6d314a8bd247b3be29f7274'
-gitCommitId: !uuid '2c13d1304dda0404490c7aa1dd29d9cbe82df9b7'
+    newFile: !uuid 'a7aeeaa13fb4979972759c11a4836f5e51d6dbc0'
+    oldFile: !uuid '27b75002a2616255087eccf324be97813150a4e9'
+  /src/main/java/com/xnx3/wangmarket/plugin:
+    newFile: !uuid '58366bc175dff4f1cb98bba4313a4a76c4a886cb'
+    oldFile: !uuid 'fc6a0a49f1ec4d62c67fb64e32a22d646000a3bd'
+  /src/main/java/com/xnx3/wangmarket/plugin/orderNotice:
+    newFile: !uuid '5b06ef16b7c6810bc23268eb4630ab98d9147e76'
+    oldFile: !uuid '3ea61946053216fd702321495ac0b7f118530cf1'
+  /src/main/java/com/xnx3/wangmarket/plugin/orderNotice/Plugin.java:
+    newFile: !uuid '9ce94b092614f1daff246d1f9360b62d281d2cbc'
+    oldFile: !uuid '204840ede3a664c2048545fd0fdf094254943d18'
+  /src/main/java/com/xnx3/wangmarket/plugin/orderNotice/controller:
+    newFile: !uuid '2ed3b5a02fbbddb12b0f8843da545b1ed884e39c'
+    oldFile: !uuid '37ca69b79dca815e1942b1c47ff0d2e4b109b4b3'
+  /src/main/java/com/xnx3/wangmarket/plugin/orderNotice/controller/store:
+    newFile: !uuid '5325da3f74586fa0383dc5529b6c68d04b2e4068'
+    oldFile: !uuid 'e5d59aea4d00428a50f18c927d2ce47528c95775'
+  /src/main/java/com/xnx3/wangmarket/plugin/orderNotice/controller/store/IndexController.java:
+    newFile: !uuid 'f2583cc16b87438fe90969c50b73d567f95a20e3'
+    oldFile: !uuid 'ba1738a3c602213990aebb9fa878ea311fb82588'
+gitCommitId: !uuid '4fd88cd5bfe1b8ebd2c7e249efb9bcab4ba73fa7'
 renames: {
   }
-revisionId: 467
+revisionId: 468
