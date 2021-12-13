@@ -43,10 +43,14 @@ public class LoginController extends BaseController {
 	
 
 	/**
-	 * 验证码图片显示，直接访问此地址可查看图片
+	 * 验证码图片
+	 * <p>直接访问此地址可查看验证码图片</p>
+	 * <p>此需要配合 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 一起使用 </p>
+	 * @param token 当前操作用户的登录标识 <required>
 	 * @author 管雷鸣
 	 */
 	@RequestMapping("/captcha.jpg")
+	@ResponseBody
 	public void captcha(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		//日志记录
 		ActionLogUtil.insert(request, "获取验证码显示");
@@ -62,6 +66,21 @@ public class LoginController extends BaseController {
 
 	/**
 	 * 登陆请求验证
+	 * <p>
+	 * 		<b>登录步骤描述</b>
+	 * 		<ul>
+	 * 			<li>首先调用 <a href="shop.api.login.getToken.json.html">/shop/api/login/getToken.json</a> 接口,获取到 token</li>
+	 * 			<li>通过 <a href="shop.api.login.captcha.jpg.html">/shop/api/login/captcha.jpg?token=xxxxx</a> 获取验证码图片显示给用户</li>
+	 * 			<li>通过此 login.json 接口进行登录</li>
+	 * 		</ul>
+	 * 		注意：这三步中，第一步获取到的token，跟第二三步中使用的token一定是一样的。
+	 * </p>
+	 * @param username 登录的用户名 <required> <example=guanleiming>
+	 * @param password 登录的密码 <required> <example=123456>
+	 * @param code 图片验证码的字符 <required> <example=xxxxx>
+	 * @param storeid 要登录的商家的编号，是登录商家的商城
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param request {@link HttpServletRequest} 
 	 * 		<br/>登陆时form表单需提交三个参数：username(用户名/邮箱)、password(密码)、code（图片验证码的字符）
 	 * @author 管雷鸣
@@ -71,7 +90,7 @@ public class LoginController extends BaseController {
 	 * 				<li>1:成功</li>
 	 * 			</ul>
 	 */
-	@RequestMapping(value="login${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="login.json", method = RequestMethod.POST)
 	@ResponseBody
 	public LoginVO login(HttpServletRequest request,Model model,
 			@RequestParam(value = "storeid", required = true, defaultValue="0") int storeid){
@@ -148,7 +167,7 @@ public class LoginController extends BaseController {
 	 * 				<li>1:成功</li>
 	 * 			</ul>
 	 */
-	@RequestMapping(value="reg${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="reg.json", method = RequestMethod.POST)
 	@ResponseBody
 	public LoginVO reg(HttpServletRequest request,Model model,
 			@RequestParam(value = "username", required = true, defaultValue="") String username,
@@ -249,7 +268,7 @@ public class LoginController extends BaseController {
 	 * @author 管雷鸣
 	 * @return info便是sessionid
 	 */
-	@RequestMapping(value="getToken${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="getToken.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO getToken(HttpServletRequest request){
 		HttpSession session = request.getSession();
@@ -264,7 +283,7 @@ public class LoginController extends BaseController {
 	 * @author 管雷鸣
 	 * @return 操作结果
 	 */
-	@RequestMapping(value="logout${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="logout.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO logout(HttpServletRequest request){
 		User user = getUser();

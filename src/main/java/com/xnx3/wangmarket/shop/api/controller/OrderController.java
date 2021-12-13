@@ -74,29 +74,31 @@ public class OrderController extends BasePluginController {
 	
 	/**
 	 * 创建订单
-	 * 创建订单后，将会减掉商品库存、同时购物车中，订单创建的商品也会减掉
+	 * <p>创建订单后，将会减掉商品库存、同时购物车中，订单创建的商品也会减掉</p>
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param buygoods 购买的商品，必须传入，json格式，如:
-	 * 			<pre>[{"goodsid":20,"num":2},{"goodsid":24,"specificationName":"红色","num":1}]</pre>
+	 * 			<p>[{"goodsid":20,"num":2},{"goodsid":24,"specificationName":"红色","num":1}]</p>
 	 * @param remark 订单备注，可不传
 	 * @param username 收货人姓名，可不传
 	 * @param phone 收货人手机号/电话，可不传
 	 * @param longitude 收货人经纬度，可不传
 	 * @param latitude 收货人经纬度，可不传
 	 * @param address 收货地址，可不传。传入如 山东省潍坊市寒亭区华亚国际酒店E1308室
-	 * @return {@link OrderVO},若成功，则可以获取到 order 数据
+	 * @return 若成功，则可以获取到所创建的 order 数据
 	 * @author 管雷鸣
 	 */
 	@Transactional
 	@RequestMapping(value="create.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO create(HttpServletRequest request,
-			@RequestParam(value = "buygoods", required = true, defaultValue = "") String buygoods,
-			@RequestParam(value = "remark", required = false, defaultValue = "") String remark,
-			@RequestParam(value = "username", required = false, defaultValue = "") String addressUsername,
-			@RequestParam(value = "phone", required = false, defaultValue = "") String addressPhone,
-			@RequestParam(value = "longitude", required = false, defaultValue = "0") String addressLongitude,
-			@RequestParam(value = "latitude", required = false, defaultValue = "0") String addressLatitude,
-			@RequestParam(value = "address", required = false, defaultValue = "") String addressAddress
+			@RequestParam(required = true, defaultValue = "") String buygoods,
+			@RequestParam(required = false, defaultValue = "") String remark,
+			@RequestParam(required = false, defaultValue = "") String username,
+			@RequestParam(required = false, defaultValue = "") String phone,
+			@RequestParam(required = false, defaultValue = "0") String longitude,
+			@RequestParam(required = false, defaultValue = "0") String latitude,
+			@RequestParam(required = false, defaultValue = "") String address
 			){
 		OrderVO vo = new OrderVO();
 		
@@ -195,11 +197,11 @@ public class OrderController extends BasePluginController {
 		
 		//该订单的地址信息
 		OrderAddress orderAddress = new OrderAddress();
-		orderAddress.setLatitude(DoubleUtil.stringToDouble(addressLatitude, 0d));
-		orderAddress.setLongitude(DoubleUtil.stringToDouble(addressLongitude, 0d));
-		orderAddress.setPhone(StringUtil.filterXss(addressPhone));
-		orderAddress.setAddress(StringUtil.filterXss(addressAddress));
-		orderAddress.setUsername(StringUtil.filterXss(addressUsername));
+		orderAddress.setLatitude(DoubleUtil.stringToDouble(latitude, 0d));
+		orderAddress.setLongitude(DoubleUtil.stringToDouble(longitude, 0d));
+		orderAddress.setPhone(StringUtil.filterXss(phone));
+		orderAddress.setAddress(StringUtil.filterXss(address));
+		orderAddress.setUsername(StringUtil.filterXss(username));
 		
 		/**** 创建订单 ****/
 		Order order = new Order();
@@ -318,8 +320,10 @@ public class OrderController extends BasePluginController {
 	
 	/**
 	 * 我的订单列表
-	 * @param token 当前操作用户的唯一标识。可用 /shop/api/login/getToken.json 获取
-	 * @param state 搜索的订单的状态，多个用,分割 传入如 generate_but_no_pay,pay_timeout_cancel
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
+	 * @param state 搜索的订单的状态，多个用,分割 <example=generate_but_no_pay>
+	 * 				<p>传入如 generate_but_no_pay、pay_timeout_cancel 等</p>
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据
 	 * 					<p>若传入超过100，则只会返回100条</p>
 	 * 					<p>若不传，默认显示15条</p>

@@ -33,7 +33,7 @@ public class GoodsController extends BasePluginController {
 
 	/**
 	 * 获取商品列表
-	 * @param storeid 要获取哪个商铺的商品，这里是商店的ID，Store.id。  必填
+	 * @param storeid 商铺编号，要获取的数据是属于哪个商铺的
 	 * @param typeid 要查询商铺中，哪个分类的商品。如果不传，则是查询这个商店中所有的商品
 	 * @param title 要搜索的商品名字,可模糊搜索。
 	 * 				<p>比如搜索白菜，可以搜索白菜花、白菜叶、白菜根</p>
@@ -47,14 +47,14 @@ public class GoodsController extends BasePluginController {
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，
 	 * 					<p>最大显示100条数据，若传入超过100，则只会返回100条<p>
 	 * 					<p>若不传，默认显示15条</p>
-	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
+	 * @param currentPage 要获取第几页的列表数据，如要查看第2页，则这里传入 2。如果不传，默认获取第一页的
 	 * @author 管雷鸣
-	 * @return {@link GoodsListVO}
+	 * @return 商品列表信息
 	 */
 	@RequestMapping(value="list.json", method = RequestMethod.POST)
 	@ResponseBody
 	public GoodsListVO list(HttpServletRequest request,
-			@RequestParam(value = "storeid", required = true, defaultValue="1") int storeid,
+			@RequestParam(value = "storeid", required = true, defaultValue="0") int storeid,
 			@RequestParam(value = "typeid", required = false, defaultValue="0") int typeid,
 			@RequestParam(value = "orderBy", required = false, defaultValue="0") int orderBy,
 			@RequestParam(value = "title", required = false, defaultValue="") String title,

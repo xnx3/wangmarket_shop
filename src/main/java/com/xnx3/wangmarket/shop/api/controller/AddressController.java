@@ -32,6 +32,8 @@ public class AddressController extends BasePluginController {
 	
 	/**
 	 * 获取当前用户所设定的默认地址
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @author 管雷鸣
 	 * @return 默认地址信息
 	 */
