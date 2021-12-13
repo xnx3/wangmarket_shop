@@ -139,6 +139,11 @@
 	  <artifactId>autoPublish</artifactId>
 	  <version>1.2</version>
 	</dependency>
+	<dependency>
+	  <groupId>com.xnx3.doc.javadoc</groupId>
+	  <artifactId>javadoc</artifactId>
+	  <version>1.7</version>
+	</dependency>
    </dependencies>  
   
 </project>
