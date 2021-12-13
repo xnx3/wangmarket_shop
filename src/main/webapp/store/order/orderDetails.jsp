@@ -51,7 +51,9 @@
 	</tr>
 </table>
 
-<h2>配送信息</h2>
+<div style="margin-top: 10px; text-align: center;">
+	<h2>配送信息</h2>
+</div>	
 <table class="layui-table iw_table"  style="color: black;font-size: 14px;" id="orderAddress">
 	<tr>
 		<th style="text-align:center; width:80px;">收货人</th>
@@ -71,7 +73,9 @@
 	</tr>
 </table>
 
-<h2>订单内商品</h2>
+<div style="margin-top: 10px; text-align: center;">
+	<h2>订单内商品</h2>
+</div>
 <table class="layui-table iw_table" style="color: black;font-size: 14px;">
 	<thead>
 		<tr>
