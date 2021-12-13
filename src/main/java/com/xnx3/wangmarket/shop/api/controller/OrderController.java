@@ -75,7 +75,8 @@ public class OrderController extends BasePluginController {
 	/**
 	 * 创建订单
 	 * 创建订单后，将会减掉商品库存、同时购物车中，订单创建的商品也会减掉
-	 * @param buygoods 购买的商品，必须传入，json格式，如：  [{"goodsid":20,"num":2},{"goodsid":24,"specificationName":"红色","num":1}]
+	 * @param buygoods 购买的商品，必须传入，json格式，如:
+	 * 			<pre>[{"goodsid":20,"num":2},{"goodsid":24,"specificationName":"红色","num":1}]</pre>
 	 * @param remark 订单备注，可不传
 	 * @param username 收货人姓名，可不传
 	 * @param phone 收货人手机号/电话，可不传
@@ -317,6 +318,7 @@ public class OrderController extends BasePluginController {
 	
 	/**
 	 * 我的订单列表
+	 * @param token 当前操作用户的唯一标识。可用 /shop/api/login/getToken.json 获取
 	 * @param state 搜索的订单的状态，多个用,分割 传入如 generate_but_no_pay,pay_timeout_cancel
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据
 	 * 					<p>若传入超过100，则只会返回100条</p>
