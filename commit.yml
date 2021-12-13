@@ -3,24 +3,39 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid '77d5230af0966866334a0cbccf7ab9e65f8f6d65'
-    oldFile: !uuid '5999584ee25348a7afdcfd821526340af3b77c41'
+    newFile: !uuid 'c573373852c1de5e43f0468b391b2cbd58aae950'
+    oldFile: !uuid '77d5230af0966866334a0cbccf7ab9e65f8f6d65'
   /src/main:
-    newFile: !uuid '36d56dd05249d613147141942db9646d8845051f'
-    oldFile: !uuid '3516efbfb48f37069c42221862a110a5597905aa'
-  /src/main/webapp:
-    newFile: !uuid '31a24d02c6e07d681d5b4e6cd023ae7013a619c1'
-    oldFile: !uuid '0d48da6a4950a8e6a666b504e1d9ecb6f7d5b21e'
-  /src/main/webapp/store:
-    newFile: !uuid '91f731f665eae8b9665c674e4463def38d9da893'
-    oldFile: !uuid 'c2e35fea5f6975a199bf2b6a54fbddb390c77cdc'
-  /src/main/webapp/store/order:
-    newFile: !uuid 'f72cfa8a1e330fb2b102e6ccb416982037fea6a8'
-    oldFile: !uuid '01b537abb8163f994541dcd44c0a27e283213fc4'
-  /src/main/webapp/store/order/orderDetails.jsp:
-    newFile: !uuid '3713a845908399ab6f361b3495f16a2b89fea37b'
-    oldFile: !uuid '84c6c4e6addd747290483fbbd3bcf8cededa9fb6'
-gitCommitId: !uuid '22a1fdcadf266ea0d635b0b0b26f55235570783e'
+    newFile: !uuid 'a2e423e9a272d1e3ebafded7e0ea1ca50751177b'
+    oldFile: !uuid '36d56dd05249d613147141942db9646d8845051f'
+  /src/main/java:
+    newFile: !uuid '974b6f0943ce5013a01cac32bc565bef7b2178a8'
+    oldFile: !uuid '40c88c9218e03b693fa28aee47850141aef5966c'
+  /src/main/java/com:
+    newFile: !uuid 'dcea020ebe623eafd759ff5a80e7ea5d72c4435a'
+    oldFile: !uuid '5dfa4af720b084d486e7e231da7907a162aeb107'
+  /src/main/java/com/xnx3:
+    newFile: !uuid '7fcd638b310f64e9ef71c0740d45e28887a5d27c'
+    oldFile: !uuid '0f82f5c912b320a0621f55a27fc088538c4f0ddb'
+  /src/main/java/com/xnx3/wangmarket:
+    newFile: !uuid 'ef71bf2d5b9af1cbf25c88e81d1147d9ab5bd29e'
+    oldFile: !uuid 'a7aeeaa13fb4979972759c11a4836f5e51d6dbc0'
+  /src/main/java/com/xnx3/wangmarket/plugin:
+    newFile: !uuid '8e8e26705fa428887b37e3e2210dd09877a42ad8'
+    oldFile: !uuid '58366bc175dff4f1cb98bba4313a4a76c4a886cb'
+  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord:
+    newFile: !uuid '7a370fccf599f2f3f74ce13e16761c85e44d58e1'
+    oldFile: !uuid 'f3b5e9458be71ebaa068f91094e21f579051f964'
+  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord/controller:
+    newFile: !uuid '7dcb858694b5955398bce2779a36cfebf916555f'
+    oldFile: !uuid '03300fc952695ad903d64b47315e27195895aca5'
+  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord/controller/admin:
+    newFile: !uuid 'c898ab3816bbb4b2fbb1a75ff84e0ca38e6ed244'
+    oldFile: !uuid '9f76ade4611da7778ced3de2a72a7f1c20de95d7'
+  /src/main/java/com/xnx3/wangmarket/plugin/visitBrowserRecord/controller/admin/RecordAdminController.java:
+    newFile: !uuid 'fb2c2b00095738753b52cb51864639d75ca7deec'
+    oldFile: !uuid '1683f292a2f377c4f71cdfd31a24957f765753d8'
+gitCommitId: !uuid '2984de0427b6e931ebd86836e3b2a214f0124b15'
 renames: {
   }
-revisionId: 469
+revisionId: 470
