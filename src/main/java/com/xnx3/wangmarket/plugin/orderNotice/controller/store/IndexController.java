@@ -204,7 +204,7 @@ public class IndexController extends BasePluginController {
 			return vo;
 		}
 		
-		com.xnx3.BaseVO vo = smsUtil.send(orderNotice.getPhone(), Plugin.SMS_TEMPLATE.replace("{orderno}", "xxxxxxxx").replace("{money}", "0.00"));
+		com.xnx3.BaseVO vo = smsUtil.send(orderNotice.getPhone(), Plugin.PAYFINISH_SMS_TEMPLATE.replace("{orderno}", "xxxxxxxx").replace("{money}", "0.00"));
 		if(vo.getResult() - com.xnx3.BaseVO.FAILURE == 0){
 			return error(vo.getInfo());
 		}
