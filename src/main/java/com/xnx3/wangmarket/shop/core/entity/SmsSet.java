@@ -15,7 +15,7 @@ import com.xnx3.j2ee.entity.BaseEntity;
 public class SmsSet extends BaseEntity implements java.io.Serializable{
 	
 	private Integer id;			//编号，对应 store.id
-	private Short useSms;		//是否使用短信发送功能，启用短信接口的短信发送功能。1使用；0不使用。默认不使用。 
+	private Short useSms;		//是否使用短信发送功能，启用短信接口的短信发送功能<ul><li>1:使用<li>0:不使用</ul>默认不使用。 
 	private int uid;			//短信平台登录的uid
 	private String password;	//短信平台登录的密码，30个字符内
 	
