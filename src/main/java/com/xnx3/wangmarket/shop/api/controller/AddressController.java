@@ -55,6 +55,8 @@ public class AddressController extends BasePluginController {
 	/**
 	 * 用户保存地址，包含新增、修改
 	 * @author 管雷鸣
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param id 要修改的地址id， address.id ，如果这里不传入，或者传入0，则是新增地址
 	 * @param username 收货人名字
 	 * @param phone 收货人电话
@@ -139,6 +141,8 @@ public class AddressController extends BasePluginController {
 	
 	/**
 	 * 获取用户地址列表，包含默认地址跟其他非默认地址列表
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @author 管雷鸣
 	 * @return 地址列表
 	 */
@@ -178,6 +182,8 @@ public class AddressController extends BasePluginController {
 
 	/**
 	 * 将某个地址设置为默认
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param id 要设置为默认的地址id， address.id
 	 * @author 管雷鸣
 	 * @return 操作结果，是否执行成功
@@ -215,6 +221,8 @@ public class AddressController extends BasePluginController {
 	
 	/**
 	 * 获取自己某个地址的详细信息
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param id 要获取的这个地址的id， address.id
 	 * @author 管雷鸣
 	 * @return 地址信息
@@ -253,6 +261,8 @@ public class AddressController extends BasePluginController {
 	/**
 	 * 删除自己的某个地址
 	 * @author 管雷鸣
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param id 要删除的地址id， address.id
 	 * @return 操作结果，是否执行成功
 	 */

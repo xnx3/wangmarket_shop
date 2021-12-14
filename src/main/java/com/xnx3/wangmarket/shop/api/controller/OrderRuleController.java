@@ -28,11 +28,13 @@ public class OrderRuleController extends BasePluginController {
 	
 	/**
 	 * 获取某个店铺的订单规则流程
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 要获取的信息是那个店铺的，店铺的id
 	 * @author 管雷鸣
-	 * @return 订单信息
+	 * @return 订单规则
 	 */
-	@RequestMapping(value="getRule${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="getRule.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderRuleVO getRule(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid) {

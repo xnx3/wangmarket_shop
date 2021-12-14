@@ -389,12 +389,14 @@ public class OrderController extends BasePluginController {
 	/**
 	 * 查看订单详情
 	 * @author 管雷鸣
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param orderid 订单id，order.id，要查看哪个订单的信息
 	 */
 	@RequestMapping(value="detail.json", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderVO detail(HttpServletRequest request,
-			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
+			@RequestParam(value = "orderid", required = true, defaultValue = "0") int orderid){
 		OrderVO vo = new OrderVO();
 		
 		//判断参数
@@ -448,9 +450,13 @@ public class OrderController extends BasePluginController {
 	
 	/**
 	 * 申请退单
+	 * <p>用户申请退单操作。</p>
+	 * <p>注意，如果商家管理后台中，订单设置里面，不允许用户退单，那此接口调用时会直接出现退单失败的提示。在调此接口前，建议先根据接口 <a href="shop.api.orderRule.getRule.json.html">/shop/api/orderRule/getRule.json</a> 来获取商家当前是否允许退单 </p>
 	 * @author 管雷鸣
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param orderid 订单id
-	 * @param reason 退款理由，非必填，如果想作为必填项，可以在客户端进行必填的判断
+	 * @param reason 退单的理由、描述，通常是用户自己输入的退单的原因
 	 * @return 操作结果
 	 */
 	@Transactional
@@ -531,6 +537,8 @@ public class OrderController extends BasePluginController {
 	/**
 	 * 查看订单状态的变动日志记录
 	 * @author 管雷鸣
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param orderid 订单id，要获取的是那个订单
 	 * @return 订单的状态变化日志列表
 	 */
@@ -567,8 +575,10 @@ public class OrderController extends BasePluginController {
 	
 	/**
 	 * 取消退单申请
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param orderid 要取消退单申请的订单id
-	 * @author 关雷鸣
+	 * @author 管雷鸣
 	 * @return 操作结果
 	 */
 	@Transactional
@@ -641,6 +651,8 @@ public class OrderController extends BasePluginController {
 	/**
 	 * 收到商品，确认收货
 	 * @author 管雷鸣
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param id 订单id
 	 * @return 订单详情
 	 */
@@ -682,6 +694,8 @@ public class OrderController extends BasePluginController {
 	/**
 	 * 取消订单。当订单未支付时，可以取消订单
 	 * @author 关光礼
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param id 订单id
 	 * @return  操作结果
 	 */
@@ -739,6 +753,8 @@ public class OrderController extends BasePluginController {
 
 	/**
 	 * 订单状态统计，统计当前登录用户在某个店铺下，各个状态的订单分别有多少
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 要统计的所在店铺id
 	 * @author 管雷鸣
 	 * @return 当前登录用户在某个店铺中各个状态的订单分别有多少
