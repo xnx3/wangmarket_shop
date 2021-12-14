@@ -15,7 +15,7 @@ import com.xnx3.wangmarket.shop.core.vo.bean.StoreCart;
 public class CartVO extends BaseVO implements java.io.Serializable{
 	Map<Integer, StoreCart> storeCartMap;	//每个店铺id编号都有一个自己的购物车。 key:store.id
 	private int number;			//该多店铺购物车中所有商品的总数量
-	private int money;		//该多店铺购物车中所有商品的总价格	 ，单位是分
+	private int money;		//该多店铺购物车中所有商品的总价格，单位是分
 
 	public Map<Integer, StoreCart> getStoreCartMap() {
 		if(storeCartMap == null){

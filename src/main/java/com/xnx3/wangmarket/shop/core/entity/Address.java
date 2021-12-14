@@ -23,7 +23,7 @@ public class Address extends BaseEntity {
 	private Double longitude;	//经纬度
 	private Double latitude;	//经纬度
 	private String address;		//详细地址，限制150个字符
-	private Short defaultUse;	//是否是默认使用的，1是默认使用的地址，0不是默认使用的。一个用户会有多个收货地址，但一个用户默认的收货地址只有一个
+	private Short defaultUse;	//是否是默认使用的<ul><li>1:是默认使用的地址<li>0:不是默认使用的。一个用户会有多个收货地址，但一个用户默认的收货地址只有一个</ul>
 	private Integer userid;		//改地址所属用户，属于那个用户的，对应User.id
 	
 	//v1.3增加

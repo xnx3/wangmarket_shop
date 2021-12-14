@@ -3,8 +3,6 @@ package com.xnx3.wangmarket.shop.api.controller;
 import java.util.HashMap;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import org.hibernate.type.TrueFalseType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +37,8 @@ public class CartController extends BasePluginController {
 	
 	/**
 	 * 操作购物车中的商品进行加减操作
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 要操作哪个店铺的购物车信息，对应 store.id。
 	 * @param goodsid 要修改的购物车中的商品编号，必传，对应 {@link Goods}.id
 	 * @param changeNumber 要修改购物车中对应商品编号的商品，是增加，还是减少，这里便是增加或者减少的数值。
@@ -49,7 +49,7 @@ public class CartController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @return {@link CartVO} 当前的购物车数据
 	 */
-	@RequestMapping(value="change${api.suffix}",method= {RequestMethod.POST})
+	@RequestMapping(value="change.json",method= {RequestMethod.POST})
 	@ResponseBody
 	public StoreCartVO change(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue="0") int storeid,
@@ -65,10 +65,12 @@ public class CartController extends BasePluginController {
 	
 	/**
 	 * 获整个购物车的数据，包含所有商家的购物车
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @author 管雷鸣
 	 * @return 用户当前的购物车详细信息
 	 */
-	@RequestMapping(value="getCart${api.suffix}",method= {RequestMethod.POST})
+	@RequestMapping(value="getCart.json",method= {RequestMethod.POST})
 	@ResponseBody
 	public CartVO getCart(HttpServletRequest request){
 		//日志记录
@@ -80,11 +82,13 @@ public class CartController extends BasePluginController {
 	
 	/**
 	 * 清空用户在某个商家下的购物车数据。
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @author 管雷鸣
 	 * @param storeid 要清除哪个店铺的购物车信息，对应 store.id。 如果不传这个参数，则是清空所有的购物车信息
 	 * @return {@link CartVO}
 	 */
-	@RequestMapping(value="clearStoreCart${api.suffix}",method= {RequestMethod.POST})
+	@RequestMapping(value="clearStoreCart.json",method= {RequestMethod.POST})
 	@ResponseBody
 	public BaseVO clearStoreCart(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue="0") int storeid){
@@ -99,13 +103,15 @@ public class CartController extends BasePluginController {
 	
 	/**
 	 * 购物车中的商品，选中或不选中购物车中的商品，以便进行下一步进行结算
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param goodsid 要选中或者不选中的商品，对应 {@link Goods}.id 
 	 * @param storeid 要操作的商品所在的店铺，对应 {@link Store}.id 
-	 * @param selected 是否选中， 1选中， 0不选
+	 * @param selected 是否选中<ul><li>1:选中<li>0:不选</ul>
 	 * @author 管雷鸣
 	 * @return {@link CartVO}
 	 */
-	@RequestMapping(value="goodsCartSelected${api.suffix}",method= {RequestMethod.POST})
+	@RequestMapping(value="goodsCartSelected.json",method= {RequestMethod.POST})
 	@ResponseBody
 	public StoreCartVO goodsCartSelected(HttpServletRequest request,
 			@RequestParam(value = "goodsid", required = true, defaultValue="0") int goodsid,
@@ -117,12 +123,14 @@ public class CartController extends BasePluginController {
 	
 	/**
 	 * 购物车中某个店铺下的商品，全选或全部不选所有购物车中的商品（只是操作的这个店铺下的所有购物车商品）
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 是哪个店铺下，进行要全选中或者全不选中。传入店铺id，对应 Store.id
-	 * @param selected 是否选中， 1选中， 0不选
+	 * @param selected 是否选中<ul><li>1:选中<li>0:不选</ul>
 	 * @author 管雷鸣
 	 * @return {@link CartVO}
 	 */
-	@RequestMapping(value="storeCartSelected${api.suffix}",method= {RequestMethod.POST})
+	@RequestMapping(value="storeCartSelected.json",method= {RequestMethod.POST})
 	@ResponseBody
 	public StoreCartVO storeCartSelected(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue="0") int storeid,
@@ -133,11 +141,13 @@ public class CartController extends BasePluginController {
 
 	/**
 	 * 获取某个商铺的购物车数据,这里获取到的数据仅仅只是某个商铺下的购物车信息
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 商铺编号，要获取的数据是属于哪个商铺的
 	 * @author 管雷鸣
 	 * @return StoreCartVO
 	 */
-	@RequestMapping(value="getStoreCart${api.suffix}",method= {RequestMethod.POST})
+	@RequestMapping(value="getStoreCart.json",method= {RequestMethod.POST})
 	@ResponseBody
 	public StoreCartVO getStoreCart(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue="0") int storeid){
@@ -151,12 +161,14 @@ public class CartController extends BasePluginController {
 	
 	/**
 	 * 获取某个商品的购物车信息，如这个商品在购物车中是否被选中，在购物车中的数量是几等
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 商家的店铺id， store.id
 	 * @param goodsid 要查看的商品的id， goods.id
 	 * @author 管雷鸣
 	 * @return 某个商品的购物车信息
 	 */
-	@RequestMapping(value="getGoodsCart${api.suffix}",method= {RequestMethod.POST})
+	@RequestMapping(value="getGoodsCart.json",method= {RequestMethod.POST})
 	@ResponseBody
 	public GoodsCartVO getGoodsCart(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue="0") int storeid,
@@ -179,6 +191,8 @@ public class CartController extends BasePluginController {
 	
 	/**
 	 * 将 {@link CartVO} 转为 {@link StoreCartVO}
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param cartVO 原始的 {@link CartVO}
 	 * @param storeid 要取哪个店铺
 	 * @author 管雷鸣
