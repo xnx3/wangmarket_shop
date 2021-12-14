@@ -653,7 +653,7 @@ public class OrderController extends BasePluginController {
 	 * @author 管雷鸣
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
-	 * @param id 订单id
+	 * @param orderid 订单id
 	 * @return 订单详情
 	 */
 	@Transactional
