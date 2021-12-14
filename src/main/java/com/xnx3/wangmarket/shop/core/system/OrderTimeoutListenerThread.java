@@ -95,6 +95,20 @@ public class OrderTimeoutListenerThread extends Thread{
 					}
 					//商铺的销量-
 					sqlservice.executeSql("UPDATE shop_store SET sale = sale - " + allNumber + " WHERE id = "+order.getStoreid());
+				}else if(order.getState().equals(Order.STATE_PAY) || order.getState().equals(Order.STATE_PRIVATE_PAY) || order.getState().equals(Order.STATE_DISTRIBUTION_ING)){
+					//已在线支付或者线下支付、或者配送中， 那应该就是要确认收货
+					//更改订单状态,变为确认收货
+					int row = sqlservice.executeSql("UPDATE shop_order SET state = '"+Order.STATE_RECEIVE_GOODS+"', version = version+1 WHERE id = "+order.getId()+" AND version = "+order.getVersion());
+					if(row == 0){
+						continue;
+					}
+					
+					//订单状态改变记录
+					OrderStateLog stateLog = new OrderStateLog();
+					stateLog.setAddtime(DateUtil.timeForUnix10());
+					stateLog.setState(Order.STATE_RECEIVE_GOODS);
+					stateLog.setOrderid(order.getId());
+					sqlservice.save(stateLog);
 				}else{
 					//其他状态
 				}

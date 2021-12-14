@@ -76,6 +76,9 @@ public class OrderRule extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "receive_time", columnDefinition="int(11) comment '订单的确认收货，超过多久没确认收货.注意，这里单位是分钟。如果设置为0，则是不使用系统的自动确认收货。（默认不使用）' default '0'")
 	public Integer getReceiveTime() {
+		if(receiveTime == null) {
+			receiveTime = 0;
+		}
 		return receiveTime;
 	}
 

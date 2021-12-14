@@ -27,7 +27,9 @@ import com.xnx3.wangmarket.plugin.alipay.util.AlipayUtil;
 import com.xnx3.wangmarket.shop.api.util.AlipayCacheUtil;
 import com.xnx3.wangmarket.shop.api.util.SessionUtil;
 import com.xnx3.wangmarket.shop.core.entity.Order;
+import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.entity.OrderStateLog;
+import com.xnx3.wangmarket.shop.core.entity.OrderTimeout;
 import com.xnx3.wangmarket.shop.core.entity.PayLog;
 import com.xnx3.wangmarket.shop.core.entity.PaySet;
 import com.xnx3.wangmarket.shop.core.entity.UserWeiXin;
@@ -513,6 +515,26 @@ public class PayController extends BasePluginController {
 		stateLog.setState(order.getState());
 		stateLog.setOrderid(order.getId());
 		sqlService.save(stateLog);
+		
+		/*** 创建订单未支付超时监控 ****/
+		//判断当前店铺是否有配送中状态，要是没有配送中状态，那么是否要自动加入超时自动收货
+		//获取当前订单所属店铺的订单设置
+		OrderRule orderRule = sqlService.findById(OrderRule.class, order.getStoreid());
+		if(orderRule != null) {
+			if(orderRule.getDistribution() - OrderRule.OFF == 0) {
+				//不使用配送中状态，那才会 可能用到超时自动收货，要是有配送中，就得变为配送中状态时才加超时自动收货
+				
+				if(orderRule.getReceiveTime() > 0) {
+					OrderTimeout orderTimeout = new OrderTimeout();
+					orderTimeout.setId(order.getId());
+					orderTimeout.setState(order.getState());
+					orderTimeout.setExpiretime(DateUtil.timeForUnix10()+(orderRule.getReceiveTime()*60));
+					sqlService.save(orderTimeout);
+				}
+			}
+		}
+		/*** 创建订单未支付超时监控结束 ****/
+		
 		
 		/*** 支付完成后触发的插件 ***/
 		try {

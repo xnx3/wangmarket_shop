@@ -185,6 +185,51 @@ public class OrderController extends BaseController {
 		return success();
 	}
 	
+	/**
+	 * 订单发货
+	 * <p>状态变为配送中</p>
+	 * <p>如果商家在订单设置中，如果设置有配送中状态，那么此接口可正常执行</p>
+	 * <p>如果关闭配送中状态，不允许有配送中，那么此接口执行时会返回执行失败的提示。</p>
+	 * <p>在调此接口前，建议先根据接口 /shop/api/orderRule/getRule.json 来获取商家当前是否允许有配送中的状态</p>
+	 * @author 管雷鸣
+	 * @param orderid 订单id
+	 * @param logisticsCode 如果是发快递，这里传入快递编号
+	 * @return 操作结果
+	 */
+	@RequestMapping(value="distributionIng.json", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseVO distributionIng(HttpServletRequest request,
+			@RequestParam(required = true, defaultValue = "0") int orderid,
+			@RequestParam(required = true, defaultValue = "") String logisticsCode){
+		//判断参数
+		if(orderid < 1) {
+			return error("请传入订单id");
+		}
+		
+		//查找订单信息
+		Order order = sqlService.findById(Order.class, orderid);
+		if(order == null) {
+			return error("订单不存在");
+		}
+		if(order.getStoreid() - getStoreId() != 0) {
+			return error("订单不属于你的店铺，无权操作！");
+		}
+		
+		order.setState(Order.STATE_DISTRIBUTION_ING);
+		order.setLogisticsCode(logisticsCode);
+		sqlService.save(order);
+		
+		//订单状态改变记录
+		OrderStateLog stateLog = new OrderStateLog();
+		stateLog.setAddtime(DateUtil.timeForUnix10());
+		stateLog.setState(order.getState());
+		stateLog.setOrderid(order.getId());
+		sqlService.save(stateLog);
+		
+		//写日志
+		ActionLogUtil.insertUpdateDatabase(request, order.getId(), "订单发货", "订单:" + order.toString());
+		return success();
+	}
 	
 	/**
 	 * 收到商品，确认收货
