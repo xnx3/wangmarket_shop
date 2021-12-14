@@ -35,8 +35,8 @@ public class CarouselImage extends BaseEntity{
 	private Integer id;			//自动编号
 	private String name;		//轮播图的名字，更多的是备注作用，给自己看的。用户看到的只是图片而已。限制40个字符
 	private String imageUrl;	//轮播图url，绝对路径
-	private Short type;			//类型，1：点击后到某个商品上，2：打开某个分类，进入分类列表，3点击后打开某个url，也就是打开一个h5页面
-	private String imgValue; 	//值，如url的路径、商品的id
+	private Short type;			//类型<ul><li>1:点击后到某个商品上<li>2:打开某个分类，进入分类列表<li>3:点击后打开某个url，也就是打开一个h5页面</ul>
+	private String imgValue; 	//值，根据type不同，值也不同<ul><li>type:1 这里是商品id<li>type:2 这里是商品分类的id<li>type:3 这里是跳转到的H5页面的url</ul>
 	private Integer rank;		//排序，数字越小越靠前
 	private Integer storeid;	//这个轮播图是哪个商家的，对应 store.id
 	

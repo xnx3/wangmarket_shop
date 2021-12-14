@@ -26,12 +26,14 @@ public class CarouselImageController extends BasePluginController {
 	
 	/**
 	 * 查询轮播图列表
-	 * @param storeid 要查看的轮播图是那个商铺的
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
+	 * @param storeid 商铺编号，要获取的轮播图是属于哪个商铺的
 	 * @author 关光礼
 	 * @return 当 result:1 成功时，data 返回值：list：轮播图列表
 	 */
 	@ResponseBody
-	@RequestMapping(value="/list${api.suffix}",method= {RequestMethod.POST})
+	@RequestMapping(value="/list.json",method= {RequestMethod.POST})
 	public CarouselImageVO findCarouselImageList(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid) {
 		CarouselImageVO vo = new CarouselImageVO();
