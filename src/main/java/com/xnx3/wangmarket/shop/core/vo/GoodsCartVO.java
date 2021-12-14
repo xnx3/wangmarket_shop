@@ -13,9 +13,9 @@ public class GoodsCartVO extends BaseVO{
 	private int number;		//此种商品数量，加入购物车中的数量
 	private int money;		//此种商品加入购物车中的总金额，单位是分。也就是 goods.price * number 的值
 	
-	private int selected;	//当前商品是否在购物车中被已选择。1已选择(默认)， 0未选择。在购物车界面，用户可以选择某些商品，进行结算，这里用户每选上一个，这里就会跟着改变
+	private int selected;	//当前商品是否在购物车中被已选择。<ul><li>1:已选择(默认)<li>0:未选择。在购物车界面，用户可以选择某些商品，进行结算，这里用户每选上一个，这里就会跟着改变</ul>
 	
-	private int exceptional;	//当前商品是否是异常的， 0正常,可以正常下单,默认便是正常，  >0则是异常，如商品库存不足，商品已下架等, 具体参考如 GoodsCart.EXCEPTIONAL_SOLD_OUT
+	private int exceptional;	//当前商品是否是异常的<ul><li>0:正常,可以正常下单,默认便是正常<li>大于0:则是异常，如商品库存不足，商品已下架等, 具体参考如 GoodsCart.EXCEPTIONAL_SOLD_OUT</ul>
 	private String exceptionalInfo;	//异常信息，异常说明，比如 商品已下架
 	
 	public GoodsCartVO() {

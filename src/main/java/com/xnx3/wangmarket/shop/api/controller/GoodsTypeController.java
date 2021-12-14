@@ -27,6 +27,8 @@ public class GoodsTypeController extends BasePluginController {
 
 	/**
 	 * 获取某个店铺的商品分类
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 店铺id，对应 Store.id ,要获取的是哪个店铺的商品分类
 	 * @return {@link GoodsTypeListVO} 若不存在，则会new一个返回过来，不会存在null的情况
 	 * @author 管雷鸣
