@@ -34,11 +34,13 @@ public class StoreController extends BaseController {
 	
 	/**
 	 * 获取店铺信息， Store 的信息
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 要获取的信息是那个店铺的，店铺的id
 	 * @author 管雷鸣
 	 * @return 店铺信息
 	 */
-	@RequestMapping(value="getStore${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="getStore.json", method = RequestMethod.POST)
 	@ResponseBody
 	public StoreVO getStore(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid){

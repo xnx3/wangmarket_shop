@@ -34,7 +34,7 @@ public class Store implements java.io.Serializable {
 	private Integer userid;		//店铺所属用户，哪个用户创建的，对应 User.id
 	private String head;		//店铺图片，图标，图片的绝对路径
 	private String notice;		//店铺公告，限制150个字符 转移到了  StoreData 中
-	private Short state;		//店铺状态，0审核中，1营业中，2已打烊
+	private Short state;		//店铺状态，<ul><li>0:审核中<li>1:营业中<li>2:已打烊</ul>
 	private String contacts;	//店铺店家联系人，限制10个字符
 	private String phone;		//店铺店家联系电话
 	private String address;		//店铺地址，限制100个字符
