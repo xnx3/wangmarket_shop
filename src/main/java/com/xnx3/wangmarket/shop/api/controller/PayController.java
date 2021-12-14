@@ -63,17 +63,20 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 获取当前商铺的支付列表，列出哪个支付使用，哪个支付不使用
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 当前商铺的id
 	 * @author 管雷鸣
 	 * @return 店铺的支付列表
 	 */
 	@ResponseBody
-	@RequestMapping(value="getPaySet${api.suffix}", method = RequestMethod.POST)
-	public BaseVO getPaySet(HttpServletRequest request,
+	@RequestMapping(value="getPaySet.json", method = RequestMethod.POST)
+	public PaySetVO getPaySet(HttpServletRequest request,
 			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid){
 		PaySetVO vo = new PaySetVO();
 		if(storeid < 1){
-			return error("请传入storeid");
+			vo.setBaseVO(BaseVO.FAILURE,"请传入storeid");
+			return vo;
 		}
 		
 		PaySet paySet = paySetService.getPaySet(storeid);
@@ -85,11 +88,13 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 线下付款。此接口为标注订单状态为 线下支付
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @author 管雷鸣
 	 * @param orderid 订单id
 	 * @return 操作结果
 	 */
-	@RequestMapping(value="privatePay${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="privatePay.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO privatePay(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = true, defaultValue = "0") int orderid){
@@ -137,6 +142,8 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 发起支付宝支付请求
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param orderid 要支付的订单的订单号，order.id
 	 * @param channel 支付方式，可传入：
 	 * 			<ul>
@@ -147,7 +154,7 @@ public class PayController extends BasePluginController {
 	 * @return {@link BaseVO} result 返回1 那么 info 返回要跳转到的支付页面url
 	 */
 	@ResponseBody
-	@RequestMapping(value="alipay${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="alipay.json", method = RequestMethod.POST)
 	public BaseVO alipay(HttpServletRequest request,Model model,
 			@RequestParam(value = "orderid", required = true, defaultValue="0") int orderid,
 			@RequestParam(value = "channel", required = true, defaultValue="") String channel){
@@ -203,6 +210,8 @@ public class PayController extends BasePluginController {
 
 	/**
 	 * 发起微信支付请求,创建微信支付订单，拿到前端调起支付的参数
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param orderid 要支付的订单的订单号，order.id
 	 * @param channel 支付方式，可传入：
 	 * 			<ul>
@@ -214,7 +223,7 @@ public class PayController extends BasePluginController {
 	 * @author 关雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="weixinCreateOrder${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="weixinCreateOrder.json", method = RequestMethod.POST)
 	public com.xnx3.BaseVO weixinCreateOrder(HttpServletRequest request,Model model,
 			@RequestParam(value = "orderid", required = true, defaultValue="0") int orderid,
 			@RequestParam(value = "openid", required = true, defaultValue="") String openid,
@@ -307,10 +316,12 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 请求这个网址就是要进行支付了
-	 * 来源页面需要使用 {@link SessionUtil#setAlipayForm(String)} 来设置跳转支付的表单
+	 * <p>来源页面需要使用 {@link SessionUtil#setAlipayForm(String)} 来设置跳转支付的表单</p>
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @author 关雷鸣 
 	 */
-	@RequestMapping("pay${url.suffix}")
+	@RequestMapping("pay.do")
 	public String pay(HttpServletRequest request,Model model){
 		String form = SessionUtil.getAlipayForm();
 		if(form == null || form.length() == 0){
@@ -324,11 +335,13 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 微信支付成功的回调
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @author 关雷鸣
 	 * @return 结果
 	 */
 	@ResponseBody
-	@RequestMapping("weixinpayCallback${url.suffix}")
+	@RequestMapping("weixinpayCallback.do")
 	public String weixinpayCallback(HttpServletRequest request){
         String inputLine = "";
         String notityXml = "";
@@ -405,9 +418,12 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 支付宝支付成功的回调
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping("alipayCallback${url.suffix}")
+	@RequestMapping("alipayCallback.do")
 	public String alipayCallback(HttpServletRequest request){
 		Map<String, String> paramsMap = AlipayUtil.requestParamsToMap(request);
 		ConsoleUtil.info("callback:"+JSONObject.fromObject(paramsMap).toString());
@@ -435,8 +451,11 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 支付成功的返回跳转页面。这里不做任何处理，只是显示成功提示
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
+	 * @author 管雷鸣
 	 */
-	@RequestMapping("alipaySuccessJumpPage${url.suffix}")
+	@RequestMapping("alipaySuccessJumpPage.do")
 	public String alipaySuccessJumpPage(HttpServletRequest request,Model model){
 		Map<String, String> paramsMap = AlipayUtil.requestParamsToMap(request);
 		
@@ -446,8 +465,11 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 支付宝支付完成触发
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param request
-	 * @param order
+	 * @param order 订单信息<required>
+	 * @author 管雷鸣
 	 */
 	private BaseVO alipayFinish(HttpServletRequest request, Order order){
 		Map<String, String> paramsMap = AlipayUtil.requestParamsToMap(request);
@@ -497,7 +519,11 @@ public class PayController extends BasePluginController {
 	
 	/**
 	 * 支付成功后，进行的逻辑处理
+	 * @param token 当前操作用户的登录标识 <required>
+	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param out_trade_no 支付宝返回支付成功的订单号
+	 * @param order 订单信息<required>
+	 * @author 管雷鸣
 	 */
 	@Transactional
 	private BaseVO paySuccess(HttpServletRequest request, Order order){

@@ -15,9 +15,9 @@ import com.xnx3.j2ee.entity.BaseEntity;
 public class PaySet extends BaseEntity implements java.io.Serializable{
 	
 	private Integer id;			//编号，对应 store.id
-	private Short useAlipay;	//是否使用支付宝支付的支付方式，1使用；0不使用。默认不使用。
-	private Short usePrivatePay;	//是否使用线下支付的支付方式，1使用；0不使用。默认使用。
-	private Short useWeixinPay;	//是否使用微信支付的支付方式，1使用；0不使用。默认不使用。
+	private Short useAlipay;	//是否使用支付宝支付的支付方式<ul><li>1:使用<li>0:不使用</ul>默认不使用。
+	private Short usePrivatePay;	//是否使用线下支付的支付方式<ul><li>1:使用<li>0:不使用</ul>默认使用。
+	private Short useWeixinPay;	//是否使用微信支付的支付方式<ul><li>1:使用<li>0:不使用</ul>默认不使用。
 	private Short useWeixinServiceProviderPay;	//微信支付，是否使用服务商模式，这个是微信支付的子项，如果开启微信支付，那么才会出现这个选择，也就是是否使用微信认证交300元的支付方式。如果交300元，那么就是传统的微信支付，如果不交300元，那么需要联系我们雷鸣云开通微信支付
 	
 	/** 支付宝支付 **/
