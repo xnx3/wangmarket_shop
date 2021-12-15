@@ -1,18 +1,11 @@
 package com.xnx3.wangmarket.shop.store.controller.api;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
-import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 import com.xnx3.wangmarket.shop.core.vo.OrderListVO;
 import com.xnx3.wangmarket.shop.core.vo.OrderVO;
-
-import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,10 +59,11 @@ public class OrderController extends BaseController {
 		sql.appendWhere("storeid = " + getStoreId());
 		//时间查询条件
 		if (startTime > 0) {
-			sql.appendWhere(" addtime <= " + endTime);
+			sql.appendWhere(" addtime >= " + startTime);
 		}
 		if (endTime > 0) {
-			sql.appendWhere(" addtime <= " + endTime);
+			int dayEndTime = DateUtil.getDateZeroTime(endTime)+24*60*60;
+			sql.appendWhere(" addtime <= " + dayEndTime);
 		}
 		//配置按某个字端搜索内容
 		sql.setSearchColumn(new String[] {"no","state="});
