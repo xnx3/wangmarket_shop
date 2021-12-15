@@ -8,11 +8,11 @@ public class ApiDoc {
 //		doc.templatePath = "/Users/apple/Downloads/javadoc/";
 		doc.templatePath = "http://res.zvo.cn.obs.cn-north-4.myhuaweicloud.com/javadoc/v1.8/";
 		
-		doc.name = "网市场云商城-用户端-API文档";
-		doc.domain = "http://shop.imall.net.cn";
-		doc.version = "1.7";
-		doc.token = ""; 
-		
+//		doc.name = "网市场云商城-用户端-API文档";
+//		doc.domain = "http://shop.imall.net.cn";
+//		doc.version = "1.7";
+//		doc.token = ""; 
+//		
 		doc.generateHtmlDoc();
 	}
 }
