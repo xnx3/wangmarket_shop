@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.j2ee.Global;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
@@ -77,12 +80,16 @@ public class LoginController extends BaseController {
 	 * 		</ul>
 	 * 		注意：这三步中，第一步获取到的token，跟第二三步中使用的token一定是一样的。
 	 * </p>
-	 * @param username 登录的用户名 <required> <example=guanleiming>
-	 * @param password 登录的密码 <required> <example=123456>
+	 * <p>
+	 * 		<b>为了接口测试方便，加了一个专门用于接口调试的</b>
+	 * 		<p>username:guanleiming</p>
+	 * 		<p>password:123456</p>
+	 * 		<p>使用这个固定的username、password，不需要输入验证码即可直接登录</p>
+	 * <p>
+	 * @param username 登录的用户名
+	 * @param password 登录的密码
 	 * @param code 图片验证码的字符 <required> <example=xxxxx>
 	 * @param storeid 要登录的商家的编号，是登录商家的商城
-	 * @param token 当前操作用户的登录标识 <required>
-	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param request {@link HttpServletRequest} 
 	 * 		<br/>登陆时form表单需提交三个参数：username(用户名/邮箱)、password(密码)、code（图片验证码的字符）
 	 * @author 管雷鸣
@@ -95,63 +102,98 @@ public class LoginController extends BaseController {
 	@RequestMapping(value="login.json", method = RequestMethod.POST)
 	@ResponseBody
 	public LoginVO login(HttpServletRequest request,Model model,
-			@RequestParam(value = "storeid", required = true, defaultValue="0") int storeid){
+			@RequestParam(value = "storeid", required = true, defaultValue="1") int storeid,
+			@RequestParam(required = true, defaultValue="guanleiming") String username,
+			@RequestParam(required = true, defaultValue="123456") String password){
 		LoginVO vo = new LoginVO();
 		
-		//验证码校验
-		BaseVO capVO = com.xnx3.j2ee.util.CaptchaUtil.compare(request.getParameter("code"), request);
-		if(capVO.getResult() == BaseVO.FAILURE){
-			ActionLogUtil.insert(request, "用户名密码模式登录失败", "验证码出错，提交的验证码："+StringUtil.filterXss(request.getParameter("code")));
-			vo.setBaseVO(capVO);
-			return vo;
-		}else{
-			//验证码校验通过
+		//判断是否是测试API的模式
+		if(username.equalsIgnoreCase("guanleiming") && password.equalsIgnoreCase("123456")) {
+			//不用输入验证码就可以登录的测试账号
 			
-			BaseVO baseVO =  userService.loginByUsernameAndPassword(request);
-			vo.setBaseVO(baseVO);
-			if(baseVO.getResult() == BaseVO.SUCCESS){
-				User user = getUser();
-				//日志记录
-				ActionLogUtil.insert(request, "用户名密码模式登录成功", user.toString());
+			//查询当前数据库中是否有 guanleiming 这个用户了
+			User user = sqlCacheService.findAloneByProperty(User.class, "username", "guanleiming");
+			if(user == null) {
+				//新创建这个测试账号
 				
-				Store store = null;	//此用户所在的店铺
-				//判断一下是否传入了storeid这个参数
-				if(storeid > 0){
-					//判断一下用户是否已经关联上这个商家了，如果没关联，还要将这个用户关联为这个商家的用户
-					StoreUser storeUser = sqlCacheService.findBySql(StoreUser.class, "userid="+user.getId()+" AND storeid="+storeid);
-					if(storeUser == null){
-						storeUser = new StoreUser();
-						storeUser.setId(user.getId()+"_"+storeid);
-						storeUser.setStoreid(storeid);
-						storeUser.setUserid(user.getId());
-						sqlService.save(storeUser);
-					}
-					
-					//查询出此用户所在的店铺，加入缓存
-					store = sqlService.findById(Store.class, storeid);
-					if(store == null){
-						vo.setBaseVO(BaseVO.FAILURE, "store 不存在");
-						SessionUtil.logout();
-						return vo;
-					}
-					SessionUtil.setStore(store);
+				user = new User();
+				user.setUsername("guanleiming");
+				user.setPassword("123456");
+				BaseVO baseVO = userService.createUser(user, request);
+				
+				//注册成功后，将这个用户加入这个商家名下，是这个商家的客户
+				StoreUser storeUser = new StoreUser();
+				storeUser.setId(user.getId()+"_"+storeid);
+				storeUser.setStoreid(storeid);
+				storeUser.setUserid(user.getId());
+				sqlService.save(storeUser);
+				
+			}else {
+				String md5Password = new Md5Hash("123456", user.getSalt(),Global.USER_PASSWORD_SALT_NUMBER).toString();
+				if(!user.getPassword().equals(md5Password)) {
+					//密码不一致，之前有人恶意改过密码，那再改回来
+					user.setPassword(md5Password);
+					sqlService.save(user);
 				}
-				
-				//登录成功,BaseVO.info字段将赋予成功后跳转的地址，所以这里要再进行判断
-				vo.setInfo("admin/index/index.do");
-				
-				//将sessionid加入vo返回
-				HttpSession session = request.getSession();
-				vo.setToken(session.getId());
-				
-				//加入user信息
-				vo.setUser(user);
-			}else{
-				ActionLogUtil.insert(request, "用户名密码模式登录失败",baseVO.getInfo());
 			}
 			
-			return vo;
+		}else{
+			//其他的都要经过验证码验证
+			
+			//验证码校验
+			BaseVO capVO = com.xnx3.j2ee.util.CaptchaUtil.compare(request.getParameter("code"), request);
+			if(capVO.getResult() == BaseVO.FAILURE){
+				ActionLogUtil.insert(request, "用户名密码模式登录失败", "验证码出错，提交的验证码："+StringUtil.filterXss(request.getParameter("code")));
+				vo.setBaseVO(capVO);
+				return vo;
+			}
 		}
+		
+		//验证码校验通过，进行登录操作
+		BaseVO baseVO =  userService.loginByUsernameAndPassword(request);
+		vo.setBaseVO(baseVO);
+		if(baseVO.getResult() == BaseVO.SUCCESS){
+			User user = getUser();
+			//日志记录
+			ActionLogUtil.insert(request, "用户名密码模式登录成功", user.toString());
+			
+			Store store = null;	//此用户所在的店铺
+			//判断一下是否传入了storeid这个参数
+			if(storeid > 0){
+				//判断一下用户是否已经关联上这个商家了，如果没关联，还要将这个用户关联为这个商家的用户
+				StoreUser storeUser = sqlCacheService.findBySql(StoreUser.class, "userid="+user.getId()+" AND storeid="+storeid);
+				if(storeUser == null){
+					storeUser = new StoreUser();
+					storeUser.setId(user.getId()+"_"+storeid);
+					storeUser.setStoreid(storeid);
+					storeUser.setUserid(user.getId());
+					sqlService.save(storeUser);
+				}
+				
+				//查询出此用户所在的店铺，加入缓存
+				store = sqlService.findById(Store.class, storeid);
+				if(store == null){
+					vo.setBaseVO(BaseVO.FAILURE, "store 不存在");
+					SessionUtil.logout();
+					return vo;
+				}
+				SessionUtil.setStore(store);
+			}
+			
+			//登录成功,BaseVO.info字段将赋予成功后跳转的地址，所以这里要再进行判断
+			vo.setInfo("admin/index/index.do");
+			
+			//将sessionid加入vo返回
+			HttpSession session = request.getSession();
+			vo.setToken(session.getId());
+			
+			//加入user信息
+			vo.setUser(user);
+		}else{
+			ActionLogUtil.insert(request, "用户名密码模式登录失败",baseVO.getInfo());
+		}
+		
+		return vo;
 	}
 	
 
