@@ -33,8 +33,6 @@ public class GoodsController extends BasePluginController {
 
 	/**
 	 * 获取商品列表
-	 * @param token 当前操作用户的登录标识 <required>
-	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 商铺编号，要获取的数据是属于哪个商铺的
 	 * @param typeid 要查询商铺中，哪个分类的商品。如果不传，则是查询这个商店中所有的商品
 	 * @param title 要搜索的商品名字,可模糊搜索。
@@ -112,8 +110,6 @@ public class GoodsController extends BasePluginController {
 
 	/**
 	 * 获取某个商品的商品详情信息
-	 * @param token 当前操作用户的登录标识 <required>
-	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param goodsid 要查看的商品id，goods.id
 	 * @return GoodsDetailsVO 查看商品详情
 	 * @author 管雷鸣

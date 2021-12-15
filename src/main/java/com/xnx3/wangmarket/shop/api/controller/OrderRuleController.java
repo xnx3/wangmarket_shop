@@ -15,7 +15,7 @@ import com.xnx3.wangmarket.shop.core.entity.OrderRule;
 import com.xnx3.wangmarket.shop.core.vo.OrderRuleVO;
 
 /**
- * 订单相关
+ * 自定义订单规则
  * @author 管雷鸣
  */
 @Controller(value="ShopOrderRuleController")

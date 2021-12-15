@@ -46,7 +46,7 @@ import com.xnx3.weixin.weixinPay.request.JSAPIOrder;
 import net.sf.json.JSONObject;
 
 /**
- * 给网站管理后台显示的
+ * 支付相关
  * @author 管雷鸣
  */
 @Controller(value="ShopApiPayController")
