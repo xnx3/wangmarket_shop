@@ -38,12 +38,15 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 查看商品列表
-	 * @author 刘鹏
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @return 若请求成功，则展示商品列表
+     * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/list${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "/list.json" ,method = {RequestMethod.POST})
 	public GoodsListVO list(HttpServletRequest request,
 							@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		GoodsListVO vo = new GoodsListVO();
@@ -80,11 +83,15 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 获取商品与商品详情
-	 * @author 刘鹏
+	 * 
 	 * @param id 商品id
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @return 若请求成功，则展示商品的详情
+     * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value = "getGoods${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "getGoods.json" ,method = {RequestMethod.POST})
 	public GoodsDetailsVO getGoods(HttpServletRequest request,
 								   @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		GoodsDetailsVO vo = new GoodsDetailsVO();
@@ -119,10 +126,11 @@ public class GoodsController extends BaseController {
 	 * @param putaway 是否上架在售，1出售中，0已下架。 非必填
 	 * @param units 计量，单位。如个、斤、条，限制5字符。非必填
 	 * @param rank 排序，数字越小越靠前。非必填
+	 * @return 若请求成功，则可以保存商品的信息
 	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="/save${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/save.json",method = {RequestMethod.POST})
 	public BaseVO save(HttpServletRequest request,
 			@RequestParam(value = "goodsid", required = false, defaultValue="0") int goodsid,
 			@RequestParam(value = "price", required = false, defaultValue="-1") int price,
@@ -167,11 +175,14 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 保存商品，商品全部信息的保存
-	 * @author 刘鹏
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param inputGoods 接受参数的实体类
+	 * @return 若请求成功，则保存商品的全部信息
+	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value="/saveAll${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/saveAll.json",method = {RequestMethod.POST})
 	public com.xnx3.j2ee.vo.BaseVO saveAll(HttpServletRequest request,Goods inputGoods) {
 
 		Integer id = inputGoods.getId();
@@ -267,11 +278,15 @@ public class GoodsController extends BaseController {
 	
 	/**
 	 * 删除商品
-	 * @author 关光礼
+	 * 
 	 * @param goodsid 删除商品id,对应goods.id
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @return 若请求成功，则删除商品
+     * @author 关光礼
 	 */
 	@ResponseBody
-	@RequestMapping(value="/delete${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/delete.json",method = {RequestMethod.POST})
 	public BaseVO delete(HttpServletRequest request,
 			@RequestParam(value = "goodsid",defaultValue = "0", required = false) int goodsid) {
 		if(goodsid < 1) {
@@ -298,12 +313,15 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 修改商品的上下架
-	 * @author 关光礼
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param id 商品id
+	 * @return 若请求成功，则可以设置商品的上下架
+	 * @author 关光礼
 	 */
 	@ResponseBody
-	@RequestMapping(value="/updatePutaway${api.suffix}",method = {RequestMethod.POST})
-	public com.xnx3.BaseVO updatePutaway(HttpServletRequest request,
+	@RequestMapping(value="/updatePutaway.json",method = {RequestMethod.POST})
+	public BaseVO updatePutaway(HttpServletRequest request,
 										 @RequestParam(value = "id",defaultValue = "0", required = false) int id) {
 		if(id < 1) {
 			return error("请传入id参数");
@@ -334,11 +352,14 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 获取商品的图片、轮播图片
-	 * @author 刘鹏
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param id 商品id
+	 * @return 若请求成功，则可以展示商品的图片、轮播图片
+	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value = "imgList${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "imgList.json" ,method = {RequestMethod.POST})
 	public GoodsImageListVO imgList(HttpServletRequest request,
 						  @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		GoodsImageListVO vo = new GoodsImageListVO();
@@ -379,12 +400,15 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 删除商品图片
-	 * @author 关光礼
 	 * @param id 图片id
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+	 * @return 若请求成功，则可以删除图片
+	 * @author 关光礼
 	 */
 	@ResponseBody
-	@RequestMapping(value = "deleteImg${api.suffix}" ,method = {RequestMethod.POST})
-	public com.xnx3.BaseVO deleteImg(HttpServletRequest request,
+	@RequestMapping(value = "deleteImg.json" ,method = {RequestMethod.POST})
+	public BaseVO deleteImg(HttpServletRequest request,
 									 @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		if(id < 1) {
 			return error("请传入图片ID信息" );
@@ -410,12 +434,15 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 获取商品图片信息
-	 * @author 刘鹏
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param id 图片id
 	 * @param goodId 商品id
+	 * @return 若请求成功，则展示商品图片的信息
+	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value = "getGoodsImage${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "getGoodsImage.json" ,method = {RequestMethod.POST})
 	public GoodsImageVO getGoodsImage(HttpServletRequest request,
 									  @RequestParam(value = "id", required = false, defaultValue = "0") int id,
 									  @RequestParam(value = "goodId", required = false, defaultValue = "0") int goodId) {
@@ -437,15 +464,17 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 添加、修改商品轮播图
-	 * @author 刘鹏
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param id 图片id
 	 * @param goodsid 商品id 必传入
 	 * @param rank 图片的排序，数字越小越靠前
 	 * @param imageUrl 图片的url绝对路径
-	 * @return
+	 * @return 若请求成功，则可以修改添加商品轮播图
+	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value="/goodsImageSave${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/goodsImageSave.json",method = {RequestMethod.POST})
 	public com.xnx3.j2ee.vo.BaseVO goodsImageSave(HttpServletRequest request,
 												  @RequestParam(value = "id",required = false,defaultValue = "0") Integer id,
 												  @RequestParam(value = "goodsid") Integer goodsid,
@@ -493,13 +522,16 @@ public class GoodsController extends BaseController {
 	}
 	/**
 	 * 更改商品排序
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param id 栏目id
 	 * @param rank 排序编号。数字越小越靠前
-	 * @return
+	 * @return 若请求成功，则可以对商品进行排序
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="updateRank${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="updateRank.json", method = RequestMethod.POST)
 	@ResponseBody
-	public com.xnx3.BaseVO updateRank(HttpServletRequest request,
+	public BaseVO updateRank(HttpServletRequest request,
 									  @RequestParam(value = "id", required = false , defaultValue="0") int id,
 									  @RequestParam(value = "rank", required = false , defaultValue="0") int rank){
 		Goods goods = new Goods();
