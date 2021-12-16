@@ -45,8 +45,9 @@ public class LoginController extends BaseController {
 	 * 				<li>0:失败</li>
 	 * 				<li>1:成功</li>
 	 * 			</ul>
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="login${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="login.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO login(HttpServletRequest request,Model model){
 		BaseVO vo = new BaseVO();
