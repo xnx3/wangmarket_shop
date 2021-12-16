@@ -42,10 +42,16 @@ public class OrderController extends BaseController {
 	
 	/**
 	 * 查看订单列表
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @param everyNumber 每页显示多少条数据
+     * @param startTime 订单开始时间
+     * @param endTime 订单结束时间
+     * @return 若请求成功，则展示订单列表    
 	 * @author 关光礼
 	 */
 	@ResponseBody
-	@RequestMapping(value="/list${api.suffix}", method = {RequestMethod.POST})
+	@RequestMapping(value="/list.json", method = {RequestMethod.POST})
 	public OrderListVO list(HttpServletRequest request,
 							@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
 							@RequestParam(value = "startTime", required = false, defaultValue = "0") int startTime,
@@ -87,11 +93,14 @@ public class OrderController extends BaseController {
 	
 	/**
 	 * 查看订单详情
-	 * @author 管雷鸣
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param orderid 订单id
+	 * @return 若请求成功，则展示订单的详情
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="detail${api.suffix}", method = {RequestMethod.POST})
+	@RequestMapping(value="detail.json", method = {RequestMethod.POST})
 	public OrderVO detail(HttpServletRequest request,
 		@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid) {
 		OrderVO vo = new OrderVO();
@@ -137,12 +146,15 @@ public class OrderController extends BaseController {
 
 	/**
 	 * 更改订单内某个商品的数量。这个只是纯粹改数量而已，其他的金额了什么的不会重新计算
-	 * @author 管雷鸣
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param orderGoodsId 要修改的是哪个订单内商品，也就是 OrderGoods.id
 	 * @param number 要改成的数量。如果传入0，则是删除这个订单内的商品
+	 * @return 若请求成功，则可以修改订单中某个商品的数量
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="updateOrderGoodsNumber${api.suffix}", method = {RequestMethod.POST})
+	@RequestMapping(value="updateOrderGoodsNumber.json", method = {RequestMethod.POST})
 	public BaseVO updateOrderGoodsNumber(HttpServletRequest request,
 		@RequestParam(value = "orderGoodsId", required = false, defaultValue = "0") int orderGoodsId,
 		@RequestParam(value = "number", required = false, defaultValue = "0") int number) {
@@ -181,14 +193,16 @@ public class OrderController extends BaseController {
 	
 	/**
 	 * 订单发货
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * <p>状态变为配送中</p>
 	 * <p>如果商家在订单设置中，如果设置有配送中状态，那么此接口可正常执行</p>
 	 * <p>如果关闭配送中状态，不允许有配送中，那么此接口执行时会返回执行失败的提示。</p>
-	 * <p>在调此接口前，建议先根据接口 /shop/api/orderRule/getRule.json 来获取商家当前是否允许有配送中的状态</p>
-	 * @author 管雷鸣
+	 * <p>在调此接口前，建议先根据接口<a href="shop.api.orderRule.getRule.json.html">/shop/api/orderRule/getRule.json</a> 来获取商家当前是否允许有配送中的状态</p>
 	 * @param orderid 订单id
 	 * @param logisticsCode 如果是发快递，这里传入快递编号
 	 * @return 操作结果
+	 * @author 管雷鸣
 	 */
 	@RequestMapping(value="distributionIng.json", method = RequestMethod.POST)
 	@ResponseBody
@@ -227,10 +241,13 @@ public class OrderController extends BaseController {
 	
 	/**
 	 * 收到商品，确认收货
-	 * @author 管雷鸣
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param orderid 订单id
+	 * @return 若请求成功，则可确认收货
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="receiveGoods${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="receiveGoods.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO receiveGoods(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
@@ -261,10 +278,14 @@ public class OrderController extends BaseController {
 	
 	/**
 	 * 退单申请,拒绝
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param orderid 要拒绝退单申请的订单id
+	 * @return 若请求成功过，可以提交退单申请
+	 * @author 管雷鸣
 	 */
 	@Transactional
-	@RequestMapping(value="refundReject${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="refundReject.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO refundReject(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
@@ -331,10 +352,14 @@ public class OrderController extends BaseController {
 
 	/**
 	 * 退单申请,同意退单
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param orderid 要同意退单申请的订单id
+	 * @return 若请求成功，退单申请则可同意退单
+	 * @author 管雷鸣
 	 */
 	@Transactional
-	@RequestMapping(value="refundAllow${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="refundAllow.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO refundAllow(HttpServletRequest request,
 			@RequestParam(value = "orderid", required = false, defaultValue = "0") int orderid){
