@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.xnx3.BaseVO;
+
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.service.StoreService;
 import com.xnx3.wangmarket.shop.store.vo.IndexVO;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
@@ -37,9 +38,13 @@ public class IndexController extends BaseController {
 	
 	/**
 	 * 登录成功后的首页
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @return 若请求成功，跳转首页
+     * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value = "index${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "index.json" ,method = {RequestMethod.POST})
 	public IndexVO index(HttpServletRequest request){
 		//获取网站后台管理系统有哪些功能插件，也一块列出来,以直接在网站后台中显示出来
 //		String pluginMenu = "";
@@ -66,9 +71,13 @@ public class IndexController extends BaseController {
 	 * 修改密码，如果使用的是账号、密码方式注册、登录的话。
 	 * @param oldPassword 原密码
 	 * @param newPassword 新密码
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @return 若请求成功，则可更改密码
+     * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="updatePassword${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="updatePassword.json", method = RequestMethod.POST)
 	public BaseVO updatePassword(HttpServletRequest request, 
 			@RequestParam(value = "oldPassword", required = false, defaultValue = "") String oldPassword,
 			@RequestParam(value = "newPassword", required = false, defaultValue = "") String newPassword){
