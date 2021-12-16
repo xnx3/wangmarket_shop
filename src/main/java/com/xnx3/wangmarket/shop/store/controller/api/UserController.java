@@ -32,10 +32,14 @@ public class UserController extends BaseController {
 	
 	/**
 	 * 查看用户列表
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @param everyNumber 每页展示多少条数据
+	 * @return 展示用户列表
 	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/list${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "/list.json" ,method = {RequestMethod.POST})
 	public UserListVO list(HttpServletRequest request,
 						   @RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		UserListVO vo = new UserListVO();
