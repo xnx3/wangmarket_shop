@@ -1,10 +1,10 @@
 package com.xnx3.wangmarket.shop.store.controller.api;
 
-import com.xnx3.BaseVO;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
+import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.entity.CarouselImage;
 import com.xnx3.wangmarket.shop.store.vo.CarouselImageListVO;
 import com.xnx3.wangmarket.shop.store.vo.CarouselImageVO;
@@ -29,10 +29,14 @@ public class CarouselImageController extends BaseController {
 	
 	/**
 	 * 查看轮播图列表
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @param everyNumber 每页显示几条数据
+	 * @return 若请求成功，则显示轮播图列表
 	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/list${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "/list.json" ,method = {RequestMethod.POST})
 	public CarouselImageListVO list(HttpServletRequest request,
 			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		CarouselImageListVO vo = new CarouselImageListVO();
@@ -67,11 +71,15 @@ public class CarouselImageController extends BaseController {
 	
 	/**
 	 * 获取轮播图信息
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @param id 轮播图id
+     * @return 若请求成功，则可获取轮播图信息
 	 * @author 刘鹏
-	 * @param id 轮播图id
+	 * 
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getCarouselImage${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value="/getCarouselImage.json" ,method = {RequestMethod.POST})
 	public CarouselImageVO getCarouselImage(HttpServletRequest request,
 									 @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		CarouselImageVO vo = new CarouselImageVO();
@@ -96,12 +104,16 @@ public class CarouselImageController extends BaseController {
 	
 	/**
 	 * 添加或修改轮播图
-	 * @author 刘鹏
+	 * 
 	 * @param carouselImage 接受参数的实体类
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @return 若请求成功，则可添加修改轮播图          
+	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value="/save${api.suffix}" ,method = {RequestMethod.POST})
-	public com.xnx3.j2ee.vo.BaseVO save(HttpServletRequest request,CarouselImage carouselImage) {
+	@RequestMapping(value="/save.json" ,method = {RequestMethod.POST})
+	public BaseVO save(HttpServletRequest request,CarouselImage carouselImage) {
 		Integer id = carouselImage.getId();
 		//创建一个实体
 		CarouselImage fCarouselImage;
@@ -138,11 +150,15 @@ public class CarouselImageController extends BaseController {
 	
 	/**
 	 * 删除轮播图
-	 * @author 刘鹏
+	 * 
 	 * @param id 删除的轮播图id
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+	 * @return 若请求成功，则可以删除轮播图
+	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value="/delete${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/delete.json",method = {RequestMethod.POST})
 	public BaseVO delete(HttpServletRequest request,
 			@RequestParam(value = "id",defaultValue = "0", required = false) int id) {
 		if(id < 1) {
