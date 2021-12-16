@@ -36,10 +36,12 @@ public class PaySetController extends BaseController {
 	
 	/**
 	 * 设置的首页
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/index${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "/index.json" ,method = {RequestMethod.POST})
 	public PaySetVO index(HttpServletRequest request) {
 		PaySetVO vo = new PaySetVO();
 		Store store = getStore();	//当前登录的商家的信息
@@ -61,9 +63,11 @@ public class PaySetController extends BaseController {
 	 * 设置 payset 表的字段
 	 * @param name 当前设置的是哪种支付或者哪个参数，可传入参数为 payset 表的字段，如： alipay private weixinPay alipayAppId alipayAppPrivateKey weixinMchId weixinMchKey weixinAppletAppid
 	 * @param value 要设置的值。如 name 是 alipay private weixinPay，那么这个value便是0、1
+	 * @return 若请求成功，可以设置payset表的字段
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="update${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="update.json",method = {RequestMethod.POST})
 	public BaseVO update(HttpServletRequest request,
 			@RequestParam(value = "name", required = false, defaultValue="") String name,
 			@RequestParam(value = "value", required = false, defaultValue="0") String value) {
@@ -131,9 +135,10 @@ public class PaySetController extends BaseController {
 	/**
 	 * 此接口专门用来上传 crt 证书
 	 * @param name 当前是要上传哪种证书，可传入参数： alipayCertPublicKeyRSA2 alipayRootCert alipayAppCertPublicKey
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="/uploadCrt${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/uploadCrt.json",method = {RequestMethod.POST})
 	public BaseVO uploadCrt(HttpServletRequest request,
 			@RequestParam(value = "name", required = false, defaultValue="") String name,
 			MultipartFile file) {
