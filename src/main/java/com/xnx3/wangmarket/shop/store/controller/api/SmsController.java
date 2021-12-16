@@ -36,9 +36,11 @@ public class SmsController extends BaseController {
 	
 	/**
 	 * 进入后的页面
+	 * @return 进入短信设置页面
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value = "index${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "index.json" ,method = {RequestMethod.POST})
 	public SmsSetVO login(HttpServletRequest request){
 		SmsSetVO vo = new SmsSetVO();
 		Store store = getStore();
@@ -64,8 +66,9 @@ public class SmsController extends BaseController {
 	 * 				<li>0:失败</li>
 	 * 				<li>1:成功</li>
 	 * 			</ul>
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="update${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="update.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO update(HttpServletRequest request,
 			@RequestParam(value = "name", required = false, defaultValue = "") String name,
@@ -116,8 +119,9 @@ public class SmsController extends BaseController {
 	 * 				<li>0:失败</li>
 	 * 				<li>1:成功，那么可以用 vo.getInfo() 获取短信剩余条数</li>
 	 * 			</ul>
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="getBalance${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="getBalance.json", method = RequestMethod.POST)
 	@ResponseBody
 	public BaseVO getBalance(HttpServletRequest request){
 		Store store = getStore();
