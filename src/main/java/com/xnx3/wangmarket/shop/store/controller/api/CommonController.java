@@ -28,8 +28,13 @@ public class CommonController extends BaseController {
 	
 	/**
 	 * 上传图片接口
+	 * @param multipartFile 上传文件
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+	 * @return 若请求成功，则可以上传图片
+	 * @author 管雷鸣
 	 */
-	@RequestMapping(value="uploadImage${api.suffix}", method = RequestMethod.POST)
+	@RequestMapping(value="uploadImage.json", method = RequestMethod.POST)
 	@ResponseBody
 	public UploadFileVO uploadImage(HttpServletRequest request,
 			@RequestParam("file") MultipartFile multipartFile){
