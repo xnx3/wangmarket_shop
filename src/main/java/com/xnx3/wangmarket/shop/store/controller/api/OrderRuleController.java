@@ -30,10 +30,13 @@ public class OrderRuleController extends BaseController {
 	
 	/**
 	 * 查看当前规则
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @return 响应订单状态规则
 	 * @author 刘鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/index${api.suffix}" ,method = RequestMethod.POST)
+	@RequestMapping(value = "/index.json" ,method = RequestMethod.POST)
 	public OrderRuleVO index(HttpServletRequest request) {
 		OrderRuleVO vo = new OrderRuleVO();
 		//从数据库中获取，同时还能判断如果没有，创建这条记录
@@ -53,12 +56,14 @@ public class OrderRuleController extends BaseController {
 	
 	/**
 	 * 设置某个订单状态是否启用
-	 * @author 管雷鸣
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param name 订单状态，传入的也就是 {@link OrderRule} 的字段，传入如 distribution 、refund 、 notPayTimeout 、receiveTime 、print
 	 * @param value 值。0或者1  ，1使用，0不使用
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="save${api.suffix}" ,method = RequestMethod.POST)
+	@RequestMapping(value="save.json" ,method = RequestMethod.POST)
 	public BaseVO save(HttpServletRequest request,
 		@RequestParam(value = "name", required = false, defaultValue = "") String name,
 		@RequestParam(value = "value", required = false, defaultValue = "0") int value) {
