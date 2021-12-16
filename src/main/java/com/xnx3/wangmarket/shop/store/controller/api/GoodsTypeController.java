@@ -2,28 +2,31 @@ package com.xnx3.wangmarket.shop.store.controller.api;
 
 import java.io.IOException;
 import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.xnx3.wangmarket.shop.store.vo.GoodsTypeVO;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import com.xnx3.BaseVO;
+
 import com.xnx3.j2ee.generateCache.BaseGenerate;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
+import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.UploadFileVO;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.GoodsType;
 import com.xnx3.wangmarket.shop.core.service.GoodsTypeService;
 import com.xnx3.wangmarket.shop.store.vo.GoodsTypeListVO;
+import com.xnx3.wangmarket.shop.store.vo.GoodsTypeVO;
 
 
 /**
@@ -40,11 +43,15 @@ public class GoodsTypeController extends BaseController {
 	
 	/**
 	 * 查看商品分类
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
+	 * @return 若请求成功，则显示商品的分类
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/list${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "/list.json" ,method = {RequestMethod.POST})
     public GoodsTypeListVO list(HttpServletRequest request,
                                 @RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
 		GoodsTypeListVO vo = new GoodsTypeListVO();
@@ -82,12 +89,15 @@ public class GoodsTypeController extends BaseController {
 	
 	/**
 	 * 上传商品分类图片
-	 * @author 关光礼
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param id 上传商品分类id
 	 * @param file 上传的图片文件
+	 * @return 若响应成功，则可以上传商品的分类图片
+	 * @author 关广礼
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/uploadImg${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "/uploadImg.json" ,method = {RequestMethod.POST})
 	public BaseVO goodsTypeUploadImg(HttpServletRequest request ,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
 			MultipartFile file) {
@@ -120,8 +130,11 @@ public class GoodsTypeController extends BaseController {
 	
 	/**
 	 * 获取商品分类信息
-	 * @author 刘鹏
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param id 商品分类id
+	 * @return 若请求成功，则可以查看商品的分类信息
+	 * @author 管雷鸣
 	 */
     @ResponseBody
     @RequestMapping(value = "getGoodsType${api.suffix}" ,method = {RequestMethod.POST})
@@ -150,12 +163,14 @@ public class GoodsTypeController extends BaseController {
 
 	/**
 	 * 添加修改商品分类
-	 * @author 关光礼
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param goodsType 接收参数的实体类
-	 * @return
+	 * @return 若响应成功，则可以添加修改商品的分类
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value="/save${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/save.json",method = {RequestMethod.POST})
 	public com.xnx3.j2ee.vo.BaseVO save(HttpServletRequest request,GoodsType goodsType) {
 
 		//System.out.println(getStoreId());
@@ -197,11 +212,14 @@ public class GoodsTypeController extends BaseController {
 	
 	/**
 	 * 删除商品分类
-	 * @author 关光礼
 	 * @param id 删除商品分类id
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @return 若请求成功，则删除商品分类
+     * @author 关光礼
 	 */
 	@ResponseBody
-	@RequestMapping(value="/delete${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value="/delete.json",method = {RequestMethod.POST})
 	public BaseVO delete(HttpServletRequest request,
 			@RequestParam(value = "id",defaultValue = "0", required = false) int id) {
 		
