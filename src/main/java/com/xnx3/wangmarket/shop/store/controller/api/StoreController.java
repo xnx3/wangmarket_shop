@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import com.xnx3.BaseVO;
+
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentUtil;
+import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.j2ee.vo.UploadFileVO;
 import com.xnx3.wangmarket.shop.core.Global;
 import com.xnx3.wangmarket.shop.core.entity.Store;
@@ -40,9 +41,13 @@ public class StoreController extends BaseController {
 
 	/**
 	 * 获取当前登录的店铺信息
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+	 * @return 展示登录的店铺信息
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value = "getStore${api.suffix}" ,method = {RequestMethod.POST})
+	@RequestMapping(value = "getStore.json" ,method = {RequestMethod.POST})
 	public StoreVO getStore(HttpServletRequest request){
 		StoreVO vo = new StoreVO();
 		int storeid = getStoreId();
@@ -65,11 +70,15 @@ public class StoreController extends BaseController {
 
 	/**
 	 * 上传商家图标
-	 * @author 关光礼
-	 * @param file 上传的图片文件
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @param file 上传的图片文件
+	 * @return 若请求成功，则可上传商家图片
+	 * @author 管雷鸣
+	 * 
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/uploadImg${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value = "/uploadImg.json",method = {RequestMethod.POST})
 	public BaseVO carouselImageUploadImg(HttpServletRequest request, MultipartFile file) {
 		int storeId = getStoreId();
 		// 上传图片
@@ -106,10 +115,14 @@ public class StoreController extends BaseController {
 	 * @param district 区
 	 * @param longitude 经纬度
 	 * @param latitude 经纬度
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+     * @return 若请求成功，则可修改商家信息
+     * @author 管雷鸣
 	 */
 	//@RequiresPermissions("slideshowUploadImg")
 	@ResponseBody
-	@RequestMapping(value = "/save${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value = "/save.json",method = {RequestMethod.POST})
 	public BaseVO save(HttpServletRequest request ,
 			@RequestParam(value = "name", required = false, defaultValue = "") String name,
 			@RequestParam(value = "state", required = false, defaultValue = "0") short state,
@@ -185,9 +198,11 @@ public class StoreController extends BaseController {
 	/**
 	 * 修改商家的变长表字段的信息
 	 * @param notice 公告
+	 * @return 若请求成功，则可修改商家的变长表字段信息
+	 * @author 管雷鸣
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/saveStoreData${api.suffix}",method = {RequestMethod.POST})
+	@RequestMapping(value = "/saveStoreData.json",method = {RequestMethod.POST})
 	public BaseVO saveStoreData(HttpServletRequest request ,
 			@RequestParam(value = "notice", required = false, defaultValue = "") String notice) {
 		//查找商家
