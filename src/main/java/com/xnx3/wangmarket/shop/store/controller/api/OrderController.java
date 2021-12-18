@@ -58,6 +58,10 @@ public class OrderController extends BaseController {
 							@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
 							@RequestParam(value = "startTime", required = false, defaultValue = "0") int startTime,
 							@RequestParam(value = "endTime", required = false, defaultValue = "0") int endTime) {
+		if(everyNumber > 100){
+			everyNumber = 100;
+		}
+		
 		OrderListVO vo = new OrderListVO();
 		//创建Sql
 		Sql sql = new Sql(request);
@@ -79,7 +83,7 @@ public class OrderController extends BaseController {
 		int count = sqlService.count("shop_order", sql.getWhere());
 		
 		// 配置每页显示15条
-		Page page = new Page(count, 15, request);
+		Page page = new Page(count, everyNumber, request);
 		// 查询出总页数
 		sql.setSelectFromAndPage("SELECT * FROM shop_order ", page);
 		//选择排序方式 当用户没有选择排序方式时，系统默认降序排序
