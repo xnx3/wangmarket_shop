@@ -2,49 +2,10 @@
 branches: {
   }
 fileChange:
-  /else:
-    newFile: !uuid '3c28949677f7da2618efa24b771344a19a3d6b59'
-    oldFile: !uuid '0f4c24771c6654bda4ee6d0bbd797f42f683043e'
-  /else/pom_war.xml:
-    newFile: !uuid '635e227a1200fda0aafb1c567116d6286473fb6f'
-    oldFile: !uuid 'd9bda1a10b3f68216b88114c6c4a1fcd8ebb2fda'
   /pom.xml:
-    newFile: !uuid '0a7f64dc29c179e351157ed83d165cfbdcf5d154'
-    oldFile: !uuid 'e3afe84dbf14f848860f762d6fd39ba0ababf706'
-  /src:
-    newFile: !uuid '522017d143f5c7f515d3d4cf2a075ca072f955cc'
-    oldFile: !uuid 'cc12660f1b4775002ab52c57850a5e8a70783feb'
-  /src/main:
-    newFile: !uuid '445f89173aa145f56585670ae1c97cc53d6ec964'
-    oldFile: !uuid 'a1e7f9329387b988e26cdc17c245127348c1a722'
-  /src/main/java:
-    newFile: !uuid '5717cf5226a8681315f9fc69612a7d49352e7e5a'
-    oldFile: !uuid '0fe555018a1e7874ddf016a66d8faa562a58946b'
-  /src/main/java/com:
-    newFile: !uuid '6c5c0147b2f7ad76af393f09a3d51d91af9ccfd4'
-    oldFile: !uuid '510b7da2bdedbcbf13fe8da789eb18b1fbe7cc8f'
-  /src/main/java/com/xnx3:
-    newFile: !uuid '7fd5e00fefa012c113de65ab6b76af34e3af64f8'
-    oldFile: !uuid '12cb5b440d7d186a0ee040cf292d7a1940ef9625'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid '939dec8101c7b2f37716fa0c04fcbe441a06afa0'
-    oldFile: !uuid 'c31f394cb8903d3a5dca02ef21d1f80f9a055ab8'
-  /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid '04c421863a2369ab096b82b5aff12eb47b5ae242'
-    oldFile: !uuid '7d5143e607f970c26ff8d53a1a08ef03d3e5b7f6'
-  /src/main/java/com/xnx3/wangmarket/shop/store:
-    newFile: !uuid '0a0c828950411cbbc8b8824d6dff1dcb80906a58'
-    oldFile: !uuid 'f10a4960f64ba5f5ae471e7bef17bff1307c867d'
-  /src/main/java/com/xnx3/wangmarket/shop/store/controller:
-    newFile: !uuid '3a592c607e23cd7ad51a0e1cc00935b99a8c97c2'
-    oldFile: !uuid '34b624e254459a4dac43ee6d1b266412c1b12ff7'
-  /src/main/java/com/xnx3/wangmarket/shop/store/controller/api:
-    newFile: !uuid 'aa53489f6766f62fdebfeda4032ce5b66d91a8fb'
-    oldFile: !uuid '757435fce68ae49f8aa963deb531f9a8377ee093'
-  /src/main/java/com/xnx3/wangmarket/shop/store/controller/api/OrderController.java:
-    newFile: !uuid 'a7c51d2053f1892922a7b98e3ca4bd15a2668a78'
-    oldFile: !uuid 'b06c52933d0a5ab26028e8e8df961b08ad77b8e0'
-gitCommitId: !uuid '53b537c389138526167a35770975bbe349be383b'
+    newFile: !uuid 'a32ece8ff8a5e0cdd6a237c3b5922fa2de4676cd'
+    oldFile: !uuid '0a7f64dc29c179e351157ed83d165cfbdcf5d154'
+gitCommitId: !uuid 'e517c2051a5e9422997ffc3dc155e11b7e5f350b'
 renames: {
   }
-revisionId: 499
+revisionId: 500
