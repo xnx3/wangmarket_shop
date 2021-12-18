@@ -322,8 +322,7 @@ public class OrderController extends BasePluginController {
 	 * 我的订单列表
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
-	 * @param state 搜索的订单的状态，多个用,分割 <example=generate_but_no_pay>
-	 * 				<p>传入如 generate_but_no_pay、pay_timeout_cancel 等</p>
+	 * @param state 搜索的订单的状态，多个用,分割 <example=generate_but_no_pay,pay>
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据
 	 * 					<p>若传入超过100，则只会返回100条</p>
 	 * 					<p>若不传，默认显示15条</p>

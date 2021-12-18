@@ -47,6 +47,7 @@ public class OrderController extends BaseController {
      * @param everyNumber 每页显示多少条数据。取值 1～100，
      *                  <p>最大显示100条数据，若传入超过100，则只会返回100条<p>
      *                  <p>若不传，默认显示15条</p>
+     * @param state 搜索的订单的状态，多个用,分割 <example=generate_but_no_pay,pay>
      * @param startTime 订单开始时间
      * @param endTime 订单结束时间
      * @return 若请求成功，则展示订单列表    
@@ -56,12 +57,9 @@ public class OrderController extends BaseController {
 	@RequestMapping(value="/list.json", method = {RequestMethod.POST})
 	public OrderListVO list(HttpServletRequest request,
 							@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
+							@RequestParam(required = false, defaultValue = "") String state,
 							@RequestParam(value = "startTime", required = false, defaultValue = "0") int startTime,
 							@RequestParam(value = "endTime", required = false, defaultValue = "0") int endTime) {
-		if(everyNumber > 100){
-			everyNumber = 100;
-		}
-		
 		OrderListVO vo = new OrderListVO();
 		//创建Sql
 		Sql sql = new Sql(request);
@@ -69,6 +67,25 @@ public class OrderController extends BaseController {
 		sql.setSearchTable("shop_order");
 		//查询条件
 		sql.appendWhere("storeid = " + getStoreId());
+		
+		//判断出要取的订单状态
+		StringBuffer stateSB = new StringBuffer();
+		if(state.length() > 0){
+			String[] states = state.split(",");
+			for (int i = 0; i < states.length; i++) {
+				if(states[i].length() > 0){
+					if(stateSB.length() > 1){
+						stateSB.append(" OR");
+					}
+					stateSB.append(" shop_order.state = '"+Sql.filter(states[i])+"'");
+				}
+			}
+		}
+		String stateSql = stateSB.toString();	//此字符串的格式如 state = 'generate_but_no_pay' OR state = 'pay_timeout_cancel'
+		if(stateSql.length() > 1) {
+			sql.appendWhere(stateSql);
+		}
+		
 		//时间查询条件
 		if (startTime > 0) {
 			sql.appendWhere(" addtime >= " + startTime);
@@ -77,12 +94,16 @@ public class OrderController extends BaseController {
 			int dayEndTime = DateUtil.getDateZeroTime(endTime)+24*60*60;
 			sql.appendWhere(" addtime <= " + dayEndTime);
 		}
+		
 		//配置按某个字端搜索内容
-		sql.setSearchColumn(new String[] {"no","state="});
+		sql.setSearchColumn(new String[] {"no"});
 		// 查询数据表的记录总条数
 		int count = sqlService.count("shop_order", sql.getWhere());
 		
-		// 配置每页显示15条
+		// 配置每页默认显示15条
+		if(everyNumber > 100){
+			everyNumber = 100;
+		}
 		Page page = new Page(count, everyNumber, request);
 		// 查询出总页数
 		sql.setSelectFromAndPage("SELECT * FROM shop_order ", page);
