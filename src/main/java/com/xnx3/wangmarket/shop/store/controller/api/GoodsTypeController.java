@@ -30,7 +30,7 @@ import com.xnx3.wangmarket.shop.store.vo.GoodsTypeVO;
 
 
 /**
- * 商品分类管理控制器
+ * 商品分类管理
  * @author 管雷鸣
  */
 @Controller(value="ShopStoreApiGoodsTypeController")
@@ -42,10 +42,12 @@ public class GoodsTypeController extends BaseController {
 	private GoodsTypeService goodsTypeService;
 	
 	/**
-	 * 查看商品分类
+	 * 获取商品分类
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
-	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
+	 * @param everyNumber 每页显示多少条数据。取值 1～100，
+     *                  <p>最大显示100条数据，若传入超过100，则只会返回100条<p>
+     *                  <p>若不传，默认显示15条</p>
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 * @return 若请求成功，则显示商品的分类
 	 * @author 管雷鸣
@@ -137,7 +139,7 @@ public class GoodsTypeController extends BaseController {
 	 * @author 管雷鸣
 	 */
     @ResponseBody
-    @RequestMapping(value = "getGoodsType${api.suffix}" ,method = {RequestMethod.POST})
+    @RequestMapping(value = "getGoodsType.json" ,method = {RequestMethod.POST})
     public GoodsTypeVO getGoodsType(HttpServletRequest request,
                                   @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		GoodsTypeVO vo = new GoodsTypeVO();
@@ -243,9 +245,16 @@ public class GoodsTypeController extends BaseController {
 		ActionLogUtil.insertUpdateDatabase(request, "删除ID是" + id + "的商品分类", "删除内容:" + goodsType.toString());
 		return success();
 	}
-	
+	/**
+	 * 生成动态商品分类
+	 * @param request
+	 * @param response
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
+	 * @author 管雷鸣
+	 */
 	@ResponseBody
-	@RequestMapping(value="/getGoodsTypeJs${api.suffix}",method = {RequestMethod.GET})
+	@RequestMapping(value="/getGoodsTypeJs.json",method = {RequestMethod.GET})
 	public void getGoodsTypeJs(HttpServletRequest request,HttpServletResponse response) {
 		List<GoodsType> list = goodsTypeService.getGoodsType(getStoreId());
 		

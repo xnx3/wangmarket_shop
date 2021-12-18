@@ -28,10 +28,12 @@ public class CarouselImageController extends BaseController {
 	private SqlService sqlService;
 	
 	/**
-	 * 查看轮播图列表
+	 * 获取轮播图列表
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
-     * @param everyNumber 每页显示几条数据
+     * @param everyNumber 每页显示多少条数据。取值 1～100，
+     *                  <p>最大显示100条数据，若传入超过100，则只会返回100条<p>
+     *                  <p>若不传，默认显示15条</p>
 	 * @return 若请求成功，则显示轮播图列表
 	 * @author 刘鹏
 	 */
@@ -104,8 +106,11 @@ public class CarouselImageController extends BaseController {
 	
 	/**
 	 * 添加或修改轮播图
-	 * 
-	 * @param carouselImage 接受参数的实体类
+	 * @param name 轮播图的名字，更多的是备注作用，给自己看的。用户看到的只是图片而已。限制40个字符 <example=1号轮播图>
+     * @param rank 排序，数字越小越靠前
+     * @param type <ul><li>1:点击后到某个商品上<li>2:打开某个分类，进入分类列表<li>3:点击后打开某个url，也就是打开一个h5页面</ul>
+     * @param imgvalue 根据type不同，值也不同<ul><li>type:1 这里是商品id<li>type:2 这里是商品分类的id<li>type:3 这里是跳转到的H5页面的url</ul>
+     * @param imageurl 轮播图url，绝对路径
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
      * @return 若请求成功，则可添加修改轮播图          

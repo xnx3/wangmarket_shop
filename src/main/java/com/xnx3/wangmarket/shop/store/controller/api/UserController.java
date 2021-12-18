@@ -19,7 +19,7 @@ import java.util.List;
 
 
 /**
- * 用户控制器
+ * 商城的用户管理
  * @author 刘鹏
  */
 @Controller(value="ShopStoreApiUserController")
@@ -31,10 +31,12 @@ public class UserController extends BaseController {
 	private UserService userService;
 	
 	/**
-	 * 查看用户列表
+	 * 获取用户列表
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
-     * @param everyNumber 每页展示多少条数据
+     * @param everyNumber 每页显示多少条数据。取值 1～100，
+     *                  <p>最大显示100条数据，若传入超过100，则只会返回100条<p>
+     *                  <p>若不传，默认显示15条</p>
 	 * @return 展示用户列表
 	 * @author 刘鹏
 	 */

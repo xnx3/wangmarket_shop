@@ -38,13 +38,10 @@ public class LoginController extends BaseController {
 	
 	/**
 	 * 登陆请求验证
-	 * @param request {@link HttpServletRequest} 
-	 * 		<br/>登陆时form表单需提交三个参数：username(用户名/邮箱)、password(密码)、code（图片验证码的字符）
-	 * @return vo.result:
-	 * 			<ul>
-	 * 				<li>0:失败</li>
-	 * 				<li>1:成功</li>
-	 * 			</ul>
+	 * @param username 用户名 <example=admin>
+	 * @param password 密码  <example=admin>
+	 * @param code 图片验证码的字符 <example=RISDJ>
+	 * @return vo.result:  <ul><li>0:失败</li>  <li>1:成功</li></ul>         
 	 * @author 管雷鸣
 	 */
 	@RequestMapping(value="login.json", method = RequestMethod.POST)

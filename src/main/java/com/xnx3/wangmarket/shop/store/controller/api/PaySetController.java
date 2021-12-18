@@ -61,7 +61,17 @@ public class PaySetController extends BaseController {
 	
 	/**
 	 * 设置 payset 表的字段
-	 * @param name 当前设置的是哪种支付或者哪个参数，可传入参数为 payset 表的字段，如： alipay private weixinPay alipayAppId alipayAppPrivateKey weixinMchId weixinMchKey weixinAppletAppid
+	 * @param name 当前设置的是哪种支付或者哪个参数，可传入参数为 payset 表的字段，如： 
+	 * <ul>
+	 * <li>alipay 是否使用支付宝支付的支付方式<ul><li>1:使用<li>0:不使用</ul>默认不使用。</li>
+	 * <li>private 是否使用线下支付的支付方式<ul><li>1:使用<li>0:不使用</ul>默认使用。</li>
+	 * <li>weixinPay 是否使用微信支付的支付方式<ul><li>1:使用<li>0:不使用</ul>默认不使用。</li>
+	 * <li>alipayAppId 支付宝支付的APP应用的id</li>
+	 * <li>alipayAppPrivateKey 支付宝支付的APP应用私钥</li>
+	 * <li>weixinMchId 微信支付商户号</li>
+	 * <li>weixinMchKey 微信支付商户key，在微信商户平台-帐户设置-安全设置-API安全-API密钥-设置API密钥这个里面设置的KEY</li>
+	 * <li>weixinAppletAppid 微信小程序的appid</li>
+	 * </ul>
 	 * @param value 要设置的值。如 name 是 alipay private weixinPay，那么这个value便是0、1
 	 * @return 若请求成功，可以设置payset表的字段
 	 * @author 管雷鸣
@@ -134,7 +144,12 @@ public class PaySetController extends BaseController {
 
 	/**
 	 * 此接口专门用来上传 crt 证书
-	 * @param name 当前是要上传哪种证书，可传入参数： alipayCertPublicKeyRSA2 alipayRootCert alipayAppCertPublicKey
+	 * @param name 当前是要上传哪种证书，可传入参数： 
+	 * <ul>
+	 * <li>alipayCertPublicKeyRSA2 支付宝公钥证书路径，存于 /mnt/shop/store/{storeid}/crt/ 目录下</li>
+	 * <li>alipayRootCert 支付宝根证书路径</li>
+	 * <li>alipayAppCertPublicKey 支付宝应用公钥证书路径</li>
+	 * </ul>
 	 * @author 管雷鸣
 	 */
 	@ResponseBody

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * 公共的一些方法的控制器
+ * 公共上传图片的接口
  * @author 刘鹏
  */
 @Controller(value="ShopStoreApiCommonController")

@@ -41,10 +41,12 @@ public class OrderController extends BaseController {
 	private OrderStateLogService orderStateLogService;
 	
 	/**
-	 * 查看订单列表
+	 * 获取订单列表
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
-     * @param everyNumber 每页显示多少条数据
+     * @param everyNumber 每页显示多少条数据。取值 1～100，
+     *                  <p>最大显示100条数据，若传入超过100，则只会返回100条<p>
+     *                  <p>若不传，默认显示15条</p>
      * @param startTime 订单开始时间
      * @param endTime 订单结束时间
      * @return 若请求成功，则展示订单列表    
@@ -92,7 +94,7 @@ public class OrderController extends BaseController {
 	}
 	
 	/**
-	 * 查看订单详情
+	 * 获取订单详情
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param orderid 订单id
@@ -193,12 +195,12 @@ public class OrderController extends BaseController {
 	
 	/**
 	 * 订单发货
-	 * @param token 当前操作用户的登录标识 <required>
-     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * <p>状态变为配送中</p>
 	 * <p>如果商家在订单设置中，如果设置有配送中状态，那么此接口可正常执行</p>
 	 * <p>如果关闭配送中状态，不允许有配送中，那么此接口执行时会返回执行失败的提示。</p>
 	 * <p>在调此接口前，建议先根据接口<a href="shop.api.orderRule.getRule.json.html">/shop/api/orderRule/getRule.json</a> 来获取商家当前是否允许有配送中的状态</p>
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param orderid 订单id
 	 * @param logisticsCode 如果是发快递，这里传入快递编号
 	 * @return 操作结果
@@ -277,7 +279,7 @@ public class OrderController extends BaseController {
 	}
 	
 	/**
-	 * 退单申请,拒绝
+	 * 退单申请-拒绝退单
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param orderid 要拒绝退单申请的订单id
@@ -351,7 +353,7 @@ public class OrderController extends BaseController {
 	
 
 	/**
-	 * 退单申请,同意退单
+	 * 退单申请-同意退单
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param orderid 要同意退单申请的订单id

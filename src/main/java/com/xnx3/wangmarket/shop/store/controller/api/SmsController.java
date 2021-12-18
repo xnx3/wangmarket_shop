@@ -59,7 +59,14 @@ public class SmsController extends BaseController {
 
 	/**
 	 * 更改 SmsSet 的参数
-	 * @param name SmsSet实体类的字段名，传入如useSms、 quotaDayIp 等
+	 * @param name SmsSet实体类的字段名，传入如:
+	 * <ul>
+	 * <li>useSms是否使用短信发送功能，启用短信接口的短信发送功能<ul><li>1:使用<li>0:不使用</ul>默认不使用。</li>
+	 * <li>uid短信平台登录的uid</li>
+	 * <li>password短信平台登录的密码，30个字符内</li>
+	 * <li>quotaDayIp发送限制，此店铺下某个ip一天最多能发多少条短信，默认30</li>
+	 * <li>quotaDayPhone发送限制，此店铺下某个手机号一天最多能发多少条短信。默认五条</li>
+	 * </ul>
 	 * @param value 字段的值
 	 * @return vo.result:
 	 * 			<ul>

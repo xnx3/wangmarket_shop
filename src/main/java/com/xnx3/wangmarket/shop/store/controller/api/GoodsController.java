@@ -37,8 +37,10 @@ public class GoodsController extends BaseController {
 	private SqlCacheService sqlCacheService;
 
 	/**
-	 * 查看商品列表
-	 * @param everyNumber 每页显示多少条数据。取值 1～100，最大显示100条数据，若传入超过100，则只会返回100条
+	 * 获取商品列表
+	 * @param everyNumber 每页显示多少条数据。取值 1～100，
+     *                  <p>最大显示100条数据，若传入超过100，则只会返回100条<p>
+     *                  <p>若不传，默认显示15条</p>
 	 * @param currentPage 要查看第几页，如要查看第2页，则这里传入 2
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
@@ -121,6 +123,8 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 保存商品信息，简单的商品信息保存，适用于手机端
+	 * @param token 当前操作用户的登录标识 <required>
+     *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param goodsid 要修改的商品id， goods.id ， 必填
 	 * @param price 要修改的商品的价格，单位是分。 非必填
 	 * @param putaway 是否上架在售，1出售中，0已下架。 非必填
@@ -313,6 +317,7 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 修改商品的上下架
+	 * <p>例如当前商品已下架，再调用此接口即可将其变为上架</p>
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param id 商品id
@@ -351,11 +356,11 @@ public class GoodsController extends BaseController {
 	}
 
 	/**
-	 * 获取商品的图片、轮播图片
+	 * 获取商品的图片
 	 * @param token 当前操作用户的登录标识 <required>
      *           <p>可通过 <a href="shop.store.api.login.login.json.html">/shop/store/api/login/login.json</a> 取得 </p>
 	 * @param id 商品id
-	 * @return 若请求成功，则可以展示商品的图片、轮播图片
+	 * @return 若请求成功，则可以展示商品的图片
 	 * @author 刘鹏
 	 */
 	@ResponseBody
@@ -477,9 +482,9 @@ public class GoodsController extends BaseController {
 	@RequestMapping(value="/goodsImageSave.json",method = {RequestMethod.POST})
 	public com.xnx3.j2ee.vo.BaseVO goodsImageSave(HttpServletRequest request,
 												  @RequestParam(value = "id",required = false,defaultValue = "0") Integer id,
-												  @RequestParam(value = "goodsid") Integer goodsid,
-												  @RequestParam(value = "rank",required = false) Integer rank,
-												  @RequestParam(value = "imageUrl",required = false) String imageUrl) {
+												  @RequestParam(value = "goodsid",defaultValue = "0") Integer goodsid,
+												  @RequestParam(value = "rank",required = false,defaultValue = "0") Integer rank,
+												  @RequestParam(value = "imageUrl",required = false,defaultValue = "") String imageUrl) {
 		if(goodsid == null) {
 			return error("请传入商品ID信息");
         }else if(rank == null ){
