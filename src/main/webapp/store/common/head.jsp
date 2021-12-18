@@ -9,6 +9,13 @@
 <script type="text/javascript">
 shop.host = window.location.origin+'/';
 
+//通过get方式传递过来的token
+var token = getUrlParams('token');
+if(typeof(token) != 'undefined' && token != null && token.length > 10){
+	shop.setToken(token);	//更新浏览器token缓存,旧版本的
+	wm.token.set(token);
+}
+
 /**
  * 网络请求，都是用此,重写 wm.post，请求时自动带上 storeid 参数
  * api 请求的api接口，可以传入如 api.login_token

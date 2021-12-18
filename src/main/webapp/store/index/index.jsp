@@ -10,20 +10,6 @@
 <script src="/js/fun.js"></script>
 <script src="/js/admin/commonedit.js"></script>
 
-<script>
-//通过get方式传递过来的token
-var token = getUrlParams('token');
-	if(token != null && token.length > 10){
-		shop.setToken(token);	//更新浏览器token缓存
-		//如果当前已经登录过了，那么，获取api中 getUser() 看是否还在登录状态 ,因为 shop.isLogin() 获取的只是此访客之前是否已经登录过，至于是否已经超时退出，这个 shop.isLogin() 是不知道的，所以还要请求服务端，看看有没有超时退出登录状态了
-		/* post('/shop/store/api/store/getStore.json',{},function(data){
-			if(data.result == 1){
-				//登录了，更新用户信息
-			}
-		}); */
-	}
-</script>
-
 <style>
 body{margin: 0;padding: 0px;height: 100%;overflow: hidden;}
 #editPanel{
