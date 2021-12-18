@@ -2,10 +2,31 @@
 branches: {
   }
 fileChange:
-  /pom.xml:
-    newFile: !uuid 'a32ece8ff8a5e0cdd6a237c3b5922fa2de4676cd'
-    oldFile: !uuid '0a7f64dc29c179e351157ed83d165cfbdcf5d154'
-gitCommitId: !uuid 'e517c2051a5e9422997ffc3dc155e11b7e5f350b'
+  /src:
+    newFile: !uuid '9675aef8692176fd52cf81aa7dbd0538b4d780f0'
+    oldFile: !uuid '522017d143f5c7f515d3d4cf2a075ca072f955cc'
+  /src/main:
+    newFile: !uuid 'bdbf0e33985a974a850cb9ece21ca9e1d37fb19f'
+    oldFile: !uuid '445f89173aa145f56585670ae1c97cc53d6ec964'
+  /src/main/webapp:
+    newFile: !uuid '488ad1fe00b1a0c537841746352882ffd983f114'
+    oldFile: !uuid '31a24d02c6e07d681d5b4e6cd023ae7013a619c1'
+  /src/main/webapp/store:
+    newFile: !uuid '5f616517e83009d0a58111cb884114553ee2dd04'
+    oldFile: !uuid '91f731f665eae8b9665c674e4463def38d9da893'
+  /src/main/webapp/store/common:
+    newFile: !uuid '21e4c5efdd42ce71a464a63b1b67c2347ea76afd'
+    oldFile: !uuid '11a9b65d6820ec2e3b2dbd9cad25cb8772ee8ada'
+  /src/main/webapp/store/common/head.jsp:
+    newFile: !uuid 'ee99a9fea5da58eaee560ea475f32a251fa98083'
+    oldFile: !uuid 'd5b424c10ef9b42fe48f0bfdae8be1b167b70232'
+  /src/main/webapp/store/index:
+    newFile: !uuid '92e470fe3c7e1f5ca50589385c556299886979a6'
+    oldFile: !uuid '23dff2df6a9a37cc5600c3beccf5bfc19378425a'
+  /src/main/webapp/store/index/index.jsp:
+    newFile: !uuid 'bce1a799e3711ecf573a20e29145b77e5a6e6498'
+    oldFile: !uuid '6c709d2d033fcc68cb39323b050f5b6bd18ff209'
+gitCommitId: !uuid '71a0a40b0ac84dc7d8ac8453d49017726ed457d2'
 renames: {
   }
-revisionId: 500
+revisionId: 501
