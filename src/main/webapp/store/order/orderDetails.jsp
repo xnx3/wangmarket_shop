@@ -98,7 +98,13 @@
 <script src="https://res.zvo.cn/print/print.min.js" type="text/javascript"></script>
 <script  type="text/javascript">
 //自适应弹出层大小
-var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+var index = 0;
+try {
+	//放到try里，以适配客户端查看订单详情
+	parent.layer.getFrameIndex(window.name); //获取窗口索引
+} catch (e) {
+	console.log(e);
+}
 
 //确认收货
 function receiveGoods(){
