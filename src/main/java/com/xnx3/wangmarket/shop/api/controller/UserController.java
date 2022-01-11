@@ -59,7 +59,7 @@ public class UserController extends BaseController {
 	 * @return 操作结果
 	 */
 	@ResponseBody
-	@RequestMapping(value="updatePassword", method = RequestMethod.POST)
+	@RequestMapping(value="updatePassword.json", method = RequestMethod.POST)
 	public BaseVO updatePassword(HttpServletRequest request, 
 			@RequestParam(value = "oldPassword", required = true, defaultValue = "") String oldPassword,
 			@RequestParam(value = "newPassword", required = true, defaultValue = "") String newPassword){
