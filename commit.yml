@@ -2,22 +2,19 @@
 branches: {
   }
 fileChange:
-  /src:
-    newFile: !uuid 'f43effc62bcc50bc5a711fe702c8656e3820a1c0'
-    oldFile: !uuid 'c3c22e3d8d9c6347a3b9870f981d79021ef1e952'
-  /src/main:
-    newFile: !uuid '58bf6a9b04d9264f2733c97b28ac6f2ded1115a2'
-    oldFile: !uuid 'e0ef4b2776c79e05d2ca486f22950366ca274d3f'
-  /src/main/java:
-    newFile: !uuid '1f68e2d31bc6d677b00d9131764450d757d28971'
-    oldFile: !uuid 'c1fece3a86c1eb62022c562958da22147d32e22b'
-  /src/main/java/com:
-    newFile: !uuid '35dacf13b778c5ebc5c12ae3a99697cbbec3dfe8'
-    oldFile: !uuid '2e2da428fef564d8b571cbb8b9ec83e758ddea11'
-  /src/main/java/com/ApiDoc.java:
-    newFile: !uuid '0f4856db84e5720929db39819c931dd524e71c75'
-    oldFile: !uuid '956eb305daf6e58e448e2ea04436dff381c95b5a'
-gitCommitId: !uuid '2cba6b2d722afa396ed4a46939b73c572fb0d2d1'
+  /else:
+    newFile: !uuid '5e811ecf42cb9ed6136c7aa5d4afb3f8e97fa2a5'
+    oldFile: !uuid '3c28949677f7da2618efa24b771344a19a3d6b59'
+  /else/pom_jar.xml:
+    newFile: !uuid 'bdcdf2a47ca7d8299965bf1b10280ac26c10af1c'
+    oldFile: !uuid 'e3afe84dbf14f848860f762d6fd39ba0ababf706'
+  /else/pom_war.xml:
+    newFile: !uuid '6105aa9ab98c747e9fc5ef087d0c2be2ac62f912'
+    oldFile: !uuid '635e227a1200fda0aafb1c567116d6286473fb6f'
+  /pom.xml:
+    newFile: !uuid '6105aa9ab98c747e9fc5ef087d0c2be2ac62f912'
+    oldFile: !uuid 'a32ece8ff8a5e0cdd6a237c3b5922fa2de4676cd'
+gitCommitId: !uuid 'aee2f5f7f38b41e3dd6d7a88146b55e8aa4f9385'
 renames: {
   }
-revisionId: 505
+revisionId: 506
