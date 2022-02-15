@@ -3,36 +3,21 @@ branches: {
   }
 fileChange:
   /src:
-    newFile: !uuid 'c3c22e3d8d9c6347a3b9870f981d79021ef1e952'
-    oldFile: !uuid '5ae4cc210703235c0431568b5b39e0483e2ee9f2'
+    newFile: !uuid 'f43effc62bcc50bc5a711fe702c8656e3820a1c0'
+    oldFile: !uuid 'c3c22e3d8d9c6347a3b9870f981d79021ef1e952'
   /src/main:
-    newFile: !uuid 'e0ef4b2776c79e05d2ca486f22950366ca274d3f'
-    oldFile: !uuid '2b3ce9af5fd15b927b9ef691008f3e54d7197173'
+    newFile: !uuid '58bf6a9b04d9264f2733c97b28ac6f2ded1115a2'
+    oldFile: !uuid 'e0ef4b2776c79e05d2ca486f22950366ca274d3f'
   /src/main/java:
-    newFile: !uuid 'c1fece3a86c1eb62022c562958da22147d32e22b'
-    oldFile: !uuid '5fe1209a9e978372794048a5f9c83b421a4c7b74'
+    newFile: !uuid '1f68e2d31bc6d677b00d9131764450d757d28971'
+    oldFile: !uuid 'c1fece3a86c1eb62022c562958da22147d32e22b'
   /src/main/java/com:
-    newFile: !uuid '2e2da428fef564d8b571cbb8b9ec83e758ddea11'
-    oldFile: !uuid '072d35eafda9cf596218a43c49e95f4822a81391'
-  /src/main/java/com/xnx3:
-    newFile: !uuid 'cfe5f645665817aa6fffe920bc8c08f849291d38'
-    oldFile: !uuid '62cc069ad96e623c477505e26ae5ffc3287b4aa8'
-  /src/main/java/com/xnx3/wangmarket:
-    newFile: !uuid 'c4f3aeb478c8bbb283fce75dcf9f9fe121e48436'
-    oldFile: !uuid 'db5389427752cca0fa6968285f25b85e7a2ff4a2'
-  /src/main/java/com/xnx3/wangmarket/shop:
-    newFile: !uuid 'ee546eed6320836d125146502ac29f4458e388d9'
-    oldFile: !uuid '3ec6bae50c576af3f32a3fb088e40d4c513c4a54'
-  /src/main/java/com/xnx3/wangmarket/shop/api:
-    newFile: !uuid '8c9bf1a814922a0371a374c68ff2b8d9f04b7308'
-    oldFile: !uuid '27c3efa1b0addc8b6cbe9598f151cc1b756ae618'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller:
-    newFile: !uuid '4024feee17d22bfdb3e3c5b47bf40e6c637c955e'
-    oldFile: !uuid 'b7e8661ce382efa56b0e00ec2d58e2cb41201854'
-  /src/main/java/com/xnx3/wangmarket/shop/api/controller/UserController.java:
-    newFile: !uuid 'ca1459d327e444bdb6e7abfdf0498342b632745c'
-    oldFile: !uuid '1ff906b6b6d1668ae3c37af9a3782f67de491e0f'
-gitCommitId: !uuid '9c63dae433756e2ee0686d526eaaf7a8285b2b57'
+    newFile: !uuid '35dacf13b778c5ebc5c12ae3a99697cbbec3dfe8'
+    oldFile: !uuid '2e2da428fef564d8b571cbb8b9ec83e758ddea11'
+  /src/main/java/com/ApiDoc.java:
+    newFile: !uuid '0f4856db84e5720929db39819c931dd524e71c75'
+    oldFile: !uuid '956eb305daf6e58e448e2ea04436dff381c95b5a'
+gitCommitId: !uuid '2cba6b2d722afa396ed4a46939b73c572fb0d2d1'
 renames: {
   }
-revisionId: 504
+revisionId: 505
