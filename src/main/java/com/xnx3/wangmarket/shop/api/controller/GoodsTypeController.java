@@ -7,11 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.xnx3.BaseVO;
 import com.xnx3.j2ee.pluginManage.controller.BasePluginController;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
+import com.xnx3.wangmarket.shop.core.entity.GoodsType;
 import com.xnx3.wangmarket.shop.core.service.GoodsService;
+import com.xnx3.wangmarket.shop.core.service.GoodsTypeService;
 import com.xnx3.wangmarket.shop.core.vo.GoodsTypeListVO;
+import com.xnx3.wangmarket.shop.core.vo.GoodsTypeVO;
 
 /**
  * 商品分类
@@ -24,6 +30,9 @@ public class GoodsTypeController extends BasePluginController {
 	private SqlService sqlService;
 	@Resource
 	private GoodsService goodsService;
+	@Resource
+	private SqlCacheService sqlCacheService;
+	
 
 	/**
 	 * 获取某个店铺的商品分类
@@ -39,5 +48,28 @@ public class GoodsTypeController extends BasePluginController {
 		ActionLogUtil.insert(request, storeid,"获取店铺内商品的分类列表");	
 		return goodsService.getStoreGoodsType(storeid);
 	}
-
+	
+	/**
+	 * 获取单个分类的信息
+	 * @param id 要获取的分类的id
+	 * @return 如果不存在，result会返回失败
+	 */
+	@RequestMapping(value="detail.json", method = RequestMethod.POST)
+	@ResponseBody
+	public GoodsTypeVO detail(HttpServletRequest request,
+			@RequestParam(value = "id", required = true, defaultValue="0") int id){
+		GoodsTypeVO vo = new GoodsTypeVO();
+		
+		GoodsType goodsType = sqlCacheService.findById(GoodsType.class, id, 1800);
+		if(goodsType == null) {
+			vo.setBaseVO(BaseVO.FAILURE, "要获取的商品分类不存在");
+			return vo;
+		}
+		vo.setGoodsType(goodsType);
+		
+		//日志记录
+		ActionLogUtil.insert(request, id,"获取商品分类详情", goodsType.toString());	
+		return vo;
+	}
+	
 }

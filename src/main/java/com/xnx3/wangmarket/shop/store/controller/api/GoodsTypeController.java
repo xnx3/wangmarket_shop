@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xnx3.j2ee.generateCache.BaseGenerate;
+import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.AttachmentUtil;
@@ -38,6 +39,8 @@ import com.xnx3.wangmarket.shop.store.vo.GoodsTypeVO;
 public class GoodsTypeController extends BaseController {
 	@Resource
 	private SqlService sqlService;
+	@Resource
+	private SqlCacheService sqlCacheService;
 	@Resource
 	private GoodsTypeService goodsTypeService;
 	
@@ -208,7 +211,10 @@ public class GoodsTypeController extends BaseController {
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, fGoodsType.getId(),"Id为" + fGoodsType.getId() + "的商品分类添加或修改，内容:" + fGoodsType.toString());
 
-		goodsTypeService.clearCache(getStoreId());//清除缓存
+		//清除缓存
+		goodsTypeService.clearCache(getStoreId());
+		sqlCacheService.deleteCacheById(GoodsType.class, fGoodsType.getId());
+		
 		return success();
 	}
 	
@@ -239,7 +245,9 @@ public class GoodsTypeController extends BaseController {
 		goodsType.setIsdelete(GoodsType.ISDELETE_DELETE);
 		sqlService.save(goodsType);
 		
-		goodsTypeService.clearCache(getStoreId());//清除缓存
+		//清除缓存
+		goodsTypeService.clearCache(goodsType.getStoreid());
+		sqlCacheService.deleteCacheById(GoodsType.class, goodsType.getId());
 		
 		//日志记录
 		ActionLogUtil.insertUpdateDatabase(request, "删除ID是" + id + "的商品分类", "删除内容:" + goodsType.toString());
