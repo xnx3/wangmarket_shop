@@ -46,7 +46,7 @@ import com.xnx3.weixin.weixinPay.request.JSAPIOrder;
 import net.sf.json.JSONObject;
 
 /**
- * 支付相关
+ * 支付
  * @author 管雷鸣
  */
 @Controller(value="ShopApiPayController")
@@ -87,7 +87,8 @@ public class PayController extends BasePluginController {
 	}
 	
 	/**
-	 * 线下付款。此接口为标注订单状态为 线下支付
+	 * 支付：线下支付
+	 * <p>此接口为标注订单状态为 线下支付。也就是这笔订单费用不走线上，买家私下给商家汇款<p>
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @author 管雷鸣
@@ -141,7 +142,8 @@ public class PayController extends BasePluginController {
 	}
 	
 	/**
-	 * 发起支付宝支付请求
+	 * 支付：支付宝支付
+	 * <p>发起支付宝支付请求<p>
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param orderid 要支付的订单的订单号，order.id
@@ -209,7 +211,8 @@ public class PayController extends BasePluginController {
 	
 
 	/**
-	 * 发起微信支付请求,创建微信支付订单，拿到前端调起支付的参数
+	 * 支付：微信支付
+	 * <p>发起微信支付请求,创建微信支付订单，拿到前端调起支付的参数<p>
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param orderid 要支付的订单的订单号，order.id

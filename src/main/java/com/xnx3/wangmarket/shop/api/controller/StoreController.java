@@ -17,7 +17,7 @@ import com.xnx3.wangmarket.shop.core.service.StoreService;
 import com.xnx3.wangmarket.shop.core.vo.StoreVO;
 
 /**
- * 店铺相关
+ * 店铺
  * @author 管雷鸣
  */
 @Controller(value="ShopStoreController")

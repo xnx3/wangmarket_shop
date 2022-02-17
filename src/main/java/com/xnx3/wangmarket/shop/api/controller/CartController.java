@@ -22,7 +22,7 @@ import com.xnx3.wangmarket.shop.core.vo.bean.GoodsCart;
 import com.xnx3.wangmarket.shop.core.vo.bean.StoreCart;
 
 /**
- * 商城相关功能
+ * 购物车
  * @author 管雷鸣
  */
 @Controller(value="ShopCartController")

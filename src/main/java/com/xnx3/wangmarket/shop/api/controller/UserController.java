@@ -19,7 +19,7 @@ import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.service.UserService;
 
 /**
- * 当前登录的用户相关
+ * 个人设置
  * @author 管雷鸣
  */
 @Controller(value="ShopUserController")

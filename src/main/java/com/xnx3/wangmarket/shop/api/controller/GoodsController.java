@@ -20,7 +20,7 @@ import com.xnx3.wangmarket.shop.core.vo.GoodsDetailsVO;
 import com.xnx3.wangmarket.shop.core.vo.GoodsListVO;
 
 /**
- * 商品相关
+ * 商品
  * @author 管雷鸣
  */
 @Controller(value="ShopGoodsController")
@@ -110,6 +110,7 @@ public class GoodsController extends BasePluginController {
 
 	/**
 	 * 获取某个商品的商品详情信息
+	 * <p>根据分类id，获取这个分类的信息</p>
 	 * @param goodsid 要查看的商品id，goods.id
 	 * @return GoodsDetailsVO 查看商品详情
 	 * @author 管雷鸣

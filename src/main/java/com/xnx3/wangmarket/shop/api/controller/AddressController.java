@@ -20,7 +20,7 @@ import com.xnx3.wangmarket.shop.core.vo.AddressListVO;
 import com.xnx3.wangmarket.shop.core.vo.AddressVO;
 
 /**
- * 用户收货地址相关
+ * 用户收货地址
  * <p>一个用户会有多个收货地址，但一个用户默认的收货地址只有一个</p>
  * @author 管雷鸣
  */
@@ -53,7 +53,8 @@ public class AddressController extends BasePluginController {
 	}
 	
 	/**
-	 * 用户保存地址，包含新增、修改
+	 * 地址保存
+	 * <p>包含新增地址、修改地址，进行保存时，会通过此接口进行保存<p>
 	 * @author 管雷鸣
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
@@ -140,7 +141,8 @@ public class AddressController extends BasePluginController {
 	}
 	
 	/**
-	 * 获取用户地址列表，包含默认地址跟其他非默认地址列表
+	 * 获取用户地址列表
+	 * <p>包含默认地址跟其他非默认地址列表<p>
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @author 管雷鸣

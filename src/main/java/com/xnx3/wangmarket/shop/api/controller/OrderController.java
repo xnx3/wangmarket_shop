@@ -53,7 +53,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
- * 订单相关
+ * 订单
  * @author 管雷鸣
  */
 @Controller(value="ShopOrderController")
@@ -691,7 +691,8 @@ public class OrderController extends BasePluginController {
 	}
 	
 	/**
-	 * 取消订单。当订单未支付时，可以取消订单
+	 * 取消订单
+	 * <p>当订单未支付时，可以取消订单</p>
 	 * @author 关光礼
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
@@ -751,7 +752,8 @@ public class OrderController extends BasePluginController {
 	
 
 	/**
-	 * 订单状态统计，统计当前登录用户在某个店铺下，各个状态的订单分别有多少
+	 * 订单状态统计
+	 * <p>统计当前登录用户在某个店铺下，各个状态的订单分别有多少</p>
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @param storeid 要统计的所在店铺id
