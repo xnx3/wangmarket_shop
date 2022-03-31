@@ -49,7 +49,7 @@
 		</br>支付宝的根证书:&nbsp;&nbsp;{alipayRootCert}
 		 <a class="layui-btn layui-btn-xs aa" lay-data = "{url: '/shop/store/api/paySet/uploadCrt.json?name=alipayRootCert'}" style="margin-top: 3px;">编辑</a>	
 		</br>支付宝的应用公钥证书:&nbsp;&nbsp;{alipayAppCertPublicKey}
-		 <a class="layui-btn layui-btn-xs aa" lay-data = "{url: '/shop/store/api/paySet/uploadCrt.json?name=alipayAppCertPublicKey2'}" style="margin-top: 3px;">编辑</a>
+		 <a class="layui-btn layui-btn-xs aa" lay-data = "{url: '/shop/store/api/paySet/uploadCrt.json?name=alipayAppCertPublicKey'}" style="margin-top: 3px;">编辑</a>
 	</div>
 </div>
 </br>
@@ -164,33 +164,36 @@ function tishiweixinMchKey() {
 		,content: '在微信商户平台-帐户中心-左侧API安全-API密钥-点击设置API密钥这个里面设置的KEY，自己设置，不是自动生成'
 	});	  
 }
-layui.use('upload', function(){
-	var upload = layui.upload;
-	//执行实例
-	var uploadInst = upload.render({
-		elem: '.aa' //绑定元素
-		,field : 'file'
-		,exts:'crt'
-		,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-		msg.loading('上传中...');
-		}
-		,done: function(res){
-		msg.close();
-		checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
-		if(res.result == '1'){
-			parent.msg.success("上传成功");
-			parent.layer.close(index);	//关闭当前窗口
-			location.reload();	//刷新父窗口列表
-		}else if(res.result == '0'){
-			parent.msg.failure(res.info);
-		}else{
-			parent.msg.failure("上传失败");
-		}
-		}
-		,error: function(){
-		}
+// 绑定上传文件的按钮
+function bindUploadButton() {
+	layui.use('upload', function(){
+		var upload = layui.upload;
+		//执行实例
+		var uploadInst = upload.render({
+			elem: '.aa' //绑定元素
+			,field : 'file'
+			,exts:'crt'
+			,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+			msg.loading('上传中...');
+			}
+			,done: function(res){
+			msg.close();
+			checkLogin(res);	//验证登录状态。如果未登录，那么跳转到登录页面
+			if(res.result == '1'){
+				parent.msg.success("上传成功");
+				parent.layer.close(index);	//关闭当前窗口
+				location.reload();	//刷新父窗口列表
+			}else if(res.result == '0'){
+				parent.msg.failure(res.info);
+			}else{
+				parent.msg.failure("上传失败");
+			}
+			}
+			,error: function(){
+			}
+		});
 	});
-});
+}
 //列表的模版
 var orderTemplate = document.getElementById("Ali").innerHTML;
 function templateReplace(item){
@@ -264,6 +267,8 @@ post('/shop/store/api/paySet/index.json',{},function(data){
 			document.getElementById("useWeixinServiceProviderPayZero").style.display = 'none';
 			document.getElementById("weChatOfficialAccountZero").style.display = 'none';
 		}
+		// 绑定上传文件的按钮
+		bindUploadButton();
 	}
 });
 </script>
