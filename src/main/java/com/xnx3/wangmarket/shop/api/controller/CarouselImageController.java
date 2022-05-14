@@ -33,7 +33,7 @@ public class CarouselImageController extends BasePluginController {
 	@ResponseBody
 	@RequestMapping(value="/list.json",method= {RequestMethod.POST})
 	public CarouselImageVO findCarouselImageList(HttpServletRequest request,
-			@RequestParam(value = "storeid", required = true, defaultValue = "0") int storeid) {
+			@RequestParam(value = "storeid", required = true, defaultValue = "1") int storeid) {
 		CarouselImageVO vo = new CarouselImageVO();
 		if(storeid < 1){
 			vo.setBaseVO(BaseVO.FAILURE, "请传入storeid参数");

@@ -51,8 +51,8 @@ public class LoginController extends BaseController {
 	 * <p>此需要配合 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 一起使用 </p>
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
-	 * @param response  响应
 	 * @author 管雷鸣
+	 * @return 图片，需要用 <textarea disabled="disabled" rows="1"><img src="..." /></textarea> 来显示
 	 */
 	@RequestMapping("/captcha.jpg")
 	@ResponseBody
@@ -309,10 +309,8 @@ public class LoginController extends BaseController {
 	
 	/**
 	 * 获取token，也就是获取 sessionid
-	 * @param token 当前操作用户的登录标识 <required>
-	 * 				<p>可通过 <a href="shop.api.login.login.json.html">/shop/api/login/login.json</a> 取得 </p>
 	 * @author 管雷鸣
-	 * @return info便是sessionid
+	 * @return 如果获取成功，info便是返回token
 	 */
 	@RequestMapping(value="getToken.json", method = RequestMethod.POST)
 	@ResponseBody
