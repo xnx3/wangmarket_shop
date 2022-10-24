@@ -55,7 +55,7 @@
 API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。
 
 ### 在线开通一个商城，了解商家管理后台  
-开通url： http://api.imall.net.cn/plugin/phoneCreateStore/reg.do  
+开通url： http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do  
 ![商家管理后台](https://images.gitee.com/uploads/images/2021/0816/101520_63daccd0_429922.png)
 
 
