@@ -97,7 +97,7 @@ public class LoginController extends BasePluginController {
 		Jscode2sessionResultVO jvo = weixinAppletUtil.jscode2session(code);
 		if(jvo.getResult() - Jscode2sessionResultVO.SUCCESS == 0){
 			//登陆成功
-			vo.setSessionKey(jvo.getSessionKey());
+//			vo.setSessionKey(jvo.getSessionKey());
 			request.getSession().setAttribute("sessionKey", jvo.getSessionKey());
 			
 			UserWeiXin userWeixin = sqlCacheService.findById(UserWeiXin.class, jvo.getOpenid());
