@@ -3,30 +3,9 @@ branches: {
   }
 fileChange:
   /README.md:
-    newFile: !uuid 'fcc0becadfbaa7bc8271ce808cf441239d1f79e6'
-    oldFile: !uuid '4fa312c14e25f51a795d35e3342bf2c2a4ea2938'
-  /jar.xml:
-    newFile: !uuid 'cc864adf4e7945ff313ee9347c963f511596f2de'
-    oldFile: null
-  /pom.xml:
-    newFile: !uuid '8a191b72da5cddb579c9a14b074513c937db2fec'
-    oldFile: !uuid '6105aa9ab98c747e9fc5ef087d0c2be2ac62f912'
-  /src:
-    newFile: !uuid 'a493367bb511b41c50c9500121e2b1defa578661'
-    oldFile: !uuid '6c0b5a23b1538a2b3187283b47ae084e4aa38e25'
-  /src/main:
-    newFile: !uuid '79221c6bbd35a5d1b31ee86a62df61e18d45b78e'
-    oldFile: !uuid 'b6ce0f7e4535eb4fc0c74a44e9f532e022dd7330'
-  /src/main/java:
-    newFile: !uuid '1c5da21fd3079950c3cc2f5f1f767ca127b50f2b'
-    oldFile: !uuid 'bd04f3b302814040faf6d1ad79852d787e4cd074'
-  /src/main/java/com:
-    newFile: !uuid 'f5944416030b64e8da2026d7df2eb8a68d1e3aa9'
-    oldFile: !uuid '472def2178470322e720140d2b1218dca695ba57'
-  /src/main/java/com/ApiDoc.java:
-    newFile: !uuid '9ae3acc30ae52cc922f928b4e4d9ec822127f45a'
-    oldFile: !uuid '03bc28676838d8b9e8040caef966d2da53a4c74f'
-gitCommitId: !uuid '2c642e82fbf88bb3efe932571dc09dd390a06305'
+    newFile: !uuid 'd07b3227195c862ccab2c553f171e526f9bfc4e3'
+    oldFile: !uuid 'fcc0becadfbaa7bc8271ce808cf441239d1f79e6'
+gitCommitId: !uuid '8e2a5c66f2bcfc1b1a9cbfe0966e75107447011b'
 renames: {
   }
-revisionId: 513
+revisionId: 514
