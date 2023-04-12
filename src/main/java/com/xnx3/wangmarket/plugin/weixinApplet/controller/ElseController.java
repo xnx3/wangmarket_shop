@@ -2,12 +2,14 @@ package com.xnx3.wangmarket.plugin.weixinApplet.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
 import com.xnx3.j2ee.service.SqlService;
@@ -52,9 +54,14 @@ public class ElseController extends BasePluginController {
 		if(storeid < 1){
 			return error("请传入您的商铺编号storeid");
 		}
-		if(sessionKey.length() == 0){
+		if(sessionKey.length() < 1) {
+			sessionKey = (String) request.getSession().getAttribute("sessionKey");
+		}
+		if(sessionKey == null || sessionKey.length() == 0){
 			return error("sessionKey不存在");
 		}
+		
+		
 		if(!haveUser()){
 			return error("尚未登录");
 		}

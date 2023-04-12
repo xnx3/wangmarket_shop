@@ -2,12 +2,14 @@ package com.xnx3.wangmarket.plugin.weixinApplet.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.xnx3.Lang;
 import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.service.SqlCacheService;
@@ -95,7 +97,8 @@ public class LoginController extends BasePluginController {
 		Jscode2sessionResultVO jvo = weixinAppletUtil.jscode2session(code);
 		if(jvo.getResult() - Jscode2sessionResultVO.SUCCESS == 0){
 			//登陆成功
-			vo.setSessionKey(jvo.getSessionKey());
+//			vo.setSessionKey(jvo.getSessionKey());
+			request.getSession().setAttribute("sessionKey", jvo.getSessionKey());
 			
 			UserWeiXin userWeixin = sqlCacheService.findById(UserWeiXin.class, jvo.getOpenid());
 			User user = null;
