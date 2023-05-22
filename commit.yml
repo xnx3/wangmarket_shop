@@ -2,10 +2,28 @@
 branches: {
   }
 fileChange:
-  /pom.xml:
-    newFile: !uuid 'e6c004e222b4bc3775496625670ba4da91236724'
-    oldFile: !uuid 'a4f3a53bfc84c58b5326a7ca262975c4c751070e'
-gitCommitId: !uuid 'bd2a0538420082160a3d79458d4c8d03e3af55f4'
-renames: {
-  }
-revisionId: 519
+  /src:
+    newFile: !uuid 'b9be9b308a7ed8103295b1460fb7c30dbfdd2626'
+    oldFile: !uuid '7fa98690fb4c875df127a94b57d5afc951bcf9b6'
+  /src/main:
+    newFile: !uuid 'd2d115afc74f4a1e5b68ecf8d3238ef3602b2b4f'
+    oldFile: !uuid '2332fad07de3f1d56cc01527451ce6e971944cba'
+  /src/main/java:
+    newFile: !uuid 'cec30bf9c5281f44bc4a938549e4e19cfcf32778'
+    oldFile: !uuid '4f7a9645ddef11a689e1d5755b086099b50874e6'
+  /src/main/java/com:
+    newFile: !uuid '6fbc01a8a6edf49b19c336fe64dd34e8da8c5013'
+    oldFile: !uuid '5063e0768792a3427c77b387278371d166d0469c'
+  /src/main/java/com/ApiDoc.java:
+    newFile: null
+    oldFile: !uuid '9ae3acc30ae52cc922f928b4e4d9ec822127f45a'
+  /src/main/java/com/ApiDoc_Store.java:
+    newFile: !uuid '01852d5e0d547c9483408ccdb2480790c6886bfd'
+    oldFile: null
+  /src/main/java/com/ApiDoc_User.java:
+    newFile: !uuid '8b925baddf76a73440362190f7139d6969f52e8e'
+    oldFile: null
+gitCommitId: !uuid '4da2d15972da38ac8bd8825bcf290f82fdd7029a'
+renames:
+  /src/main/java/com/ApiDoc_User.java: /src/main/java/com/ApiDoc.java
+revisionId: 520
