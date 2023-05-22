@@ -2,10 +2,10 @@
 branches: {
   }
 fileChange:
-  /jar.xml:
-    newFile: !uuid '5bff6bc0aeb93079cab866ffdf7b09e2369fc334'
-    oldFile: !uuid '514db2c6ac67220c23b704b1f80edc534a0fcc02'
-gitCommitId: !uuid 'c9f3fba54a0a2151d25268f35a064604a9da4d93'
+  /pom.xml:
+    newFile: !uuid 'e6c004e222b4bc3775496625670ba4da91236724'
+    oldFile: !uuid 'a4f3a53bfc84c58b5326a7ca262975c4c751070e'
+gitCommitId: !uuid 'bd2a0538420082160a3d79458d4c8d03e3af55f4'
 renames: {
   }
-revisionId: 518
+revisionId: 519
