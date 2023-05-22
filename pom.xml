@@ -127,34 +127,48 @@
   
   
   <dependencies>  
-  	 <!-- 这个jar的源文件在 http://wm.zvo.cn -->
-  	<dependency> 
-        <groupId>com.xnx3.wangmarket.wm</groupId>  
-        <artifactId>wm</artifactId>  
-        <version>3.3</version>  
-        <scope>system</scope>  
-   		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wm-3.3.jar</systemPath>  
-    </dependency>
-    
-    <!-- 支付宝支付 -->
-	<dependency>
-	    <groupId>com.alipay.sdk</groupId>
-	    <artifactId>alipay-sdk-java</artifactId>
-	    <version>4.16.54.ALL</version>
-	    <exclusions>
-		        <exclusion>
-		        	<groupId>com.alibaba</groupId>
-           			<artifactId>fastjson</artifactId>
-		       </exclusion>
-		</exclusions>
-	</dependency>
-    
-    <!-- 微信相关 -->
-    <dependency> 
-        <groupId>com.xnx3.weixin</groupId>  
-        <artifactId>xnx3-weixin</artifactId>  
-        <version>1.7</version>  
-	</dependency>
+	  	 <!-- 这个jar的源文件在 http://wm.zvo.cn -->
+	  	<dependency> 
+	        <groupId>com.xnx3.wangmarket.wm</groupId>  
+	        <artifactId>wm</artifactId>  
+	        <version>3.3</version>  
+	        <scope>system</scope>  
+	   		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wm-3.3.jar</systemPath>  
+	    </dependency>
+	    
+	    <!-- 支付宝支付 -->
+		<dependency>
+		    <groupId>com.alipay.sdk</groupId>
+		    <artifactId>alipay-sdk-java</artifactId>
+		    <version>4.16.54.ALL</version>
+		    <exclusions>
+			        <exclusion>
+			        	<groupId>com.alibaba</groupId>
+	           			<artifactId>fastjson</artifactId>
+			       </exclusion>
+			</exclusions>
+		</dependency>
+	    
+	    <!-- 微信相关 -->
+	    <dependency> 
+	        <groupId>com.xnx3.weixin</groupId>  
+	        <artifactId>xnx3-weixin</artifactId>  
+	        <version>1.7</version>  
+		</dependency>
+	
+		
+		<!-- ueditor编辑器 https://github.com/xnx3/ueditor-fileupload -->
+		<dependency> 
+			<groupId>cn.zvo.fileupload</groupId>
+			<artifactId>fileupload-framework-ueditor</artifactId>
+			<version>1.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>	
 
    </dependencies>  
   
