@@ -11,8 +11,9 @@ public class ApiDoc {
 		doc.name = "云商城用户端";
 		//doc.welcome = "用户端的API文档说明，可以通过此文档，来自由定制开发用户端商城";
 		doc.domain = "http://www.shop.zvo.cn";
-		doc.version = "1.15.0.20220915";
+		doc.version = "2.0.0.20230522";
 //		
+		
 		doc.generateHtmlDoc();
 	}
 }
