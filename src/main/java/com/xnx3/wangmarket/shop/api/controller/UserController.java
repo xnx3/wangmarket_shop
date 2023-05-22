@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.vo.BaseVO;
+import com.xnx3.j2ee.vo.UploadFileVO;
 import com.xnx3.j2ee.vo.UserVO;
 import com.xnx3.StringUtil;
 import com.xnx3.j2ee.Global;
@@ -118,8 +121,10 @@ public class UserController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="uploadHead.json", method = RequestMethod.POST)
-	public BaseVO uploadHead(HttpServletRequest request){
-		BaseVO vo = userService.updateHeadByOSS(request, "head", 500);
+	public UploadFileVO uploadHead(HttpServletRequest request,
+			@RequestParam("head") MultipartFile multipartFile){
+		UploadFileVO vo = userService.updateHead(multipartFile);
+//		BaseVO vo = userService.updateHeadByOSS(request, "head", 500);
 		//日志记录
 		ActionLogUtil.insert(request, "修改头像", getUser().toString());
 		return vo;
