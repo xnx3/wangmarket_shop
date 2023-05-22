@@ -3,7 +3,9 @@
 <jsp:include page="../common/head.jsp">
 	<jsp:param name="title" value="登录"/>
 </jsp:include>
-
+<script>
+window.location = "/login.do";
+</script>
 <style>
 .myForm{
 	margin: 0 auto;

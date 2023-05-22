@@ -2,9 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.xnx3.wangmarket.shop</groupId>
   <artifactId>wangmarket.shop</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>wangmarket_shop</name>
-  <version>1.15</version>
+  <version>2.0</version>
   <description>网市场商城</description>
   
    <properties>
@@ -19,7 +19,7 @@
 	  <parent>
 	    <groupId>com.xnx3.wangmarket.wm</groupId>
 	    <artifactId>parent</artifactId>
-	    <version>2.11.2</version>
+	    <version>3.0</version>
 	  </parent>
      
   
@@ -127,19 +127,34 @@
   
   
   <dependencies>  
+  
+  	 <!-- 这个jar的源文件在 http://wm.zvo.cn -->
   	<dependency> 
         <groupId>com.xnx3.wangmarket.wm</groupId>  
         <artifactId>wm</artifactId>  
-        <version>2.11</version>  
+        <version>3.3</version>  
         <scope>system</scope>  
-   		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wm-2.11.jar</systemPath>  
+   		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/wm-3.3.jar</systemPath>  
     </dependency>
-    <!-- javadoc - 生成 接口文档 -->
+    
+    <!-- 支付宝支付 -->
 	<dependency>
-	  <groupId>com.xnx3.doc.javadoc</groupId>
-	  <artifactId>javadoc</artifactId>
-	  <version>1.13</version>
-	  <scope>provided</scope>
+	    <groupId>com.alipay.sdk</groupId>
+	    <artifactId>alipay-sdk-java</artifactId>
+	    <version>4.16.54.ALL</version>
+	    <exclusions>
+		        <exclusion>
+		        	<groupId>com.alibaba</groupId>
+           			<artifactId>fastjson</artifactId>
+		       </exclusion>
+		</exclusions>
+	</dependency>
+    
+    <!-- 微信相关 -->
+    <dependency> 
+        <groupId>com.xnx3.weixin</groupId>  
+        <artifactId>xnx3-weixin</artifactId>  
+        <version>1.7</version>  
 	</dependency>
    </dependencies>  
   

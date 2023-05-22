@@ -127,6 +127,7 @@
   
   
   <dependencies>  
+  	 <!-- 这个jar的源文件在 http://wm.zvo.cn -->
   	<dependency> 
         <groupId>com.xnx3.wangmarket.wm</groupId>  
         <artifactId>wm</artifactId>  
