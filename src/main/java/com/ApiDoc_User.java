@@ -2,7 +2,7 @@ package com;
 
 import com.xnx3.doc.JavaDoc;
 
-public class ApiDoc {
+public class ApiDoc_User {
 	public static void main(String[] args) {
 		JavaDoc doc = new com.xnx3.doc.JavaDoc("com.xnx3.wangmarket.shop.api.controller");
 		//doc.templatePath = "/Users/apple/Downloads/javadoc/";

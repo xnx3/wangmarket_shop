@@ -11,6 +11,7 @@ import com.xnx3.j2ee.entity.User;
 import com.xnx3.j2ee.pluginManage.interfaces.SpringMVCInterceptorInterface;
 import com.xnx3.j2ee.vo.BaseVO;
 import com.xnx3.wangmarket.shop.core.Global;
+import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.store.util.SessionUtil;
 
 /**
@@ -54,8 +55,9 @@ public class SpringMVCInterceptorLogin implements SpringMVCInterceptorInterface{
 		}
 		
 		
-		User user = SessionUtil.getUser();
-		if(!Func.isAuthorityBySpecific(user.getAuthority(), ""+Global.STORE_ROLE_ID)){
+//		User user = SessionUtil.getUser();
+		Store store = SessionUtil.getStore();
+		if(store == null){
 			//无权使用，自己没有所管理的店铺
 			response.setHeader("Access-Control-Allow-Origin", "*");
 			response.getWriter().write("{"
