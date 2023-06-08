@@ -1,8 +1,12 @@
 package com.xnx3.wangmarket.shop.store.util;
 
+import com.xnx3.j2ee.bean.ActiveUser;
+import com.xnx3.j2ee.util.ConsoleUtil;
 import com.xnx3.wangmarket.shop.core.entity.Store;
 import com.xnx3.wangmarket.shop.core.entity.StoreChildUser;
 import java.util.Map;
+
+import org.springframework.beans.BeanUtils;
 
 /**
  * sessison
@@ -23,7 +27,16 @@ public class SessionUtil extends com.xnx3.j2ee.util.SessionUtil{
 	 * 获取当前登录商户的Store对象信息。一定不为null，因为商家在登录的时候就会取出用户信息存入session
 	 */
 	public static Store getStore(){
-		return getPlugin(PLUGIN_NAME_SHOP_STOREADMIN_STORE);
+		Object obj = getPlugin(PLUGIN_NAME_SHOP_STOREADMIN_STORE);
+		
+		if (obj instanceof Store) {
+			return (Store) obj;
+		} else {
+			Store store = new Store();
+			BeanUtils.copyProperties(obj, store);
+			ConsoleUtil.debug("fuzhi -- "+store.toString());
+			return store;
+		}
 	}
 	
 	/**
