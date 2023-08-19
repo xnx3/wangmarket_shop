@@ -33,11 +33,17 @@ public class AlipayUtil {
 	private String alipayCertPublicKeyRSA2;
 	//支付宝根证书路径
 	private String alipayRootCert;
-	//PC网页支付、手机网页支付用到，支付成功后，跳转到哪个url
+	/**
+	 * 支付成功后异步通知的url
+	 * @deprecated 使用 notifyurl
+	 */
 	private String noticeUrl;
 	
+	private String notifyUrl; //支付成功后异步通知服务器的url，绝对路径
+	private String returnUrl; //支付成功后页面跳转的url，，绝对路径，比如这个页面是一个支付成功的提示页面
+	
 	//支付成功后异步通知的url
-	public static final String NOTICE_URL = "http://api.shop.leimingyun.com/shop/api/pay/alipayCallback.do";
+//	public static String NOTICE_URL = "http://api.shop.leimingyun.com/shop/api/pay/alipayCallback.do";
 //	public static final String RETURN_URL = "http://api.shop.leimingyun.com/plugin/alipay/alipaySuccessJumpPage.do";
 	//编码
 	public static final String CHARSET = "UTF-8";
@@ -93,9 +99,14 @@ public class AlipayUtil {
 		//构造API请求
 		AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
 		if(this.noticeUrl != null){
-			request.setNotifyUrl(noticeUrl);
+			request.setNotifyUrl(this.noticeUrl);
 		}
-		request.setNotifyUrl(NOTICE_URL);
+		if(this.notifyUrl != null){
+			request.setNotifyUrl(this.notifyUrl);
+		}
+		if(this.returnUrl != null) {
+			request.setReturnUrl(this.returnUrl);
+		}
 //		request.setReturnUrl(RETURN_URL);
 		request.setBizContent(pcOrderBean.getJsonString());
 		
@@ -118,7 +129,13 @@ public class AlipayUtil {
 		//构造API请求
 		AlipayTradeWapPayRequest request = new AlipayTradeWapPayRequest();
 		if(this.noticeUrl != null){
-			request.setNotifyUrl(noticeUrl);
+			request.setNotifyUrl(this.noticeUrl);
+		}
+		if(this.notifyUrl != null){
+			request.setNotifyUrl(this.notifyUrl);
+		}
+		if(this.returnUrl != null) {
+			request.setReturnUrl(this.returnUrl);
 		}
 		request.setBizContent(wapOrderBean.getJsonString());
 		
@@ -205,9 +222,35 @@ public class AlipayUtil {
     /**
      * PC网页支付、手机网页支付用到，支付成功后，跳转到哪个url
      * @param noticeUrl 要跳转的url，传入如 http://www.leimingyun.com
+     * @deprecated 请使用 {@link #setNotifyUrl(String)}
      */
 	public void setNoticeUrl(String noticeUrl) {
 		this.noticeUrl = noticeUrl;
 	}
+	
+	public String getNotifyUrl() {
+		return notifyUrl;
+	}
+	
+	/**
+	 * 设置支付成功后异步通知服务器的url，绝对路径
+	 * @param notifyUrl 传入如 http://www.leimingyun.com/a.jsp
+	 */
+	public void setNotifyUrl(String notifyUrl) {
+		this.notifyUrl = notifyUrl;
+	}
+
+	public String getReturnUrl() {
+		return returnUrl;
+	}
+	
+	/**
+	 * 支付成功后页面跳转的url，，绝对路径，比如这个页面是一个支付成功的提示页面
+	 * @param returnUrl 传入如 http://www.leimingyun.com/a.jsp
+	 */
+	public void setReturnUrl(String returnUrl) {
+		this.returnUrl = returnUrl;
+	}
+	
     
 }
