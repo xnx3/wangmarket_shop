@@ -33,6 +33,10 @@ API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城
 1. 订单确认收货
 1. 点开某个订单可直接进入商家端PC管理后台并自动登录成功进入查看订单详情
 
+#### 手机端H5网页商城
+![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_mobile_html_demo.mp4)  
+
+
 ## 功能
 
 #### 整体介绍
