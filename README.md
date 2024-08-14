@@ -59,12 +59,13 @@ API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城
 
 
 #### 商家管理后台-电脑网页端（全功能）
-![输入图片说明](https://video.zvo.cn/aiseo/wangmarket-shop/wangmarket_shop_pc_store_admin_demo.mp4) 
+![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_pc_store_admin_demo.mp4) 
 
 另外您可在线开通一个商城，更方便了解商家管理后台。开通url： [http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do](http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do)  
 
 #### 商家管理后台-手机网页端（简单功能）
-
+![](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_mobile_store_admin_demo.mp4)
+手机网页版功能很简单，就是基本的商品、订单、以及订单号搜索等操作。当然你也可以根据商城管理后台的开放API来丰富商家手机端的更多功能互动。
 
 ## 相关文档  
 * [二次开发,本地运行、二次开发相关说明](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/bed2ecca-8e2e-4b20-8099-10f09101b097/preview?doc_id=1532896&sort_id=4255124)
