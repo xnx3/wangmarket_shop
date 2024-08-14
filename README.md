@@ -3,6 +3,27 @@
 本产品是一款saas云商城系统，无需懂服务器、后端技能，在线开通商城账户、添加商品、快速上线发布，极大降低商城开发成本!  
 一台1核2G服务器，可做过千独立商城
 
+
+## 效果
+#### 微信小程序商城
+![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4)  
+
+API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。
+
+#### 电脑网站商城
+![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_pc_demo.mp4) 
+预览体验网址：[http://shop-pc-demo.wang.market/index.html](http://shop-pc-demo.wang.market)
+
+#### 商家管理后台-电脑网页端（全功能）
+![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_pc_store_admin_demo.mp4) 
+
+另外您可在线开通一个商城，更方便了解商家管理后台。开通url： [http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do](http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do)  
+
+#### 商家管理后台-手机网页端（简单功能）
+![](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_mobile_store_admin_demo.mp4)
+手机网页版功能很简单，就是基本的商品、订单、以及订单号搜索等操作。当然你也可以根据商城管理后台的开放API来丰富商家手机端的更多功能互动。
+
+
 ## 功能
 
 #### 整体介绍
@@ -48,25 +69,6 @@
   * **PC客户端**   PC客户端软件，可以下载安装到自己电脑上。打开软件使用自己的商家账号密码登录进去，可查看订单列表、及订单信息。当有新订单时，会自动播放声音提醒有新订单   
   * **微信端**   商家可以通过微信来方便的简单管理自己的商品、订单   
 
-
-## 效果
-#### 微信小程序商城
-![输入图片说明](https://video.zvo.cn/aiseo/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4)  
-
-API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。
-
-#### 电脑网站商城
-![输入图片说明](https://video.zvo.cn/aiseo/wangmarket-shop/wangmarket_shop_pc_demo.mp4) 
-预览体验网址：[http://shop-pc-demo.wang.market/index.html](http://shop-pc-demo.wang.market)
-
-#### 商家管理后台-电脑网页端（全功能）
-![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_pc_store_admin_demo.mp4) 
-
-另外您可在线开通一个商城，更方便了解商家管理后台。开通url： [http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do](http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do)  
-
-#### 商家管理后台-手机网页端（简单功能）
-![](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_mobile_store_admin_demo.mp4)
-手机网页版功能很简单，就是基本的商品、订单、以及订单号搜索等操作。当然你也可以根据商城管理后台的开放API来丰富商家手机端的更多功能互动。
 
 ## 相关文档  
 * [二次开发,本地运行、二次开发相关说明](https://gitee.com/leimingyun/dashboard/wikis/leimingyun/bed2ecca-8e2e-4b20-8099-10f09101b097/preview?doc_id=1532896&sort_id=4255124)
