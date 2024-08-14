@@ -51,12 +51,12 @@
 
 ## 效果
 #### 微信小程序商城
-![输入图片说明](https://video.zvo.cn/aiseo/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mov)  
+![输入图片说明](https://video.zvo.cn/aiseo/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4)  
 
 API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。
 
 #### 电脑网站商城
-![输入图片说明](https://video.zvo.cn/aiseo/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mov) 
+![输入图片说明](https://video.zvo.cn/aiseo/wangmarket-shop/wangmarket_shop_pc_demo.mp4) 
 预览体验网址：[http://shop-pc-demo.wang.market/index.html](http://shop-pc-demo.wang.market)
 
 #### 商家管理后台-电脑网页端（全功能）
