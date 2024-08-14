@@ -3,14 +3,14 @@
 本产品是一款saas云商城系统，无需懂服务器、后端技能，在线开通商城账户、添加商品、快速上线发布，极大降低商城开发成本!  
 一台1核2G服务器，可做过千独立商城
 
-## 功能介绍
+## 功能
 
-### 整体介绍
+#### 整体介绍
 * 通过超级管理后台在线开通商城账户，开通后可直接登录自己商家管理后台使用，不需要任何服务器及后端知识
 * 商家独立支付通道、独立短信通道、自定义自己商城订单规则、二级分销等
 * 用户端、商家管理端全部开放api，可自由定制开发app、小程序、h5、以及做自己OEM定制的商家后台等等。
 
-### 商家管理后台功能
+#### 商家管理后台功能
 
 * **商城基本设置**  可设置商城的一些基本信息，除此之外，还有：   
   * **店铺状态**   商家可设置自己店铺是否开启，如设置为经营中、已打样。已打样情况下用户将无法从商城下单   
@@ -49,14 +49,21 @@
   * **微信端**   商家可以通过微信来方便的简单管理自己的商品、订单   
 
 
-## 在线快速体验
-### 微信扫码快速体验（这里只给出一个常规微信小程序）
-![image.png](https://images.gitee.com/uploads/images/2021/1207/105248_7a79d564_429922.png)  
+## 效果
+#### 微信小程序商城
+![输入图片说明](https://video.zvo.cn/aiseo/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mov)  
+
 API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。
 
-### 在线开通一个商城，了解商家管理后台  
-开通url： http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do  
-![商家管理后台](https://images.gitee.com/uploads/images/2021/0816/101520_63daccd0_429922.png)
+#### 电脑网站商城
+
+
+#### 商家管理后台-电脑网页端（全功能）
+![输入图片说明](https://video.zvo.cn/aiseo/wangmarket-shop/wangmarket_shop_pc_store_admin_demo.mp4) 
+
+另外您可在线开通一个商城，更方便了解商家管理后台。开通url： [http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do](http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do)  
+
+#### 商家管理后台-手机网页端（简单功能）
 
 
 ## 相关文档  
