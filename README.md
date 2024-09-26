@@ -8,8 +8,8 @@
 #### 微信小程序商城
 ![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4)  
 
-
-<video src="https://video.zvo.cn/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4" ></video>
+```html
+<iframe width="560" height="315" src="https://video.zvo.cn/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。
