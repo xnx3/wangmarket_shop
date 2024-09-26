@@ -8,7 +8,7 @@
 #### 微信小程序商城
 ![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4)  
 
-<video src="https://video.zvo.cn/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4" />
+
 <video src="https://video.zvo.cn/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4" ></video>
 
 
