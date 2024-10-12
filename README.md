@@ -5,40 +5,44 @@
 
 
 ## 效果
-#### 微信小程序商城
-![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4)  
-
-
-<iframe width="560" height="315" src="https://video.zvo.cn/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。
+#### 微信小程序商城 
+API接口开放,你可以任意用它来做H5商城、PC商城、小程序商城、APP商城。。。  
+视频示例：  https://video.zvo.cn/wangmarket-shop/wangmarket_shop_weixinapplet_demo.mp4  
+代码仓库：  https://gitee.com/leimingyun/lmy_shop  
 
 #### 电脑网站商城
-![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_pc_demo.mp4) 
-预览体验网址：[http://shop-pc-demo.wang.market/index.html](http://shop-pc-demo.wang.market)
+在线体验：  [http://shop-pc-demo.wang.market/index.html](http://shop-pc-demo.wang.market)  
+视频示例：  https://video.zvo.cn/wangmarket-shop/wangmarket_shop_pc_demo.mp4  
+代码仓库：  wangmarket 模板  
+
 
 #### 商家管理后台-电脑网页端（全功能）
-![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_pc_store_admin_demo.mp4) 
-
-另外您可在线开通一个商城，更方便了解商家管理后台。开通url： [http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do](http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do)  
+视频示例：  https://video.zvo.cn/wangmarket-shop/wangmarket_shop_pc_store_admin_demo.mp4  
+在线体验：  手机号自助开通一个店铺的url： [http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do](http://api.shop.zvo.cn/plugin/phoneCreateStore/reg.do)  
 
 #### 商家管理后台-手机网页端（简单功能）
-![](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_mobile_store_admin_demo.mp4)
-手机网页版功能很简单，就是基本的商品、订单、以及订单号搜索等操作。当然你也可以根据商城管理后台的开放API来丰富商家手机端的更多功能互动。
-
+手机网页版功能很简单，就是基本的商品、订单、以及订单号搜索等操作。当然你也可以根据商城管理后台的开放API来丰富商家手机端的更多功能互动。  
+视频示例：  https://video.zvo.cn/wangmarket-shop/wangmarket_shop_mobile_store_admin_demo.mp4  
+在线体验：  http://shopstore.wang.market/index.html?host=https://api-shop.zvo.cn/    
+         账号密码 - 用上面的 商家管理后台 自助开通的账号登录
+代码仓库：  wangmarket 模板  
 
 #### 商家管理后台-电脑客户端（简单功能）
-![](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_store_pc_client.mp4)
 电脑客户端，每分钟自动同步一次最新订单数据，如果订单有新变化，右下角出现系统提示信息，同时智能语音播报 
 1. 有新订单时（只下单还没来得及支付，目的是跟踪，几分钟内没支付可以第一时间回访） 
 1. 订单付款支付成功（目的是提醒商家有人付款了，要发货） 
 1. 用户申请退单时（提醒商家及时处理，提高服务质量及用户满意度） 
 1. 订单确认收货
 1. 点开某个订单可直接进入商家端PC管理后台并自动登录成功进入查看订单详情
+  
+视频示例：  https://video.zvo.cn/wangmarket-shop/wangmarket_shop_store_pc_client.mp4  
+代码仓库：  https://gitee.com/leimingyun/shop_pc_clilent  
+
 
 #### 手机端H5网页商城
-![输入图片说明](https://video.zvo.cn/wangmarket-shop/wangmarket_shop_mobile_html_demo.mp4)  
-
+视频示例：  https://video.zvo.cn/wangmarket-shop/wangmarket_shop_mobile_html_demo.mp4  
+在线体验：  http://shop.wang.market/
+代码仓库：  wangmarket 模板  
 
 ## 功能
 
